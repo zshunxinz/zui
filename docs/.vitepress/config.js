@@ -3,7 +3,7 @@ import { fileURLToPath } from 'url';
 import { defineConfig } from 'vitepress';
 
 export default defineConfig({
-  title: "xui",
+  title: "zui",
   description: "一个自己的vue组件库",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
