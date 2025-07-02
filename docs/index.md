@@ -3,7 +3,7 @@
 layout: home
 
 hero:
-  name: "xui"
+  name: "zui"
   text: "一个自己的vue组件库"
   tagline: 一个基于vue3的组件库
   actions:
