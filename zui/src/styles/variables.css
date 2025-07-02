@@ -1,0 +1,61 @@
+:root{
+
+  --color-default: #191919;
+  --color-default-hover: #181717;
+  --color-default-active: #272626;
+
+  /* 主色调 */
+  --color-primary: #3b82f6;
+  --color-primary-hover: #2563eb;
+  --color-primary-active: #1d4ed8;
+  --color-primary-disabled: #93c5fd;
+
+  /* 功能色 */
+  --color-success: #10b981;
+  --color-success-hover: #059669;
+  --color-success-active: #047857;
+  --color-warning: #f59e0b;
+  --color-warning-hover: #d97706;
+  --color-warning-active: #b45309;
+  --color-danger: #ef4444;
+  --color-danger-hover: #dc2626;
+  --color-danger-active: #b91c1c;
+  --color-info: #06b6d4;
+  --color-info-hover: #0891b2;
+  --color-info-active: #0e7490;
+
+  /* 中性色 */
+  --color-background: #ffffff;
+  --color-border: #e5e7eb;
+  --color-text: #333333;
+  --color-text-muted: #6b7280;
+  --color-disabled: #f1f1f1;
+}
+
+/* 暗色模式变量 */
+:root.dark {
+  --color-background: #1a1a1a;
+  --color-text: #f0f0f0;
+  --color-border: #374151;
+  
+  --color-default: #191919;
+  --color-default-hover: #181717;
+  --color-default-active: #272626;
+
+  --color-primary: #60a5fa;
+  --color-primary-hover: #3b82f6;
+  --color-primary-active: #2563eb;
+  --color-success: #34d399;
+  --color-success-hover: #10b981;
+  --color-success-active: #059669;
+  --color-warning: #fbbf24;
+  --color-warning-hover: #f59e0b;
+  --color-warning-active: #d97706;
+  --color-danger: #f87171;
+  --color-danger-hover: #ef4444;
+  --color-danger-active: #dc2626;
+  --color-info: #22d3ee;
+  --color-info-hover: #06b6d4;
+  --color-info-active: #0891b2;
+  --color-disabled: #e0e0e023;
+}
