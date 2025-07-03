@@ -14,6 +14,11 @@ import Row from '../../src/components/Row.vue'
 import Col from '../../src/components/Col.vue'
 </script>
 <style>
+  :root{
+    --bg-color-1:rgba(100, 100, 100, 0.05);
+    --border-1:1px solid rgba(231, 231, 231, 0.125);
+  }
+  
     .x-col{
         background:rgb(148, 148, 255); 
     }
@@ -200,13 +205,14 @@ import Col from '../../src/components/Col.vue'
 
 通过Row组件的`align`属性设置列的垂直对齐方式：
 
-<Row align="top" style="height: 100px; background: #f5f5f5; margin-bottom: 10px;">
+<Row align="top" style="height: 100px; background:var(--bg-color-1); margin-bottom: 10px;border:var(--border-1);">
+
   <Col :span="8" ><div class="demo-box">align: top</div></Col>
 </Row>
-<Row align="middle" style="height: 100px; background: #f5f5f5; margin-bottom: 10px;">
+<Row align="middle" style="height: 100px; background:var(--bg-color-1); margin-bottom: 10px;border:var(--border-1);">
   <Col :span="8" ><div class="demo-box">垂直居中对齐</div></Col>
 </Row>
-<Row align="bottom" style="height: 100px; background: #f5f5f5;">
+<Row align="bottom" style="height: 100px; background:var(--bg-color-1); margin-bottom: 10px;border:var(--border-1);">
   <Col :span="8" ><div class="demo-box">垂直底部对齐</div></Col>
 </Row>
 
@@ -235,23 +241,23 @@ import Col from '../../src/components/Col.vue'
 
 通过Row组件的`justify`属性设置列的水平排列方式：
 
-<Row justify="start" style="background: #f5f5f5; margin-bottom: 10px;">
+<Row justify="start" style="background: var(--bg-color-1); margin-bottom: 10px;">
   <Col :span="8" class="demo-box">justify: start</Col>
   <Col :span="8" class="demo-box">左对齐</Col>
 </Row>
-<Row justify="center" style="background: #f5f5f5; margin-bottom: 10px;">
+<Row justify="center" style="background: var(--bg-color-1); margin-bottom: 10px;">
   <Col :span="8" class="demo-box">justify: center</Col>
   <Col :span="8" class="demo-box">居中对齐</Col>
 </Row>
-<Row justify="end" style="background: #f5f5f5; margin-bottom: 10px;">
+<Row justify="end" style="background: var(--bg-color-1); margin-bottom: 10px;">
   <Col :span="8" class="demo-box">justify: end</Col>
   <Col :span="8" class="demo-box">右对齐</Col>
 </Row>
-<Row justify="space-around" style="background: #f5f5f5; margin-bottom: 10px;">
+<Row justify="space-around" style="background: var(--bg-color-1); margin-bottom: 10px;">
   <Col :span="8" class="demo-box">justify: space-around</Col>
   <Col :span="8" class="demo-box">等距环绕</Col>
 </Row>
-<Row justify="space-between" style="background: #f5f5f5;">
+<Row justify="space-between" style="background: var(--bg-color-1);">
   <Col :span="8" class="demo-box">justify: space-between</Col>
   <Col :span="8" class="demo-box">两端对齐</Col>
 </Row>
