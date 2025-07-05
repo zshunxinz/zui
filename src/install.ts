@@ -1,5 +1,5 @@
-import '@/src/styles/theme.css'
-import * as components from '@/src/components'
+import './styles/theme.css'
+import * as components from './components'
 import type { App } from 'vue'
 
 export default {

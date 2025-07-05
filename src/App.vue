@@ -1,11 +1,11 @@
 <script setup>
-import Button from './components/Button.vue'
-import ButtonGroup from './components/ButtonGroup.vue'
-import Col from './components/Col.vue'
-import Row from './components/Row.vue'
-import HelloWorld from './components/HelloWorld.vue'
-import Input from './components/Input.vue';
-import ThemeToggle from './components/ThemeToggle.vue'
+import Button from '@/components/Button.vue'
+import ButtonGroup from '@/components/ButtonGroup.vue'
+import Col from '@/components/Col.vue'
+import Row from '@/components/Row.vue'
+import HelloWorld from '@/components/HelloWorld.vue'
+import Input from '@/components/Input.vue';
+import ThemeToggle from '@/components/ThemeToggle.vue'
 import { ref } from 'vue';
 
 const value = ref('');
