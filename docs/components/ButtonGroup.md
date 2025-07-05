@@ -9,8 +9,8 @@
 默认情况下，按钮组水平排列，中间按钮无圆角，仅保留最外侧按钮的圆角。
 
 <script setup>
-import Button from '../../src/components/Button.vue'
-import ButtonGroup from '../../src/components/ButtonGroup.vue'
+// import Button from '../../src/components/Button.vue'
+// import ButtonGroup from '../../src/components/ButtonGroup.vue'
 </script>
 <ButtonGroup>
   <Button type="primary" text border>左侧按钮</Button>

@@ -6,7 +6,7 @@
 
 基础的按钮用法。
 <script setup>
-import Button from '../../src/components/Button.vue'
+// import Button from '../../src/components/Button.vue'
 import { ref } from 'vue';
 
 const isLoading = ref(false);

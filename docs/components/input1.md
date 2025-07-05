@@ -1,5 +1,5 @@
 <script setup>
-import Input from '../../src/components/Input.vue'
+// import Input from '../../src/components/Input.vue'
 import { ref } from 'vue'
 const value = ref('')
 const value2 = ref('')

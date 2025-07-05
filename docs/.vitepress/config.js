@@ -1,9 +1,6 @@
 // https://vitepress.dev/reference/site-config
 import { fileURLToPath } from 'url';
 import { defineConfig } from 'vitepress';
-import entry from '../../src/install';
-
-
 
 
 export default defineConfig({
