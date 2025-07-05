@@ -1,5 +1,12 @@
 import DefaultTheme from 'vitepress/theme'
-import Layout from './Layout.vue'
+import zui from '../../../src/install'
 import '../../../src/styles/variables.css'
+import '../../../src/style.css'
 
-export default { ...DefaultTheme }
+export default {
+  ...DefaultTheme,
+  enhanceApp({ app }) {
+    // 全局注册组件库
+    app.use(zui)
+  }
+}

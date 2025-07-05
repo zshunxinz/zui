@@ -23,6 +23,50 @@ hero:
 #     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
 ---
 
+## 安装指南
+
+### 安装
+
+```bash
+npm install zui --save
+```
+
+### 引入组件
+
+#### 全局引入
+
+```javascript
+import { createApp } from 'vue'
+import Zui from 'zui'
+import 'zui/dist/style.css'
+import App from './App.vue'
+
+const app = createApp(App)
+app.use(Zui)
+app.mount('#app')
+```
+
+#### 按需引入
+
+```javascript
+import { Input } from 'zui'
+import 'zui/dist/input.css'
+
+export default {
+  components: {
+    Input
+  }
+}
+```
+
+### 基本使用
+
+```vue
+<template>
+  <Input placeholder="请输入内容" />
+</template>
+```
+
 <script setup>
 import Button from '../src/components/Button.vue'
 </script>

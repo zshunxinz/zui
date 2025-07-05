@@ -1,18 +1,78 @@
-# Markdown Extension Examples
+# 安装指南
 
-This page demonstrates some of the built-in markdown extensions provided by VitePress.
+### 安装
+
+```bash
+npm install zui --save
+```
+
+### 引入组件
+
+#### 全局引入
+
+```javascript
+import { createApp } from 'vue'
+import Zui from 'zui'
+import 'zui/dist/style.css'
+import App from './App.vue'
+
+const app = createApp(App)
+app.use(Zui)
+app.mount('#app')
+```
+
+#### 按需引入
+
+```javascript
+import { Input } from 'zui'
+import 'zui/dist/input.css'
+
+export default {
+  components: {
+    Input
+  }
+}
+```
+
+### 基本使用
+
+```vue
+<template>
+  <Input placeholder="请输入内容" />
+</template>
+```
 
 <script setup>
-import { ref } from 'vue'
-import Hello from '../src/components/HelloWorld.vue'
-
-const count = ref(0)
+import Button from '../src/components/Button.vue'
 </script>
-
-<Hello msg="Hello VitePress!"></Hello>
-<style module>
-.button {
-  color: red;
-  font-weight: bold;
-}
+<style>
+  .button-group {
+    padding:20px 0px ;
+    display:flex;
+    gap:10px;
+  }
 </style>
+<div class="button-group">
+  <Button>默认按钮</Button>
+  <Button type="primary">主要按钮</Button>
+  <Button type="success">成功按钮</Button>
+  <Button type="warning">警告按钮</Button>
+  <Button type="danger">危险按钮</Button>
+  <Button type="info">信息按钮</Button>
+</div>
+<div class="button-group">
+  <Button>默认按钮</Button>
+  <Button type="primary" text>主要按钮</Button>
+  <Button type="success" text>成功按钮</Button>
+  <Button type="warning" text>警告按钮</Button>
+  <Button type="danger" text>危险按钮</Button>
+  <Button type="info" text>信息按钮</Button>
+</div>
+<div class="button-group">
+  <Button>默认按钮</Button>
+  <Button type="primary" text border>主要按钮</Button>
+  <Button type="success" text border>成功按钮</Button>
+  <Button type="warning" text border>警告按钮</Button>
+  <Button type="danger" text border>危险按钮</Button>
+  <Button type="info" text border>信息按钮</Button>
+</div>

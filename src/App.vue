@@ -1,6 +1,10 @@
 <script setup>
 import Button from './components/Button.vue'
+import Input from './components/Input.vue';
 import ThemeToggle from './components/ThemeToggle.vue'
+import { ref } from 'vue';
+
+const value = ref('');
 </script>
 
 <template>
@@ -8,7 +12,7 @@ import ThemeToggle from './components/ThemeToggle.vue'
     <div class="app-header">
       <ThemeToggle />
     </div>
-
+    <Input v-model="value" placeholder="输入框" />
     <div class="button-group">
       <Button type="primary">Primary Button</Button>
       <Button type="success">Success Button</Button>
@@ -18,6 +22,8 @@ import ThemeToggle from './components/ThemeToggle.vue'
     </div>
   </div>
 </template>
+
+
 
 <style scoped>
 .app-container {
