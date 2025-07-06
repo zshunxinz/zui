@@ -43,7 +43,6 @@ npm install zui --save
 
 
 
-
 <div style="position: absolute;top:-500px;width:100%;z-index:10">
   <Row justify="end" :gutter="0">
     <Col :span="1"><Button text>默认按钮</Button></Col>
@@ -59,8 +58,10 @@ npm install zui --save
     <Col :span="1"><Button type="danger">危险按钮</Button></Col>
     <Col :span="1"><Button type="info">信息按钮</Button></Col>
   </Row>
-  <Row justify="end" style="margin-top:10px">
-    <Input placeholder="开始 zui 使用之旅" width="540px" height="50px" />
+  <Row justify="end" style="margin-top:10px;width:630px;">
+    <Col push="23">
+      <Input placeholder="开始 zui 使用之旅" width="540px" height="50px" />
+    </Col>
   </Row>
 </div>
 

@@ -126,7 +126,7 @@
 
 :root {
   --vp-c-bg: var(--color-background);
-  --vp-c-bg-alt: var(--color-background);
+  /* --vp-c-bg-alt: var(--color-1); */
   --vp-c-bg-elv: var(--color-background);
   --vp-c-bg-soft: var(--color-background);
 }
