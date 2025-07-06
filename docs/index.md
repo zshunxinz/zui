@@ -4,8 +4,8 @@ layout: home
 
 hero:
   name: "zui"
-  text: "一个自己的vue组件库"
-  tagline: 一个基于vue3的组件库
+  text: "一个自己的组件库"
+  tagline: 简单、好用的组件库
   actions:
     - theme: brand
       text: 开始使用

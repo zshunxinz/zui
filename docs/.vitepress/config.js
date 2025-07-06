@@ -9,6 +9,17 @@ export default defineConfig({
   description: "一个自己的vue组件库",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
+    search: {
+      provider: 'local',
+      options: {
+        translations: {
+          button: {
+            buttonText: '搜索',
+            placeholder: '搜索'
+          },
+        }
+      }
+    },
     nav: [
       { text: '指南', link: '/' },
       { text: '组件', link: '/components/Button' },
@@ -16,6 +27,7 @@ export default defineConfig({
         text: '更新日志',
         items: [
           { text: '0.0.1', link: '/update/0.0.1' },
+          { text: '0.0.2', link: '/update/0.0.2' },
         ]
       }
     ],
