@@ -1,5 +1,8 @@
 <template>
-  <div class="x-input" :class="[size ? `x-input--${size}` : '']">
+  <div 
+    :class="['x-input', size ? `x-input--${size}` : '', $attrs.class]"
+    :style="[ { width },{height}, $attrs.style ]"
+  >
     <label v-if="label" class="x-input__label" :for="id">{{ label }}</label>
     <div class="x-input__wrapper" :class="{ 'is-disabled': disabled, 'is-clearable': clearable }">
       <span v-if="prefixIcon" class="x-input__prefix x-input__icon">{{ prefixIcon }}</span>
@@ -78,6 +81,8 @@
   </div>
 </template>
 
+
+
 <script setup>
 import { ref, watch, computed,onMounted } from 'vue';
 
@@ -133,6 +138,14 @@ const props = defineProps({
   size: {
     type: String,
     validator: (value) => ['medium', 'small', 'mini'].includes(value)
+  },
+  width:{
+    type: String,
+    default: '300px'
+  },
+  height:{
+    type: String,
+    default: '30px'
   }
 });
 
@@ -232,6 +245,7 @@ const handleEnter = () => {
   position: relative;
   display: inline-flex;
   width: 100%;
+  height: v-bind('height');
 }
 
 .x-input__inner {

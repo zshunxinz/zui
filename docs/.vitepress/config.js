@@ -11,7 +11,13 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: '指南', link: '/' },
-      { text: '组件', link: '/components/Button' }
+      { text: '组件', link: '/components/Button' },
+      {
+        text: '更新日志',
+        items: [
+          { text: '0.0.1', link: '/update/0.0.1' },
+        ]
+      }
     ],
     sidebar: {
       'guide': [

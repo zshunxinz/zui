@@ -38,20 +38,29 @@ npm install zui --save
 ```
 
 
-<div style="position: relative;top:-500px;width:100%;display:flex;justify-content: flex-end;align-items: center;">
-  <div style="gap: 40px; ">
-    <div class="button-group">
-      <Button>默认按钮</Button>
-      <Button type="primary">主要按钮</Button>
-      <Button type="success">成功按钮</Button>
-      <Button type="warning">警告按钮</Button>
-      <Button type="danger">危险按钮</Button>
-      <Button type="info">信息按钮</Button>
-    <div class="button-group">
-      <Input placeholder="请输入内容" />
-    </div>
-    </div>
-  </div>
+
+
+
+
+
+
+<div style="position: absolute;top:-500px;width:100%;z-index:100">
+  <Row justify="end" :gutter="0">
+    <Col :span="1"><Button text>默认按钮</Button></Col>
+    <Col :span="1"><Button text type="primary">主要按钮</Button></Col>
+    <Col :span="1"><Button text type="success">成功按钮</Button></Col>
+    <Col :span="1"><Button text type="warning">警告按钮</Button></Col>
+    <Col :span="1"><Button text type="danger">危险按钮</Button></Col>
+    <Col :span="1"><Button text type="info">信息按钮</Button></Col>
+    <Col :span="1"><Button type="primary">主要按钮</Button></Col>
+    <Col :span="1"><Button type="success">成功按钮</Button></Col>
+    <Col :span="1"><Button type="warning">警告按钮</Button></Col>
+    <Col :span="1"><Button type="danger">危险按钮</Button></Col>
+    <Col :span="1"><Button type="info">信息按钮</Button></Col>
+  </Row>
+  <Row justify="end" style="margin-top:10px">
+    <Input placeholder="开始 zui 使用之旅" width="540px" height="50px" />
+  </Row>
 </div>
 
 
