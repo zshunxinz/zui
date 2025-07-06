@@ -4,6 +4,7 @@ import { defineConfig } from 'vitepress';
 
 
 export default defineConfig({
+  outDir: './dist',
   title: "zui",
   description: "一个自己的vue组件库",
   themeConfig: {
@@ -13,11 +14,24 @@ export default defineConfig({
       { text: '组件', link: '/components/Button' }
     ],
     sidebar: {
-      '/components/': [
-        { text: 'Button 按钮', link: '/components/Button' },
+      'guide': [
+        {
+          text: '开始',
+          items: [
+            { text: '介绍', link: '/guide/start' },
+            { text: '安装', link: '/guide/install' },
+          ]
+        },
+      ],
+      '/components/': [{
+        text: '基础组件',
+        items: [
+          { text: 'Button 按钮', link: '/components/Button' },
           { text: 'ButtonGroup 组合按钮', link: '/components/ButtonGroup' },
-        { text: 'Grid 网格布局', link: '/components/grid' },
-        { text: 'Input 输入框', link: '/components/input' },
+          { text: 'Grid 网格布局', link: '/components/grid' },
+          { text: 'Input 输入框', link: '/components/input' },
+        ]
+      }
       ]
     }
   }

@@ -1,0 +1,19 @@
+/* HelloWorld 组件样式 */
+.hello-world {
+  font-size: 1.5rem;
+  color: var(--color-text);
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: var(--color-background);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.hello-world__title {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.hello-world__content {
+  color: var(--color-text-muted);
+  font-size: 1rem;
+}
