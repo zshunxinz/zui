@@ -2,6 +2,7 @@ import DefaultTheme from 'vitepress/theme'
 import zui from '../../../src/install'
 import '../../../src/styles/variables.css'
 import '../../../src/style.css'
+import './style.css'
 
 export default {
   ...DefaultTheme,

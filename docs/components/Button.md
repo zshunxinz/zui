@@ -67,7 +67,7 @@ const loadingHandleClick = () => {
 可以通过`borderRadius`属性自定义按钮圆角大小：
 
 <div class="button-group">
-  <Button>默认按钮</Button>
+  <Button :borderRadius="6">默认按钮</Button>
   <Button type="primary" :borderRadius="6">主要按钮</Button>
   <Button type="success" :borderRadius="6">成功按钮</Button>
   <Button type="warning" :borderRadius="6">警告按钮</Button>

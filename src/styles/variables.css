@@ -1,28 +1,33 @@
 :root{
 
-  --color-default: #191919;
-  --color-default-hover: #181717;
-  --color-default-active: #272626;
+  --color-default: hsl(222.2 84% 4.9%);
+  --color-default-hover: hsl(240 5.3% 26.1%);
+  --color-default-active: hsl(215 13.8% 34.1%);
+  --color-default-text-1: hsl(0, 0%, 100%);
 
   /* 主色调 */
-  --color-primary: #3b82f6;
-  --color-primary-hover: #2563eb;
-  --color-primary-active: #1d4ed8;
-  --color-primary-disabled: #93c5fd;
+  --color-primary: hsl(217.2 91.2% 59.8%);
+  --color-primary-hover: hsl(213.1 93.9% 67.8%);
+  --color-primary-active: hsl(211.7 96.4% 78.4%);
+  --color-primary-disabled: hsl(200.6 94.4% 86.1%);
+  --color-primary-text-1: hsl(240 10% 3.9%);
 
   /* 功能色 */
-  --color-success: #10b981;
-  --color-success-hover: #059669;
-  --color-success-active: #047857;
-  --color-warning: #f59e0b;
-  --color-warning-hover: #d97706;
-  --color-warning-active: #b45309;
-  --color-danger: #ef4444;
-  --color-danger-hover: #dc2626;
-  --color-danger-active: #b91c1c;
-  --color-info: #06b6d4;
-  --color-info-hover: #0891b2;
-  --color-info-active: #0e7490;
+  --color-success: hsl(83.7 80.5% 44.3%);
+  --color-success-hover:hsl(82.7 78% 55.5%);
+  --color-success-active: hsl(82 84.5% 67.1%);
+
+  --color-warning: hsl(37.7 92.1% 50.2%);
+  --color-warning-hover: hsl(43.3 96.4% 56.3%);
+  --color-warning-active: hsl(45.9 96.7% 64.5%);
+
+  --color-danger: hsl(0 84.2% 60.2%);
+  --color-danger-hover: hsl(0 90.6% 70.8%);
+  --color-danger-active: hsl(0 93.5% 81.8%);
+
+  --color-info: hsl(270.7 91% 65.1%);
+  --color-info-hover: hsl(270 95.2% 75.3%);
+  --color-info-active: hsl(269.2 97.4% 85.1%);
 
   /* 中性色 */
   --color-background: #ffffff;
@@ -38,24 +43,30 @@
   --color-text: #f0f0f0;
   --color-border: #374151;
   
-  --color-default: #191919;
-  --color-default-hover: #181717;
-  --color-default-active: #272626;
+  --color-default: #ffffff;
+  --color-default-hover: hsl(0 0% 96.1%);
+  --color-default-active: hsl(0 0% 83.1%);
+  --color-default-text-1: hsl(240 10% 3.9%);
 
   --color-primary: #60a5fa;
   --color-primary-hover: #3b82f6;
   --color-primary-active: #2563eb;
+
   --color-success: #34d399;
   --color-success-hover: #10b981;
   --color-success-active: #059669;
+
   --color-warning: #fbbf24;
   --color-warning-hover: #f59e0b;
   --color-warning-active: #d97706;
+
   --color-danger: #f87171;
   --color-danger-hover: #ef4444;
   --color-danger-active: #dc2626;
+
   --color-info: #22d3ee;
   --color-info-hover: #06b6d4;
   --color-info-active: #0891b2;
+
   --color-disabled: #e0e0e023;
 }

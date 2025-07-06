@@ -44,7 +44,7 @@ npm install zui --save
 
 
 
-<div style="position: absolute;top:-500px;width:100%;z-index:100">
+<div style="position: absolute;top:-500px;width:100%;z-index:10">
   <Row justify="end" :gutter="0">
     <Col :span="1"><Button text>默认按钮</Button></Col>
     <Col :span="1"><Button text type="primary">主要按钮</Button></Col>
@@ -52,6 +52,7 @@ npm install zui --save
     <Col :span="1"><Button text type="warning">警告按钮</Button></Col>
     <Col :span="1"><Button text type="danger">危险按钮</Button></Col>
     <Col :span="1"><Button text type="info">信息按钮</Button></Col>
+    <Col :span="1"><Button >默认按钮</Button></Col>
     <Col :span="1"><Button type="primary">主要按钮</Button></Col>
     <Col :span="1"><Button type="success">成功按钮</Button></Col>
     <Col :span="1"><Button type="warning">警告按钮</Button></Col>
@@ -63,7 +64,18 @@ npm install zui --save
   </Row>
 </div>
 
-
+<style>
+  .start-button{
+    border-radius: 10px;
+    background-color: #007aff;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+  }
+</style>
 
 ## 核心特性
 
