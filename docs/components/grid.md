@@ -25,8 +25,9 @@
 
     .demo-box{
       text-align: center; 
-      background:rgb(148, 148, 255);
-      border:1px solid rgba(25, 25, 25, 0.5);
+      color:hsl(0, 0%, 100%);
+      background:hsl(217.2 91.2% 59.8%);
+      border:1px solid hsla(200.6,94.4%,86.1%,0.5);
       padding:10px;
     }
 </style>
