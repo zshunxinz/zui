@@ -39,7 +39,7 @@ npm install zui --save
 
 
 <div style="position: relative;top:-500px;width:100%;display:flex;justify-content: flex-end;align-items: center;">
-  <div style="display: flex; gap: 40px; ">
+  <div style="gap: 40px; ">
     <div class="button-group">
       <Button>默认按钮</Button>
       <Button type="primary">主要按钮</Button>
