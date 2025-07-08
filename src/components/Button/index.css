@@ -47,7 +47,7 @@
 }
 
 .btn--success:active:not(.is-disabled) {
-  background-color: #047857;
+  background-color: var(--color-success-active);
 }
 
 .btn--warning {
@@ -60,7 +60,7 @@
 }
 
 .btn--warning:active:not(.is-disabled) {
-  background-color: #b45309;
+  background-color: var(--color-warning-active);
 }
 
 .btn--danger {
@@ -73,7 +73,7 @@
 }
 
 .btn--danger:active:not(.is-disabled) {
-  background-color: #b91c1c;
+  background-color: var(--color-danger-active);
 }
 
 .btn--info {
@@ -86,7 +86,7 @@
 }
 
 .btn--info:active:not(.is-disabled) {
-  background-color: #067f98;
+  background-color: var(--color-info-active);
 }
 
 .is-disabled {

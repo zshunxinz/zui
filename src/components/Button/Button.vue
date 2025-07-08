@@ -2,7 +2,7 @@
     <button
       class="btn"
       :class="[`btn--${type}`, `btn--${size}`, { 'is-disabled': disabled, 'btn--text': text, 'btn--border': border, 'btn--shadow': shadow, 'btn--loading': isLoading }]"
-      :style="{ borderRadius: `${borderRadius}px`, 'background-color': bgColor,'color':color, 'border-color': borderColor }"
+      :style="{ borderRadius: `${borderRadius}px`, 'background-color': bg? bgColor1:bgColor ,'color':fontColor, 'border-color': borderColor }"
       :disabled="disabled || isLoading" :aria-busy="isLoading"
       @click="handleClick"
       @mouseenter="handleHover"
@@ -66,12 +66,47 @@ import './index.css'
     loading: {
       type: Boolean,
       default: false
+    },
+    bg:{
+      type: Boolean,
+      default: false
     }
   })
   
-  import { ref, watch } from 'vue';
+  import { ref, watch,computed } from 'vue';
 
   const isLoading = ref(props.loading !== undefined ? props.loading : false);
+
+  const bgColor1 = computed(()=>{
+    if(props.bgColor){
+      return props.bgColor
+    }else{
+      return 'rgba(249,249,249,0.19)'
+    }
+  })
+
+  const fontColor = computed(()=>{
+    if(props.color){
+      return props.color
+    }else{
+      if (props.bg) {
+        switch (props.type) {
+        case 'default':
+          return 'var(--color-default)'
+        case 'primary':
+          return 'var(--color-primary)'
+        case 'success':
+          return 'var(--color-success)'
+        case 'warning':
+          return 'var(--color-warning)'
+        case 'danger':
+          return 'var(--color-danger)'
+        case 'info':
+          return 'var(--color-info)'
+      }
+      }
+    }
+  })
 
   watch(() => props.loading,
     (newVal) => {

@@ -90,6 +90,31 @@ const loadingHandleClick = () => {
 
 ```
 
+## 浅色背景按钮
+
+通过 `bg` 属性设置浅色背景按钮。
+
+<div class="button-group">
+  <Button :borderRadius="6" bg>默认按钮</Button>
+  <Button type="primary" bg :borderRadius="6">主要按钮</Button>
+  <Button type="success" bg :borderRadius="6">成功按钮</Button>
+  <Button type="warning" bg :borderRadius="6">警告按钮</Button>
+  <Button type="danger" bg :borderRadius="6">危险按钮</Button>
+  <Button type="info" bg :borderRadius="6">信息按钮</Button>
+</div>
+
+```vue
+<template>
+  <div class="button-group">
+    <Button :borderRadius="6" bg>默认按钮</Button>
+    <Button type="primary" bg :borderRadius="6">主要按钮</Button>
+    <Button type="success" bg :borderRadius="6">成功按钮</Button>
+    <Button type="warning" bg :borderRadius="6">警告按钮</Button>
+    <Button type="danger" bg :borderRadius="6">危险按钮</Button>
+    <Button type="info" bg :borderRadius="6">信息按钮</Button>
+  </div>
+</template>
+```
 
 ## 尺寸
 
@@ -391,7 +416,7 @@ const handleHover = () => {
  <div class="button-group">
     <Button type="primary" size="large">主要按钮</Button>
     <Button type="primary" shadow>带阴影主要按钮</Button>
-    <Button type="success" border>成功边框按钮</Button>
+    <Button type="success" text border>成功边框按钮</Button>
     <Button type="warning" text size="small">警告文本按钮</Button>
     <Button type="danger" disabled>禁用危险按钮</Button>
     <Button type="info" border text>信息文本边框按钮</Button>
@@ -424,6 +449,7 @@ const handleHover = () => {
 | shadow | 是否显示阴影效果 | boolean | true/false | false |
 | borderRadius | 按钮圆角大小(px) | Number | — | 6 |
 | bgColor | 自定义按钮背景颜色 | String | — | undefined |
+| bg | 是否为浅色背景按钮 | boolean | true/false | false |
 | color | 自定义按钮文本颜色 | String | — | undefined |
 | borderColor | 自定义按钮边框颜色（需配合border=true使用） | String | — | undefined |
 | class | 自定义类名 | String | — | undefined |
