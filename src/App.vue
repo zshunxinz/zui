@@ -1,14 +1,14 @@
 <script setup>
-import { Button } from '@/components/Button'
-import { ButtonGroup } from '@/components/ButtonGroup'
-import { Col } from '@/components/Col'
-import { Row } from '@/components/Row'
-import { HelloWorld } from '@/components/HelloWorld'
-import { Input } from '@/components/Input'
-import { ThemeToggle } from '@/components/ThemeToggle'
-import { ref } from 'vue';
+import { Button } from "@/components/Button";
+import { ButtonGroup } from "@/components/ButtonGroup";
+import { Col } from "@/components/Col";
+import { Row } from "@/components/Row";
+import { HelloWorld } from "@/components/HelloWorld";
+import { Input } from "@/components/Input";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { ref } from "vue";
 
-const value = ref('');
+const value = ref("");
 </script>
 
 <template>
@@ -56,13 +56,11 @@ const value = ref('');
     </div>
 
     <div class="component-section">
-      <h2>HelloWorld 组件</h2>
+      <h2>HelloWorld 组件1</h2>
       <HelloWorld msg="Welcome to Your Vue.js App" />
     </div>
   </div>
 </template>
-
-
 
 <style scoped>
 .app-container {
@@ -71,7 +69,6 @@ const value = ref('');
   background-color: var(--color-background);
   color: var(--color-text);
   transition: background-color 0.3s, color 0.3s;
-  
 }
 
 .app-header {
