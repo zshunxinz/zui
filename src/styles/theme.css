@@ -1,36 +1,27 @@
 :root {
-    --color-primary: #02f9cb;
-    --color-border: #ccc;
-    --color-text-primary:#ff0000;
-  }[data-theme="dark"] {
-    --color-primary: rgb(48, 54, 130);
-    --color-border: #666;
-    --color-text-primary:#fefefe;
-}
+  /* slate */
+  --color-slate-50: hsl(210 40% 98%);
+  --color-slate-100: hsl(210 40% 96.1%);
+  --color-slate-200: hsl(214.3 31.8% 91.4%);
+  --color-slate-300: hsl(213, 27%, 84%);
+  --color-slate-400: hsl(215 20.2% 65.1%);
+  --color-slate-500: hsl(215.4 16.3% 46.9%);
+  --color-slate-600: hsl(215.3 19.3% 34.5%);
+  --color-slate-700: hsl(215.3 25% 26.7%);
+  --color-slate-800: hsl(217.2 32.6% 17.5%);
+  --color-slate-900: hsl(222.2 47.4% 11.2%);
+  --color-slate-950: hsl(222.2 84% 4.9%);
 
-:root{
-  /* 主色调 */
-  --color-primary: #3b82f6;
-  --color-primary-hover: #2563eb;
-  --color-primary-active: #1d4ed8;
-  --color-primary-disabled: #93c5fd;
-
-  
-
-  /* 功能色 */
-  --color-success: #10b981;
-  --color-success-hover: #059669;
-  --color-warning: #f59e0b;
-  --color-warning-hover: #d97706;
-  --color-danger: #ef4444;
-  --color-danger-hover: #dc2626;
-  --color-info: #06b6d4;
-  --color-info-hover: #0891b2;
-
-  /* 中性色 */
-  --color-background: #ffffff;
-  --color-border: #e5e7eb;
-  --color-text: #111827;
-  --color-text-muted: #6b7280;
-  --color-disabled: #f3f4f6;
+  /* gray */
+  --color-gray-50: hsl(210 20% 98%);
+  --color-gray-100: hsl(220 14.3% 95.9%);
+  --color-gray-200: hsl(220 13% 91%);
+  --color-gray-300: hsl(216 12.2% 83.9%);
+  --color-gray-400: hsl(217.9 10.6% 64.9%);
+  --color-gray-500: hsl(220 8.9% 46.1%);
+  --color-gray-600: hsl(215 13.8% 34.1%);
+  --color-gray-700: hsl(216.9 19.1% 26.7%);
+  --color-gray-800: hsl(215 27.9% 16.9%);
+  --color-gray-900: hsl(220.9 39.3% 11%);
+  --color-gray-950: hsl(224 71.4% 4.1%);
 }
