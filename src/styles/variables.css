@@ -40,6 +40,7 @@
   --color-text: #333333;
   --color-text-muted: #6b7280;
   --color-disabled: #f1f1f1;
+  --color-bg-hover: rgba(231, 231, 231, 0.05);
 }
 
 /* 暗色模式变量 */

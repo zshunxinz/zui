@@ -233,7 +233,57 @@
 }
 
 .btn--border:hover:not(.is-disabled) {
-  background-color: rgba(231, 231, 231, 0.1);
+  background-color: var(--color-bg-hover);
+}
+
+.btn--default.btn--border:hover {
+  color: var(--color-default-hover);
+  border: 1px solid var(--color-default-hover);
+}
+.btn--primary.btn--border:hover {
+  color: var(--color-primary-hover);
+  border: 1px solid var(--color-primary-hover);
+}
+.btn--success.btn--border:hover {
+  color: var(--color-success-hover);
+  border: 1px solid var(--color-success-hover);
+}
+.btn--warning.btn--border:hover {
+  color: var(--color-warning-hover);
+  border: 1px solid var(--color-warning-hover);
+}
+.btn--danger.btn--border:hover {
+  color: var(--color-danger-hover);
+  border: 1px solid var(--color-danger-hover);
+}
+.btn--info.btn--border:hover {
+  color: var(--color-info-hover);
+  border: 1px solid var(--color-info-hover);
+}
+
+.btn--default.btn--border:active {
+  color: var(--color-default-active);
+  border: 1px solid var(--color-default-active);
+}
+.btn--primary.btn--border:active {
+  color: var(--color-primary-active);
+  border: 1px solid var(--color-primary-active);
+}
+.btn--success.btn--border:active {
+  color: var(--color-success-active);
+  border: 1px solid var(--color-success-active);
+}
+.btn--warning.btn--border:active {
+  color: var(--color-warning-active);
+  border: 1px solid var(--color-warning-active);
+}
+.btn--danger.btn--border:active {
+  color: var(--color-danger-active);
+  border: 1px solid var(--color-danger-active);
+}
+.btn--info.btn--border:active {
+  color: var(--color-info-active);
+  border: 1px solid var(--color-info-active);
 }
 
 /* .btn--primary.btn--border { border-color: var(--color-primary); color: var(--color-primary); }

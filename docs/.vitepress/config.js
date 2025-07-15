@@ -20,7 +20,7 @@ export default defineConfig({
       },
     },
     nav: [
-      { text: "指南", link: "/" },
+      { text: "指南", link: "/guide/start" },
       { text: "组件", link: "/components/Button" },
       {
         text: "更新日志",
