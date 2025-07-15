@@ -42,6 +42,7 @@
   font-size: 14px;
   color: #666;
   margin-bottom: 4px;
+  display: none;
 }
 .dark .color-value {
   color: #aaa;

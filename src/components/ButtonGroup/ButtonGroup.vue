@@ -6,8 +6,6 @@
 
 <script setup>
 import './index.css'
-import { defineProps } from 'vue'
-
 const props = defineProps({
   /**
    * 是否垂直排列按钮
