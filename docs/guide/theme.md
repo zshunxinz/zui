@@ -10,7 +10,6 @@ if (typeof window !== 'undefined') {
           const originalText = this.textContent;
           this.textContent = '✓ 已复制';
           this.style.opacity = '0.5';
-          this.style.fontSize = '0.5';
           setTimeout(() => {
             this.textContent = originalText;
             this.style.opacity = '1';
@@ -38,7 +37,7 @@ if (typeof window !== 'undefined') {
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: 12px;
+  font-size: 10px;
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -62,14 +61,14 @@ if (typeof window !== 'undefined') {
   }
 
   .color-swatch {
-  min-width: 60px;
-  min-height: 60px;
+  width: 100%;
+  height: 60px;
   aspect-ratio: 10/1;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: 12px;
+  font-size: 10px;
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s ease;
