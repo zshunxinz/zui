@@ -37,6 +37,7 @@ export default defineConfig({
           items: [
             { text: "介绍", link: "/guide/start" },
             { text: "安装", link: "/guide/install" },
+            { text: "主题", link: "/guide/theme" },
             { text: "颜色体系", link: "/guide/color" },
           ],
         },
