@@ -3,6 +3,7 @@
 <style>
 .color-swatch {
   min-width: 60px;
+  min-height: 60px;
   aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
@@ -33,6 +34,7 @@
 
   .color-swatch {
   min-width: 60px;
+  min-height: 60px;
   aspect-ratio: 10/1;
   display: flex;
   align-items: center;
