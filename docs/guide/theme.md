@@ -1,9 +1,37 @@
 # 主题配置
+<script>
+// 颜色复制功能 - 仅在浏览器环境执行
+if (typeof window !== 'undefined') {
+  function setupColorCopy() {
+    document.querySelectorAll('.color-swatch').forEach(swatch => {
+      swatch.addEventListener('click', function() {
+        const color = this.style.backgroundColor;
+        navigator.clipboard.writeText(color).then(() => {
+          const originalText = this.textContent;
+          this.textContent = '✓ 已复制';
+          this.style.opacity = '0.8';
+          setTimeout(() => {
+            this.textContent = originalText;
+            this.style.opacity = '1';
+          }, 1500);
+        });
+      });
+    });
+  }
+  // 页面加载完成后初始化
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupColorCopy);
+  } else {
+    setupColorCopy();
+  }
+}
+</script>
+
 
 <style>
 .color-swatch {
-  min-width: 60px;
-  min-height: 60px;
+  width: 60px;
+  height: 60px;
   aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
@@ -47,34 +75,6 @@
 }
 }
 </style>
-
-<script>
-// 颜色复制功能 - 仅在浏览器环境执行
-if (typeof window !== 'undefined') {
-  function setupColorCopy() {
-    document.querySelectorAll('.color-swatch').forEach(swatch => {
-      swatch.addEventListener('click', function() {
-        const color = this.style.backgroundColor;
-        navigator.clipboard.writeText(color).then(() => {
-          const originalText = this.textContent;
-          this.textContent = '✓ 已复制';
-          this.style.opacity = '0.8';
-          setTimeout(() => {
-            this.textContent = originalText;
-            this.style.opacity = '1';
-          }, 1500);
-        });
-      });
-    });
-  }
-  // 页面加载完成后初始化
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupColorCopy);
-  } else {
-    setupColorCopy();
-  }
-}
-</script>
 
 本文档详细介绍了项目中使用的主题配置，包括颜色系统、排版和其他设计令牌。所有主题变量都定义在 `src/styles/theme.css` 文件中，可以直接在项目中通过 CSS 变量引用。
 
