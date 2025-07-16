@@ -27,6 +27,7 @@ export default defineConfig({
         items: [
           { text: "0.0.1", link: "/update/0.0.1" },
           { text: "0.0.2", link: "/update/0.0.2" },
+          { text: "0.0.3", link: "/update/0.0.3" },
         ],
       },
     ],
