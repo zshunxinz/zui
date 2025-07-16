@@ -9,7 +9,8 @@ if (typeof window !== 'undefined') {
         navigator.clipboard.writeText(color).then(() => {
           const originalText = this.textContent;
           this.textContent = '✓ 已复制';
-          this.style.opacity = '0.8';
+          this.style.opacity = '0.5';
+          this.style.fontSize = '0.5';
           setTimeout(() => {
             this.textContent = originalText;
             this.style.opacity = '1';
