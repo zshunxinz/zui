@@ -1,4 +1,5 @@
 import './styles/theme.css'
+import './styles/variables.css';
 import { Button } from './components/Button'
 import { ButtonGroup } from './components/ButtonGroup'
 import { Col } from './components/Col'

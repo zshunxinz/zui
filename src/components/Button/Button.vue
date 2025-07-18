@@ -10,11 +10,12 @@
         'btn--border': border,
         'btn--shadow': shadow,
         'btn--loading': isLoading,
+        'btn--bg': bg,
       },
     ]"
     :style="{
       borderRadius: `${borderRadius}px`,
-      'background-color': bg ? bgColor1 : bgColor,
+      'background-color':  bgColor1,
       color: fontColor,
       'border-color': borderColor,
     }"
@@ -99,31 +100,29 @@ const isLoading = ref(props.loading !== undefined ? props.loading : false);
 const bgColor1 = computed(() => {
   if (props.bgColor) {
     return props.bgColor;
-  } else {
-    return "var(--color-bg-hover)";
-  }
+  } 
 });
 
 const fontColor = computed(() => {
   if (props.color) {
     return props.color;
   } else {
-    if (props.bg) {
-      switch (props.type) {
-        case "default":
-          return "var(--color-default)";
-        case "primary":
-          return "var(--color-primary)";
-        case "success":
-          return "var(--color-success)";
-        case "warning":
-          return "var(--color-warning)";
-        case "danger":
-          return "var(--color-danger)";
-        case "info":
-          return "var(--color-info)";
-      }
-    }
+    // if (props.bg) {
+    //   switch (props.type) {
+    //     case "default":
+    //       return "var(--color-default)";
+    //     case "primary":
+    //       return "var(--color-primary)";
+    //     case "success":
+    //       return "var(--color-success)";
+    //     case "warning":
+    //       return "var(--color-warning)";
+    //     case "danger":
+    //       return "var(--color-danger)";
+    //     case "info":
+    //       return "var(--color-info)";
+    //   }
+    // }
   }
 });
 

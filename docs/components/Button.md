@@ -146,6 +146,7 @@ const loadingHandleClick = () => {
     <Button type="info" disabled>信息禁用</Button>
 </div>
 
+
 ```vue
 <template>
   <div class="button-group">
@@ -158,6 +159,31 @@ const loadingHandleClick = () => {
   </div>
 </template>
 ```
+
+通过 `disabled` 和 `bg` 属性设置浅色背景禁用状态。
+
+<div class="button-group">
+    <Button disabled bg>默认禁用</Button>
+    <Button type="primary" disabled bg>主要禁用</Button>
+    <Button type="success" disabled bg>成功禁用</Button>
+    <Button type="warning" disabled bg>警告禁用</Button>
+    <Button type="danger" disabled bg>危险禁用</Button>
+    <Button type="info" disabled bg>信息禁用</Button>
+</div>
+
+```vue
+<template>
+  <div class="button-group">
+    <Button disabled bg>默认禁用</Button>
+    <Button type="primary" disabled bg>主要禁用</Button>
+    <Button type="success" disabled bg>成功禁用</Button>
+    <Button type="warning" disabled bg>警告禁用</Button>
+    <Button type="danger" disabled bg>危险禁用</Button>
+    <Button type="info" disabled bg>信息禁用</Button>
+  </div>
+</template>
+```
+
 
 ## 文本按钮
 
