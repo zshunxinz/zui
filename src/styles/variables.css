@@ -2,6 +2,7 @@
   --color-default: var(--color-neutral-950);
   --color-default-hover: var(--color-neutral-800);
   --color-default-active: var(--color-neutral-700);
+  --color-default-disabled: var(--color-neutral-400);
   --color-default-text-1: var(--color-neutral-50);
   --color-default-text-2: var(--color-neutral-100);
 
@@ -16,21 +17,25 @@
   --color-success: var(--color-teal-500);
   --color-success-hover: var(--color-teal-400);
   --color-success-active: var(--color-teal-300);
+  --color-success-disabled: var(--color-teal-300);
   --color-success-text-1: var(--color-neutral-50);
 
   --color-warning: var(--color-amber-500);
   --color-warning-hover: var(--color-amber-400);
   --color-warning-active: var(--color-amber-300);
+  --color-warning-disabled: var(--color-amber-300);
   --color-warning-text-1: var(--color-neutral-50);
 
   --color-danger: var(--color-red-500);
   --color-danger-hover: var(--color-red-400);
   --color-danger-active: var(--color-red-300);
+  --color-danger-disabled: var(--color-red-300);
   --color-danger-text-1: var(--color-neutral-50);
 
   --color-info: var(--color-violet-500);
   --color-info-hover: var(--color-violet-400);
   --color-info-active: var(--color-violet-300);
+  --color-info-disabled: var(--color-violet-300);
   --color-info-text-1: var(--color-neutral-50);
 
   /* 中性色 */

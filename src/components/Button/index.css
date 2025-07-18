@@ -10,6 +10,15 @@
   font-weight: 500;
 }
 
+.is-disabled {
+  /* opacity: 0.6; */
+  cursor: not-allowed;
+  background-color: var(--color-disabled);
+  color: var(--color-text-muted);
+  border-color: var(--color-border);
+  box-shadow: none;
+}
+
 .btn--shadow {
   box-shadow: 0 1px 3px var(--color-text-muted);
 }
@@ -26,6 +35,9 @@
 .btn--default:active:not(.is-disabled) {
   background-color: var(--color-default-active);
 }
+.btn--default.is-disabled {
+  background-color: var(--color-default-disabled);
+}
 
 .btn--primary {
   background-color: var(--color-primary);
@@ -38,6 +50,9 @@
 
 .btn--primary:active:not(.is-disabled) {
   background-color: var(--color-primary-active);
+}
+.btn--primary.is-disabled {
+  background-color: var(--color-primary-disabled);
 }
 
 .btn--success {
@@ -53,6 +68,10 @@
   background-color: var(--color-success-active);
 }
 
+.btn--success.is-disabled {
+  background-color: var(--color-success-disabled);
+}
+
 .btn--warning {
   background-color: var(--color-warning);
   color: white;
@@ -64,6 +83,9 @@
 
 .btn--warning:active:not(.is-disabled) {
   background-color: var(--color-warning-active);
+}
+.btn--warning.is-disabled {
+  background-color: var(--color-warning-disabled);
 }
 
 .btn--danger {
@@ -78,6 +100,9 @@
 .btn--danger:active:not(.is-disabled) {
   background-color: var(--color-danger-active);
 }
+.btn--danger.is-disabled {
+  background-color: var(--color-danger-disabled);
+}
 
 .btn--info {
   background-color: var(--color-info);
@@ -91,14 +116,8 @@
 .btn--info:active:not(.is-disabled) {
   background-color: var(--color-info-active);
 }
-
-.is-disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  background-color: var(--color-disabled) !important;
-  color: var(--color-text-muted) !important;
-  border-color: var(--color-border) !important;
-  box-shadow: none !important;
+.btn--info.is-disabled {
+  background-color: var(--color-info-disabled);
 }
 
 .btn--loading {
@@ -149,8 +168,8 @@
   box-shadow: none;
 }
 
-.btn--text:hover:not(.is-disabled) {
-  background-color: rgba(255, 255, 255, 0);
+.btn--text:hover {
+  background-color: rgba(255, 255, 255, 0) !important;
 }
 
 .btn--default.btn--text {
@@ -189,6 +208,25 @@
 }
 .btn--info.btn--text:hover {
   color: var(--color-info-hover);
+}
+
+.btn--default.btn--text:active {
+  color: var(--color-default-active);
+}
+.btn--primary.btn--text:active {
+  color: var(--color-primary-active);
+}
+.btn--success.btn--text:active {
+  color: var(--color-success-active);
+}
+.btn--warning.btn--text:active {
+  color: var(--color-warning-active);
+}
+.btn--danger.btn--text:active {
+  color: var(--color-danger-active);
+}
+.btn--info.btn--text:active {
+  color: var(--color-info-active);
 }
 
 .btn--default.btn--border {
@@ -232,7 +270,7 @@
   color: var(--color-info);
 }
 
-.btn--border:hover:not(.is-disabled) {
+.btn--border:hover {
   background-color: var(--color-bg-hover);
 }
 
