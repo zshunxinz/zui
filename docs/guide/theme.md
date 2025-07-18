@@ -1,6 +1,6 @@
 # 主题配置
 
-<style>
+<style scoped>
 .color-swatch {
   min-width: 60px;
   aspect-ratio: 1 / 1;
