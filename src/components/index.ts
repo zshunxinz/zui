@@ -5,6 +5,7 @@ import { Button } from './Button'
 import { ButtonGroup } from './ButtonGroup'
 import { HelloWorld } from './HelloWorld'
 import { ThemeToggle } from './ThemeToggle'
+import { Radio } from './Radio'
 
 const install = (app: any) => {
     app.component('GridRow', Row)
@@ -12,9 +13,10 @@ const install = (app: any) => {
     app.component('Button', Button)
     app.component('ButtonGroup', ButtonGroup)
     app.component('Input', Input)
+    app.component('Radio', Radio)
 }
 
 // 支持 use 方式安装
 export default { install }
 
-export { Input, Row, Col, Button, ButtonGroup, HelloWorld, ThemeToggle }
+export { Input, Row, Col, Button, ButtonGroup, HelloWorld, ThemeToggle, Radio }

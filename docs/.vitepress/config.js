@@ -28,6 +28,7 @@ export default defineConfig({
           { text: "0.0.1", link: "/update/0.0.1" },
           { text: "0.0.2", link: "/update/0.0.2" },
           { text: "0.0.3", link: "/update/0.0.3" },
+          { text: "0.0.4", link: "/update/0.0.4" },
         ],
       },
     ],
@@ -51,6 +52,7 @@ export default defineConfig({
             { text: "ButtonGroup 组合按钮", link: "/components/ButtonGroup" },
             { text: "Grid 网格布局", link: "/components/grid" },
             { text: "Input 输入框", link: "/components/input" },
+            { text: "Radio 单选框",link:"/components/Radio"}
           ],
         },
       ],

@@ -5,6 +5,7 @@ import { ButtonGroup } from './components/ButtonGroup'
 import { Col } from './components/Col'
 import { Input } from './components/Input'
 import { Row } from './components/Row'
+import { Radio } from './components/Radio'
 import type { App } from 'vue'
 
 import * as components from './components'
@@ -23,5 +24,6 @@ export {
   ButtonGroup,
   Col,
   Input,
-  Row
+  Row,
+  Radio
 }

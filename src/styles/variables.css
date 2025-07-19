@@ -44,11 +44,15 @@
   /* 中性色 */
   --color-background: #ffffff;
   --color-border: var(--color-neutral-100);
+  --color-border-1: var(--color-neutral-200);
   --color-text: var(--color-neutral-950);
+  --color-text-1: var(--color-neutral-800);
+  --color-text-2: var(--color-neutral-700);
   --color-text-muted: var(--color-neutral-500);
   --color-text-bg: hsla(0, 0%, 96.1%, 0.5);
   --color-disabled: var(--color-neutral-400);
   --color-bg-hover: hsla(0, 0%, 96.1%, 0.5);
+  --border-radius: 4px;
 }
 
 /* 暗色模式变量 */
