@@ -50,7 +50,7 @@
   --color-text-2: var(--color-neutral-700);
   --color-text-muted: var(--color-neutral-500);
   --color-text-bg: hsla(0, 0%, 96.1%, 0.5);
-  --color-disabled: var(--color-neutral-400);
+  --color-disabled: var(--color-neutral-950);
   --color-bg-hover: hsla(0, 0%, 96.1%, 0.5);
   --border-radius: 4px;
 }

@@ -5,17 +5,33 @@ import { Col } from "@/components/Col";
 import { Row } from "@/components/Row";
 import { HelloWorld } from "@/components/HelloWorld";
 import { Input } from "@/components/Input";
-import { Radio } from "@/components/Radio";
+import { Radio } from './components/Radio';
+import { Checkbox, CheckboxGroup, CheckboxButton } from './components/Checkbox';
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { ref } from "vue";
+import { ref,computed } from "vue";
 
 const value = ref("");
 const radioValue = ref('option1');
-const radioOptions = [
-  { label: '选项一', value: 'option1' },
-  { label: '选项二', value: 'option2' },
-  { label: '选项三', value: 'option3' }
-]
+// Checkbox 示例数据
+const checked1 = ref(true);
+const checked2 = ref(false);
+const checkboxGroupValue = ref(['选项1', '选项3']);
+const buttonGroupValue = ref(['A']);
+const checkAll = ref(false);
+const indeterminateValue = ref(['项目1', '项目2']);
+const isIndeterminate = computed(() => {
+  return indeterminateValue.value.length > 0 && indeterminateValue.value.length < 3;
+});
+
+const handleCheckAll = (val) => {
+  indeterminateValue.value = val ? ['项目1', '项目2', '项目3'] : [];
+};
+
+const radioOptions = ref([
+  { label: 'Tab 1', value: 'tab1' },
+  { label: 'Tab 2', value: 'tab2' },
+  { label: 'Tab 3', value: 'tab3' }
+]);
 const selectedValueCard = ref('option1')
 const radioOptionsCard = [
   { label: 'HTML', value: 'option1',text:"html是超文本标记语言" },
@@ -61,6 +77,11 @@ const radioOptionsCard = [
         <Radio v-model="radioValue" :options="radioOptions" shape="square" />
         <Radio v-model="radioValue" :options="radioOptions" shape="button" />
       </div>
+
+      <div class="radio-group">
+        <h3>选项卡模式</h3>
+        <Radio v-model="radioValue" :options="radioOptions" shape="tab" />
+      </div>
       <div>
       <Radio v-model="selectedValueCard" :options="radioOptionsCard" shape="card" checked-class="custom-checked-class">
           <template #card-option1="{ option }">
@@ -84,6 +105,53 @@ const radioOptionsCard = [
         </Radio>
       </div>
         
+    </div>
+
+    <!-- Checkbox 多选框示例 -->
+    <div class="component-section">
+      <h3 class="section-title">Checkbox 多选框</h3>
+      <div class="example-card">
+        <h4>基础用法</h4>
+        <div class="checkbox-demo">
+          <Checkbox v-model="checked1" label="备选项1"></Checkbox>
+          <Checkbox v-model="checked2" label="备选项2"></Checkbox>
+        </div>
+      </div>
+
+      <div class="example-card">
+        <h4>多选框组</h4>
+        <CheckboxGroup v-model="checkboxGroupValue">
+          <Checkbox label="选项1"></Checkbox>
+          <Checkbox label="选项2"></Checkbox>
+          <Checkbox label="选项3"></Checkbox>
+          <Checkbox label="选项4" disabled></Checkbox>
+        </CheckboxGroup>
+      </div>
+
+      <div class="example-card">
+        <h4>按钮样式</h4>
+        <CheckboxGroup v-model="buttonGroupValue" size="small">
+          <CheckboxButton label="A"></CheckboxButton>
+          <CheckboxButton label="B"></CheckboxButton>
+          <CheckboxButton label="C"></CheckboxButton>
+          <CheckboxButton label="D"></CheckboxButton>
+        </CheckboxGroup>
+      </div>
+
+      <div class="example-card">
+        <h4>Indeterminate 状态</h4>
+        <Checkbox
+          v-model="checkAll"
+          :indeterminate="isIndeterminate"
+          @change="handleCheckAll"
+          label="全选"
+        ></Checkbox>
+        <CheckboxGroup v-model="indeterminateValue">
+          <Checkbox label="项目1"></Checkbox>
+          <Checkbox label="项目2"></Checkbox>
+          <Checkbox label="项目3"></Checkbox>
+        </CheckboxGroup>
+      </div>
     </div>
 
     <div class="component-section">

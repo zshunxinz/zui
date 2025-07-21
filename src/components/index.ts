@@ -6,6 +6,9 @@ import { ButtonGroup } from './ButtonGroup'
 import { HelloWorld } from './HelloWorld'
 import { ThemeToggle } from './ThemeToggle'
 import { Radio } from './Radio'
+import { Checkbox } from './Checkbox'
+import { CheckboxGroup } from './Checkbox'
+import { CheckboxButton } from './Checkbox'
 
 const install = (app: any) => {
     app.component('GridRow', Row)
@@ -14,9 +17,12 @@ const install = (app: any) => {
     app.component('ButtonGroup', ButtonGroup)
     app.component('Input', Input)
     app.component('Radio', Radio)
+    app.component('Checkbox', Checkbox)
+    app.component('CheckboxGroup', CheckboxGroup)
+    app.component('CheckboxButton', CheckboxButton)
 }
 
 // 支持 use 方式安装
 export default { install }
 
-export { Input, Row, Col, Button, ButtonGroup, HelloWorld, ThemeToggle, Radio }
+export { Input, Row, Col, Button, ButtonGroup, HelloWorld, ThemeToggle, Radio, Checkbox, CheckboxGroup, CheckboxButton }

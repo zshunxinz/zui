@@ -6,6 +6,9 @@ import { Col } from './components/Col'
 import { Input } from './components/Input'
 import { Row } from './components/Row'
 import { Radio } from './components/Radio'
+import { Checkbox } from './components/Checkbox'
+import { CheckboxGroup } from './components/Checkbox'
+import { CheckboxButton } from './components/Checkbox'
 import type { App } from 'vue'
 
 import * as components from './components'
@@ -25,5 +28,8 @@ export {
   Col,
   Input,
   Row,
-  Radio
+  Radio,
+  Checkbox,
+  CheckboxGroup,
+  CheckboxButton
 }

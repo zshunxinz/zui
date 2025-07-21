@@ -52,7 +52,8 @@ export default defineConfig({
             { text: "ButtonGroup 组合按钮", link: "/components/ButtonGroup" },
             { text: "Grid 网格布局", link: "/components/grid" },
             { text: "Input 输入框", link: "/components/input" },
-            { text: "Radio 单选框",link:"/components/Radio"}
+            { text: "Radio 单选框",link:"/components/Radio"},
+            { text: "Checkbox 多选框",link:"/components/Checkbox"},
           ],
         },
       ],

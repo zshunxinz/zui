@@ -73,7 +73,8 @@ const typeOptions = [
 ::v-deep .custom-checked-class {
   border:1px solid rgb(0, 123, 255);
   box-shadow: 1px 1px 5px 2px linear-gradient(to right, rgb(0, 123, 255), rgb(181, 181, 181)) 1;
-  background-image: linear-gradient(to right, rgba(0, 123, 255, 0.05), rgba(255, 115, 1, 0.05));
+  /* background-image: linear-gradient(to right, rgba(200, 200, 200, 0.05), rgba(0, 123, 255, 0.04)); */
+  background-color: rgba(0, 123, 255, 0.01);
   border-radius: 4px !important;
 }
 .radio-type-demo {
@@ -148,8 +149,6 @@ const radioOptions = [
 
 卡片样式支持自定义插槽内容，插槽名称格式为`card-${value}`
 
-
-
 <Radio v-model="selectedValueCard" :options="radioOptionsCard" shape="card" checked-class="custom-checked-class">
   <template #card-option1="{ option }">
     <div class="custom-card-content">
@@ -217,6 +216,28 @@ const radioOptionsCard = [
   border-radius: 4px !important;
 }
 </style>
+```
+
+## 选项卡样式
+
+选项卡模式提供标签式的单选体验，底部边框颜色随type属性变化
+
+<Radio v-model="typeValue" :options="typeOptions" shape="tab" type="primary" />
+
+```vue
+<template>
+  <Radio v-model="typeValue" :options="typeOptions" shape="tab" type="primary" />
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+const typeValue = ref('1')
+const typeOptions = [
+  { label: '主要选项', value: '1' },
+  { label: '次要选项', value: '2' }
+]
+</script>
 ```
 
 ## 颜色类型
@@ -290,7 +311,7 @@ const radioOptions = [
 | options | 选项列表 | Array | — | [] |
 | name | 原生name属性 | string | — | — |
 | disabled | 是否禁用 | boolean | true / false | false |
-| shape | 单选框样式 | string | circle / square / button / card | circle |
+| shape | 单选框样式 | string | circle / square / button / card / tab | circle |
 | checkedClass | 选中状态类 | string | - | 可选，仅卡片样式有效，自定义选中状态的CSS类名 |
 | type | 单选框颜色类型 | string | default/primary/success/warning/danger/info | default |
 
