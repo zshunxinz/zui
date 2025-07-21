@@ -1,15 +1,11 @@
 # Checkbox 多选框
-
 一组备选项中进行多选
-
 ## 基础用法
 单独使用可以表示两种状态之间的切换，写在标签中的内容为 checkbox 按钮后的介绍。
-
-
 <script setup>
 // import { ref } from 'vue';
 import { ref, computed } from 'vue';
-const checked1 = ref(true);
+const checked1 = ref(false);
 const checked2 = ref(false);
 const checked3 = ref(false);
 const checked4 = ref(false);
@@ -26,13 +22,18 @@ const handleCheckAllChange = (val) => {
   checked1.value = val;
   checked2.value = val;
   checked3.value = val;
-  checked4.value = val;
-  checkedList.value = val ? ['备选项1', '备选项2', '备选项3'] : [];
+  // checkAll.value = val;
+  checkedList.value = [checked1.value, checked2.value, checked3.value];
 };
 
-const handleCheckedChange = (val) => {
-  console.log(val);
-};
+const handleCheckedChange = (val)=>{
+  console.log(checkedList.value);]
+  
+}
+
+// const handleCheckedChange = (val) => {
+//   console.log(val);
+// };
 </script>
 <style>
   .checkbox-group{
@@ -216,9 +217,9 @@ const checked3 = ref(false);
       v-model="checkedList"
       @change="handleCheckedChange"
     >
-      <Checkbox label="备选项1" v-model="checked1"></Checkbox>
-      <Checkbox label="备选项2" v-model="checked2"></Checkbox>
-      <Checkbox label="备选项3" v-model="checked3"></Checkbox>
+      <Checkbox label="HTML" v-model="checked1"></Checkbox>
+      <Checkbox label="CSS" v-model="checked2"></Checkbox>
+      <Checkbox label="JavaScript" v-model="checked3"></Checkbox>
     </CheckboxGroup>
 </div>
 
