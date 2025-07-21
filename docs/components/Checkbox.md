@@ -27,7 +27,7 @@ const handleCheckAllChange = (val) => {
 };
 
 const handleCheckedChange = (val)=>{
-  console.log(checkedList.value);]
+  console.log(checkedList.value);
   
 }
 
