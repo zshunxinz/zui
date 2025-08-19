@@ -9,6 +9,8 @@ import { Radio } from './components/Radio'
 import { Checkbox } from './components/Checkbox'
 import { CheckboxGroup } from './components/Checkbox'
 import { CheckboxButton } from './components/Checkbox'
+import { Select, Option, OptionGroup } from './components/Select'
+
 import type { App } from 'vue'
 
 import * as components from './components'
@@ -31,5 +33,8 @@ export {
   Radio,
   Checkbox,
   CheckboxGroup,
-  CheckboxButton
+  CheckboxButton,
+  Select,
+  Option,
+  OptionGroup,
 }

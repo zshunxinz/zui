@@ -5,39 +5,42 @@ import { Col } from "@/components/Col";
 import { Row } from "@/components/Row";
 import { HelloWorld } from "@/components/HelloWorld";
 import { Input } from "@/components/Input";
-import { Radio } from './components/Radio';
-import { Checkbox, CheckboxGroup, CheckboxButton } from './components/Checkbox';
+import { Radio } from "./components/Radio";
+import { Checkbox, CheckboxGroup, CheckboxButton } from "./components/Checkbox";
+import { Select, Option, OptionGroup } from "./components/Select";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { ref,computed } from "vue";
+import { ref, computed } from "vue";
 
 const value = ref("");
-const radioValue = ref('option1');
+const radioValue = ref("option1");
 // Checkbox 示例数据
 const checked1 = ref(true);
 const checked2 = ref(false);
-const checkboxGroupValue = ref(['选项1', '选项3']);
-const buttonGroupValue = ref(['A']);
+const checkboxGroupValue = ref(["选项1", "选项3"]);
+const buttonGroupValue = ref(["A"]);
 const checkAll = ref(false);
-const indeterminateValue = ref(['项目1', '项目2']);
+const indeterminateValue = ref(["项目1", "项目2"]);
 const isIndeterminate = computed(() => {
-  return indeterminateValue.value.length > 0 && indeterminateValue.value.length < 3;
+  return (
+    indeterminateValue.value.length > 0 && indeterminateValue.value.length < 3
+  );
 });
 
 const handleCheckAll = (val) => {
-  indeterminateValue.value = val ? ['项目1', '项目2', '项目3'] : [];
+  indeterminateValue.value = val ? ["项目1", "项目2", "项目3"] : [];
 };
 
 const radioOptions = ref([
-  { label: 'Tab 1', value: 'tab1' },
-  { label: 'Tab 2', value: 'tab2' },
-  { label: 'Tab 3', value: 'tab3' }
+  { label: "Tab 1", value: "tab1" },
+  { label: "Tab 2", value: "tab2" },
+  { label: "Tab 3", value: "tab3" },
 ]);
-const selectedValueCard = ref('option1')
+const selectedValueCard = ref("option1");
 const radioOptionsCard = [
-  { label: 'HTML', value: 'option1',text:"html是超文本标记语言" },
-  { label: 'CSS', value: 'option2',text:"css是层叠样式表" },
-  { label: 'JavaScript', value: 'option3',text:"JavaScript是脚本语言" }
-]
+  { label: "HTML", value: "option1", text: "html是超文本标记语言" },
+  { label: "CSS", value: "option2", text: "css是层叠样式表" },
+  { label: "JavaScript", value: "option3", text: "JavaScript是脚本语言" },
+];
 </script>
 
 <template>
@@ -70,7 +73,14 @@ const radioOptionsCard = [
         <Button type="primary">Right</Button>
       </ButtonGroup>
     </div>
-
+    <div class="component-section">
+      {{ value }}
+      <Select v-model="value" placeholder="请选择" size="medium">
+        <Option label="选项1" value="1" />
+        <Option label="选项2" value="2" />
+        <Option label="选项3" value="3" />
+      </Select>
+    </div>
     <div class="component-section">
       <h2>Radio 组件</h2>
       <div class="radio-group">
@@ -83,7 +93,12 @@ const radioOptionsCard = [
         <Radio v-model="radioValue" :options="radioOptions" shape="tab" />
       </div>
       <div>
-      <Radio v-model="selectedValueCard" :options="radioOptionsCard" shape="card" checked-class="custom-checked-class">
+        <Radio
+          v-model="selectedValueCard"
+          :options="radioOptionsCard"
+          shape="card"
+          checked-class="custom-checked-class"
+        >
           <template #card-option1="{ option }">
             <div class="custom-card-content">
               <div>{{ option.label }}</div>
@@ -104,7 +119,6 @@ const radioOptionsCard = [
           </template>
         </Radio>
       </div>
-        
     </div>
 
     <!-- Checkbox 多选框示例 -->
@@ -167,10 +181,10 @@ const radioOptionsCard = [
       </Row>
     </div>
 
-    <div class="component-section">
-      <h2>HelloWorld 组件1</h2>
-      <HelloWorld msg="Welcome to Your Vue.js App" />
-    </div>
+    <!-- <div class="component-section"> -->
+    <!-- <h2>HelloWorld 组件1</h2> -->
+    <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
+    <!-- </div> -->
   </div>
 </template>
 
@@ -195,7 +209,7 @@ const radioOptionsCard = [
   border-radius: 4px;
   display: flex;
   flex-direction: column;
-  gap:10px
+  gap: 10px;
 }
 
 .button-group {
@@ -221,21 +235,26 @@ const radioOptionsCard = [
   border-radius: 4px;
   height: 100%;
 }
-.custom-card-content{
+.custom-card-content {
   padding: 10px;
   /* color: var(--color-default); */
   color: var(--color-primary);
 }
 
-.custom-card-content span{
+.custom-card-content span {
   font-size: 9px;
   color: var(--color-primary-hover);
 }
 
 ::v-deep .custom-checked-class {
-  border:1px solid rgb(0, 123, 255);
-  box-shadow: 1px 1px 5px 2px linear-gradient(to right, rgb(0, 123, 255), rgb(181, 181, 181)) 1;
-  background-image: linear-gradient(to right, rgba(0, 123, 255, 0.05), rgba(255, 115, 1, 0.05));
+  border: 1px solid rgb(0, 123, 255);
+  box-shadow: 1px 1px 5px 2px
+    linear-gradient(to right, rgb(0, 123, 255), rgb(181, 181, 181)) 1;
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 123, 255, 0.05),
+    rgba(255, 115, 1, 0.05)
+  );
   border-radius: 4px !important;
 }
 .radio-type-demo {
