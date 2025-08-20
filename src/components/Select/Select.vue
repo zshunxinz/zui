@@ -2,6 +2,7 @@
   <div
     class="x-select"
     :class="[
+      `x-select--${type}`,
       size ? `x-select--${size}` : '',
       {
         'is-disabled': disabled,
@@ -15,18 +16,17 @@
     :style="$attrs.style"
   >
     <div class="x-select__wrapper" @click="toggleDropdown" ref="selectWrapper">
-      <div class="x-select__tags" v-if="multiple && selectedOptions.length > 0">
-        <span
+      <div class="x-select__tags" v-if="multiple">
+        <div
           v-for="(tag, index) in displayTags"
           :key="index"
-          class="x-select__tag"
-          :class="`x-tag--${tagType}`"
+          class="x-select__tag x-tag--info"
         >
-          <span class="x-select__tag-text">{{ getLabel(tag) }}</span>
+          <div class="x-select__tag-text">{{ getLabel(tag) }}</div>
           <span class="x-select__tag-close" @click.stop="removeTag(tag)"
             >×</span
           >
-        </span>
+        </div>
         <span
           v-if="collapseTags && selectedOptions.length > maxCollapseTags"
           class="x-select__tag x-tag--info"
@@ -36,7 +36,13 @@
           >
         </span>
       </div>
-
+      <div
+        v-else-if="!multiple"
+        class="x-select__selected"
+        :class="{ 'is-placeholder': !selectedLabel }"
+      >
+        {{ selectedLabel || placeholder }}
+      </div>
       <input
         v-if="filterable"
         type="text"
@@ -52,21 +58,13 @@
       />
 
       <span
-        v-else-if="!multiple"
-        class="x-select__selected"
-        :class="{ 'is-placeholder': !selectedLabel }"
-      >
-        {{ selectedLabel || placeholder }}
-      </span>
-
-      <span
         v-if="clearable && selectedOptions.length > 0"
         class="x-select__clear"
         @click.stop="clear"
         >×</span
       >
 
-      <!-- <span class="x-select__suffix"> -->
+      <!-- <div class="x-select__suffix"> -->
       <!-- <i class="x-select__arrow" :class="{ 'is-reverse': visible }"> -->
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -83,7 +81,7 @@
         <path d="m6 9 6 6 6-6" />
       </svg>
       <!-- </i> -->
-      <!-- </span> -->
+      <!-- </div> -->
     </div>
 
     <!-- <teleport to="body" v-if="teleported"> -->
@@ -102,11 +100,10 @@
             <slot name="loading">{{ loadingText }}</slot>
           </div>
 
-          <!-- <div v-else-if="filteredOptions.length === 0" class="x-select-dropdown__empty">
-              <slot name="empty">{{ noDataText }}</slot>
-            </div> -->
-
-          <div v-else class="x-select-dropdown__list">
+          <div
+            v-else-if="filteredOptions.length > 0"
+            class="x-select-dropdown__list"
+          >
             <template v-if="$slots.default">
               <slot></slot>
             </template>
@@ -134,7 +131,12 @@
               </div>
             </template>
           </div>
-
+          <div
+            v-else-if="filteredOptions.length === 0"
+            class="x-select-dropdown__empty"
+          >
+            <slot name="empty">{{ noDataText }}</slot>
+          </div>
           <slot name="footer" />
         </div>
       </div>
@@ -183,6 +185,14 @@ const props = defineProps({
   valueKey: {
     type: String,
     default: "value",
+  },
+  type: {
+    type: String,
+    default: "default",
+    validator: (val) =>
+      ["default", "primary", "success", "warning", "danger", "info"].includes(
+        val
+      ),
   },
   size: {
     type: String,
@@ -381,6 +391,7 @@ const inputRef = ref(null);
 const selectWrapper = ref(null);
 const dropdownRef = ref(null);
 const selectData = ref();
+const selectDataList = ref([]);
 
 const selectedOptions = computed(() => {
   if (!props.modelValue) return [];
@@ -393,8 +404,16 @@ const selectedOptions = computed(() => {
 });
 
 const displayTags = computed(() => {
-  if (!props.collapseTags) return selectedOptions.value;
-  return selectedOptions.value.slice(0, props.maxCollapseTags);
+  const selectedLabels = selectedOptions.value.map((value) => {
+    // 从有效选项中查找对应的label
+    const option = effectiveOptions.value.find(
+      (opt) => getValue(opt) === value
+    );
+    return option || { value, label: value };
+  });
+
+  if (!props.collapseTags) return selectedLabels;
+  return selectedLabels.slice(0, props.maxCollapseTags);
 });
 
 const currentPlaceholder = computed(() => {
@@ -469,7 +488,9 @@ const getValue = (option) => {
 };
 
 const getLabel = (option) => {
-  return option[props.props.label] || option.label || getValue(option);
+  if (option) {
+    return option[props.props.label] || option.label || getValue(option);
+  }
 };
 
 const getDisabled = (option) => {
@@ -491,7 +512,6 @@ const selectOption = (option) => {
   if (getDisabled(option)) return;
 
   const value = getValue(option);
-  selectData.value = option;
 
   if (props.multiple) {
     const newValue = [...selectedOptions.value];
@@ -504,11 +524,10 @@ const selectOption = (option) => {
     ) {
       newValue.push(value);
     }
-    console.log("selectedOptions.value", selectedOptions.value);
-
     emit("update:modelValue", newValue);
     emit("change", newValue);
   } else {
+    selectData.value = option;
     emit("update:modelValue", value);
     emit("change", value);
     visible.value = false;
@@ -521,7 +540,7 @@ const selectOption = (option) => {
 };
 
 const removeTag = (tag) => {
-  const newValue = selectedOptions.value.filter((v) => v !== tag);
+  const newValue = selectedOptions.value.filter((v) => v !== tag.value);
   emit("update:modelValue", newValue);
   emit("remove-tag", tag);
   emit("change", newValue);
@@ -582,7 +601,12 @@ onUnmounted(() => {
 // Provide context for Option components
 provide("selectContext", {
   modelValue: computed(() => props.modelValue),
+  multiple: computed(() => props.multiple),
   selectOption,
+  getValue,
+  getLabel,
+  getDisabled,
+  isSelected,
 });
 
 watch(
@@ -605,10 +629,18 @@ const blur = () => {
 
 let selectedLabel = computed(() => {
   if (selectedOptions.value.length === 0) return "";
-  // const option = props.options.find((opt) => getValue(opt) === selectData);
-  // console.log(selectData.value);
 
-  return getLabel(selectData.value);
+  // 对于单选模式，从有效选项中查找对应的label
+  const currentValue = selectedOptions.value[0];
+  const option = effectiveOptions.value.find(
+    (opt) => getValue(opt) === currentValue
+  );
+
+  if (option) {
+    return getLabel(option);
+  }
+
+  return currentValue;
 });
 
 defineExpose({
@@ -622,8 +654,9 @@ defineExpose({
 .x-select {
   position: relative;
   display: inline-block;
-  width: 100%;
   width: 300px;
+  min-width: 200px;
+  cursor: pointer;
 }
 
 .x-select__wrapper {
@@ -633,47 +666,123 @@ defineExpose({
   min-height: 32px;
   padding: 0 8px;
   border: 1px solid var(--color-border);
-  border-radius: 4px;
+  border-radius: var(--border-radius-0);
   background-color: var(--color-bg);
-  cursor: pointer;
-  transition: border-color 0.2s;
+  /* cursor: pointer; */
+  transition: border-color 0.2s, background-color 0.2s, color 0.2s;
 }
 
 .x-select__wrapper:hover {
   border-color: var(--color-primary);
 }
 
-.x-select__wrapper.is-disabled {
-  background-color: var(--color-bg-disabled);
+/* 主题颜色样式 */
+.x-select--primary .x-select__wrapper {
+  border-color: var(--color-primary);
+}
+
+.x-select--primary .x-select__wrapper:hover {
+  border-color: var(--color-primary-hover);
+}
+
+.x-select--success .x-select__wrapper {
+  border-color: var(--color-success);
+}
+
+.x-select--success .x-select__wrapper:hover {
+  border-color: var(--color-success-hover);
+}
+
+.x-select--warning .x-select__wrapper {
+  border-color: var(--color-warning);
+}
+
+.x-select--warning .x-select__wrapper:hover {
+  border-color: var(--color-warning-hover);
+}
+
+.x-select--danger .x-select__wrapper {
+  border-color: var(--color-danger);
+}
+
+.x-select--danger .x-select__wrapper:hover {
+  border-color: var(--color-danger-hover);
+}
+
+.x-select--info .x-select__wrapper {
+  border-color: var(--color-info);
+}
+
+.x-select--info .x-select__wrapper:hover {
+  border-color: var(--color-info-hover);
+}
+
+.x-select--primary .x-select-dropdown__item.is-selected {
+  background-color: var(--color-primary);
+  color: var(--color-primary-text);
+}
+
+.x-select--success .x-select-dropdown__item.is-selected {
+  background-color: var(--color-success);
+  color: var(--color-success-text);
+}
+
+.x-select--warning .x-select-dropdown__item.is-selected {
+  background-color: var(--color-warning);
+  color: var(--color-warning-text);
+}
+
+.x-select--danger .x-select-dropdown__item.is-selected {
+  background-color: var(--color-danger);
+  color: var(--color-danger-text);
+}
+
+.x-select--info .x-select-dropdown__item.is-selected {
+  background-color: var(--color-info);
+  color: var(--color-info-text);
+}
+
+.is-disabled {
+  color: var(--color-primary-text-2);
+  background-color: var(--color-primary-disabled);
   cursor: not-allowed;
-  opacity: 0.6;
 }
 
 .x-select__tags {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
+  flex: 1;
+  height: 19px;
+  overflow: auto;
+  line-height: 19px;
   align-items: center;
 }
 
 .x-select__tag {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  padding: 2px 6px;
+  padding: 2px 4px;
   border-radius: 2px;
   font-size: 12px;
-  line-height: 1.2;
+  line-height: 12px;
+}
+
+.x-select__tag-text {
+  height: 14px;
+  font-size: 12px;
 }
 
 .x-tag--info {
-  background-color: var(--color-info);
-  color: var(--color-info-text);
+  background-color: var(--color-primary);
+  color: var(--color-primary-text-1);
 }
 
 .x-select__tag-close {
-  margin-left: 4px;
+  margin-left: 2px;
   cursor: pointer;
-  font-weight: bold;
+  /* font-weight: bold; */
+  font-size: 10px;
 }
 
 .x-select__input {
@@ -715,7 +824,7 @@ defineExpose({
 
 .x-select__suffix {
   /* margin-left: 8px; */
-  color: var(--color-text-secondary);
+  /* color: var(--color-text-secondary); */
 }
 
 .x-select__arrow {

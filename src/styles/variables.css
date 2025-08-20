@@ -53,6 +53,7 @@
   --color-disabled: var(--color-neutral-950);
   --color-bg-hover: hsla(0, 0%, 96.1%, 0.5);
   --border-radius: 4px;
+  --border-radius-0: 0px;
 }
 
 /* 暗色模式变量 */

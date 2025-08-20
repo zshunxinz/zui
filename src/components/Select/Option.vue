@@ -11,6 +11,8 @@
     @mouseleave="isHover = false"
   >
     <slot>{{ label || value }}</slot>
+    <!-- {{ selectContext }}
+    {{ isSelected }} -->
   </div>
 </template>
 
@@ -36,15 +38,18 @@ const selectContext = inject("selectContext", {});
 const isHover = ref(false);
 
 const isSelected = computed(() => {
-  if (!selectContext.modelValue) return false;
+  if (!selectContext.modelValue?.value) return false;
 
-  if (Array.isArray(selectContext.modelValue)) {
-    return selectContext.modelValue.includes(props.value);
+  const modelValue = selectContext.modelValue.value;
+
+  if (Array.isArray(modelValue)) {
+    return modelValue.includes(props.value);
   }
 
-  return selectContext.modelValue === props.value;
+  return modelValue === props.value;
 });
 
+// const isSelected = ref(false);
 const handleClick = () => {
   if (props.disabled) return;
 
@@ -77,8 +82,8 @@ const handleClick = () => {
 }
 
 .x-select-option.is-selected {
-  color: #409eff;
-  background-color: #ecf5ff;
+  color: var(--color-primary-hover);
+  /* background-color: #ecf5ff; */
   font-weight: 500;
 }
 

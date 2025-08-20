@@ -41,6 +41,12 @@ const radioOptionsCard = [
   { label: "CSS", value: "option2", text: "css是层叠样式表" },
   { label: "JavaScript", value: "option3", text: "JavaScript是脚本语言" },
 ];
+const value3 = ref([]);
+const value4 = ref("");
+const value5 = ref("");
+const value6 = ref("");
+const value7 = ref("");
+const value8 = ref("");
 </script>
 
 <template>
@@ -74,11 +80,78 @@ const radioOptionsCard = [
       </ButtonGroup>
     </div>
     <div class="component-section">
-      <Select v-model="value" placeholder="请选择" size="medium" disabled>
-        <Option label="选项1" value="1" disabled />
-        <Option label="选项2" value="2" disabled />
-        <Option label="选项3" value="3" disabled />
-      </Select>
+      <div>
+        <Select v-model="value" placeholder="请选择" size="small" disabled>
+          <Option label="选项1" value="1" />
+          <Option label="选项2" value="2" />
+          <Option label="选项3" value="3" />
+        </Select>
+      </div>
+
+      <div style="margin: 20px 0">
+        <h3>多选</h3>
+        <Select v-model="value3" placeholder="请选择" multiple type="primary">
+          <Option label="北京" value="beijing" />
+          <Option label="上海" value="shanghai" />
+          <Option label="广州" value="guangzhou" />
+          <Option label="深圳" value="shenzhen" />
+        </Select>
+        <p>当前值: {{ value3 }}</p>
+      </div>
+
+      <div style="margin: 20px 0">
+        <h3>主题颜色</h3>
+        <Select v-model="value4" type="primary" placeholder="主要主题">
+          <Option label="选项A" value="A" />
+          <Option label="选项B" value="B" />
+          <Option label="选项C" value="C" />
+        </Select>
+        <p>当前值: {{ value4 }}</p>
+
+        <Select
+          v-model="value5"
+          type="success"
+          placeholder="成功主题"
+          style="margin-top: 10px"
+        >
+          <Option label="成功1" value="success1" />
+          <Option label="成功2" value="success2" />
+        </Select>
+        <p>当前值: {{ value5 }}</p>
+
+        <Select
+          v-model="value6"
+          type="warning"
+          placeholder="警告主题"
+          style="margin-top: 10px"
+        >
+          <Option label="警告1" value="warning1" />
+          <Option label="警告2" value="warning2" />
+        </Select>
+        <p>当前值: {{ value6 }}</p>
+
+        <Select
+          v-model="value7"
+          type="danger"
+          placeholder="危险主题"
+          style="margin-top: 10px"
+        >
+          <Option label="危险1" value="danger1" />
+          <Option label="危险2" value="danger2" />
+        </Select>
+        <p>当前值: {{ value7 }}</p>
+
+        <Select
+          v-model="value8"
+          type="info"
+          placeholder="信息主题"
+          style="margin-top: 10px"
+        >
+          <Option label="信息1" value="info1" />
+          <Option label="信息2" value="info2" />
+        </Select>
+        <p>当前值: {{ value8 }}</p>
+      </div>
     </div>
     <div class="component-section">
       <h2>Radio 组件</h2>
