@@ -56,7 +56,7 @@
         class="x-select__selected"
         :class="{ 'is-placeholder': !selectedLabel }"
       >
-        {{ selectedLabel || selectedOptions || placeholder }}
+        {{ selectedLabel || placeholder }}
       </span>
 
       <span
@@ -380,6 +380,7 @@ const hoverIndex = ref(-1);
 const inputRef = ref(null);
 const selectWrapper = ref(null);
 const dropdownRef = ref(null);
+const selectData = ref();
 
 const selectedOptions = computed(() => {
   if (!props.modelValue) return [];
@@ -406,7 +407,11 @@ const slotOptions = computed(() => {
   const slots = getCurrentInstance()?.slots.default?.() || [];
 
   for (const slot of slots) {
-    if (slot.type?.name === "XOption" || slot.type?.__name === "XOption") {
+    if (
+      slot.type?.name === "XOption" ||
+      slot.type?.__name === "XOption" ||
+      slot.type?.__name === "Option"
+    ) {
       options.push({
         value: slot.props?.value,
         label: slot.props?.label || slot.props?.value,
@@ -484,12 +489,9 @@ const toggleDropdown = () => {
 
 const selectOption = (option) => {
   if (getDisabled(option)) return;
-  console.log("selectOption", option);
 
   const value = getValue(option);
-  console.log("value", value);
-
-  console.log("selectedOptions.value", selectedOptions.value);
+  selectData.value = option;
 
   if (props.multiple) {
     const newValue = [...selectedOptions.value];
@@ -586,7 +588,6 @@ provide("selectContext", {
 watch(
   () => props.modelValue,
   (newVal) => {
-    console.log("newVal", newVal);
     if (!props.reserveKeyword) {
       searchQuery.value = "";
     }
@@ -604,10 +605,10 @@ const blur = () => {
 
 let selectedLabel = computed(() => {
   if (selectedOptions.value.length === 0) return "";
-  const option = props.options.find(
-    (opt) => getValue(opt) === selectedOptions.value[0]
-  );
-  return option ? getLabel(option) : "";
+  // const option = props.options.find((opt) => getValue(opt) === selectData);
+  // console.log(selectData.value);
+
+  return getLabel(selectData.value);
 });
 
 defineExpose({
@@ -748,7 +749,7 @@ defineExpose({
 }
 
 .x-select-dropdown__list {
-  padding: 4px 0;
+  padding: 6px 0;
 }
 
 .x-select-dropdown__item {

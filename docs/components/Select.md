@@ -6,8 +6,6 @@
 
 适用广泛的基础单选
 
-:::demo
-
 <script setup>
 import { ref } from 'vue'
 const value = ref('')

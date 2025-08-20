@@ -65,7 +65,7 @@ const handleClick = () => {
   transition: all 0.2s;
   color: #606266;
   font-size: 14px;
-  line-height: 1.4;
+  /* line-height: 1.4; */
 }
 
 .x-select-option:hover {

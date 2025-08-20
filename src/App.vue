@@ -74,11 +74,10 @@ const radioOptionsCard = [
       </ButtonGroup>
     </div>
     <div class="component-section">
-      {{ value }}
-      <Select v-model="value" placeholder="请选择" size="medium">
-        <Option label="选项1" value="1" />
-        <Option label="选项2" value="2" />
-        <Option label="选项3" value="3" />
+      <Select v-model="value" placeholder="请选择" size="medium" disabled>
+        <Option label="选项1" value="1" disabled />
+        <Option label="选项2" value="2" disabled />
+        <Option label="选项3" value="3" disabled />
       </Select>
     </div>
     <div class="component-section">
@@ -171,13 +170,13 @@ const radioOptionsCard = [
     <div class="component-section">
       <h2>Grid 组件</h2>
       <Row>
-        <Col span="8"><div class="grid-content">Col-8</div></Col>
-        <Col span="8"><div class="grid-content">Col-8</div></Col>
-        <Col span="8"><div class="grid-content">Col-8</div></Col>
+        <Col :span="8"><div class="grid-content">Col-8</div></Col>
+        <Col :span="8"><div class="grid-content">Col-8</div></Col>
+        <Col :span="8"><div class="grid-content">Col-8</div></Col>
       </Row>
       <Row>
-        <Col span="12"><div class="grid-content">Col-12</div></Col>
-        <Col span="12"><div class="grid-content">Col-12</div></Col>
+        <Col :span="12"><div class="grid-content">Col-12</div></Col>
+        <Col :span="12"><div class="grid-content">Col-12</div></Col>
       </Row>
     </div>
 
