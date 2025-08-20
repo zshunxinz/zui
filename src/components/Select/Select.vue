@@ -20,7 +20,7 @@
         <div
           v-for="(tag, index) in displayTags"
           :key="index"
-          class="x-select__tag x-tag--info"
+          :class="['x-select__tag', 'x-tag--info']"
         >
           <div class="x-select__tag-text">
             {{ getLabel(tag) }}
@@ -77,12 +77,12 @@
       <!-- <i class="x-select__arrow" :class="{ 'is-reverse': visible }"> -->
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
+        width="20"
+        height="20"
         viewBox="0 0 24 24"
         fill="none"
         :stroke="`var(--color-${type})`"
-        stroke-width="1.25"
+        stroke-width="0.8"
         stroke-linecap="round"
         stroke-linejoin="round"
         class="lucide lucide-chevron-down-icon lucide-chevron-down"
@@ -615,6 +615,7 @@ onUnmounted(() => {
 provide("selectContext", {
   modelValue: computed(() => props.modelValue),
   multiple: computed(() => props.multiple),
+  type: computed(() => props.type),
   selectOption,
   getValue,
   getLabel,
@@ -678,7 +679,7 @@ defineExpose({
   align-items: center;
   min-height: 32px;
   padding: 0 8px;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-primary);
   border-radius: var(--border-radius-0);
   background-color: var(--color-bg);
   /* cursor: pointer; */
@@ -691,7 +692,7 @@ defineExpose({
 
 /* 主题颜色样式 */
 .x-select--default .x-select__wrapper {
-  border-color: var(--color-border);
+  border-color: var(--color-border-1);
 }
 
 .x-select--primary .x-select__wrapper {
@@ -875,7 +876,7 @@ defineExpose({
 }
 
 .x-select-dropdown__list {
-  padding: 6px 0;
+  padding: 0.25rem;
 }
 
 .x-select-dropdown__item {

@@ -1,18 +1,20 @@
 <template>
   <div
     class="x-select-option"
-    :class="{
-      'is-selected': isSelected,
-      'is-disabled': disabled,
-      'is-hover': isHover,
-    }"
+    :class="[
+      selectContext.type && isSelected
+        ? `is-selected--${selectContext.type.value}`
+        : '',
+      {
+        'is-disabled': disabled,
+        'is-hover': isHover,
+      },
+    ]"
     @click="handleClick"
     @mouseenter="isHover = true"
     @mouseleave="isHover = false"
   >
     <slot>{{ label || value }}</slot>
-    <!-- {{ selectContext }}
-    {{ isSelected }} -->
   </div>
 </template>
 
@@ -52,7 +54,7 @@ const isSelected = computed(() => {
 // const isSelected = ref(false);
 const handleClick = () => {
   if (props.disabled) return;
-
+  console.log(selectContext.type.value);
   if (selectContext.selectOption) {
     selectContext.selectOption({
       value: props.value,
@@ -81,9 +83,28 @@ const handleClick = () => {
   background-color: #f5f7fa;
 }
 
-.x-select-option.is-selected {
-  color: var(--color-primary-hover);
-  font-weight: 500;
+.is-selected--default {
+  color: var(--color-default);
+}
+
+.is-selected--primary {
+  color: var(--color-primary);
+}
+
+.is-selected--success {
+  color: var(--color-success);
+}
+
+.is-selected--info {
+  color: var(--color-info);
+}
+
+.is-selected--warning {
+  color: var(--color-warning);
+}
+
+.is-selected--danger {
+  color: var(--color-danger);
 }
 
 .x-select-option.is-disabled {
