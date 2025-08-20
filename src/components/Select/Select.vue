@@ -301,7 +301,7 @@ const props = defineProps({
     default: true,
   },
   appendTo: {
-    type: [String, HTMLElement],
+    type: String,
     default: "body",
   },
   persistent: {
@@ -600,11 +600,15 @@ const dropdownStyle = computed(() => {
 });
 
 onMounted(() => {
-  document.addEventListener("click", handleClickOutside);
+  if (typeof document !== "undefined") {
+    document.addEventListener("click", handleClickOutside);
+  }
 });
 
 onUnmounted(() => {
-  document.removeEventListener("click", handleClickOutside);
+  if (typeof document !== "undefined") {
+    document.removeEventListener("click", handleClickOutside);
+  }
 });
 
 // Provide context for Option components
@@ -757,7 +761,7 @@ defineExpose({
 
 .is-disabled {
   color: var(--color-primary-text-2);
-  background-color: var(--color-primary-disabled);
+  background-color: var(--color-primary-disabled-text);
   cursor: not-allowed;
 }
 

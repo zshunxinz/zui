@@ -5,6 +5,7 @@
   --color-default-hover: var(--color-neutral-800);
   --color-default-active: var(--color-neutral-700);
   --color-default-disabled: var(--color-neutral-400);
+  --color-default-disabled-text: var(--color-neutral-200);
   --color-default-text-1: var(--color-neutral-50);
   --color-default-text-2: var(--color-neutral-100);
 
@@ -13,6 +14,7 @@
   --color-primary-hover: var(--color-blue-400);
   --color-primary-active: var(--color-blue-300);
   --color-primary-disabled: var(--color-blue-300);
+  --color-primary-disabled-text: var(--color-blue-200);
   --color-primary-text-1: var(--color-neutral-50);
   --color-primary-text-2: var(--color-neutral-100);
 
