@@ -22,10 +22,19 @@
           :key="index"
           class="x-select__tag x-tag--info"
         >
-          <div class="x-select__tag-text">{{ getLabel(tag) }}</div>
+          <div class="x-select__tag-text">
+            {{ getLabel(tag) }}
+          </div>
           <span class="x-select__tag-close" @click.stop="removeTag(tag)"
             >×</span
           >
+        </div>
+        <div
+          v-if="multiple && displayTags.length == 0"
+          class="x-select__selected"
+          :class="{ 'is-placeholder': !selectedLabel }"
+        >
+          {{ selectedLabel || placeholder }}
         </div>
         <span
           v-if="collapseTags && selectedOptions.length > maxCollapseTags"
@@ -37,7 +46,7 @@
         </span>
       </div>
       <div
-        v-else-if="!multiple"
+        v-if="!multiple"
         class="x-select__selected"
         :class="{ 'is-placeholder': !selectedLabel }"
       >
@@ -72,7 +81,7 @@
         height="24"
         viewBox="0 0 24 24"
         fill="none"
-        stroke="rgb(100, 100, 100)"
+        :stroke="`var(--color-${type})`"
         stroke-width="1.25"
         stroke-linecap="round"
         stroke-linejoin="round"
@@ -677,6 +686,10 @@ defineExpose({
 }
 
 /* 主题颜色样式 */
+.x-select--default .x-select__wrapper {
+  border-color: var(--color-border);
+}
+
 .x-select--primary .x-select__wrapper {
   border-color: var(--color-primary);
 }
@@ -807,7 +820,7 @@ defineExpose({
 }
 
 .x-select__selected.is-placeholder {
-  color: var(--color-text-placeholder);
+  color: var(--color-text-2);
 }
 
 .x-select__clear {

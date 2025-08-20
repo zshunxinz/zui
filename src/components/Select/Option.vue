@@ -83,7 +83,6 @@ const handleClick = () => {
 
 .x-select-option.is-selected {
   color: var(--color-primary-hover);
-  /* background-color: #ecf5ff; */
   font-weight: 500;
 }
 

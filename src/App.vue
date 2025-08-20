@@ -63,6 +63,7 @@ const value8 = ref("");
     <div class="component-section">
       <h2>Button 组件</h2>
       <div class="button-group">
+        <Button>Default Button</Button>
         <Button type="primary">Primary Button</Button>
         <Button type="success">Success Button</Button>
         <Button type="warning">Warning Button</Button>
@@ -90,7 +91,7 @@ const value8 = ref("");
 
       <div style="margin: 20px 0">
         <h3>多选</h3>
-        <Select v-model="value3" placeholder="请选择" multiple type="primary">
+        <Select v-model="value3" placeholder="请选择" multiple type="default">
           <Option label="北京" value="beijing" />
           <Option label="上海" value="shanghai" />
           <Option label="广州" value="guangzhou" />
