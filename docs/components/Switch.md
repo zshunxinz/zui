@@ -75,13 +75,12 @@ const value = ref(true)
 />
 ```
 
-禁用状态
+## 禁用状态
 
 <div class="demo-switch">
   <Switch v-model="value3" disabled />
   <Switch v-model="value4" disabled style="margin-left: 20px;" />
 </div>
-
 
 ```vue
 <Switch v-model="value1" disabled />
@@ -95,7 +94,6 @@ const value = ref(true)
   <Switch v-model="value5" loading />
   <Switch v-model="value6" loading style="margin-left: 20px;" />
 </div>
-
 
 ```vue
 <Switch v-model="value1" loading />
@@ -121,18 +119,13 @@ const value = ref(true)
 
 ## 不同颜色
 
-
-
 <div class="demo-switch">
-  <XSwitch v-model="value10" color="primary" />
-  <XSwitch v-model="value11" color="success" style="margin-left: 20px;" />
-  <XSwitch v-model="value12" color="warning" style="margin-left: 20px;" />
-  <XSwitch v-model="value13" color="danger" style="margin-left: 20px;" />
-  <XSwitch v-model="value14" color="info" style="margin-left: 20px;" />
+  <Switch v-model="value10" color="primary" />
+  <Switch v-model="value11" color="success" style="margin-left: 20px;" />
+  <Switch v-model="value12" color="warning" style="margin-left: 20px;" />
+  <Switch v-model="value13" color="danger" style="margin-left: 20px;" />
+  <Switch v-model="value14" color="info" style="margin-left: 20px;" />
 </div>
-
-
-
 
 
 ```vue
@@ -148,7 +141,7 @@ const value = ref(true)
 
 
 <div class="demo-switch">
-  <XSwitch
+  <Switch
     v-model="value15"
     active-value="开启"
     inactive-value="关闭"
@@ -170,12 +163,12 @@ const value = ref(true)
 
 
 <div class="demo-switch">
-  <XSwitch
+  <Switch
     v-model="value16"
     active-color="#ff6b6b"
     inactive-color="#495057"
   />
-  <XSwitch
+  <Switch
     v-model="value17"
     active-color="#4ecdc4"
     inactive-color="#868e96"
@@ -203,7 +196,7 @@ const value = ref(true)
 
 
 <div class="demo-switch">
-  <XSwitch
+  <Switch
     v-model="value18"
     @change="handleChange"
   />
@@ -214,7 +207,7 @@ const value = ref(true)
 
 ```vue
 <template>
-  <XSwitch
+  <Switch
     v-model="value"
     @change="handleChange"
   />

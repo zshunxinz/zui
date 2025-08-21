@@ -117,7 +117,7 @@ const handleChange = (event: Event) => {
     width: 44px;
     height: 22px;
     border-radius: 11px;
-    background-color: var(--switch-inactive-color, var(--x-color-text-disabled));
+    background-color: var(--switch-inactive-color, var(--color-text-disabled));
     transition: all 0.3s ease;
     box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.1);
 }
@@ -135,7 +135,7 @@ const handleChange = (event: Event) => {
 }
 
 .x-switch.is-checked .x-switch__core {
-    background-color: var(--switch-active-color, var(--x-color-primary));
+    background-color: var(--switch-active-color, var(--color-primary));
 }
 
 .x-switch__button {
@@ -174,36 +174,37 @@ const handleChange = (event: Event) => {
 
 .x-switch__label {
     margin-left: 8px;
-    font-size: var(--x-font-size-base);
-    color: var(--x-color-text);
+    font-size: var(--font-size-base);
+    color: var(--color-text);
 }
 
 .x-switch--small .x-switch__label {
-    font-size: var(--x-font-size-small);
+    font-size: var(--font-size-small);
 }
 
 .x-switch--large .x-switch__label {
-    font-size: var(--x-font-size-large);
+    font-size: var(--font-size-large);
 }
 
 /* 颜色主题 */
 .x-switch--primary.is-checked .x-switch__core {
-    background-color: var(--x-color-primary);
+    background-color: var(--color-primary);
 }
 
+
 .x-switch--success.is-checked .x-switch__core {
-    background-color: var(--x-color-success);
+    background-color: var(--color-success);
 }
 
 .x-switch--warning.is-checked .x-switch__core {
-    background-color: var(--x-color-warning);
+    background-color: var(--color-warning);
 }
 
 .x-switch--danger.is-checked .x-switch__core {
-    background-color: var(--x-color-danger);
+    background-color: var(--color-danger);
 }
 
 .x-switch--info.is-checked .x-switch__core {
-    background-color: var(--x-color-info);
+    background-color: var(--color-info);
 }
 </style>
