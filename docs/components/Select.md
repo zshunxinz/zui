@@ -8,7 +8,7 @@
 
 <script setup>
 import { ref } from 'vue'
-const value = ref('')
+const value = ref('1')
 const value1 = ref('')
 const value2 = ref('')
 const value3 = ref('')
@@ -171,7 +171,7 @@ const value6 = ref("");
 
   <Col :span="24">
     <Select v-model="value8" placeholder="请选择多个选项" multiple >
-      <Option label="北京" value="beijing" />
+      <Option label="北京" value="beijing" >中央</Option>
       <Option label="上海" value="shanghai" />
       <Option label="广州" value="guangzhou" />
       <Option label="深圳" value="shenzhen" />
@@ -228,10 +228,10 @@ const value8 = ref([]);
     </Select>
   </Col>
   <Col :span="12">
-    <Select v-model="value7" placeholder="包含禁用选项">
-      <Option label="可用选项" value="1" />
+    <Select v-model="value9" placeholder="包含禁用选项">
+      <Option label="可用选项1" value="1" />
       <Option label="禁用选项" value="2" disabled />
-      <Option label="可用选项" value="3" />
+      <Option label="可用选项2" value="3" />
     </Select>
   </Col>
 </Row>
@@ -243,10 +243,10 @@ const value8 = ref([]);
     <Option label="选项2" value="2" />
   </Select>
 
-  <Select v-model="value7" placeholder="包含禁用选项">
-    <Option label="可用选项" value="1" />
-    <Option label="禁用选项" value="2" disabled />
-    <Option label="可用选项" value="3" />
+  <Select v-model="value8" placeholder="包含禁用选项">
+    <Option label="可用选项1" value="1" />
+    <Option label="禁用选项1" value="2" disabled />
+    <Option label="可用选项2" value="3" />
   </Select>
 </template>
 ```
