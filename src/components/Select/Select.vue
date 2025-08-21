@@ -866,17 +866,17 @@ defineExpose({
   border-radius: 4px;
   z-index: 1000;
   background-color: #fff;
-
+  padding: 0.25rem;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
 
 .x-select-dropdown__content {
-  max-height: 274px;
+  max-height: 280px;
   overflow-y: auto;
 }
 
 .x-select-dropdown__list {
-  padding: 0.25rem;
+  padding: 1px;
 }
 
 .x-select-dropdown__item {
