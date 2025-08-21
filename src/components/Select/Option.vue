@@ -14,12 +14,12 @@
     @mouseenter="isHover = true"
     @mouseleave="isHover = false"
   >
-    <slot>{{ label || value }}</slot>
+    <slot name="default">{{ label || value }}</slot>
   </div>
 </template>
 
 <script setup>
-import { inject, computed, ref } from "vue";
+import { inject, computed, ref, useSlots } from "vue";
 
 const props = defineProps({
   label: {
@@ -38,6 +38,7 @@ const props = defineProps({
 
 const selectContext = inject("selectContext", {});
 const isHover = ref(false);
+const slots = useSlots();
 
 const isSelected = computed(() => {
   if (!selectContext.modelValue?.value) return false;
@@ -54,11 +55,31 @@ const isSelected = computed(() => {
 // const isSelected = ref(false);
 const handleClick = () => {
   if (props.disabled) return;
-  console.log(selectContext.type.value);
+
+  let slotLabel = "";
+  if (slots.default) {
+    console.log(slots.default());
+    const slotContent = slots.default();
+    if (slotContent && slotContent.length > 0) {
+      const content = slotContent[0].children;
+      if (typeof content === "string") {
+        slotLabel = content;
+      }
+    }
+  }
+
+  const label = props.label || slotLabel || props.value;
+
   if (selectContext.selectOption) {
+    console.log({
+      value: props.value,
+      label: label,
+      disabled: props.disabled,
+    });
+
     selectContext.selectOption({
       value: props.value,
-      label: props.label || props.value,
+      label: label,
       disabled: props.disabled,
     });
   }
@@ -72,7 +93,7 @@ const handleClick = () => {
   transition: all 0.2s;
   color: #606266;
   font-size: 14px;
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-0);
   /* line-height: 1.4; */
 }
 

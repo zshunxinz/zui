@@ -24,9 +24,22 @@ const value12 = ref('')
 </script>
 
 <Select v-model="value" placeholder="请选择" >
+  <Option value="数据12356789">
+    数据
+  </Option>
   <Option label="选项1" value="1" />
   <Option label="选项2" value="2" />
   <Option label="选项3" value="3" />
+  <Option label="选项4" value="4" />
+  <Option label="选项5" value="5" />
+  <Option label="选项6" value="6" />
+  <Option label="选项7" value="7" />
+  <Option label="选项8" value="8" />
+  <Option label="选项9" value="9" />
+  <Option label="选项10" value="10" />
+  <Option label="选项11" value="11" />
+  <Option label="选项12" value="12" />
+  <Option label="选项13" value="13" />
 </Select>
 
 ```html
@@ -154,14 +167,37 @@ const value6 = ref("");
 ## 多选模式
 
 支持多选，通过设置 `multiple` 属性为 `true`
+<Row :gutter="[20, 20]">
 
-<Select v-model="value8" placeholder="请选择多个选项" multiple >
-  <Option label="北京" value="beijing" />
-  <Option label="上海" value="shanghai" />
-  <Option label="广州" value="guangzhou" />
-  <Option label="深圳" value="shenzhen" />
-  <Option label="杭州" value="hangzhou" />
-</Select>
+  <Col :span="24">
+    <Select v-model="value8" placeholder="请选择多个选项" multiple >
+      <Option label="北京" value="beijing" />
+      <Option label="上海" value="shanghai" />
+      <Option label="广州" value="guangzhou" />
+      <Option label="深圳" value="shenzhen" />
+      <Option label="重庆" value="chongqing" />
+    </Select>
+  </Col>
+  <Col :span="24">
+    <Select v-model="value8" placeholder="请选择多个选项" multiple type="primary">
+      <Option label="北京" value="beijing" />
+      <Option label="上海" value="shanghai" />
+      <Option label="广州" value="guangzhou" />
+      <Option label="深圳" value="shenzhen" />
+      <Option label="重庆" value="chongqing" />
+    </Select>
+  </Col>
+  <Col :span="24">
+    <Select v-model="value8" placeholder="请选择多个选项" multiple type="danger">
+      <Option label="北京" value="beijing" />
+      <Option label="上海" value="shanghai" />
+      <Option label="广州" value="guangzhou" />
+      <Option label="深圳" value="shenzhen" />
+      <Option label="重庆" value="chongqing" />
+    </Select>
+  </Col>
+  
+</Row>
 
 ```vue
 <template>

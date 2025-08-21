@@ -32,7 +32,7 @@
               height="12"
               viewBox="0 0 24 24"
               fill="none"
-              :stroke="`var(--color-${type}-text-2)`"
+              :stroke="`var(--color-${type}-text-1)`"
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
@@ -474,15 +474,34 @@ const slotOptions = computed(() => {
   const options = [];
   const slots = getCurrentInstance()?.slots.default?.() || [];
 
+  // 提取插槽内容作为标签
+  const getSlotLabel = (slot) => {
+    if (slot.children && typeof slot.children === 'function') {
+      const slotContent = slot.children();
+      if (Array.isArray(slotContent) && slotContent.length > 0) {
+        // 尝试获取第一个子节点的文本内容
+        if (typeof slotContent[0] === 'string') {
+          return slotContent[0].trim();
+        }
+        // 处理嵌套结构
+        if (slotContent[0].children && typeof slotContent[0].children === 'string') {
+          return slotContent[0].children.trim();
+        }
+      }
+    }
+    return null;
+  };
+
   for (const slot of slots) {
     if (
       slot.type?.name === "XOption" ||
       slot.type?.__name === "XOption" ||
       slot.type?.__name === "Option"
     ) {
+      const slotLabel = getSlotLabel(slot);
       options.push({
         value: slot.props?.value,
-        label: slot.props?.label || slot.props?.value,
+        label: slot.props?.label || slotLabel || slot.props?.value,
         disabled: slot.props?.disabled || false,
       });
     } else if (slot.type === "template" && slot.children) {
@@ -494,9 +513,10 @@ const slotOptions = computed(() => {
         if (Array.isArray(child)) {
           for (const c of child) {
             if (c.type?.name === "XOption" || c.type?.__name === "XOption") {
+              const slotLabel = getSlotLabel(c);
               options.push({
                 value: c.props?.value,
-                label: c.props?.label || c.props?.value,
+                label: c.props?.label || slotLabel || c.props?.value,
                 disabled: c.props?.disabled || false,
               });
             }
@@ -559,6 +579,8 @@ const toggleDropdown = () => {
 
 const selectOption = (option) => {
   if (getDisabled(option)) return;
+
+  console.log(option);
 
   const value = getValue(option);
 
@@ -686,6 +708,13 @@ let selectedLabel = computed(() => {
 
   // 对于单选模式，从有效选项中查找对应的label
   const currentValue = selectedOptions.value[0];
+  
+  // 优先检查selectData是否有值（这是用户点击选项时直接传递的完整选项对象）
+  if (selectData.value && selectData.value.label) {
+    return selectData.value.label;
+  }
+
+  // 其次从有效选项中查找
   const option = effectiveOptions.value.find(
     (opt) => getValue(opt) === currentValue
   );
@@ -694,6 +723,7 @@ let selectedLabel = computed(() => {
     return getLabel(option);
   }
 
+  // 如果找不到对应的选项，返回当前值作为fallback
   return currentValue;
 });
 
@@ -710,13 +740,13 @@ defineExpose({
   display: inline-block;
   width: 300px;
   min-width: 200px;
-  cursor: pointer;
 }
 
 .x-select__wrapper {
   position: relative;
   display: flex;
   align-items: center;
+  cursor: pointer;
   min-height: 32px;
   padding: 0 8px;
   border: 1px solid var(--color-primary);
@@ -847,22 +877,22 @@ defineExpose({
 
 .x-select--danger .x-select__tag {
   background-color: var(--color-danger);
-  color: var(--color-danger-text);
+  color: var(--color-danger-text-1);
 }
 
 .x-select--info .x-select__tag {
   background-color: var(--color-info);
-  color: var(--color-info-text);
+  color: var(--color-info-text-1);
 }
 
 .x-select--success .x-select__tag {
   background-color: var(--color-success);
-  color: var(--color-success-text);
+  color: var(--color-success-text-1);
 }
 
 .x-select--warning .x-select__tag {
   background-color: var(--color-warning);
-  color: var(--color-warning-text);
+  color: var(--color-warning-text-1);
 }
 
 .x-tag--info {
