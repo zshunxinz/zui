@@ -72,19 +72,20 @@ const handleClick = () => {
   transition: all 0.2s;
   color: #606266;
   font-size: 14px;
+  border-radius: var(--border-radius);
   /* line-height: 1.4; */
 }
 
 .x-select-option:hover {
-  background-color: #f5f7fa;
+  background-color: var(--color-bg-hover);
 }
 
 .x-select-option.is-hover {
-  background-color: #f5f7fa;
+  background-color: var(--color-bg-hover-1);
 }
 
 .is-selected--default {
-  color: var(--color-default);
+  color: var(--color-text-1);
 }
 
 .is-selected--primary {

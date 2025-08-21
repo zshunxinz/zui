@@ -54,6 +54,7 @@
   --color-text-bg: hsla(0, 0%, 96.1%, 0.5);
   --color-disabled: var(--color-neutral-950);
   --color-bg-hover: hsla(0, 0%, 96.1%, 0.5);
+  --color-bg-hover-1: var(--color-neutral-100);
   --border-radius: 4px;
   --border-radius-0: 0px;
 }
@@ -133,7 +134,9 @@
 
   /* 中性色 */
   --color-background: var(--color-neutral-950);
-  --color-border: var(--color-neutral-900);
+  --color-border: var(--color-neutral-800);
+  --color-border-1: var(--color-neutral-800);
+  color: hsl(240 5.9% 90%);
   --color-text: var(--color-neutral-50);
   --color-text-bg: hsla(0, 0%, 96.1%, 0.1);
   --color-text-muted: var(--color-neutral-500);

@@ -25,9 +25,23 @@
           <div class="x-select__tag-text">
             {{ getLabel(tag) }}
           </div>
-          <span class="x-select__tag-close" @click.stop="removeTag(tag)"
-            >×</span
-          >
+          <span class="x-select__tag-close" @click.stop="removeTag(tag)">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              :stroke="`var(--color-${type}-text-2)`"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-x-icon lucide-x"
+            >
+              <path d="M18 6 6 18" />
+              <path d="m6 6 12 12" />
+            </svg>
+          </span>
         </div>
         <div
           v-if="multiple && displayTags.length == 0"
@@ -70,25 +84,43 @@
         v-if="clearable && selectedOptions.length > 0"
         class="x-select__clear"
         @click.stop="clear"
-        >×</span
       >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          :stroke="`var(--color-${type})`"
+          stroke-width="1"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-x-icon lucide-x"
+        >
+          <path d="M18 6 6 18" />
+          <path d="m6 6 12 12" />
+        </svg>
+      </span>
 
       <!-- <div class="x-select__suffix"> -->
       <!-- <i class="x-select__arrow" :class="{ 'is-reverse': visible }"> -->
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-        fill="none"
-        :stroke="`var(--color-${type})`"
-        stroke-width="0.8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="lucide lucide-chevron-down-icon lucide-chevron-down"
-      >
-        <path d="m6 9 6 6 6-6" />
-      </svg>
+      <div>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          :stroke="`var(--color-${type})`"
+          stroke-width="0.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-chevron-down-icon lucide-chevron-down"
+        >
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </div>
+
       <!-- </i> -->
       <!-- </div> -->
     </div>
@@ -117,7 +149,14 @@
               <slot></slot>
             </template>
             <template v-else>
-              <div
+              <Option
+                v-for="option in filteredOptions"
+                :key="option.value"
+                :label="option.label"
+                :value="option.value"
+                :disabled="option.disabled"
+              ></Option>
+              <!-- <div
                 v-for="(option, index) in filteredOptions"
                 :key="getValue(option) + '-' + index"
                 class="x-select-dropdown__item"
@@ -137,7 +176,7 @@
                 >
                   {{ getLabel(option) }}
                 </slot>
-              </div>
+              </div> -->
             </template>
           </div>
           <div
@@ -155,6 +194,7 @@
 </template>
 
 <script setup>
+import Option from "./Option.vue";
 import {
   ref,
   computed,
@@ -760,11 +800,11 @@ defineExpose({
   color: var(--color-info-text);
 }
 
-.is-disabled {
-  color: var(--color-primary-text-2);
-  background-color: var(--color-primary-disabled-text);
-  cursor: not-allowed;
-}
+/* .is-disabled { */
+/* color: var(--color-primary-text-2); */
+/* background-color: var(--color-primary-disabled-text); */
+/* cursor: not-allowed; */
+/* } */
 
 .x-select__tags {
   display: flex;
@@ -784,6 +824,10 @@ defineExpose({
   border-radius: 2px;
   font-size: 12px;
   line-height: 12px;
+  /* border: 1px solid var(--color-primary); */
+  box-sizing: content-box;
+
+  /* outline: 0.1px solid var(--color-primary); */
 }
 
 .x-select__tag-text {
@@ -791,9 +835,39 @@ defineExpose({
   font-size: 12px;
 }
 
-.x-tag--info {
+.x-select--default .x-select__tag {
+  background-color: var(--color-default);
+  color: var(--color-default-text-1);
+}
+
+.x-select--primary .x-select__tag {
   background-color: var(--color-primary);
   color: var(--color-primary-text-1);
+}
+
+.x-select--danger .x-select__tag {
+  background-color: var(--color-danger);
+  color: var(--color-danger-text);
+}
+
+.x-select--info .x-select__tag {
+  background-color: var(--color-info);
+  color: var(--color-info-text);
+}
+
+.x-select--success .x-select__tag {
+  background-color: var(--color-success);
+  color: var(--color-success-text);
+}
+
+.x-select--warning .x-select__tag {
+  background-color: var(--color-warning);
+  color: var(--color-warning-text);
+}
+
+.x-tag--info {
+  /* background-color: var(--color-primary); */
+  /* color: var(--color-primary-text-1); */
 }
 
 .x-select__tag-close {
@@ -829,11 +903,12 @@ defineExpose({
 }
 
 .x-select__clear {
-  margin-left: 8px;
+  /* margin-left: 8px; */
   cursor: pointer;
-  color: var(--color-text-secondary);
-  font-size: 16px;
-  line-height: 1;
+  /* color: var(--color-text-secondary); */
+  /* color: var(--color-text-primary); */
+  /* font-size: 16px; */
+  /* line-height: 1; */
 }
 
 .x-select__clear:hover {
@@ -868,6 +943,7 @@ defineExpose({
   background-color: #fff;
   padding: 0.25rem;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  background-color: var(--color-background);
 }
 
 .x-select-dropdown__content {
@@ -889,17 +965,18 @@ defineExpose({
 
 .x-select-dropdown__item:hover,
 .x-select-dropdown__item.is-hover {
-  background-color: var(--color-hover);
+  background-color: var(--color-hover-1);
 }
 
-.x-select-dropdown__item.is-selected {
-  background-color: var(--color-primary);
-  color: var(--color-primary-text);
-}
+/* .x-select-dropdown__item.is-selected { */
+/* background-color: var(--color-primary); */
+/* color: var(--color-primary-text); */
+/* } */
 
 .x-select-dropdown__item.is-disabled {
+  color: #c0c4cc;
   cursor: not-allowed;
-  color: var(--color-text-disabled);
+  background-color: transparent;
 }
 
 .x-select-dropdown__loading,
