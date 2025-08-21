@@ -9,6 +9,7 @@ import { Radio } from './Radio'
 import { Checkbox } from './Checkbox'
 import { CheckboxGroup } from './Checkbox'
 import { CheckboxButton } from './Checkbox'
+import { Switch } from "./Switch";
 import { Select, Option, OptionGroup } from './Select'
 
 const install = (app: any) => {
@@ -21,6 +22,7 @@ const install = (app: any) => {
     app.component('Checkbox', Checkbox)
     app.component('CheckboxGroup', CheckboxGroup)
     app.component('CheckboxButton', CheckboxButton)
+    app.component('Switch', Switch)
     app.component('Select', Select)
     app.component('Option', Option)
     app.component('OptionGroup', OptionGroup)
@@ -29,4 +31,4 @@ const install = (app: any) => {
 // 支持 use 方式安装
 export default { install }
 
-export { Input, Row, Col, Button, ButtonGroup, HelloWorld, ThemeToggle, Radio, Checkbox, CheckboxGroup, CheckboxButton, Select, Option, OptionGroup }
+export { Input, Row, Col, Button, ButtonGroup, HelloWorld, ThemeToggle, Radio, Checkbox, CheckboxGroup, CheckboxButton, Switch, Select, Option, OptionGroup }
