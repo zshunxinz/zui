@@ -21,7 +21,9 @@
       @change="handleChange"
     />
     <span class="x-switch__core">
-      <span class="x-switch__button"></span>
+      <span class="x-switch__button">
+        <slot name="icon"> </slot>
+      </span>
     </span>
     <span
       v-if="$slots.default || inactiveText || activeText"
@@ -137,7 +139,7 @@ const handleChange = (event: Event) => {
 }
 
 .x-switch--square .x-switch__core {
-  border-radius: 4px;
+  border-radius: 0px;
 }
 
 .x-switch--small .x-switch__core {
@@ -147,7 +149,7 @@ const handleChange = (event: Event) => {
 }
 
 .x-switch--small.x-switch--square .x-switch__core {
-  border-radius: 3px;
+  border-radius: 0px;
 }
 
 .x-switch--large .x-switch__core {
@@ -157,7 +159,7 @@ const handleChange = (event: Event) => {
 }
 
 .x-switch--large.x-switch--square .x-switch__core {
-  border-radius: 5px;
+  border-radius: 0px;
 }
 
 .x-switch.is-checked .x-switch__core {
@@ -171,13 +173,16 @@ const handleChange = (event: Event) => {
   width: 18px;
   height: 18px;
   border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: white;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
 }
 
 .x-switch--square .x-switch__button {
-  border-radius: 2px;
+  border-radius: 0px;
 }
 
 .x-switch--small .x-switch__button {
@@ -186,7 +191,7 @@ const handleChange = (event: Event) => {
 }
 
 .x-switch--small.x-switch--square .x-switch__button {
-  border-radius: 1.5px;
+  border-radius: 0px;
 }
 
 .x-switch--large .x-switch__button {
@@ -195,7 +200,7 @@ const handleChange = (event: Event) => {
 }
 
 .x-switch--large.x-switch--square .x-switch__button {
-  border-radius: 2.5px;
+  border-radius: 0px;
 }
 
 .x-switch.is-checked .x-switch__button {
