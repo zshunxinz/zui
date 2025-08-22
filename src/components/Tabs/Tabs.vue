@@ -16,7 +16,7 @@
       >
         {{ tab.label }}
         <span
-          v-if="props.closable && !tab.disabled"
+          v-if="(props.closable || tab.close) && !tab.disabled"
           class="x-tabs__close-btn"
           @click.stop="handleTabClose(index)"
         >
@@ -44,6 +44,7 @@ interface Tab {
   label: string;
   name: string;
   disabled?: boolean;
+  close?: boolean;
 }
 
 interface Props {
