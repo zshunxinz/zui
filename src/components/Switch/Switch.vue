@@ -4,6 +4,7 @@
     :class="[
       sizeClass,
       colorClass,
+      `x-switch--${props.shape}`,
       {
         'is-checked': isChecked,
         'is-disabled': disabled,
@@ -48,6 +49,7 @@ interface Props {
   inactiveText?: string;
   activeColor?: string;
   inactiveColor?: string;
+  shape?: "round" | "square";
 }
 
 interface Emits {
@@ -63,6 +65,7 @@ const props = withDefaults(defineProps<Props>(), {
   loading: false,
   size: "default",
   type: "default",
+  shape: "round",
 });
 
 const emit = defineEmits<Emits>();
@@ -133,16 +136,28 @@ const handleChange = (event: Event) => {
   box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.1);
 }
 
+.x-switch--square .x-switch__core {
+  border-radius: 4px;
+}
+
 .x-switch--small .x-switch__core {
   width: 36px;
   height: 18px;
   border-radius: 9px;
 }
 
+.x-switch--small.x-switch--square .x-switch__core {
+  border-radius: 3px;
+}
+
 .x-switch--large .x-switch__core {
   width: 52px;
   height: 26px;
   border-radius: 13px;
+}
+
+.x-switch--large.x-switch--square .x-switch__core {
+  border-radius: 5px;
 }
 
 .x-switch.is-checked .x-switch__core {
@@ -161,14 +176,26 @@ const handleChange = (event: Event) => {
   transition: all 0.3s ease;
 }
 
+.x-switch--square .x-switch__button {
+  border-radius: 2px;
+}
+
 .x-switch--small .x-switch__button {
   width: 14px;
   height: 14px;
 }
 
+.x-switch--small.x-switch--square .x-switch__button {
+  border-radius: 1.5px;
+}
+
 .x-switch--large .x-switch__button {
   width: 22px;
   height: 22px;
+}
+
+.x-switch--large.x-switch--square .x-switch__button {
+  border-radius: 2.5px;
 }
 
 .x-switch.is-checked .x-switch__button {

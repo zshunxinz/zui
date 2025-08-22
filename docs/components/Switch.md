@@ -177,6 +177,24 @@ const handleLoad = () => {
 <Switch v-model="value" active-value="开启" inactive-value="关闭" />
 ```
 
+## 不同形状
+
+支持圆形和方形两种形状，默认为圆形。
+
+<div class="demo-switch">
+  <Switch v-model="value18" shape="round" />
+  <Switch v-model="value18" shape="square" style="margin-left: 20px;" />
+  <Switch v-model="value18" shape="square" size="small" style="margin-left: 20px;" />
+  <Switch v-model="value18" shape="square" size="large" style="margin-left: 20px;" />
+</div>
+
+```vue
+<Switch v-model="value" shape="round" />
+<Switch v-model="value" shape="square" />
+<Switch v-model="value" shape="square" size="small" />
+<Switch v-model="value" shape="square" size="large" />
+```
+
 ## 自定义颜色
 
 <div class="demo-switch">
@@ -235,7 +253,8 @@ const handleChange1 = (value) => {
 | disabled              | 是否禁用         | boolean                                               | false     |
 | loading               | 是否加载中       | boolean                                               | false     |
 | size                  | 尺寸             | 'small' / 'default' / 'large'                         | 'default' |
-| color                 | 颜色主题         | 'primary' / 'success' / 'warning' / 'danger' / 'info' | 'primary' |
+| type                  | 颜色主题         | 'primary' / 'success' / 'warning' / 'danger' / 'info' | 'default' |
+| shape                 | 开关形状         | 'round' / 'square'                                    | 'round'   |
 | active-text           | 打开时的文字描述 | string                                                | -         |
 | inactive-text         | 关闭时的文字描述 | string                                                | -         |
 | active-color          | 打开时的背景色   | string                                                | -         |

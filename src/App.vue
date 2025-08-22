@@ -83,6 +83,14 @@ const handleLoad = () => {
         :loading="switchLoading"
         @change="handleLoad"
       />
+      
+      <h3>方形开关</h3>
+      <Switch v-model="value1D" type="primary" shape="square" />
+      <Switch v-model="value1D" type="success" shape="square" />
+      <Switch v-model="value1D" type="warning" shape="square" />
+      <Switch v-model="value1D" type="danger" shape="square" />
+      <Switch v-model="value1D" shape="square" size="small" type="primary" />
+      <Switch v-model="value1D" shape="square" size="large" type="success" />
     </div>
 
     <div class="component-section">
