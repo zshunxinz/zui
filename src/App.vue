@@ -69,18 +69,18 @@ const closableTabs = ref([
 const handleTabClose = (index) => {
   // 防止关闭最后一个标签页
   if (closableTabs.value.length <= 1) {
-    alert('至少需要保留一个标签页');
+    alert("至少需要保留一个标签页");
     return;
   }
-  
+
   // 从tabs数组中移除对应标签
   closableTabs.value.splice(index, 1);
-  
+
   // 如果关闭的是当前激活的标签页，自动激活前一个标签页
   if (activeClosableTab.value === index) {
     activeClosableTab.value = Math.min(index, closableTabs.value.length - 1);
   }
-}
+};
 
 let switchLoading = ref(false);
 const handleLoad = () => {
@@ -381,7 +381,7 @@ const handleLoad = () => {
     <!-- </div> -->
     <div class="component-section">
       <h2>Tabs 组件</h2>
-      
+
       <h3>默认类型</h3>
       <Tabs v-model="activeTab" :tabs="tabs">
         <template #account>
@@ -392,11 +392,11 @@ const handleLoad = () => {
             </p>
             <div class="form-group">
               <label>Name</label>
-              <input type="text" value="Pedro Duarte" class="form-control" />
+              <Input type="text" value="Pedro Duarte" class="form-control" />
             </div>
             <div class="form-group">
               <label>Username</label>
-              <input type="text" value="@peduarte" class="form-control" />
+              <Input type="text" value="@peduarte" class="form-control" />
             </div>
             <Button type="primary">Save changes</Button>
           </div>
@@ -409,23 +409,30 @@ const handleLoad = () => {
             </p>
             <div class="form-group">
               <label>Current password</label>
-              <input type="password" class="form-control" />
+              <Input type="password" class="form-control" />
             </div>
             <div class="form-group">
               <label>New password</label>
-              <input type="password" class="form-control" />
+              <Input type="password" class="form-control" />
             </div>
             <div class="form-group">
               <label>Confirm new password</label>
-              <input type="password" class="form-control" />
+              <Input type="password" class="form-control" />
             </div>
             <Button type="primary">Save password</Button>
           </div>
         </template>
       </Tabs>
-      
+
       <h3>不同类型展示</h3>
-      <div style="display: flex; flex-direction: column; gap: 20px; margin-top: 20px">
+      <div
+        style="
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          margin-top: 20px;
+        "
+      >
         <Tabs v-model="activeTab" :tabs="tabs" type="primary">
           <template #account>
             <div class="tab-content">
@@ -438,7 +445,7 @@ const handleLoad = () => {
             </div>
           </template>
         </Tabs>
-        
+
         <Tabs v-model="activeTab" :tabs="tabs" type="success">
           <template #account>
             <div class="tab-content">
@@ -451,7 +458,7 @@ const handleLoad = () => {
             </div>
           </template>
         </Tabs>
-        
+
         <Tabs v-model="activeTab" :tabs="tabs" type="warning">
           <template #account>
             <div class="tab-content">
@@ -464,7 +471,7 @@ const handleLoad = () => {
             </div>
           </template>
         </Tabs>
-        
+
         <Tabs v-model="activeTab" :tabs="tabs" type="danger">
           <template #account>
             <div class="tab-content">
@@ -477,7 +484,7 @@ const handleLoad = () => {
             </div>
           </template>
         </Tabs>
-        
+
         <Tabs v-model="activeTab" :tabs="tabs" type="info">
           <template #account>
             <div class="tab-content">
@@ -491,9 +498,14 @@ const handleLoad = () => {
           </template>
         </Tabs>
       </div>
-      
+
       <h3>可关闭标签页</h3>
-      <Tabs v-model="activeClosableTab" :tabs="closableTabs" :closable="true" @tab-close="handleTabClose">
+      <Tabs
+        v-model="activeClosableTab"
+        :tabs="closableTabs"
+        :closable="true"
+        @tab-close="handleTabClose"
+      >
         <template #home>
           <div class="tab-content">
             <h3>首页</h3>
@@ -584,7 +596,8 @@ const handleLoad = () => {
 
 :deep(.custom-checked-class) {
   border: 1px solid rgb(0, 123, 255);
-  box-shadow: 1px 1px 5px 2px linear-gradient(to right, rgb(0, 123, 255), rgb(181, 181, 181)) 1;
+  box-shadow: 1px 1px 5px 2px
+    linear-gradient(to right, rgb(0, 123, 255), rgb(181, 181, 181)) 1;
   background-image: linear-gradient(
     to right,
     rgba(0, 123, 255, 0.05),
@@ -608,10 +621,6 @@ label {
 
 .form-control {
   width: 100%;
-  padding: 8px 12px;
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
-  box-sizing: border-box;
 }
 
 .tab-content {
@@ -634,7 +643,6 @@ label {
 .form-control {
   width: 100%;
   padding: 8px 12px;
-  border: 1px solid var(--color-border);
   border-radius: 4px;
   box-sizing: border-box;
 }
