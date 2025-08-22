@@ -13,7 +13,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { ref, computed } from "vue";
 
 const value = ref("");
-const value1D = ref(false)
+const value1D = ref(false);
 const radioValue = ref("option1");
 // Checkbox 示例数据
 const checked1 = ref(true);
@@ -49,6 +49,16 @@ const value5 = ref("");
 const value6 = ref("");
 const value7 = ref("");
 const value8 = ref("");
+
+let switchLoading = ref(false);
+const handleLoad = () => {
+  if (value1D.value == true) {
+    switchLoading.value = true;
+    setTimeout(() => {
+      switchLoading.value = false;
+    }, 5000);
+  }
+};
 </script>
 
 <template>
@@ -62,7 +72,17 @@ const value8 = ref("");
       <Input v-model="value" placeholder="请输入内容" />
       <h2>开关</h2>
       <Switch v-model="value1D" type="primary" />
-
+      <Switch v-model="value1D" type="success" />
+      <Switch v-model="value1D" type="warning" />
+      <Switch v-model="value1D" type="danger" />
+      <Switch v-model="value1D" type="info" />
+      <Switch v-model="value1D" active-color="red" inactive-color="green" />
+      <Switch
+        v-model="value1D"
+        type="primary"
+        :loading="switchLoading"
+        @change="handleLoad"
+      />
     </div>
 
     <div class="component-section">
@@ -114,25 +134,45 @@ const value8 = ref("");
         </Select>
         <p>当前值: {{ value4 }}</p>
 
-        <Select v-model="value5" type="success" placeholder="成功主题" style="margin-top: 10px">
+        <Select
+          v-model="value5"
+          type="success"
+          placeholder="成功主题"
+          style="margin-top: 10px"
+        >
           <Option label="成功1" value="success1" />
           <Option label="成功2" value="success2" />
         </Select>
         <p>当前值: {{ value5 }}</p>
 
-        <Select v-model="value6" type="warning" placeholder="警告主题" style="margin-top: 10px">
+        <Select
+          v-model="value6"
+          type="warning"
+          placeholder="警告主题"
+          style="margin-top: 10px"
+        >
           <Option label="警告1" value="warning1" />
           <Option label="警告2" value="warning2" />
         </Select>
         <p>当前值: {{ value6 }}</p>
 
-        <Select v-model="value7" type="danger" placeholder="危险主题" style="margin-top: 10px">
+        <Select
+          v-model="value7"
+          type="danger"
+          placeholder="危险主题"
+          style="margin-top: 10px"
+        >
           <Option label="危险1" value="danger1" />
           <Option label="危险2" value="danger2" />
         </Select>
         <p>当前值: {{ value7 }}</p>
 
-        <Select v-model="value8" type="info" placeholder="信息主题" style="margin-top: 10px">
+        <Select
+          v-model="value8"
+          type="info"
+          placeholder="信息主题"
+          style="margin-top: 10px"
+        >
           <Option label="信息1" value="info1" />
           <Option label="信息2" value="info2" />
         </Select>
@@ -151,8 +191,12 @@ const value8 = ref("");
         <Radio v-model="radioValue" :options="radioOptions" shape="tab" />
       </div>
       <div>
-        <Radio v-model="selectedValueCard" :options="radioOptionsCard" shape="card"
-          checked-class="custom-checked-class">
+        <Radio
+          v-model="selectedValueCard"
+          :options="radioOptionsCard"
+          shape="card"
+          checked-class="custom-checked-class"
+        >
           <template #card-option1="{ option }">
             <div class="custom-card-content">
               <div>{{ option.label }}</div>
@@ -208,7 +252,12 @@ const value8 = ref("");
 
       <div class="example-card">
         <h4>Indeterminate 状态</h4>
-        <Checkbox v-model="checkAll" :indeterminate="isIndeterminate" @change="handleCheckAll" label="全选"></Checkbox>
+        <Checkbox
+          v-model="checkAll"
+          :indeterminate="isIndeterminate"
+          @change="handleCheckAll"
+          label="全选"
+        ></Checkbox>
         <CheckboxGroup v-model="indeterminateValue">
           <Checkbox label="项目1"></Checkbox>
           <Checkbox label="项目2"></Checkbox>
@@ -221,21 +270,21 @@ const value8 = ref("");
       <h2>Grid 组件</h2>
       <Row>
         <Col :span="8">
-        <div class="grid-content">Col-8</div>
+          <div class="grid-content">Col-8</div>
         </Col>
         <Col :span="8">
-        <div class="grid-content">Col-8</div>
+          <div class="grid-content">Col-8</div>
         </Col>
         <Col :span="8">
-        <div class="grid-content">Col-8</div>
+          <div class="grid-content">Col-8</div>
         </Col>
       </Row>
       <Row>
         <Col :span="12">
-        <div class="grid-content">Col-12</div>
+          <div class="grid-content">Col-12</div>
         </Col>
         <Col :span="12">
-        <div class="grid-content">Col-12</div>
+          <div class="grid-content">Col-12</div>
         </Col>
       </Row>
     </div>
@@ -308,10 +357,13 @@ const value8 = ref("");
 
 ::v-deep .custom-checked-class {
   border: 1px solid rgb(0, 123, 255);
-  box-shadow: 1px 1px 5px 2px linear-gradient(to right, rgb(0, 123, 255), rgb(181, 181, 181)) 1;
-  background-image: linear-gradient(to right,
-      rgba(0, 123, 255, 0.05),
-      rgba(255, 115, 1, 0.05));
+  box-shadow: 1px 1px 5px 2px
+    linear-gradient(to right, rgb(0, 123, 255), rgb(181, 181, 181)) 1;
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 123, 255, 0.05),
+    rgba(255, 115, 1, 0.05)
+  );
   border-radius: 4px !important;
 }
 
