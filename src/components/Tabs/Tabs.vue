@@ -15,6 +15,13 @@
         v-bind:style="tabStyle"
       >
         {{ tab.label }}
+        <span
+          v-if="props.closable && !tab.disabled"
+          class="x-tabs__close-btn"
+          @click.stop="handleTabClose(index)"
+        >
+          ×
+        </span>
       </div>
     </div>
     <div class="x-tabs__content">
@@ -82,6 +89,10 @@ const handleTabClick = (index: number) => {
   emit("update:modelValue", index);
   emit("tab-click", index);
 };
+
+const handleTabClose = (index: number) => {
+  emit("tab-close", index);
+};
 </script>
 
 <style scoped>
@@ -121,6 +132,20 @@ const handleTabClick = (index: number) => {
 .x-tabs__item:hover:not(.is-active):not(.is-disabled) {
   color: var(--color-default-hover);
   background-color: var(--color-bg-hover);
+}
+
+.x-tabs__close-btn {
+  margin-left: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}
+
+.x-tabs__close-btn:hover {
+  opacity: 1;
+  color: var(--color-danger);
 }
 
 .x-tabs__content {
