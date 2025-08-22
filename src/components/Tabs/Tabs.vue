@@ -137,7 +137,7 @@ const handleTabClick = (index: number) => {
 
 /* Position variations */
 .x-tabs--bottom .x-tabs__nav {
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border-1);
   border-bottom: none;
   order: 2;
 }
@@ -152,7 +152,7 @@ const handleTabClick = (index: number) => {
 
 .x-tabs--left .x-tabs__nav {
   flex-direction: column;
-  border-right: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border-1);
   border-bottom: none;
   width: max-content;
 }
@@ -167,7 +167,7 @@ const handleTabClick = (index: number) => {
 
 .x-tabs--right .x-tabs__nav {
   flex-direction: column;
-  border-left: 1px solid var(--color-border);
+  border-left: 1px solid var(--color-border-1);
   border-bottom: none;
   width: max-content;
   order: 2;

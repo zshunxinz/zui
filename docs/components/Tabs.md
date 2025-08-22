@@ -21,7 +21,12 @@ const tabs1 = [
   { label: "Tab 1", name: "tab1" },
   { label: "Tab 2", name: "tab2" },
 ];
-
+const activeTab2 = ref(0);
+const tabs2 = [
+  { label: "Active", name: "tab1" },
+  { label: "Disabled", name: "tab2", disabled: true },
+  { label: "Another Active", name: "tab3" },
+];
 </script>
 
 <style scoped>
@@ -253,6 +258,29 @@ const tabs = [
 
 支持`small`、`default`和`large`三种尺寸。
 
+<div class="demo-tabs-sizes">
+  <Tabs v-model="activeTab" :tabs="tabs" size="small">
+    <template #tab1>Small Tab Content</template>
+    <template #tab2>Secondary Tab Content</template>
+  </Tabs>
+
+<Tabs v-model="activeTab"
+:tabs="tabs"
+size="default"
+style="margin-top: 20px;">
+<template #tab1>Default Tab Content</template>
+<template #tab2>Secondary Tab Content</template>
+</Tabs>
+<Tabs v-model="activeTab"
+:tabs="tabs"
+size="large"
+style="margin-top: 20px;">
+<template #tab1>Large Tab Content</template>
+<template #tab2>Secondary Tab Content</template>
+</Tabs>
+
+</div>
+
 ```vue
 <template>
   <div class="demo-tabs-sizes">
@@ -297,6 +325,30 @@ const tabs = [
 ## 不同位置
 
 标签页可以放置在`top`、`bottom`、`left`或`right`四个位置。
+
+<div class="demo-tabs-position">
+  <Tabs v-model="activeTab1" :tabs="tabs1" position="top" style="border: 1px solid var(--color-border);padding:10px">
+    <template #tab1>Top Tab Content</template>
+    <template #tab2>Secondary Tab Content</template>
+  </Tabs>
+  <Tabs
+    v-model="activeTab1"
+    :tabs="tabs1"
+    position="bottom"
+    style="margin-top: 20px;border: 1px solid var(--color-border);padding:10px"
+  >
+    <template #tab1>Bottom Tab Content</template>
+    <template #tab2>Secondary Tab Content</template>
+  </Tabs>
+    <Tabs v-model="activeTab1" :tabs="tabs1" position="left" style="margin-top: 20px;border: 1px solid var(--color-border);padding:10px">
+      <template #tab1>Left Tab Content</template>
+      <template #tab2>Secondary Tab Content</template>
+    </Tabs>
+    <Tabs v-model="activeTab1" :tabs="tabs1" position="right" style="margin-top: 20px;border: 1px solid var(--color-border);padding:10px">
+      <template #tab1>Right Tab Content</template>
+      <template #tab2>Secondary Tab Content</template>
+    </Tabs>
+</div>
 
 ```vue
 <template>
@@ -344,6 +396,11 @@ const tabs = [
 ## 禁用标签
 
 可以禁用某些标签页。
+<Tabs v-model="activeTab2" :tabs="tabs2">
+<template #tab1>Active Tab Content</template>
+<template #tab2>Disabled Tab Content</template>
+<template #tab3>Another Active Tab Content</template>
+</Tabs>
 
 ```vue
 <template>
@@ -359,8 +416,8 @@ const tabs = [
 <script setup>
 import { ref } from "vue";
 
-const activeTab = ref(0);
-const tabs = [
+const activeTab2 = ref(0);
+const tabs2 = [
   { label: "Active", name: "tab1" },
   { label: "Disabled", name: "tab2", disabled: true },
   { label: "Another Active", name: "tab3" },
