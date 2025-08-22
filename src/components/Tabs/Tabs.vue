@@ -1,5 +1,8 @@
 <template>
-  <div class="x-tabs" :class="[tabPositionClass, tabTypeClass, tabSizeClass]">
+  <div
+    class="x-tabs"
+    :class="[tabPositionClass, tabTypeClass, tabSizeClass, tabButtonStyleClass]"
+  >
     <div class="x-tabs__nav">
       <div
         v-for="(tab, index) in tabs"
@@ -54,6 +57,7 @@ interface Props {
   type?: "default" | "primary" | "success" | "warning" | "danger" | "info";
   size?: "small" | "default" | "large";
   closable?: boolean;
+  buttonStyle?: boolean;
 }
 
 interface Emits {
@@ -69,6 +73,7 @@ const props = withDefaults(defineProps<Props>(), {
   type: "default",
   size: "default",
   closable: false,
+  buttonStyle: false,
 });
 
 const emit = defineEmits<Emits>();
@@ -78,6 +83,9 @@ const activeTabIndex = ref(props.modelValue);
 const tabPositionClass = computed(() => `x-tabs--${props.position}`);
 const tabTypeClass = computed(() => `x-tabs--${props.type}`);
 const tabSizeClass = computed(() => `x-tabs--${props.size}`);
+const tabButtonStyleClass = computed(() =>
+  props.buttonStyle ? "x-tabs--button" : ""
+);
 
 const tabStyle = computed(() => {
   const style: any = {};
@@ -240,5 +248,124 @@ const handleTabClose = (index: number) => {
 .x-tabs--info .x-tabs__item.is-active {
   color: var(--color-info);
   border-bottom-color: var(--color-info);
+}
+
+/* Button style tabs */
+.x-tabs--button {
+  font-size: 14px;
+  --button-padding: 0.5rem 1rem;
+  --button-border-radius: var(--border-radius-0);
+}
+
+.x-tabs--button .x-tabs__nav {
+  border-bottom: none;
+  gap: 8px;
+  /* padding: 8px 0; */
+}
+
+.x-tabs--button .x-tabs__item {
+  border-bottom: none;
+  padding: var(--button-padding);
+  border: 1px solid var(--color-border-1);
+  border-radius: var(--button-border-radius);
+  background-color: var(--color-bg);
+  transition: all 0.3s ease;
+}
+
+.x-tabs--button .x-tabs__item.is-active {
+  border-color: var(--color-default);
+  background-color: var(--color-default);
+  color: var(--color-text-inverse);
+  font-weight: 500;
+}
+
+.x-tabs--button .x-tabs__item:hover:not(.is-active):not(.is-disabled) {
+  border-color: var(--color-default-hover);
+  color: var(--color-default-hover);
+  background-color: var(--color-bg);
+}
+
+.x-tabs--button.x-tabs--default .x-tabs__item.is-active {
+  border-color: var(--color-default);
+  background-color: var(--color-default);
+  color: var(--color-default-text-1);
+}
+
+.x-tabs--button.x-tabs--primary
+  .x-tabs__item:hover:not(.is-active):not(.is-disabled) {
+  border-color: var(--color-default-hover);
+  color: var(--color-defalut-hover);
+}
+
+/* Button style with different types */
+.x-tabs--button.x-tabs--primary .x-tabs__item.is-active {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary);
+  color: var(--color-primary-text-1);
+}
+
+.x-tabs--button.x-tabs--primary
+  .x-tabs__item:hover:not(.is-active):not(.is-disabled) {
+  border-color: var(--color-primary-hover);
+  color: var(--color-primary-hover);
+}
+
+.x-tabs--button.x-tabs--success .x-tabs__item.is-active {
+  border-color: var(--color-success);
+  background-color: var(--color-success);
+  color: var(--color-default-text-1);
+}
+
+.x-tabs--button.x-tabs--success
+  .x-tabs__item:hover:not(.is-active):not(.is-disabled) {
+  border-color: var(--color-success-hover);
+  color: var(--color-success-hover);
+}
+
+.x-tabs--button.x-tabs--warning .x-tabs__item.is-active {
+  border-color: var(--color-warning);
+  background-color: var(--color-warning);
+  color: var(--color-text-inverse);
+}
+
+.x-tabs--button.x-tabs--warning
+  .x-tabs__item:hover:not(.is-active):not(.is-disabled) {
+  border-color: var(--color-warning-hover);
+  color: var(--color-warning-hover);
+}
+
+.x-tabs--button.x-tabs--danger .x-tabs__item.is-active {
+  border-color: var(--color-danger);
+  background-color: var(--color-danger);
+  color: var(--color-text-inverse);
+}
+
+.x-tabs--button.x-tabs--danger
+  .x-tabs__item:hover:not(.is-active):not(.is-disabled) {
+  border-color: var(--color-danger-hover);
+  color: var(--color-danger-hover);
+}
+
+.x-tabs--button.x-tabs--info .x-tabs__item.is-active {
+  border-color: var(--color-info);
+  background-color: var(--color-info);
+  color: var(--color-text-inverse);
+}
+
+.x-tabs--button.x-tabs--info
+  .x-tabs__item:hover:not(.is-active):not(.is-disabled) {
+  border-color: var(--color-info-hover);
+  color: var(--color-info-hover);
+}
+
+/* Size variations for button style */
+.x-tabs--button.x-tabs--small .x-tabs__item {
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.x-tabs--button.x-tabs--large .x-tabs__item {
+  padding: 12px 20px;
+  font-size: 16px;
 }
 </style>

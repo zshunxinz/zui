@@ -87,6 +87,19 @@ const handlePartialClose = (index) => {
     partialClosableTab.value = Math.min(index, partialClosableTabs.value.length - 1);
   }
 }
+const buttonStyleTab = ref(0);
+const buttonStyleTabs = ref([
+  { label: "按钮 1", name: "btn1" },
+  { label: "按钮 2", name: "btn2" },
+  { label: "按钮 3", name: "btn3" },
+]);
+
+const buttonStyleTypeTab = ref(0);
+const buttonStyleTypeTabs = ref([
+  { label: "按钮样式1", name: "primary1" },
+  { label: "按钮样式2", name: "primary2" },
+  { label: "按钮样式3", name: "primary3" },
+]);
 </script>
 
 <style scoped>
@@ -510,6 +523,163 @@ const tabs2 = [
 </script>
 ```
 
+## 按钮样式
+
+设置`buttonStyle`属性为`true`可以启用按钮样式的标签页，使标签看起来像按钮一样。
+
+<Tabs v-model="buttonStyleTab" :tabs="buttonStyleTabs" buttonStyle="true">
+  <template #btn1>
+    <div class="tab-content">
+      <h3>按钮样式标签页 1</h3>
+      <p>这是按钮样式的标签页内容</p>
+    </div>
+  </template>
+  <template #btn2>
+    <div class="tab-content">
+      <h3>按钮样式标签页 2</h3>
+      <p>这是按钮样式的标签页内容</p>
+    </div>
+  </template>
+  <template #btn3>
+    <div class="tab-content">
+      <h3>按钮样式标签页 3</h3>
+      <p>这是按钮样式的标签页内容</p>
+    </div>
+  </template>
+</Tabs>
+
+```vue
+<template>
+  <div class="demo-tabs-button-style">
+    <Tabs v-model="buttonStyleTab" :tabs="buttonStyleTabs" buttonStyle="true">
+      <template #btn1>
+        <div class="tab-content">
+          <h3>按钮样式标签页 1</h3>
+          <p>这是按钮样式的标签页内容</p>
+        </div>
+      </template>
+      <template #btn2>
+        <div class="tab-content">
+          <h3>按钮样式标签页 2</h3>
+          <p>这是按钮样式的标签页内容</p>
+        </div>
+      </template>
+      <template #btn3>
+        <div class="tab-content">
+          <h3>按钮样式标签页 3</h3>
+          <p>这是按钮样式的标签页内容</p>
+        </div>
+      </template>
+    </Tabs>
+  </div>
+</template>
+
+<script setup>
+import { ref } from "vue";
+
+const buttonStyleTab = ref(0);
+const buttonStyleTabs = ref([
+  { label: "按钮 1", name: "btn1" },
+  { label: "按钮 2", name: "btn2" },
+  { label: "按钮 3", name: "btn3" },
+]);
+</script>
+
+<style scoped>
+.demo-tabs-button-style {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.tab-content {
+  padding: 20px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+}
+</style>
+```
+
+按钮样式可以与不同类型结合使用：
+
+<div class="tabs-button-style-types">
+  <Tabs v-model="buttonStyleTypeTab" :tabs="buttonStyleTypeTabs" buttonStyle="true" type="primary">
+    <template #primary1>
+      <div class="tab-content">
+        <h3>主要按钮样式1</h3>
+        <p>这是主要颜色的按钮样式标签页</p>
+      </div>
+    </template>
+    <template #primary2>
+      <div class="tab-content">
+        <h3>主要按钮样式2</h3>
+        <p>这是主要颜色的按钮样式标签页</p>
+      </div>
+    </template>
+    <template #primary3>
+      <div class="tab-content">
+        <h3>主要按钮样式3</h3>
+        <p>这是主要颜色的按钮样式标签页</p>
+      </div>
+    </template>
+  </Tabs>
+</div>
+
+```vue
+<template>
+  <div class="demo-tabs-button-style-types">
+    <Tabs
+      v-model="buttonStyleTypeTab"
+      :tabs="buttonStyleTypeTabs"
+      buttonStyle="true"
+      type="primary"
+    >
+      <template #primary1>
+        <div class="tab-content">
+          <h3>主要按钮样式</h3>
+          <p>这是主要颜色的按钮样式标签页</p>
+        </div>
+      </template>
+      <template #primary2>
+        <div class="tab-content">
+          <h3>主要按钮样式</h3>
+          <p>这是主要颜色的按钮样式标签页</p>
+        </div>
+      </template>
+      <template #primary3>
+        <div class="tab-content">
+          <h3>主要按钮样式</h3>
+          <p>这是主要颜色的按钮样式标签页</p>
+        </div>
+      </template>
+    </Tabs>
+  </div>
+</template>
+
+<script setup>
+import { ref } from "vue";
+
+const buttonStyleTypeTab = ref(0);
+const buttonStyleTypeTabs = ref([
+  { label: "主要", name: "primary1" },
+  { label: "成功", name: "primary2" },
+  { label: "警告", name: "primary3" },
+]);
+</script>
+
+<style scoped>
+.demo-tabs-button-style-types {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.tab-content {
+  padding: 20px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+}
+</style>
+```
+
 ## 可关闭标签页
 
 ### 全部标签可关闭
@@ -743,14 +913,15 @@ const handlePartialClose = (index) => {
 
 ### Props
 
-| 参数         | 说明                                                                            | 类型         | 默认值    |
-| ------------ | ------------------------------------------------------------------------------- | ------------ | --------- |
-| `modelValue` | 当前激活的标签索引                                                              | `number`     | 0         |
-| `tabs`       | 标签配置数组                                                                    | `Array<Tab>` | `[]`      |
-| `position`   | 标签位置，可选值为 `top`、`bottom`、`left`、`right`                             | `string`     | `top`     |
-| `type`       | 标签类型，可选值为 `default`、`primary`、`success`、`warning`、`danger`、`info` | `string`     | `default` |
-| `size`       | 标签尺寸，可选值为 `small`、`default`、`large`                                  | `string`     | `default` |
-| `closable`   | 是否可关闭标签                                                                  | `boolean`    | `false`   |
+| 参数          | 说明                                                                            | 类型         | 默认值    |
+| ------------- | ------------------------------------------------------------------------------- | ------------ | --------- |
+| `modelValue`  | 当前激活的标签索引                                                              | `number`     | 0         |
+| `tabs`        | 标签配置数组                                                                    | `Array<Tab>` | `[]`      |
+| `position`    | 标签位置，可选值为 `top`、`bottom`、`left`、`right`                             | `string`     | `top`     |
+| `type`        | 标签类型，可选值为 `default`、`primary`、`success`、`warning`、`danger`、`info` | `string`     | `default` |
+| `size`        | 标签尺寸，可选值为 `small`、`default`、`large`                                  | `string`     | `default` |
+| `closable`    | 是否可关闭                                                                      | `boolean`    | `false`   |
+| `buttonStyle` | 是否使用按钮样式的标签页                                                        | `boolean`    | `false`   |
 
 ### Tab 接口
 
