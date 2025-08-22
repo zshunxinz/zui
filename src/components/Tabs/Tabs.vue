@@ -114,6 +114,7 @@ const handleTabClick = (index: number) => {
 
 .x-tabs__item.is-disabled {
   color: var(--color-text-muted);
+  background-color: var(--color-bg-hover);
   cursor: not-allowed;
 }
 
