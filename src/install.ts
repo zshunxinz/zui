@@ -1,29 +1,30 @@
-import './styles/theme.css'
-import './styles/variables.css';
-import { Button } from './components/Button'
-import { ButtonGroup } from './components/ButtonGroup'
-import { Col } from './components/Col'
-import { Input } from './components/Input'
-import { Row } from './components/Row'
-import { Radio } from './components/Radio'
-import { Checkbox } from './components/Checkbox'
-import { CheckboxGroup } from './components/Checkbox'
-import { CheckboxButton } from './components/Checkbox'
-import { Switch } from './components/Switch'
-import { Select, Option, OptionGroup } from './components/Select'
+import "./styles/theme.css";
+import "./styles/variables.css";
+import { Button } from "./components/Button";
+import { ButtonGroup } from "./components/ButtonGroup";
+import { Col } from "./components/Col";
+import { Input } from "./components/Input";
+import { Row } from "./components/Row";
+import { Radio } from "./components/Radio";
+import { Checkbox } from "./components/Checkbox";
+import { CheckboxGroup } from "./components/Checkbox";
+import { CheckboxButton } from "./components/Checkbox";
+import { Switch } from "./components/Switch";
+import { Tabs } from "./components/Tabs";
+import { Select, Option, OptionGroup } from "./components/Select";
 
-import type { App } from 'vue'
+import type { App } from "vue";
 
-import * as components from './components'
+import * as components from "./components";
 
 export default {
   install(app: App) {
     for (const key in components) {
-      const comp = components[key as keyof typeof components]
-      app.component(key, comp)
+      const comp = components[key as keyof typeof components];
+      app.component(key, comp);
     }
-  }
-}
+  },
+};
 
 export {
   Button,
@@ -39,4 +40,5 @@ export {
   Select,
   Option,
   OptionGroup,
-}
+  Tabs,
+};

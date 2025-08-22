@@ -10,6 +10,7 @@ import { Checkbox, CheckboxGroup, CheckboxButton } from "./components/Checkbox";
 import { Select, Option, OptionGroup } from "./components/Select";
 import { Switch } from "./components/Switch";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { Tabs } from "./components/Tabs";
 import { ref, computed } from "vue";
 
 const value = ref("");
@@ -49,6 +50,12 @@ const value5 = ref("");
 const value6 = ref("");
 const value7 = ref("");
 const value8 = ref("");
+
+const activeTab = ref(1);
+const tabs = ref([
+  { label: "Account", name: "account" },
+  { label: "Password", name: "password" },
+]);
 
 let switchLoading = ref(false);
 const handleLoad = () => {
@@ -347,6 +354,119 @@ const handleLoad = () => {
     <!-- <h2>HelloWorld 组件1</h2> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
     <!-- </div> -->
+    <div class="component-section">
+      <h2>Tabs 组件</h2>
+      
+      <h3>默认类型</h3>
+      <Tabs v-model="activeTab" :tabs="tabs">
+        <template #account>
+          <div class="tab-content">
+            <h3>Account</h3>
+            <p>
+              Make changes to your account here. Click save when you're done.
+            </p>
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" value="Pedro Duarte" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label>Username</label>
+              <input type="text" value="@peduarte" class="form-control" />
+            </div>
+            <Button type="primary">Save changes</Button>
+          </div>
+        </template>
+        <template #password>
+          <div class="tab-content">
+            <h3>Password</h3>
+            <p>
+              Change your password here. After saving, you'll be logged out.
+            </p>
+            <div class="form-group">
+              <label>Current password</label>
+              <input type="password" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label>New password</label>
+              <input type="password" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label>Confirm new password</label>
+              <input type="password" class="form-control" />
+            </div>
+            <Button type="primary">Save password</Button>
+          </div>
+        </template>
+      </Tabs>
+      
+      <h3>不同类型展示</h3>
+      <div style="display: flex; flex-direction: column; gap: 20px; margin-top: 20px">
+        <Tabs v-model="activeTab" :tabs="tabs" type="primary">
+          <template #account>
+            <div class="tab-content">
+              <p>Primary 类型内容</p>
+            </div>
+          </template>
+          <template #password>
+            <div class="tab-content">
+              <p>Primary 类型内容</p>
+            </div>
+          </template>
+        </Tabs>
+        
+        <Tabs v-model="activeTab" :tabs="tabs" type="success">
+          <template #account>
+            <div class="tab-content">
+              <p>Success 类型内容</p>
+            </div>
+          </template>
+          <template #password>
+            <div class="tab-content">
+              <p>Success 类型内容</p>
+            </div>
+          </template>
+        </Tabs>
+        
+        <Tabs v-model="activeTab" :tabs="tabs" type="warning">
+          <template #account>
+            <div class="tab-content">
+              <p>Warning 类型内容</p>
+            </div>
+          </template>
+          <template #password>
+            <div class="tab-content">
+              <p>Warning 类型内容</p>
+            </div>
+          </template>
+        </Tabs>
+        
+        <Tabs v-model="activeTab" :tabs="tabs" type="danger">
+          <template #account>
+            <div class="tab-content">
+              <p>Danger 类型内容</p>
+            </div>
+          </template>
+          <template #password>
+            <div class="tab-content">
+              <p>Danger 类型内容</p>
+            </div>
+          </template>
+        </Tabs>
+        
+        <Tabs v-model="activeTab" :tabs="tabs" type="info">
+          <template #account>
+            <div class="tab-content">
+              <p>Info 类型内容</p>
+            </div>
+          </template>
+          <template #password>
+            <div class="tab-content">
+              <p>Info 类型内容</p>
+            </div>
+          </template>
+        </Tabs>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -409,10 +529,9 @@ const handleLoad = () => {
   color: var(--color-primary-hover);
 }
 
-::v-deep .custom-checked-class {
+:deep(.custom-checked-class) {
   border: 1px solid rgb(0, 123, 255);
-  box-shadow: 1px 1px 5px 2px
-    linear-gradient(to right, rgb(0, 123, 255), rgb(181, 181, 181)) 1;
+  box-shadow: 1px 1px 5px 2px linear-gradient(to right, rgb(0, 123, 255), rgb(181, 181, 181)) 1;
   background-image: linear-gradient(
     to right,
     rgba(0, 123, 255, 0.05),
@@ -423,5 +542,47 @@ const handleLoad = () => {
 
 .radio-type-demo {
   padding: 0px;
+}
+.form-group {
+  margin-bottom: 16px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.tab-content {
+  padding: 20px;
+  border: 1px solid var(--color-border);
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 </style>

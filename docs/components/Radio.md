@@ -70,7 +70,7 @@ const typeOptions = [
   color: var(--color-primary-hover);
 }
 
-::v-deep .custom-checked-class {
+:deep(.custom-checked-class) {
   border:1px solid rgb(0, 123, 255);
   box-shadow: 1px 1px 5px 2px linear-gradient(to right, rgb(0, 123, 255), rgb(181, 181, 181)) 1;
   /* background-image: linear-gradient(to right, rgba(200, 200, 200, 0.05), rgba(0, 123, 255, 0.04)); */
@@ -209,7 +209,7 @@ const radioOptionsCard = [
   padding: 16px;
 }
 
-::v-deep .custom-checked-class {
+:deep(.custom-checked-class) {
   border:1px solid rgb(0, 123, 255);
   box-shadow: 1px 1px 5px 2px linear-gradient(to right, rgb(0, 123, 255), rgb(181, 181, 181)) 1;
   background-image: linear-gradient(to right, rgba(0, 123, 255, 0.05), rgba(255, 115, 1, 0.05));

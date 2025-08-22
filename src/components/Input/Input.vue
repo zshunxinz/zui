@@ -1,11 +1,16 @@
 <template>
-  <div 
+  <div
     :class="['x-input', size ? `x-input--${size}` : '', $attrs.class]"
-    :style="[ { width },{height}, $attrs.style ]"
+    :style="[{ width }, { height }, $attrs.style]"
   >
     <label v-if="label" class="x-input__label" :for="id">{{ label }}</label>
-    <div class="x-input__wrapper" :class="{ 'is-disabled': disabled, 'is-clearable': clearable }">
-      <span v-if="prefixIcon" class="x-input__prefix x-input__icon">{{ prefixIcon }}</span>
+    <div
+      class="x-input__wrapper"
+      :class="{ 'is-disabled': disabled, 'is-clearable': clearable }"
+    >
+      <span v-if="prefixIcon" class="x-input__prefix x-input__icon">{{
+        prefixIcon
+      }}</span>
       <textarea
         v-if="type === 'textarea'"
         :id="id"
@@ -53,19 +58,21 @@
         :form="form"
         :tabindex="tabindex"
         class="x-input__inner"
-       @input="handleInput"
+        @input="handleInput"
         @mouseenter="handleMouseEnter"
         @mouseleave="handleMouseLeave"
         @click="handleClick"
         @keydown.enter="handleEnter"
       />
-      <span v-if="suffixIcon" class="x-input__suffix x-input__icon">{{ suffixIcon }}</span>
+      <span v-if="suffixIcon" class="x-input__suffix x-input__icon">{{
+        suffixIcon
+      }}</span>
       <button
         v-if="showPassword && type === 'password'"
         class="x-input__suffix x-input__password"
         @click="showPassword = !showPassword"
       >
-        {{ showPassword ? 'Hide' : 'Show' }}
+        {{ showPassword ? "Hide" : "Show" }}
       </button>
       <button
         v-if="clearable && modelValue && !disabled"
@@ -75,24 +82,25 @@
         ×
       </button>
     </div>
-    <div v-if="showWordLimit && (type === 'text' || type === 'textarea')" class="x-input__word-limit">
+    <div
+      v-if="showWordLimit && (type === 'text' || type === 'textarea')"
+      class="x-input__word-limit"
+    >
       {{ modelValue.length }}/{{ maxlength }}
     </div>
   </div>
 </template>
 
-
-
 <script setup>
-import { ref, watch, computed,onMounted } from 'vue';
+import { ref, watch, computed, onMounted } from "vue";
 
 const props = defineProps({
   prefixIcon: String,
   suffixIcon: String,
   rows: { type: Number, default: 2 },
   autosize: { type: [Boolean, Object], default: false },
-  autocomplete: { type: String, default: 'off' },
-  'auto-complete': { type: String, default: 'off' },
+  autocomplete: { type: String, default: "off" },
+  "auto-complete": { type: String, default: "off" },
   name: String,
   readonly: { type: Boolean, default: false },
   max: [String, Number],
@@ -102,65 +110,82 @@ const props = defineProps({
   autofocus: { type: Boolean, default: false },
   form: String,
   tabindex: String,
-  'validate-event': { type: Boolean, default: true },
+  "validate-event": { type: Boolean, default: true },
   type: {
     type: String,
-    default: 'text',
-    validator: (value) => ['text', 'textarea', 'password', 'number', 'email', 'tel', 'url'].includes(value)
+    default: "text",
+    validator: (value) =>
+      [
+        "text",
+        "textarea",
+        "password",
+        "number",
+        "email",
+        "tel",
+        "url",
+      ].includes(value),
   },
   modelValue: {
     type: [String, Number],
-    default: ''
+    default: "",
   },
   label: {
     type: String,
-    default: ''
+    default: "",
   },
   maxlength: Number,
   minlength: Number,
   showWordLimit: {
     type: Boolean,
-    default: false
+    default: false,
   },
   placeholder: String,
   clearable: {
     type: Boolean,
-    default: false
+    default: false,
   },
   showPassword: {
     type: Boolean,
-    default: false
+    default: false,
   },
   disabled: {
     type: Boolean,
-    default: false
+    default: false,
   },
   size: {
     type: String,
-    validator: (value) => ['medium', 'small', 'mini'].includes(value)
+    validator: (value) => ["medium", "small", "mini"].includes(value),
   },
-  width:{
+  width: {
     type: String,
-    default: '300px'
+    default: "300px",
   },
-  height:{
+  height: {
     type: String,
-    default: '30px'
-  }
+    default: "30px",
+  },
 });
 
-const emit = defineEmits(['update:modelValue', 'input', 'clear', 'mouse-enter', 'mouse-leave', 'click', 'enter']);
+const emit = defineEmits([
+  "update:modelValue",
+  "input",
+  "clear",
+  "mouse-enter",
+  "mouse-leave",
+  "click",
+  "enter",
+]);
 const showPassword = ref(props.showPassword);
 const id = `x-input-${Math.random().toString(36).slice(-8)}`;
 const inputValue = ref(props.modelValue);
 const autosizeStyle = computed(() => {
-  if (typeof props.autosize === 'object') {
+  if (typeof props.autosize === "object") {
     return {
       minHeight: `${props.autosize.minRows || 2}em`,
-      maxHeight: `${props.autosize.maxRows || 6}em`
+      maxHeight: `${props.autosize.maxRows || 6}em`,
     };
   } else if (props.autosize) {
-    return { minHeight: '2em', maxHeight: '6em' };
+    return { minHeight: "2em", maxHeight: "6em" };
   }
   return {};
 });
@@ -184,19 +209,19 @@ const textareaRef = ref(null);
 
 const adjustTextareaHeight = () => {
   if (textareaRef.value && props.autosize) {
-    textareaRef.value.style.height = 'auto';
+    textareaRef.value.style.height = "auto";
     textareaRef.value.style.height = `${textareaRef.value.scrollHeight}px`;
   }
 };
 
 const handleInput = (e) => {
   inputValue.value = e.target.value;
-  emit('update:modelValue', e.target.value);
-  emit('input', e.target.value);
-  if (props['validate-event']) {
-    emit('validate-event', e.target.value);
+  emit("update:modelValue", e.target.value);
+  emit("input", e.target.value);
+  if (props["validate-event"]) {
+    emit("validate-event", e.target.value);
   }
-  if (props.autosize && e.target.tagName === 'TEXTAREA') {
+  if (props.autosize && e.target.tagName === "TEXTAREA") {
     adjustTextareaHeight();
   }
 };
@@ -206,24 +231,24 @@ onMounted(() => {
 });
 
 const clear = () => {
-  emit('update:modelValue', '');
-  emit('clear');
+  emit("update:modelValue", "");
+  emit("clear");
 };
 
 const handleMouseEnter = () => {
-  emit('mouse-enter');
+  emit("mouse-enter");
 };
 
 const handleMouseLeave = () => {
-  emit('mouse-leave');
+  emit("mouse-leave");
 };
 
 const handleClick = () => {
-  emit('click');
+  emit("click");
 };
 
 const handleEnter = () => {
-  emit('enter', inputValue.value);
+  emit("enter", inputValue.value);
 };
 </script>
 
@@ -245,7 +270,7 @@ const handleEnter = () => {
   position: relative;
   display: inline-flex;
   width: 100%;
-  height: v-bind('height');
+  height: v-bind("height");
 }
 
 .x-input__inner {
@@ -253,9 +278,11 @@ const handleEnter = () => {
   min-width: 0;
   padding: 8px 12px;
   padding-left: v-bind('prefixIcon ? "36px" : "12px"');
-  padding-right: v-bind('suffixIcon || showPassword || clearable ? "36px" : "12px"');
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
+  padding-right: v-bind(
+    'suffixIcon || showPassword || clearable ? "36px" : "12px"'
+  );
+  border: 1px solid var(--color-border-1);
+  border-radius: var(--border-radius-0);
   font-size: 14px;
   line-height: 1.5;
   color: var(--color-text-primary);
@@ -279,7 +306,7 @@ const handleEnter = () => {
 
 .x-input__inner:focus {
   outline: none;
-  border-color: var(--color-primary);
+  border-color: var(--color-default);
 }
 
 .x-input__inner:disabled {
