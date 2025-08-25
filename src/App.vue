@@ -11,6 +11,7 @@ import { Select, Option, OptionGroup } from "./components/Select";
 import { Switch } from "./components/Switch";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Tabs } from "./components/Tabs";
+import { Card } from "./components/Card";
 import { ref, computed } from "vue";
 
 const value = ref("");
@@ -190,6 +191,138 @@ const handleLoad = () => {
         <Button type="primary">Middle</Button>
         <Button type="primary">Right</Button>
       </ButtonGroup>
+    </div>
+
+    <div class="component-section">
+      <h2>Card 组件</h2>
+      
+      <!-- 默认卡片 -->
+      <Card title="基本卡片">
+        <div class="card-content">
+          这是一个基本的卡片组件示例
+        </div>
+      </Card>
+      
+      <!-- 不同类型的卡片 -->
+      <div class="card-group">
+        <Card title="主卡片" type="primary" class="card-item">
+          <div class="card-content">
+            主类型卡片示例
+          </div>
+        </Card>
+        <Card title="成功卡片" type="success" class="card-item">
+          <div class="card-content">
+            成功类型卡片示例
+          </div>
+        </Card>
+        <Card title="警告卡片" type="warning" class="card-item">
+          <div class="card-content">
+            警告类型卡片示例
+          </div>
+        </Card>
+        <Card title="危险卡片" type="danger" class="card-item">
+          <div class="card-content">
+            危险类型卡片示例
+          </div>
+        </Card>
+        <Card title="信息卡片" type="info" class="card-item">
+          <div class="card-content">
+            信息类型卡片示例
+          </div>
+        </Card>
+      </div>
+      
+      <!-- 可折叠卡片 -->
+      <Card title="可折叠卡片" collapsible class="card-item">
+        <div class="card-content">
+          这是一个可折叠的卡片，点击右上角的箭头可以展开或收起内容
+        </div>
+      </Card>
+      
+      <!-- 带底部的卡片 -->
+      <Card title="带底部的卡片" class="card-item">
+        <div class="card-content">
+          这是一个带底部的卡片，底部可以放置操作按钮
+        </div>
+        <template #footer>
+          <Button type="primary">主要按钮</Button>
+          <Button>次要按钮</Button>
+        </template>
+      </Card>
+      
+      <!-- 自定义头部的卡片 -->
+      <Card class="card-item">
+        <template #header>
+          <div style="display: flex; align-items: center;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+              <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/>
+              <line x1="3" x2="21" y1="9" y2="9"/>
+              <line x1="9" x2="9" y1="21" y2="9"/>
+            </svg>
+            <h3 style="margin: 0; font-size: 16px;">自定义头部卡片</h3>
+          </div>
+        </template>
+        <div class="card-content">
+          这是一个自定义头部的卡片示例
+        </div>
+      </Card>
+
+      <!-- 带右上角插槽的卡片 -->
+      <div class="card-group">
+        <Card title="带右上角操作的卡片" class="card-item">
+          <template #topRight>
+            <Button size="small" type="link">More</Button>
+          </template>
+          <div class="card-content">
+            这是一张带有右上角操作的卡片
+          </div>
+        </Card>
+
+        <!-- 带底部左右插槽的卡片 -->
+        <Card title="带底部多区域的卡片" class="card-item">
+          <div class="card-content">
+            这张卡片的底部有左中右三个区域
+          </div>
+          <template #bottomLeft>
+            <span style="color: #666;">2023-10-01</span>
+          </template>
+          <template #footer>
+            <Button>中间按钮</Button>
+          </template>
+          <template #bottomRight>
+            <Button size="small" type="text">查看详情</Button>
+          </template>
+        </Card>
+      </div>
+
+      <!-- 带悬浮效果的卡片 -->
+      <Card title="悬浮效果卡片" hoverable class="card-item">
+        <div class="card-content">
+          鼠标悬停在这张卡片上会有悬浮效果
+        </div>
+      </Card>
+
+      <!-- 无边框卡片 -->
+      <Card title="无边框卡片" :border="false" class="card-item">
+        <div class="card-content">
+          这是一张没有边框的卡片
+        </div>
+      </Card>
+
+      <!-- 灵活布局卡片 -->
+      <div style="height: 200px; margin: 16px 0;">
+        <Card title="灵活布局卡片" layout="flexible" class="card-item">
+          <div class="card-content">
+            这张卡片会自适应父容器的高度
+          </div>
+          <div style="flex: 1; display: flex; align-items: flex-end;">
+            <div class="card-content">内容将填充剩余空间</div>
+          </div>
+        </Card>
+      </div>
+
+      <!-- 骨架屏卡片 -->
+      <Card skeleton class="card-item"></Card>
     </div>
     <div class="component-section">
       <div>
@@ -564,6 +697,36 @@ const handleLoad = () => {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+}
+
+/* Card组件相关样式 */
+.card-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.card-item {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+@media (min-width: 768px) {
+  .card-group .card-item {
+    width: calc((100% - 32px) / 2);
+  }
+}
+
+@media (min-width: 1024px) {
+  .card-group .card-item {
+    width: calc((100% - 48px) / 3);
+  }
+}
+
+.card-content {
+  color: var(--color-text-2);
+  line-height: 1.6;
 }
 
 .radio-group {

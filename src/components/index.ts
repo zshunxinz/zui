@@ -12,6 +12,8 @@ import { CheckboxButton } from "./Checkbox";
 import { Switch } from "./Switch";
 import { Tabs } from "./Tabs";
 import { Select, Option, OptionGroup } from "./Select";
+import { Input } from "./Input";
+import { Card } from "./Card";
 
 const install = (app: any) => {
   app.component("GridRow", Row);
@@ -28,6 +30,7 @@ const install = (app: any) => {
   app.component("Select", Select);
   app.component("Option", Option);
   app.component("OptionGroup", OptionGroup);
+  app.component("Card", Card);
 };
 
 // 支持 use 方式安装
@@ -50,4 +53,5 @@ export {
   Option,
   OptionGroup,
   Tabs,
+  Card,
 };
