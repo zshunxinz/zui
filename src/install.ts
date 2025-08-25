@@ -11,6 +11,7 @@ import { CheckboxGroup } from "./components/Checkbox";
 import { CheckboxButton } from "./components/Checkbox";
 import { Switch } from "./components/Switch";
 import { Tabs } from "./components/Tabs";
+import { Card } from "./components/Card";
 import { Select, Option, OptionGroup } from "./components/Select";
 
 import type { App } from "vue";
@@ -41,4 +42,5 @@ export {
   Option,
   OptionGroup,
   Tabs,
+  Card,
 };

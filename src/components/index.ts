@@ -12,7 +12,6 @@ import { CheckboxButton } from "./Checkbox";
 import { Switch } from "./Switch";
 import { Tabs } from "./Tabs";
 import { Select, Option, OptionGroup } from "./Select";
-import { Input } from "./Input";
 import { Card } from "./Card";
 
 const install = (app: any) => {

@@ -209,8 +209,19 @@ const textareaRef = ref(null);
 
 const adjustTextareaHeight = () => {
   if (textareaRef.value && props.autosize) {
+    // 保存当前内容
+    const currentValue = textareaRef.value.value;
+    // 重置高度并强制重绘
     textareaRef.value.style.height = "auto";
-    textareaRef.value.style.height = `${textareaRef.value.scrollHeight}px`;
+    textareaRef.value.value = "";
+    textareaRef.value.value = currentValue;
+    // 设置最小高度
+    const minHeight = `${props.rows || 2}em`;
+    // 获取计算后的高度
+    const computedHeight = `${textareaRef.value.scrollHeight}px`;
+    // 应用样式
+    textareaRef.value.style.minHeight = minHeight;
+    textareaRef.value.style.height = computedHeight;
   }
 };
 
@@ -270,7 +281,8 @@ const handleEnter = () => {
   position: relative;
   display: inline-flex;
   width: 100%;
-  height: v-bind("height");
+  height: v-bind("type === 'textarea' && autosize ? 'auto' : height");
+  align-items: flex-start;
 }
 
 .x-input__inner {

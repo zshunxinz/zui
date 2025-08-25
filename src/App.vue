@@ -3,94 +3,153 @@ import { Button } from "@/components/Button";
 import { ButtonGroup } from "@/components/ButtonGroup";
 import { Col } from "@/components/Col";
 import { Row } from "@/components/Row";
-import { HelloWorld } from "@/components/HelloWorld";
 import { Input } from "@/components/Input";
 import { Radio } from "./components/Radio";
-import { Checkbox, CheckboxGroup, CheckboxButton } from "./components/Checkbox";
-import { Select, Option, OptionGroup } from "./components/Select";
+import { Checkbox, CheckboxGroup } from "./components/Checkbox";
+import { Select, Option } from "./components/Select";
 import { Switch } from "./components/Switch";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Tabs } from "./components/Tabs";
 import { Card } from "./components/Card";
-import { ref, computed } from "vue";
+import { ref } from "vue";
 
-const value = ref("");
-const value1D = ref(false);
-const radioValue = ref("option1");
-// Checkbox 示例数据
-const checked1 = ref(true);
-const checked2 = ref(false);
-const checkboxGroupValue = ref(["选项1", "选项3"]);
-const buttonGroupValue = ref(["A"]);
-const checkAll = ref(false);
-const indeterminateValue = ref(["项目1", "项目2"]);
-const isIndeterminate = computed(() => {
-  return (
-    indeterminateValue.value.length > 0 && indeterminateValue.value.length < 3
-  );
+// 表单数据
+const formData = ref({
+  // 基本信息
+  name: "",
+  email: "",
+  phone: "",
+  gender: "male",
+  // 地址信息
+  address: "",
+  city: "",
+  province: "",
+  zipCode: "",
+  // 偏好设置
+  notifications: true,
+  preferredContact: "email",
+  interests: [],
 });
 
-const handleCheckAll = (val) => {
-  indeterminateValue.value = val ? ["项目1", "项目2", "项目3"] : [];
-};
+// 表单验证错误
+const errors = ref({});
 
-const radioOptions = ref([
-  { label: "Tab 1", value: "tab1" },
-  { label: "Tab 2", value: "tab2" },
-  { label: "Tab 3", value: "tab3" },
-]);
-const selectedValueCard = ref("option1");
-const radioOptionsCard = [
-  { label: "HTML", value: "option1", text: "html是超文本标记语言" },
-  { label: "CSS", value: "option2", text: "css是层叠样式表" },
-  { label: "JavaScript", value: "option3", text: "JavaScript是脚本语言" },
+// 选项数据
+const genderOptions = [
+  { label: "男", value: "male" },
+  { label: "女", value: "female" },
+  { label: "其他", value: "other" },
 ];
-const value3 = ref([]);
-const value4 = ref("");
-const value5 = ref("");
-const value6 = ref("");
-const value7 = ref("");
-const value8 = ref("");
 
-const activeTab = ref(1);
+const provinceOptions = [
+  { label: "北京", value: "beijing" },
+  { label: "上海", value: "shanghai" },
+  { label: "广东", value: "guangdong" },
+  { label: "江苏", value: "jiangsu" },
+  { label: "浙江", value: "zhejiang" },
+];
+
+const contactOptions = [
+  { label: "电子邮件", value: "email" },
+  { label: "电话", value: "phone" },
+  { label: "短信", value: "sms" },
+];
+
+const interestOptions = [
+  { label: "运动", value: "sports" },
+  { label: "音乐", value: "music" },
+  { label: "阅读", value: "reading" },
+  { label: "旅行", value: "travel" },
+  { label: "编程", value: "coding" },
+];
+
+// Tabs 数据
+const activeTab = ref(0);
 const tabs = ref([
-  { label: "Account", name: "account" },
-  { label: "Password", name: "password" },
+  { label: "基本信息", name: "basic" },
+  { label: "地址信息", name: "address" },
+  { label: "偏好设置", name: "preferences" },
 ]);
 
-// 可关闭的标签页示例
-const activeClosableTab = ref(0);
-const closableTabs = ref([
-  { label: "Home", name: "home" },
-  { label: "Products", name: "products" },
-  { label: "Services", name: "services" },
-  { label: "About", name: "about" },
-]);
+// 表单验证函数
+const validateForm = () => {
+  let isValid = true;
+  errors.value = {};
 
-const handleTabClose = (index) => {
-  // 防止关闭最后一个标签页
-  if (closableTabs.value.length <= 1) {
-    alert("至少需要保留一个标签页");
-    return;
+  // 验证基本信息
+  if (!formData.value.name.trim()) {
+    errors.value.name = "姓名不能为空";
+    isValid = false;
   }
 
-  // 从tabs数组中移除对应标签
-  closableTabs.value.splice(index, 1);
+  if (!formData.value.email.trim()) {
+    errors.value.email = "邮箱不能为空";
+    isValid = false;
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.value.email)) {
+    errors.value.email = "邮箱格式不正确";
+    isValid = false;
+  }
 
-  // 如果关闭的是当前激活的标签页，自动激活前一个标签页
-  if (activeClosableTab.value === index) {
-    activeClosableTab.value = Math.min(index, closableTabs.value.length - 1);
+  if (!formData.value.phone.trim()) {
+    errors.value.phone = "电话不能为空";
+    isValid = false;
+  } else if (!/^1[3-9]\d{9}$/.test(formData.value.phone)) {
+    errors.value.phone = "手机号码格式不正确";
+    isValid = false;
+  }
+
+  // 验证地址信息
+  if (activeTab.value === "address" || activeTab.value === "preferences") {
+    if (!formData.value.address.trim()) {
+      errors.value.address = "地址不能为空";
+      isValid = false;
+    }
+
+    if (!formData.value.city.trim()) {
+      errors.value.city = "城市不能为空";
+      isValid = false;
+    }
+
+    if (!formData.value.province) {
+      errors.value.province = "请选择省份";
+      isValid = false;
+    }
+
+    if (!formData.value.zipCode.trim()) {
+      errors.value.zipCode = "邮政编码不能为空";
+      isValid = false;
+    } else if (!/^\d{6}$/.test(formData.value.zipCode)) {
+      errors.value.zipCode = "邮政编码格式不正确";
+      isValid = false;
+    }
+  }
+
+  return isValid;
+};
+
+// 表单提交函数
+const submitForm = () => {
+  if (validateForm()) {
+    alert("表单提交成功！\n" + JSON.stringify(formData.value, null, 2));
   }
 };
 
-let switchLoading = ref(false);
-const handleLoad = () => {
-  if (value1D.value == true) {
-    switchLoading.value = true;
-    setTimeout(() => {
-      switchLoading.value = false;
-    }, 5000);
-  }
+// 表单重置函数
+const resetForm = () => {
+  formData.value = {
+    name: "",
+    email: "",
+    phone: "",
+    gender: "male",
+    address: "",
+    city: "",
+    province: "",
+    zipCode: "",
+    notifications: true,
+    preferredContact: "email",
+    interests: [],
+  };
+  errors.value = {};
 };
 </script>
 
@@ -100,171 +159,258 @@ const handleLoad = () => {
       <ThemeToggle />
     </div>
 
-    <div class="component-section">
-      <h2>Input 组件</h2>
-      <Input v-model="value" placeholder="请输入内容" />
-      <h2>开关</h2>
-      <Switch v-model="value1D" type="primary" />
-      <Switch v-model="value1D" type="success" />
-      <Switch v-model="value1D" type="warning" />
-      <Switch v-model="value1D" type="danger" />
-      <Switch v-model="value1D" type="info" />
-      <Switch v-model="value1D" active-color="red" inactive-color="green" />
-      <Switch
-        v-model="value1D"
-        type="primary"
-        :loading="switchLoading"
-        @change="handleLoad"
-      />
-      <Switch v-model="value1D" type="default">
-        <template #icon>
-          <div v-if="!value1D">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-sun-icon lucide-sun"
-            >
-              <circle cx="12" cy="12" r="4" />
-              <path d="M12 2v2" />
-              <path d="M12 20v2" />
-              <path d="m4.93 4.93 1.41 1.41" />
-              <path d="m17.66 17.66 1.41 1.41" />
-              <path d="M2 12h2" />
-              <path d="M20 12h2" />
-              <path d="m6.34 17.66-1.41 1.41" />
-              <path d="m19.07 4.93-1.41 1.41" />
-            </svg>
-          </div>
-          <div v-else>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-moon-icon lucide-moon"
-            >
-              <path
-                d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"
-              />
-            </svg>
+    <Card style="margin: 20px">
+      <Tabs v-model="activeTab" :tabs="tabs">
+        <!-- 基本信息标签页 -->
+        <template #basic>
+          <div class="form-content">
+            <Row :gutter="16">
+              <Col :span="24">
+                <div class="form-group">
+                  <label for="name">姓名 <span class="required">*</span></label>
+                  <Input
+                    id="name"
+                    v-model="formData.name"
+                    placeholder="请输入您的姓名"
+                    :error-message="errors.name"
+                  />
+                </div>
+              </Col>
+
+              <Col :span="24">
+                <div class="form-group">
+                  <label for="email"
+                    >邮箱 <span class="required">*</span></label
+                  >
+                  <Input
+                    id="email"
+                    v-model="formData.email"
+                    type="email"
+                    placeholder="请输入您的邮箱"
+                    :error-message="errors.email"
+                  />
+                </div>
+              </Col>
+
+              <Col :span="24">
+                <div class="form-group">
+                  <label for="phone"
+                    >电话 <span class="required">*</span></label
+                  >
+                  <Input
+                    id="phone"
+                    v-model="formData.phone"
+                    placeholder="请输入您的手机号码"
+                    :error-message="errors.phone"
+                  />
+                </div>
+              </Col>
+
+              <Col :span="24">
+                <div class="form-group">
+                  <label>性别</label>
+                  <Radio
+                    v-model="formData.gender"
+                    :options="genderOptions"
+                    shape="button"
+                  />
+                </div>
+              </Col>
+            </Row>
           </div>
         </template>
-      </Switch>
 
-      <h3>方形开关</h3>
-      <Switch v-model="value1D" type="primary" shape="square" />
-      <Switch v-model="value1D" type="success" shape="square" />
-      <Switch v-model="value1D" type="warning" shape="square" />
-      <Switch v-model="value1D" type="danger" shape="square" />
-      <Switch v-model="value1D" shape="square" size="small" type="primary" />
-      <Switch v-model="value1D" shape="square" size="large" type="success" />
-    </div>
+        <!-- 地址信息标签页 -->
+        <template #address>
+          <div class="form-content">
+            <Row :gutter="16">
+              <Col :span="24">
+                <div class="form-group">
+                  <label for="address"
+                    >详细地址 <span class="required">*</span></label
+                  >
+                  <Input
+                    id="address"
+                    v-model="formData.address"
+                    type="textarea"
+                    rows="1"
+                    placeholder="请输入您的详细地址"
+                    :error-message="errors.address"
+                  />
+                </div>
+              </Col>
 
-    <div class="component-section">
-      <h2>Button 组件</h2>
-      <div class="button-group">
-        <Button>Default Button</Button>
-        <Button type="primary">Primary Button</Button>
-        <Button type="success">Success Button</Button>
-        <Button type="warning">Warning Button</Button>
-        <Button type="danger">Danger Button</Button>
-        <Button type="info">Info Button</Button>
+              <Col :span="24">
+                <div class="form-group">
+                  <label for="province"
+                    >省份 <span class="required">*</span></label
+                  >
+                  <Select
+                    id="province"
+                    v-model="formData.province"
+                    placeholder="请选择省份"
+                    :error-message="errors.province"
+                  >
+                    <Option
+                      v-for="option in provinceOptions"
+                      :key="option.value"
+                      :label="option.label"
+                      :value="option.value"
+                    ></Option>
+                  </Select>
+                </div>
+              </Col>
+
+              <Col :span="24">
+                <div class="form-group">
+                  <label for="city">城市 <span class="required">*</span></label>
+                  <Input
+                    id="city"
+                    v-model="formData.city"
+                    placeholder="请输入城市名称"
+                    :error-message="errors.city"
+                  />
+                </div>
+              </Col>
+
+              <Col :span="24">
+                <div class="form-group">
+                  <label for="zipCode"
+                    >邮政编码 <span class="required">*</span></label
+                  >
+                  <Input
+                    id="zipCode"
+                    v-model="formData.zipCode"
+                    placeholder="请输入邮政编码"
+                    :error-message="errors.zipCode"
+                  />
+                </div>
+              </Col>
+            </Row>
+          </div>
+        </template>
+
+        <!-- 偏好设置标签页 -->
+        <template #preferences>
+          <div class="form-content">
+            <Row :gutter="16">
+              <Col :span="24">
+                <div class="form-group">
+                  <label>接收通知</label>
+                  <Switch
+                    v-model="formData.notifications"
+                    active-text="开启"
+                    inactive-text="关闭"
+                  />
+                </div>
+              </Col>
+
+              <Col :span="24">
+                <div class="form-group">
+                  <label>首选联系方式</label>
+                  <Radio
+                    v-model="formData.preferredContact"
+                    :options="contactOptions"
+                    shape="radio"
+                  />
+                </div>
+              </Col>
+
+              <Col :span="24">
+                <div class="form-group">
+                  <label>兴趣爱好</label>
+                  <CheckboxGroup v-model="formData.interests">
+                    <Checkbox
+                      v-for="option in interestOptions"
+                      :key="option.value"
+                      :label="option.label"
+                      >{{ option.label }}</Checkbox
+                    >
+                  </CheckboxGroup>
+                </div>
+              </Col>
+            </Row>
+          </div>
+        </template>
+      </Tabs>
+
+      <div class="button-group" style="margin-top: 20px">
+        <Button @click="submitForm">提交</Button>
+        <Button text bg @click="resetForm">重置</Button>
       </div>
-    </div>
-
-    <div class="component-section">
-      <h2>ButtonGroup 组件</h2>
-      <ButtonGroup>
-        <Button type="primary">Left</Button>
-        <Button type="primary">Middle</Button>
-        <Button type="primary">Right</Button>
-      </ButtonGroup>
-    </div>
+    </Card>
 
     <div class="component-section">
       <h2>Card 组件</h2>
-      
+
       <!-- 默认卡片 -->
       <Card title="基本卡片">
-        <div class="card-content">
-          这是一个基本的卡片组件示例
-        </div>
+        <div class="card-content">这是一个基本的卡片组件示例</div>
       </Card>
-      
+
       <!-- 不同类型的卡片 -->
       <div class="card-group">
         <Card title="主卡片" type="primary" class="card-item">
-          <div class="card-content">
-            主类型卡片示例
-          </div>
+          <div class="card-content">主类型卡片示例</div>
         </Card>
         <Card title="成功卡片" type="success" class="card-item">
-          <div class="card-content">
-            成功类型卡片示例
-          </div>
+          <div class="card-content">成功类型卡片示例</div>
         </Card>
         <Card title="警告卡片" type="warning" class="card-item">
-          <div class="card-content">
-            警告类型卡片示例
-          </div>
+          <div class="card-content">警告类型卡片示例</div>
         </Card>
         <Card title="危险卡片" type="danger" class="card-item">
-          <div class="card-content">
-            危险类型卡片示例
-          </div>
+          <div class="card-content">危险类型卡片示例</div>
         </Card>
         <Card title="信息卡片" type="info" class="card-item">
-          <div class="card-content">
-            信息类型卡片示例
-          </div>
+          <div class="card-content">信息类型卡片示例</div>
         </Card>
       </div>
-      
+
       <!-- 可折叠卡片 -->
       <Card title="可折叠卡片" collapsible class="card-item">
         <div class="card-content">
           这是一个可折叠的卡片，点击右上角的箭头可以展开或收起内容
         </div>
       </Card>
-      
+
       <!-- 带底部的卡片 -->
       <Card title="带底部的卡片" class="card-item">
         <div class="card-content">
           这是一个带底部的卡片，底部可以放置操作按钮
         </div>
         <template #footer>
-          <Button type="primary">主要按钮</Button>
-          <Button>次要按钮</Button>
+          <div style="display: flex; gap: 20px">
+            <Button>确认问题</Button>
+            <Button text bg>次要按钮</Button>
+          </div>
         </template>
       </Card>
-      
+
       <!-- 自定义头部的卡片 -->
       <Card class="card-item">
         <template #header>
-          <div style="display: flex; align-items: center;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
-              <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/>
-              <line x1="3" x2="21" y1="9" y2="9"/>
-              <line x1="9" x2="9" y1="21" y2="9"/>
+          <div style="display: flex; align-items: center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              style="margin-right: 8px"
+            >
+              <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+              <line x1="3" x2="21" y1="9" y2="9" />
+              <line x1="9" x2="9" y1="21" y2="9" />
             </svg>
-            <h3 style="margin: 0; font-size: 16px;">自定义头部卡片</h3>
+            <h3 style="margin: 0; font-size: 16px">自定义头部卡片</h3>
           </div>
         </template>
-        <div class="card-content">
-          这是一个自定义头部的卡片示例
-        </div>
+        <div class="card-content">这是一个自定义头部的卡片示例</div>
       </Card>
 
       <!-- 带右上角插槽的卡片 -->
@@ -273,18 +419,14 @@ const handleLoad = () => {
           <template #topRight>
             <Button size="small" type="link">More</Button>
           </template>
-          <div class="card-content">
-            这是一张带有右上角操作的卡片
-          </div>
+          <div class="card-content">这是一张带有右上角操作的卡片</div>
         </Card>
 
         <!-- 带底部左右插槽的卡片 -->
         <Card title="带底部多区域的卡片" class="card-item">
-          <div class="card-content">
-            这张卡片的底部有左中右三个区域
-          </div>
+          <div class="card-content">这张卡片的底部有左中右三个区域</div>
           <template #bottomLeft>
-            <span style="color: #666;">2023-10-01</span>
+            <span style="color: #666">2023-10-01</span>
           </template>
           <template #footer>
             <Button>中间按钮</Button>
@@ -297,25 +439,19 @@ const handleLoad = () => {
 
       <!-- 带悬浮效果的卡片 -->
       <Card title="悬浮效果卡片" hoverable class="card-item">
-        <div class="card-content">
-          鼠标悬停在这张卡片上会有悬浮效果
-        </div>
+        <div class="card-content">鼠标悬停在这张卡片上会有悬浮效果</div>
       </Card>
 
       <!-- 无边框卡片 -->
       <Card title="无边框卡片" :border="false" class="card-item">
-        <div class="card-content">
-          这是一张没有边框的卡片
-        </div>
+        <div class="card-content">这是一张没有边框的卡片</div>
       </Card>
 
       <!-- 灵活布局卡片 -->
-      <div style="height: 200px; margin: 16px 0;">
+      <div style="height: 200px; margin: 16px 0">
         <Card title="灵活布局卡片" layout="flexible" class="card-item">
-          <div class="card-content">
-            这张卡片会自适应父容器的高度
-          </div>
-          <div style="flex: 1; display: flex; align-items: flex-end;">
+          <div class="card-content">这张卡片会自适应父容器的高度</div>
+          <div style="flex: 1; display: flex; align-items: flex-end">
             <div class="card-content">内容将填充剩余空间</div>
           </div>
         </Card>

@@ -1,5 +1,5 @@
 <template>
-  <div 
+  <div
     class="x-card"
     :class="[
       cardTypeClass,
@@ -10,9 +10,29 @@
         'x-card--border': border,
         'x-card--no-radius': borderRadius === 0,
         'x-card--disabled': disabled,
-        'x-card--hover': hoverable
-      }
+        'x-card--hover': hoverable,
+      },
     ]"
+    :style="{
+      width:
+        width !== undefined
+          ? typeof width === 'number'
+            ? `${width}px`
+            : width
+          : undefined,
+      height:
+        height !== undefined
+          ? typeof height === 'number'
+            ? `${height}px`
+            : height
+          : undefined,
+      padding:
+        padding !== undefined
+          ? typeof padding === 'number'
+            ? `${padding}px`
+            : padding
+          : undefined,
+    }"
   >
     <!-- 右上角插槽 -->
     <div v-if="$slots.topRight" class="x-card__top-right">
@@ -20,11 +40,11 @@
     </div>
 
     <!-- 卡片头部 -->
-    <div 
+    <div
       v-if="showHeader"
       class="x-card__header"
       :class="{
-        'x-card__header--with-border': headerBorder
+        'x-card__header--with-border': headerBorder,
       }"
     >
       <div class="x-card__header-content">
@@ -33,51 +53,48 @@
         </slot>
       </div>
       <div v-if="collapsible" class="x-card__header-extra">
-        <button 
+        <button
           class="x-card__collapse-btn"
           @click="toggleCollapse"
           type="button"
           aria-label="Toggle collapse"
         >
-          <svg 
+          <svg
             v-if="isExpanded"
-            xmlns="http://www.w3.org/2000/svg" 
-            width="16" 
-            height="16" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="currentColor" 
-            stroke-width="2" 
-            stroke-linecap="round" 
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
             stroke-linejoin="round"
             class="x-card__collapse-icon"
           >
-            <path d="M6 9l6 6 6-6"/>
+            <path d="M6 9l6 6 6-6" />
           </svg>
-          <svg 
+          <svg
             v-else
-            xmlns="http://www.w3.org/2000/svg" 
-            width="16" 
-            height="16" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="currentColor" 
-            stroke-width="2" 
-            stroke-linecap="round" 
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
             stroke-linejoin="round"
             class="x-card__collapse-icon"
           >
-            <path d="M18 15l-6-6-6 6"/>
+            <path d="M18 15l-6-6-6 6" />
           </svg>
         </button>
       </div>
     </div>
 
     <!-- 卡片内容 -->
-    <div 
-      v-if="!collapsible || isExpanded"
-      class="x-card__body"
-    >
+    <div v-if="!collapsible || isExpanded" class="x-card__body">
       <template v-if="skeleton">
         <div class="x-card__skeleton">
           <div class="x-card__skeleton-image"></div>
@@ -92,11 +109,11 @@
     </div>
 
     <!-- 卡片底部 -->
-    <div 
+    <div
       v-if="showFooter"
       class="x-card__footer"
       :class="{
-        'x-card__footer--with-border': footerBorder
+        'x-card__footer--with-border': footerBorder,
       }"
     >
       <div v-if="$slots.bottomLeft" class="x-card__footer-left">
@@ -113,13 +130,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, useSlots } from 'vue';
+import { ref, computed, useSlots } from "vue";
 
 interface Props {
   title?: string;
-  type?: 'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info';
-  size?: 'small' | 'default' | 'large';
-  layout?: 'default' | 'flexible' | 'tight';
+  type?: "default" | "primary" | "success" | "warning" | "danger" | "info";
+  size?: "small" | "default" | "large";
+  layout?: "default" | "flexible" | "tight";
   collapsible?: boolean;
   defaultOpen?: boolean;
   shadow?: boolean;
@@ -130,27 +147,37 @@ interface Props {
   disabled?: boolean;
   hoverable?: boolean;
   skeleton?: boolean;
+  width?: string | number;
+  height?: string | number;
+  /**
+   * 卡片内边距
+   * @default var(--x-card-padding)
+   */
+  padding?: string;
 }
 
 interface Emits {
-  (e: 'toggle', value: boolean): void;
+  (e: "toggle", value: boolean): void;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  title: '',
-  type: 'default',
-  size: 'default',
-  layout: 'default',
+  title: "",
+  type: "default",
+  size: "default",
+  layout: "default",
   collapsible: false,
   defaultOpen: true,
-  shadow: true,
+  shadow: false, // 将默认阴影效果改为false
   border: true,
   borderRadius: 4,
   headerBorder: false,
   footerBorder: false,
   disabled: false,
   hoverable: false,
-  skeleton: false
+  skeleton: false,
+  width: undefined,
+  height: undefined,
+  padding: undefined,
 });
 
 const emit = defineEmits<Emits>();
@@ -174,15 +201,17 @@ const showFooter = computed(() => {
 const toggleCollapse = () => {
   if (props.disabled) return;
   isExpanded.value = !isExpanded.value;
-  emit('toggle', isExpanded.value);
+  emit("toggle", isExpanded.value);
+  // 可以在这里添加额外的逻辑，比如日志记录
+  console.log(`Card expanded state changed to: ${isExpanded.value}`);
 };
 </script>
 
 <style scoped>
 .x-card {
   background-color: var(--color-background);
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
+  border: 1px solid var(--color-border-1);
+  border-radius: var(--border-radius-0);
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
@@ -260,12 +289,12 @@ const toggleCollapse = () => {
 .x-card__skeleton-actions {
   display: flex;
   gap: 8px;
-  margin: 16px;
+  /* margin: 16px; */
 }
 
 .x-card__skeleton-actions::before,
 .x-card__skeleton-actions::after {
-  content: '';
+  content: "";
   height: 32px;
   background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
   background-size: 200% 100%;
@@ -348,18 +377,18 @@ const toggleCollapse = () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 20px;
-  min-height: 52px;
+  padding: 0px;
+  /* min-height: 52px; */
   box-sizing: border-box;
 }
 
 .x-card--small .x-card__header {
-  padding: 12px 16px;
+  padding: 2px 6px;
   min-height: 44px;
 }
 
 .x-card--large .x-card__header {
-  padding: 20px 24px;
+  padding: 0px 4px;
   min-height: 60px;
 }
 
@@ -414,10 +443,14 @@ const toggleCollapse = () => {
 }
 
 /* 内容样式 */
+:root {
+  --x-card-padding: 10px;
+}
+
 .x-card__body {
-  padding: 20px;
+  padding: var(--x-card-padding, 10px);
   flex: 1;
-  box-sizing: border-box;
+  box-sizing: content-box;
 }
 
 .x-card--small .x-card__body {
