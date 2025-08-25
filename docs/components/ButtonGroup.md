@@ -2,7 +2,7 @@
 
 将多个按钮组合在一起，实现无间距排列和边缘圆角处理。
 
-## 基本用法
+## 基础用法
 
 ### 水平组合
 
@@ -28,8 +28,8 @@
 </template>
 
 <script setup>
-import Button from '../../src/components/Button.vue'
-import ButtonGroup from '../../src/components/ButtonGroup.vue'
+import Button from "../../src/components/Button.vue";
+import ButtonGroup from "../../src/components/ButtonGroup.vue";
 </script>
 ```
 
@@ -53,8 +53,8 @@ import ButtonGroup from '../../src/components/ButtonGroup.vue'
 </template>
 
 <script setup>
-import Button from '../../src/components/Button.vue'
-import ButtonGroup from '../../src/components/ButtonGroup.vue'
+import Button from "../../src/components/Button.vue";
+import ButtonGroup from "../../src/components/ButtonGroup.vue";
 </script>
 ```
 
@@ -78,16 +78,16 @@ import ButtonGroup from '../../src/components/ButtonGroup.vue'
 </template>
 
 <script setup>
-import Button from '../../src/components/Button.vue'
-import ButtonGroup from '../../src/components/ButtonGroup.vue'
+import Button from "../../src/components/Button.vue";
+import ButtonGroup from "../../src/components/ButtonGroup.vue";
 </script>
 ```
 
 ## Props
 
-| 参数 | 说明 | 类型 | 可选值 | 默认值 |
-|------|------|------|--------|--------|
-| vertical | 是否垂直排列按钮组 | boolean | true/false | false |
+| 参数     | 说明               | 类型    | 可选值     | 默认值 |
+| -------- | ------------------ | ------- | ---------- | ------ |
+| vertical | 是否垂直排列按钮组 | boolean | true/false | false  |
 
 ## 注意事项
 

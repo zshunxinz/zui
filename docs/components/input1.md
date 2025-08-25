@@ -35,7 +35,7 @@ const handleEnter = (value) => {
 
 # Input 输入框
 
-## 基本用法
+## 基础用法
 
 Input 组件用于接收用户输入的文本信息，支持多种输入类型和交互功能。
 

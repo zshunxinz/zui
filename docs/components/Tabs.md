@@ -502,7 +502,7 @@ const tabs = [
 
 设置`buttonStyle`属性为`true`可以启用按钮样式的标签页，使标签看起来像按钮一样。
 
-<Tabs v-model="buttonStyleTab" :tabs="buttonStyleTabs" buttonStyle="true" type="primary">
+<Tabs v-model="buttonStyleTab" :tabs="buttonStyleTabs" buttonStyle="true">
   <template #btn1>
     <div class="tab-content">
       <h3>按钮样式标签页 1</h3>
