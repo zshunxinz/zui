@@ -295,7 +295,7 @@ const handleEnter = () => {
   left: 12px;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--color-text-secondary);
+  color: var(--color-text-1);
 }
 
 .x-input__icon {
@@ -324,7 +324,7 @@ const handleEnter = () => {
   border: none;
   cursor: pointer;
   font-size: 14px;
-  color: var(--color-text-secondary);
+  color: var(--color-text-1);
 }
 
 .x-input__suffix:hover {
@@ -332,9 +332,9 @@ const handleEnter = () => {
 }
 
 .x-input__word-limit {
-  margin-top: 4px;
+  margin-top: 0px;
   font-size: 12px;
-  color: var(--color-text-secondary);
+  color: var(--color-text-1);
   text-align: right;
 }
 

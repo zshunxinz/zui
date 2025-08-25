@@ -1,9 +1,22 @@
 <template>
   <div
     class="x-tabs"
-    :class="[tabPositionClass, tabTypeClass, tabSizeClass, tabButtonStyleClass]"
+    :class="[
+      tabPositionClass,
+      tabTypeClass,
+      tabSizeClass,
+      tabButtonStyleClass,
+      tabButtonStyleTextClass,
+    ]"
   >
-    <div class="x-tabs__nav">
+    <div
+      class="x-tabs__nav"
+      :class="[
+        borderLine ? 'boderLine' : 'boderLineNull',
+        tabsBg ? 'x-tabs_nav_bg-0' : '',
+        tabsBgClass ? tabsBgClass : '',
+      ]"
+    >
       <div
         v-for="(tab, index) in tabs"
         :key="index"
@@ -12,6 +25,7 @@
           {
             'is-active': activeTabIndex === index,
             'is-disabled': tab.disabled,
+            'is-full': tabFull,
           },
         ]"
         @click="handleTabClick(index)"
@@ -58,6 +72,11 @@ interface Props {
   size?: "small" | "default" | "large";
   closable?: boolean;
   buttonStyle?: boolean;
+  tabsBg?: boolean;
+  borderLine?: boolean;
+  tabsBgClass?: string;
+  tabFull?: boolean;
+  buttonStyleText?: boolean;
 }
 
 interface Emits {
@@ -74,6 +93,11 @@ const props = withDefaults(defineProps<Props>(), {
   size: "default",
   closable: false,
   buttonStyle: false,
+  tabsBg: false,
+  borderLine: true,
+  tabsBgClass: "",
+  tabFull: false,
+  buttonStyleText: false,
 });
 
 const emit = defineEmits<Emits>();
@@ -86,9 +110,17 @@ const tabSizeClass = computed(() => `x-tabs--${props.size}`);
 const tabButtonStyleClass = computed(() =>
   props.buttonStyle ? "x-tabs--button" : ""
 );
+const tabButtonStyleTextClass = computed(() =>
+  props.buttonStyleText ? "x-tabs--button-text" : ""
+);
 
 const tabStyle = computed(() => {
   const style: any = {};
+  if (props.tabFull) {
+    style.flex = 1;
+    style.textAlign = "center";
+    style.justifyContent = "center";
+  }
   return style;
 });
 
@@ -118,6 +150,16 @@ const handleTabClose = (index: number) => {
   white-space: nowrap;
 }
 
+.x-tabs_nav_bg-0 {
+  background-color: var(--color-bg-hover);
+}
+
+.boderLine {
+  border-bottom: 1px solid var(--color-border-1);
+}
+.boderLineNull {
+  border-bottom: none !important;
+}
 .x-tabs__item {
   padding: 12px 20px;
   cursor: pointer;
@@ -130,6 +172,10 @@ const handleTabClose = (index: number) => {
   color: var(--color-default);
   border-bottom-color: var(--color-default);
   font-weight: 500;
+}
+
+.x-tabs__item.is-full {
+  flex: 1;
 }
 
 .x-tabs__item.is-disabled {
@@ -253,7 +299,7 @@ const handleTabClose = (index: number) => {
 /* Button style tabs */
 .x-tabs--button {
   font-size: 14px;
-  --button-padding: 0.5rem 1rem;
+  --button-padding: 0.25rem 1rem;
   --button-border-radius: var(--border-radius-0);
 }
 
@@ -266,16 +312,31 @@ const handleTabClose = (index: number) => {
 .x-tabs--button .x-tabs__item {
   border-bottom: none;
   padding: var(--button-padding);
-  border: 1px solid var(--color-border-1);
+  color: var(--color-text-muted);
+  /* border: 1px solid var(--color-border-1); */
   border-radius: var(--button-border-radius);
   background-color: var(--color-bg);
   transition: all 0.3s ease;
+}
+.x-tabs--button-text .x-tabs__item {
+  border: none;
+  color: var(--color-text-muted);
+  padding: var(--button-padding);
+  border-radius: var(--button-border-radius);
+  background-color: var(--color-bg);
 }
 
 .x-tabs--button .x-tabs__item.is-active {
   border-color: var(--color-default);
   background-color: var(--color-default);
   color: var(--color-text-inverse);
+  font-weight: 500;
+}
+
+.x-tabs--button-text .x-tabs__item.is-active {
+  border-color: var(--color-default);
+  background-color: var(--color-bg);
+  color: var(--color-text-1);
   font-weight: 500;
 }
 
@@ -289,6 +350,18 @@ const handleTabClose = (index: number) => {
   border-color: var(--color-default);
   background-color: var(--color-default);
   color: var(--color-default-text-1);
+}
+
+.x-tabs--button-text.x-tabs--default .x-tabs__item.is-active {
+  border-color: var(--color-default);
+  background-color: var(--color-background);
+  color: var(--color-default);
+}
+
+.x-tabs--button-text.x-tabs--default .x-tabs__item.is-active {
+  border-color: var(--color-default);
+  background-color: var(--color-background);
+  color: var(--color-default);
 }
 
 .x-tabs--button.x-tabs--primary
@@ -353,6 +426,66 @@ const handleTabClose = (index: number) => {
 }
 
 .x-tabs--button.x-tabs--info
+  .x-tabs__item:hover:not(.is-active):not(.is-disabled) {
+  border-color: var(--color-info-hover);
+  color: var(--color-info-hover);
+}
+
+.x-tabs--button-text.x-tabs--primary .x-tabs__item.is-active {
+  border-color: var(--color-primary);
+  background-color: var(--color-background);
+  color: var(--color-primary);
+}
+
+.x-tabs--button-text.x-tabs--primary
+  .x-tabs__item:hover:not(.is-active):not(.is-disabled) {
+  border-color: var(--color-primary-hover);
+  color: var(--color-primary-hover);
+}
+
+.x-tabs--button-text.x-tabs--success .x-tabs__item.is-active {
+  border-color: var(--color-success);
+  background-color: var(--color-background);
+  color: var(--color-success);
+}
+
+.x-tabs--button-text.x-tabs--success
+  .x-tabs__item:hover:not(.is-active):not(.is-disabled) {
+  border-color: var(--color-success-hover);
+  color: var(--color-success-hover);
+}
+
+.x-tabs--button-text.x-tabs--warning .x-tabs__item.is-active {
+  border-color: var(--color-warning);
+  background-color: var(--color-background);
+  color: var(--color-warning);
+}
+
+.x-tabs--button-text.x-tabs--warning
+  .x-tabs__item:hover:not(.is-active):not(.is-disabled) {
+  border-color: var(--color-warning-hover);
+  color: var(--color-warning-hover);
+}
+
+.x-tabs--button-text.x-tabs--danger .x-tabs__item.is-active {
+  border-color: var(--color-danger);
+  background-color: var(--color-background);
+  color: var(--color-danger);
+}
+
+.x-tabs--button-text.x-tabs--danger
+  .x-tabs__item:hover:not(.is-active):not(.is-disabled) {
+  border-color: var(--color-danger-hover);
+  color: var(--color-danger-hover);
+}
+
+.x-tabs--button-text.x-tabs--info .x-tabs__item.is-active {
+  border-color: var(--color-info);
+  background-color: var(--color-background);
+  color: var(--color-info);
+}
+
+.x-tabs--button-text.x-tabs--info
   .x-tabs__item:hover:not(.is-active):not(.is-disabled) {
   border-color: var(--color-info-hover);
   color: var(--color-info-hover);

@@ -128,8 +128,17 @@ label {
   /* background-color:rgb(245, 245, 245); */
 }
 </style>
+<style>
+.x-tabs_nav_bg {
+  background-color: var(--color-bg-hover);
+}
+.x-tabs_nav_bg-1{
+  padding:0.25rem;
+  background-color: var(--color-bg-hover-1);
+}
+</style>
 <div class="demo-tabs-basic">
-    <Tabs v-model="activeTab" :tabs="tabs" @tab-click="handleTabClick" @update:modelValue="handleUpdateModelValue" @tab-close="handleClose">
+    <Tabs v-model="activeTab" :tabs="tabs" @tab-click="handleTabClick" @update:modelValue="handleUpdateModelValue" @tab-close="handleClose" >
         <template #account>
           <div class="tab-content">
             <div class="form-group">
@@ -465,13 +474,11 @@ const tabs = [
       <template #tab1>Bottom Tab Content</template>
       <template #tab2>Secondary Tab Content</template>
     </Tabs>
-
     <div style="display: flex; gap: 20px; margin-top: 20px;">
       <Tabs v-model="activeTab" :tabs="tabs" position="left">
         <template #tab1>Left Tab Content</template>
         <template #tab2>Secondary Tab Content</template>
       </Tabs>
-
       <Tabs v-model="activeTab" :tabs="tabs" position="right">
         <template #tab1>Right Tab Content</template>
         <template #tab2>Secondary Tab Content</template>
@@ -491,43 +498,11 @@ const tabs = [
 </script>
 ```
 
-## 禁用标签
-
-可以禁用某些标签页。
-<Tabs v-model="activeTab2" :tabs="tabs2">
-<template #tab1>Active Tab Content</template>
-<template #tab2>Disabled Tab Content</template>
-<template #tab3>Another Active Tab Content</template>
-</Tabs>
-
-```vue
-<template>
-  <div class="demo-tabs-disabled">
-    <Tabs v-model="activeTab" :tabs="tabs">
-      <template #tab1>Active Tab Content</template>
-      <template #tab2>Disabled Tab Content</template>
-      <template #tab3>Another Active Tab Content</template>
-    </Tabs>
-  </div>
-</template>
-
-<script setup>
-import { ref } from "vue";
-
-const activeTab2 = ref(0);
-const tabs2 = [
-  { label: "Active", name: "tab1" },
-  { label: "Disabled", name: "tab2", disabled: true },
-  { label: "Another Active", name: "tab3" },
-];
-</script>
-```
-
 ## 按钮样式
 
 设置`buttonStyle`属性为`true`可以启用按钮样式的标签页，使标签看起来像按钮一样。
 
-<Tabs v-model="buttonStyleTab" :tabs="buttonStyleTabs" buttonStyle="true">
+<Tabs v-model="buttonStyleTab" :tabs="buttonStyleTabs" buttonStyle="true" type="primary">
   <template #btn1>
     <div class="tab-content">
       <h3>按钮样式标签页 1</h3>
@@ -678,6 +653,535 @@ const buttonStyleTypeTabs = ref([
   border-radius: var(--border-radius);
 }
 </style>
+```
+
+## 自定义样式
+
+### 背景与边框
+
+设置`tabsBg`属性为`true`可以为标签页添加默认背景颜色。
+设置`borderLine`属性为`false`可以移除标签页的底部边框。
+
+<Tabs v-model="activeTab1" :tabs="tabs1" :tabsBg="true" :borderLine="false" type="primary">
+<template #tab1>
+  <div class="tab-content">
+    <h3>带背景的标签页 1</h3>
+    <p>这是带背景颜色的标签页内容</p>
+  </div>
+</template>
+<template #tab2>
+  <div class="tab-content">
+    <h3>带背景的标签页 2</h3>
+    <p>这是带背景颜色的标签页内容</p>
+  </div>
+</template>
+</Tabs>
+
+```vue
+<template>
+  <Tabs
+    v-model="activeTab1"
+    :tabs="tabs1"
+    :tabsBg="true"
+    :borderLine="false"
+    type="primary"
+  >
+    <template #tab1>
+      <div class="tab-content">
+        <h3>带背景的标签页 1</h3>
+        <p>这是带背景颜色的标签页内容</p>
+      </div>
+    </template>
+    <template #tab2>
+      <div class="tab-content">
+        <h3>带背景的标签页 2</h3>
+        <p>这是带背景颜色的标签页内容</p>
+      </div>
+    </template>
+  </Tabs>
+</template>
+
+<script setup>
+import { ref } from "vue";
+
+const activeTab1 = ref(0);
+const tabs1 = [
+  { label: "Tab 1", name: "tab1" },
+  { label: "Tab 2", name: "tab2" },
+];
+</script>
+```
+
+### 自定义背景类
+
+设置`tabsBgClass`属性可以自定义标签页的背景颜色类名。
+
+<Tabs v-model="activeTab1" :tabs="tabs1" :tabsBgClass="'x-tabs_nav_bg'" :borderLine="false">
+<template #tab1>
+  <div class="tab-content">
+    <h3>自定义背景标签页 1</h3>
+    <p>这是使用自定义背景类的标签页内容</p>
+  </div>
+</template>
+<template #tab2>
+  <div class="tab-content">
+    <h3>自定义背景标签页 2</h3>
+    <p>这是使用自定义背景类的标签页内容</p>
+  </div>
+</template>
+</Tabs>
+
+```vue
+<template>
+  <Tabs
+    v-model="activeTab1"
+    :tabs="tabs1"
+    :tabsBgClass="'x-tabs_nav_bg'"
+    :borderLine="false"
+  >
+    <template #tab1>
+      <div class="tab-content">
+        <h3>自定义背景标签页 1</h3>
+        <p>这是使用自定义背景类的标签页内容</p>
+      </div>
+    </template>
+    <template #tab2>
+      <div class="tab-content">
+        <h3>自定义背景标签页 2</h3>
+        <p>这是使用自定义背景类的标签页内容</p>
+      </div>
+    </template>
+  </Tabs>
+</template>
+<script setup>
+import { ref } from "vue";
+
+const activeTab1 = ref(0);
+const tabs1 = [
+  { label: "Tab 1", name: "tab1" },
+  { label: "Tab 2", name: "tab2" },
+];
+</script>
+<style scoped>
+.x-tabs_nav_bg {
+  background-color: var(--color-bg-hover-1);
+}
+</style>
+```
+
+### 全宽标签
+
+设置`tabFull`属性为`true`可以使标签页宽度平均分配并占满父容器。
+
+<Tabs v-model="activeTab1" :tabs="tabs1" :borderLine="false" :tabFull="true">
+<template #tab1>
+  <div class="tab-content">
+    <h3>全宽标签页 1</h3>
+    <p>这是全宽标签页的内容</p>
+  </div>
+</template>
+<template #tab2>
+  <div class="tab-content">
+    <h3>全宽标签页 2</h3>
+    <p>这是全宽标签页的内容</p>
+  </div>
+</template>
+</Tabs>
+
+```vue
+<template>
+  <Tabs v-model="activeTab1" :tabs="tabs1" :borderLine="false" :tabFull="true">
+    <template #tab1>
+      <div class="tab-content">
+        <h3>全宽标签页 1</h3>
+        <p>这是全宽标签页的内容</p>
+      </div>
+    </template>
+    <template #tab2>
+      <div class="tab-content">
+        <h3>全宽标签页 2</h3>
+        <p>这是全宽标签页的内容</p>
+      </div>
+    </template>
+  </Tabs>
+</template>
+<script setup>
+import { ref } from "vue";
+
+const activeTab1 = ref(0);
+const tabs1 = [
+  { label: "Tab 1", name: "tab1" },
+  { label: "Tab 2", name: "tab2" },
+];
+</script>
+```
+
+### 按钮样式标签
+
+设置`buttonStyle`属性为`true`可以使用按钮样式的标签页。
+
+<Tabs v-model="activeTab1" :buttonStyle="true" :tabs="tabs1" :borderLine="false">
+<template #tab1>
+  <div class="tab-content">
+    <h3>按钮样式标签页 1</h3>
+    <p>这是按钮样式的标签页内容</p>
+  </div>
+</template>
+<template #tab2>
+  <div class="tab-content">
+    <h3>按钮样式标签页 2</h3>
+    <p>这是按钮样式的标签页内容</p>
+  </div>
+</template>
+</Tabs>
+
+```vue
+<template>
+  <Tabs
+    v-model="activeTab1"
+    :buttonStyle="true"
+    :tabs="tabs1"
+    :borderLine="false"
+  >
+    <template #tab1>
+      <div class="tab-content">
+        <h3>按钮样式标签页 1</h3>
+        <p>这是按钮样式的标签页内容</p>
+      </div>
+    </template>
+    <template #tab2>
+      <div class="tab-content">
+        <h3>按钮样式标签页 2</h3>
+        <p>这是按钮样式的标签页内容</p>
+      </div>
+    </template>
+  </Tabs>
+</template>
+<script setup>
+import { ref } from "vue";
+
+const activeTab1 = ref(0);
+const tabs1 = [
+  { label: "Tab 1", name: "tab1" },
+  { label: "Tab 2", name: "tab2" },
+];
+</script>
+```
+
+### 按钮样式与类型组合
+
+按钮样式可以与`type`属性组合使用，创建不同颜色的按钮标签。
+
+<Tabs v-model="activeTab1" :buttonStyle="true" :tabs="tabs1" :borderLine="false" type="primary">
+<template #tab1>
+  <div class="tab-content">
+    <h3>主色按钮标签页 1</h3>
+    <p>这是主色按钮样式的标签页内容</p>
+  </div>
+</template>
+<template #tab2>
+  <div class="tab-content">
+    <h3>主色按钮标签页 2</h3>
+    <p>这是主色按钮样式的标签页内容</p>
+  </div>
+</template>
+</Tabs>
+
+<Tabs v-model="activeTab1" :buttonStyle="true" :tabs="tabs1" :borderLine="false" type="success">
+<template #tab1>
+  <div class="tab-content">
+    <h3>成功色按钮标签页 1</h3>
+    <p>这是成功色按钮样式的标签页内容</p>
+  </div>
+</template>
+<template #tab2>
+  <div class="tab-content">
+    <h3>成功色按钮标签页 2</h3>
+    <p>这是成功色按钮样式的标签页内容</p>
+  </div>
+</template>
+</Tabs>
+
+```vue
+<template>
+  <Tabs
+    v-model="activeTab1"
+    :buttonStyle="true"
+    :tabs="tabs1"
+    :borderLine="false"
+    type="primary"
+  >
+    <template #tab1>
+      <div class="tab-content">
+        <h3>主色按钮标签页 1</h3>
+        <p>这是主色按钮样式的标签页内容</p>
+      </div>
+    </template>
+    <template #tab2>
+      <div class="tab-content">
+        <h3>主色按钮标签页 2</h3>
+        <p>这是主色按钮样式的标签页内容</p>
+      </div>
+    </template>
+  </Tabs>
+</template>
+<script setup>
+import { ref } from "vue";
+
+const activeTab1 = ref(0);
+const tabs1 = [
+  { label: "Tab 1", name: "tab1" },
+  { label: "Tab 2", name: "tab2" },
+];
+</script>
+```
+
+### 文本按钮样式
+
+设置`buttonStyleText`属性为`true`可以使标签页按钮样式为文本主题（仅边框和文字变色，背景保持透明）。
+
+<Tabs v-model="activeTab1" :buttonStyle="true" :buttonStyleText="true" :tabs="tabs1" :borderLine="false">
+<template #tab1>
+  <div class="tab-content">
+    <h3>文本按钮标签页 1</h3>
+    <p>这是文本按钮样式的标签页内容</p>
+  </div>
+</template>
+<template #tab2>
+  <div class="tab-content">
+    <h3>文本按钮标签页 2</h3>
+    <p>这是文本按钮样式的标签页内容</p>
+  </div>
+</template>
+</Tabs>
+
+<Tabs v-model="activeTab1" :buttonStyle="true" :buttonStyleText="true" :tabs="tabs1" :borderLine="false" type="primary">
+<template #tab1>
+  <div class="tab-content">
+    <h3>主色文本按钮标签页 1</h3>
+    <p>这是主色文本按钮样式的标签页内容</p>
+  </div>
+</template>
+<template #tab2>
+  <div class="tab-content">
+    <h3>主色文本按钮标签页 2</h3>
+    <p>这是主色文本按钮样式的标签页内容</p>
+  </div>
+</template>
+</Tabs>
+
+```vue
+<template>
+  <Tabs
+    v-model="activeTab1"
+    :buttonStyle="true"
+    :buttonStyleText="true"
+    :tabs="tabs1"
+    :borderLine="false"
+    type="primary"
+  >
+    <template #tab1>
+      <div class="tab-content">
+        <h3>主色文本按钮标签页 1</h3>
+        <p>这是主色文本按钮样式的标签页内容</p>
+      </div>
+    </template>
+    <template #tab2>
+      <div class="tab-content">
+        <h3>主色文本按钮标签页 2</h3>
+        <p>这是主色文本按钮样式的标签页内容</p>
+      </div>
+    </template>
+  </Tabs>
+</template>
+<script setup>
+import { ref } from "vue";
+
+const activeTab1 = ref(0);
+const tabs1 = [
+  { label: "Tab 1", name: "tab1" },
+  { label: "Tab 2", name: "tab2" },
+];
+</script>
+```
+
+### 全宽按钮标签
+
+`tabFull`属性可以与按钮样式组合，创建全宽的按钮标签。
+
+<Tabs v-model="activeTab1" :buttonStyle="true" :tabs="tabs1" :borderLine="false" :tabFull="true">
+<template #tab1>
+  <div class="tab-content">
+    <h3>全宽按钮标签页 1</h3>
+    <p>这是全宽按钮样式的标签页内容</p>
+  </div>
+</template>
+<template #tab2>
+  <div class="tab-content">
+    <h3>全宽按钮标签页 2</h3>
+    <p>这是全宽按钮样式的标签页内容</p>
+  </div>
+</template>
+</Tabs>
+
+```vue
+<template>
+  <Tabs
+    v-model="activeTab1"
+    :buttonStyle="true"
+    :tabs="tabs1"
+    :borderLine="false"
+    :tabFull="true"
+  >
+    <template #tab1>
+      <div class="tab-content">
+        <h3>全宽按钮标签页 1</h3>
+        <p>这是全宽按钮样式的标签页内容</p>
+      </div>
+    </template>
+    <template #tab2>
+      <div class="tab-content">
+        <h3>全宽按钮标签页 2</h3>
+        <p>这是全宽按钮样式的标签页内容</p>
+      </div>
+    </template>
+  </Tabs>
+</template>
+<script setup>
+import { ref } from "vue";
+
+const activeTab1 = ref(0);
+const tabs1 = [
+  { label: "Tab 1", name: "tab1" },
+  { label: "Tab 2", name: "tab2" },
+];
+</script>
+```
+
+### 自定义背景类名与全宽按钮标签
+
+将 tabFull、tabsBgClass、buttonStyleText 结合使用
+
+<Tabs v-model="activeTab1" :buttonStyle="true" :buttonStyleText="true" :tabs="tabs1" :borderLine="false" :tabFull="true" :tabsBgClass="'x-tabs_nav_bg-1'">
+<template #tab1>
+  <div class="tab-content">
+    <h3>自定义背景类名标签页 1</h3>
+    <p>这是自定义背景类名的标签页内容</p>
+  </div>
+</template>
+<template #tab2>
+  <div class="tab-content">
+    <h3>自定义背景类名标签页 2</h3>
+    <p>这是自定义背景类名的标签页内容</p>
+  </div>
+</template>
+</Tabs>
+
+<Tabs v-model="activeTab1" :buttonStyle="true" :buttonStyleText="true" :tabs="tabs1" :borderLine="false" :tabFull="true" :tabsBgClass="'x-tabs_nav_bg-1'" type="primary">
+<template #tab1>
+  <div class="tab-content">
+    <h3>自定义背景类名标签页 1</h3>
+    <p>这是自定义背景类名的标签页内容</p>
+  </div>
+</template>
+<template #tab2>
+  <div class="tab-content">
+    <h3>自定义背景类名标签页 2</h3>
+    <p>这是自定义背景类名的标签页内容</p>
+  </div>
+</template>
+</Tabs>
+
+<Tabs v-model="activeTab1" :buttonStyle="true" :buttonStyleText="true" :tabs="tabs1" :borderLine="false" :tabFull="true" :tabsBgClass="'x-tabs_nav_bg-1'" type='success'>
+<template #tab1>
+  <div class="tab-content">
+    <h3>自定义背景类名标签页 1</h3>
+    <p>这是自定义背景类名的标签页内容</p>
+  </div>
+</template>
+<template #tab2>
+  <div class="tab-content">
+    <h3>自定义背景类名标签页 2</h3>
+    <p>这是自定义背景类名的标签页内容</p>
+  </div>
+</template>
+</Tabs>
+
+<Tabs v-model="activeTab1" :buttonStyle="true" :buttonStyleText="true" :tabs="tabs1" :borderLine="false" :tabFull="true" :tabsBgClass="'x-tabs_nav_bg-1'" type='warning'>
+<template #tab1>
+  <div class="tab-content">
+    <h3>自定义背景类名标签页 1</h3>
+    <p>这是自定义背景类名的标签页内容</p>
+  </div>
+</template>
+<template #tab2>
+  <div class="tab-content">
+    <h3>自定义背景类名标签页 2</h3>
+    <p>这是自定义背景类名的标签页内容</p>
+  </div>
+</template>
+</Tabs>
+
+<Tabs v-model="activeTab1" :buttonStyle="true" :buttonStyleText="true" :tabs="tabs1" :borderLine="false" :tabFull="true" :tabsBgClass="'x-tabs_nav_bg-1'" type='danger'>
+<template #tab1>
+  <div class="tab-content">
+    <h3>自定义背景类名标签页 1</h3>
+    <p>这是自定义背景类名的标签页内容</p>
+  </div>
+</template>
+<template #tab2>
+  <div class="tab-content">
+    <h3>自定义背景类名标签页 2</h3>
+    <p>这是自定义背景类名的标签页内容</p>
+  </div>
+</template>
+</Tabs>
+
+<Tabs v-model="activeTab1" :buttonStyle="true" :buttonStyleText="true" :tabs="tabs1" :borderLine="false" :tabFull="true" :tabsBgClass="'x-tabs_nav_bg-1'" type='info'>
+<template #tab1>
+  <div class="tab-content">
+    <h3>自定义背景类名标签页 1</h3>
+    <p>这是自定义背景类名的标签页内容</p>
+  </div>
+</template>
+<template #tab2>
+  <div class="tab-content">
+    <h3>自定义背景类名标签页 2</h3>
+    <p>这是自定义背景类名的标签页内容</p>
+  </div>
+</template>
+</Tabs>
+
+## 禁用标签
+
+可以禁用某些标签页。
+<Tabs v-model="activeTab2" :tabs="tabs2">
+<template #tab1>Active Tab Content</template>
+<template #tab2>Disabled Tab Content</template>
+<template #tab3>Another Active Tab Content</template>
+</Tabs>
+
+```vue
+<template>
+  <div class="demo-tabs-disabled">
+    <Tabs v-model="activeTab" :tabs="tabs">
+      <template #tab1>Active Tab Content</template>
+      <template #tab2>Disabled Tab Content</template>
+      <template #tab3>Another Active Tab Content</template>
+    </Tabs>
+  </div>
+</template>
+
+<script setup>
+import { ref } from "vue";
+
+const activeTab2 = ref(0);
+const tabs2 = [
+  { label: "Active", name: "tab1" },
+  { label: "Disabled", name: "tab2", disabled: true },
+  { label: "Another Active", name: "tab3" },
+];
+</script>
 ```
 
 ## 可关闭标签页
