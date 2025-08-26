@@ -1,25 +1,27 @@
 <template>
   <div class="x-radio-group" :class="{ 'x-radio-group--disabled': disabled }">
-    <label 
-  v-for="(option, index) in typedOptions" 
-  :key="option.value" 
-  class="x-radio" 
-  :class="{
-    'x-radio--checked': modelValue === option.value && (shape !== 'card' || !checkedClass),
-      [checkedClass]: modelValue === option.value && shape === 'card' && checkedClass,
-    'x-radio--disabled': disabled || option.disabled,
-    'x-radio--square': shape === 'square',
-    'x-radio--button': shape === 'button',
-    'x-radio--card': shape === 'card',
-    'x-radio--tab': shape === 'tab',
-    'x-radio--default': type === 'default',
-    'x-radio--primary': type === 'primary',
-    'x-radio--success': type === 'success',
-    'x-radio--warning': type === 'warning',
-    'x-radio--danger': type === 'danger',
-    'x-radio--info': type === 'info'
-  }" 
->
+    <label
+      v-for="(option, index) in typedOptions"
+      :key="option.value"
+      class="x-radio"
+      :class="{
+        'x-radio--checked':
+          modelValue === option.value && (shape !== 'card' || !checkedClass),
+        [checkedClass]:
+          modelValue === option.value && shape === 'card' && checkedClass,
+        'x-radio--disabled': disabled || option.disabled,
+        'x-radio--square': shape === 'square',
+        'x-radio--button': shape === 'button',
+        'x-radio--card': shape === 'card',
+        'x-radio--tab': shape === 'tab',
+        'x-radio--default': type === 'default',
+        'x-radio--primary': type === 'primary',
+        'x-radio--success': type === 'success',
+        'x-radio--warning': type === 'warning',
+        'x-radio--danger': type === 'danger',
+        'x-radio--info': type === 'info',
+      }"
+    >
       <input
         type="radio"
         class="x-radio__input"
@@ -29,28 +31,28 @@
           'x-radio--success': type === 'success',
           'x-radio--warning': type === 'warning',
           'x-radio--danger': type === 'danger',
-          'x-radio--info': type === 'info'
+          'x-radio--info': type === 'info',
         }"
         :name="name"
         :value="option.value"
         :checked="modelValue === option.value"
         :disabled="disabled || option.disabled"
         @change="handleChange"
-      >
+      />
       <template v-if="shape === 'card'">
-  <slot :name="`card-${option.value}`" :option="option">
-    <span class="x-radio__label">{{ option.label }}</span>
-  </slot>
-</template>
-<template v-else>
-  <span class="x-radio__label">{{ option.label }}</span>
-</template>
+        <slot :name="`card-${option.value}`" :option="option">
+          <span class="x-radio__label">{{ option.label }}</span>
+        </slot>
+      </template>
+      <template v-else>
+        <span class="x-radio__label">{{ option.label }}</span>
+      </template>
     </label>
   </div>
 </template>
 
 <script setup lang="ts">
-import {computed } from 'vue';
+import { computed } from "vue";
 
 interface RadioOption {
   label: string;
@@ -58,32 +60,39 @@ interface RadioOption {
   disabled?: boolean;
 }
 
-const props = defineProps<{
-  modelValue: any;
-  options: RadioOption[];
-  name?: string;
-  disabled?: boolean;
-  shape?: 'circle' | 'square' | 'button' | 'card' | 'tab';
-  checkedClass?: any;
-  type?: 'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info';
-}>();
+const props = withDefaults(
+  defineProps<{
+    modelValue: any;
+    options: RadioOption[];
+    name?: string;
+    disabled?: boolean;
+    shape?: "circle" | "square" | "button" | "card" | "tab";
+    checkedClass?: any;
+    type?: "default" | "primary" | "success" | "warning" | "danger" | "info";
+  }>(),
+  {
+    type: "default",
+  }
+);
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: any): void;
-  (e: 'change', value: any): void;
+  (e: "update:modelValue", value: any): void;
+  (e: "change", value: any): void;
 }>();
 
 // 显式类型化选项数组以帮助模板推断
 const typedOptions = computed<RadioOption[]>(() => props.options);
 
 const handleChange = (e: Event) => {
-    const inputValue = (e.target as HTMLInputElement).value;
-    const selectedOption = props.options.find(option => String(option.value) === inputValue);
-    if (selectedOption) {
-      emit('update:modelValue', selectedOption.value);
-      emit('change', selectedOption.value);
-    }
-  };
+  const inputValue = (e.target as HTMLInputElement).value;
+  const selectedOption = props.options.find(
+    (option) => String(option.value) === inputValue
+  );
+  if (selectedOption) {
+    emit("update:modelValue", selectedOption.value);
+    emit("change", selectedOption.value);
+  }
+};
 </script>
 
 <style scoped>
@@ -104,28 +113,101 @@ const handleChange = (e: Event) => {
   height: 16px;
   margin: 0px;
   margin-right: 6px;
-  border: 1px solid var(--color-border-1);
+  /* border: 1px solid var(--color-text-1); */
   border-radius: 50%;
   appearance: none;
   cursor: pointer;
   transition: all 0.1s;
+  display: grid;
+  /* justify-content: center;
+  align-items: center; */
+  place-items: center;
 }
 
-.x-radio__input:checked {
-  border: var(--color-primary);
-  background-color: var(--color-default);
+.x-radio--default .x-radio__input {
+  border: 1px solid var(--color-default);
 }
 
 .x-radio__input:checked::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 9px;
-  height: 9px;
-  background-color: var(--color-default-text-1);
+  content: "";
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  transform: translate(-50%, -50%);
+}
+
+/* 为不同类型的单选按钮定义选中状态样式 */
+.x-radio--default .x-radio__input:checked {
+  border: 1px solid var(--color-default);
+  background-color: var(--color-bg);
+}
+
+.x-radio--default .x-radio__input:checked::after {
+  background-color: var(--color-default);
+}
+
+.x-radio--primary .x-radio__input {
+  border: 1px solid var(--color-primary);
+}
+
+.x-radio--primary .x-radio__input:checked {
+  border: 1px solid var(--color-primary);
+  background-color: var(--color-bg);
+}
+
+.x-radio--primary .x-radio__input:checked::after {
+  background-color: var(--color-primary);
+}
+
+.x-radio--success .x-radio__input {
+  border: 1px solid var(--color-success);
+}
+
+.x-radio--success .x-radio__input:checked {
+  border: 1px solid var(--color-success);
+  background-color: var(--color-bg);
+}
+
+.x-radio--success .x-radio__input:checked::after {
+  background-color: var(--color-success);
+}
+
+.x-radio--warning .x-radio__input {
+  border: 1px solid var(--color-warning);
+}
+
+.x-radio--warning .x-radio__input:checked {
+  border: 1px solid var(--color-warning);
+  background-color: var(--color-bg);
+}
+
+.x-radio--warning .x-radio__input:checked::after {
+  background-color: var(--color-warning);
+}
+
+.x-radio--danger .x-radio__input {
+  border: 1px solid var(--color-danger);
+}
+
+.x-radio--danger .x-radio__input:checked {
+  border: 1px solid var(--color-danger);
+  background-color: var(--color-bg);
+}
+
+.x-radio--danger .x-radio__input:checked::after {
+  background-color: var(--color-danger);
+}
+
+.x-radio--info .x-radio__input {
+  border: 1px solid var(--color-info);
+}
+
+.x-radio--info .x-radio__input:checked {
+  border: 1px solid var(--color-info);
+  background-color: var(--color-bg);
+}
+
+.x-radio--info .x-radio__input:checked::after {
+  background-color: var(--color-info);
 }
 
 /* 方形样式 */
@@ -139,8 +221,8 @@ const handleChange = (e: Event) => {
 
 /* 按钮样式 */
 .x-radio--button {
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
+  border: 1px solid var(--color-border-1);
+  border-radius: var(--border-radius-0);
   padding: 6px 12px;
 }
 
@@ -174,7 +256,7 @@ const handleChange = (e: Event) => {
 
 .x-radio--primary:checked {
   border-color: var(--color-primary);
-  background-color: var(--color-primary);
+  /* background-color: var(--color-primary); */
 }
 .x-radio--success:checked {
   border-color: var(--color-success);
@@ -199,7 +281,7 @@ const handleChange = (e: Event) => {
 }
 
 .x-radio--card .x-radio__label {
-  font-size: 16px;
+  font-size: var(--font-size);
   font-weight: 500;
 }
 
@@ -210,7 +292,7 @@ const handleChange = (e: Event) => {
   padding: 10px 20px;
   /* border-bottom: 2px solid transparent; */
   margin-right: -1px;
-  font-size: 14px;
+  font-size: var(--font-size);
   font-weight: 500;
 }
 
@@ -256,11 +338,11 @@ const handleChange = (e: Event) => {
 }
 
 .x-radio__label {
-  font-size: 14px;
-  color: var(--color-text-default);
+  font-size: var(--font-size);
+  color: var(--color-text);
   user-select: none;
   display: flex;
-  justify-self:center;
+  justify-self: center;
   align-self: center;
   height: 16px;
   line-height: 16px;

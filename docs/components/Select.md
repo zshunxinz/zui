@@ -347,9 +347,11 @@ const value8 = ref([]);
 
 ## 使用 options 属性
 
-除了使用 Option 子组件，还可以通过 `options` 属性传入选项数组
+350| 除了使用 Option 子组件，还可以通过 `options` 属性传入选项数组
 
-<Select v-model="value12" :options="[
+...
+
+352| <Select v-model="value12" :options="[
   { label: '选项1', value: '1' },
   { label: '选项2', value: '2' },
   { label: '选项3', value: '3', disabled: true }
@@ -370,6 +372,126 @@ const value8 = ref([]);
 </template>
 ```
 
+## 图标位置
+
+可以通过 `icon-position` 属性设置选中图标的位置
+
+<Row :gutter="[20,20]">
+  <Col :span="12">
+    <Select v-model="value1" placeholder="图标在左侧" icon-position="left">
+      <Option label="选项1" value="1" />
+      <Option label="选项2" value="2" />
+      <Option label="选项3" value="3" />
+    </Select>
+  </Col>
+  <Col :span="12">
+    <Select v-model="value2" placeholder="图标在右侧" icon-position="right">
+      <Option label="选项1" value="1" />
+      <Option label="选项2" value="2" />
+      <Option label="选项3" value="3" />
+    </Select>
+  </Col>
+</Row>
+
+```vue
+<template>
+  <Row :gutter="[20, 20]">
+    <Col :span="12">
+      <Select v-model="value1" placeholder="图标在左侧" icon-position="left">
+        <Option label="选项1" value="1" />
+        <Option label="选项2" value="2" />
+        <Option label="选项3" value="3" />
+      </Select>
+    </Col>
+    <Col :span="12">
+      <Select v-model="value2" placeholder="图标在右侧" icon-position="right">
+        <Option label="选项1" value="1" />
+        <Option label="选项2" value="2" />
+        <Option label="选项3" value="3" />
+      </Select>
+    </Col>
+  </Row>
+</template>
+```
+
+## 自定义图标
+
+使用 `icon` 插槽自定义选中图标
+
+<Row :gutter="[20,20]">
+  <Col :span="12">
+    <Select v-model="value3" placeholder="自定义图标" icon-position="left">
+      <Option label="选项1" value="1">
+        <template #icon>
+          <span style="color: var(--color-primary);">★</span>
+        </template>
+        选项1
+      </Option>
+      <Option label="选项2" value="2">
+        <template #icon>
+          <span style="color: var(--color-success);">●</span>
+        </template>
+        选项2
+      </Option>
+    </Select>
+  </Col>
+  <Col :span="12">
+    <Select v-model="value4" placeholder="右侧自定义图标" icon-position="right">
+      <Option label="选项1" value="1">
+        <template #icon>
+          <span style="color: var(--color-warning);">✓</span>
+        </template>
+        选项1
+      </Option>
+      <Option label="选项2" value="2">
+        <template #icon>
+          <span style="color: var(--color-danger);">✗</span>
+        </template>
+        选项2
+      </Option>
+    </Select>
+  </Col>
+</Row>
+
+```vue
+<template>
+  <Row :gutter="[20, 20]">
+    <Col :span="12">
+      <Select v-model="value3" placeholder="自定义图标" icon-position="left">
+        <Option label="选项1" value="1">
+          <template #icon>
+            <span style="color: var(--color-primary);">★</span>
+          </template>
+          选项1
+        </Option>
+        <Option label="选项2" value="2">
+          <template #icon>
+            <span style="color: var(--color-success);">●</span>
+          </template>
+          选项2
+        </Option>
+      </Select>
+    </Col>
+    <Col :span="12">
+      <Select v-model="value4" placeholder="右侧自定义图标" icon-position="right">
+        <Option label="选项1" value="1">
+          <template #icon>
+            <span style="color: var(--color-warning);">✓</span>
+          </template>
+          选项1
+        </Option>
+        <Option label="选项2" value="2">
+          <template #icon>
+            <span style="color: var(--color-danger);">✗</span>
+          </template>
+          选项2
+        </Option>
+      </Select>
+    </Col>
+  </Row>
+</template>
+```
+
 ## 属性
 
 | 属性名                | 说明               | 类型                                       | 可选值                                                | 默认值     |
@@ -387,6 +509,7 @@ const value8 = ref([]);
 | loading               | 是否正在加载       | boolean                                    | —                                                     | false      |
 | loading-text          | 加载时显示的文字   | string                                     | —                                                     | Loading... |
 | no-data-text          | 无数据时显示的文字 | string                                     | —                                                     | No data    |
+| icon-position         | 选中图标位置       | string                                     | left / right                                          | left       |
 
 ## 事件
 

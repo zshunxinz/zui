@@ -217,16 +217,16 @@ const handleChange = (event: Event) => {
 
 .x-switch__label {
   margin-left: 8px;
-  font-size: var(--font-size-base);
-  color: var(--color-text);
+  font-size: var(--font-size-1);
+  color: var(--color-text-1);
 }
 
 .x-switch--small .x-switch__label {
-  font-size: var(--font-size-small);
+  font-size: var(--font-size-0);
 }
 
 .x-switch--large .x-switch__label {
-  font-size: var(--font-size-large);
+  font-size: var(--font-size-2);
 }
 /* 颜色主题 - 修复自定义颜色优先级 */
 .x-switch--default.is-checked .x-switch__core {

@@ -246,17 +246,14 @@ const resetForm = () => {
                     >省份 <span class="required">*</span></label
                   >
                   <Select
-                    id="province"
                     v-model="formData.province"
-                    placeholder="请选择省份"
-                    :error-message="errors.province"
+                    placeholder="请选择"
+                    type="default"
                   >
-                    <Option
-                      v-for="option in provinceOptions"
-                      :key="option.value"
-                      :label="option.label"
-                      :value="option.value"
-                    ></Option>
+                    <Option label="北京" value="1" />
+                    <Option label="上海" value="2" />
+                    <Option label="重庆" value="3" />
+                    <Option label="广州" value="4" disabled />
                   </Select>
                 </div>
               </Col>
@@ -334,7 +331,7 @@ const resetForm = () => {
         </template>
       </Tabs>
 
-      <div class="button-group" style="margin-top: 20px">
+      <div class="button-group">
         <Button @click="submitForm">提交</Button>
         <Button text bg @click="resetForm">重置</Button>
       </div>
@@ -809,7 +806,6 @@ const resetForm = () => {
   /* padding: 1rem; */
   min-height: 100vh;
   background-color: var(--color-background);
-  color: var(--color-text);
   transition: background-color 0.3s, color 0.3s;
 }
 
@@ -829,7 +825,7 @@ const resetForm = () => {
 }
 
 .button-group {
-  margin-top: 1rem;
+  margin-top: 0.25rem;
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
@@ -934,15 +930,13 @@ label {
 }
 
 label {
-  display: block;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   font-weight: 500;
+  font-size: var(--font-size);
 }
 
 .form-control {
   width: 100%;
   padding: 8px 12px;
-  border-radius: 4px;
-  box-sizing: border-box;
 }
 </style>

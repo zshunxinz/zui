@@ -155,6 +155,7 @@
                 :label="option.label"
                 :value="option.value"
                 :disabled="option.disabled"
+                :icon-position="iconPosition"
               ></Option>
               <!-- <div
                 v-for="(option, index) in filteredOptions"
@@ -420,6 +421,11 @@ const props = defineProps({
     type: [String, Number],
     default: "0",
   },
+  iconPosition: {
+    type: String,
+    default: "left",
+    validator: (val) => ["left", "right"].includes(val),
+  },
 });
 
 const emit = defineEmits([
@@ -681,6 +687,7 @@ provide("selectContext", {
   modelValue: computed(() => props.modelValue),
   multiple: computed(() => props.multiple),
   type: computed(() => props.type),
+  iconPosition: computed(() => props.iconPosition),
   selectOption,
   getValue,
   getLabel,

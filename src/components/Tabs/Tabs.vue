@@ -141,6 +141,7 @@ const handleTabClose = (index: number) => {
   display: flex;
   flex-direction: column;
   width: 100%;
+  font-size: var(--font-size);
 }
 
 .x-tabs__nav {
@@ -165,7 +166,8 @@ const handleTabClose = (index: number) => {
   cursor: pointer;
   transition: all 0.3s ease;
   border-bottom: 2px solid transparent;
-  color: var(--color-text-2);
+  color: var(--color-text-muted);
+  font-size: var(--font-size);
 }
 
 .x-tabs__item.is-active {
@@ -192,7 +194,7 @@ const handleTabClose = (index: number) => {
 .x-tabs__close-btn {
   margin-left: 8px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: var(--font-size);
   line-height: 1;
   opacity: 0.6;
   transition: opacity 0.3s;
@@ -262,12 +264,12 @@ const handleTabClose = (index: number) => {
 /* Size variations */
 .x-tabs--small .x-tabs__item {
   padding: 8px 16px;
-  font-size: 12px;
+  font-size: var(--font-size-0);
 }
 
 .x-tabs--large .x-tabs__item {
   padding: 14px 24px;
-  font-size: 16px;
+  font-size: var(--font-size-2);
 }
 
 /* Type variations */
@@ -298,7 +300,7 @@ const handleTabClose = (index: number) => {
 
 /* Button style tabs */
 .x-tabs--button {
-  font-size: 14px;
+  font-size: var(--font-size);
   --button-padding: 0.25rem 1rem;
   --button-border-radius: var(--border-radius-0);
 }
@@ -494,11 +496,11 @@ const handleTabClose = (index: number) => {
 /* Size variations for button style */
 .x-tabs--button.x-tabs--small .x-tabs__item {
   padding: 6px 12px;
-  font-size: 12px;
+  font-size: var(--font-size-0);
 }
 
 .x-tabs--button.x-tabs--large .x-tabs__item {
   padding: 12px 20px;
-  font-size: 16px;
+  font-size: var(--font-size-2);
 }
 </style>

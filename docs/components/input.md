@@ -1,6 +1,6 @@
 # Input 输入框
 
-## 基础用法
+## 基本用法
 
 Input 组件用于接收用户输入的文本信息，支持多种输入类型和交互功能。
 
@@ -42,136 +42,145 @@ const handleEnter = (value) => {
 
 Input 组件支持多种输入类型，如文本输入、密码输入、数字输入等。通过设置`type`属性来指定输入框的类型。
 
-## 普通输入框
-
-<Input v-model="value" placeholder="请输入内容" />
+### 文本输入
 
 ```vue
 <Input v-model="value" placeholder="请输入内容" />
-<script setup>
-import { ref } from "vue";
-const value = ref("");
-</script>
 ```
 
-## 密码输入框
+### 密码输入
 
-<Input v-model="password" type="password" placeholder="请输入密码" />
 ```vue
-<Input v-model="password" type="password" placeholder="请输入密码" />
-<script setup>
+<Input v-model="value" type="password" placeholder="请输入密码" />
+```
+
+### 数字输入
+
+```vue
+<Input v-model="value" type="number" placeholder="请输入数字" />
+```
+
+### 邮箱输入
+
+```vue
+<Input v-model="value" type="email" placeholder="请输入邮箱" />
+```
+
+### 手机号输入
+
+```vue
+<Input v-model="value" type="tel" placeholder="请输入手机号" />
+```
+
+### 网址输入
+
+```vue
+<Input v-model="value" type="url" placeholder="请输入网址" />
+```
+
+### 搜索输入
+
+搜索类型输入框会在输入内容时显示搜索图标。
+
+```vue
+<Input v-model="value" type="search" placeholder="请输入搜索内容" />
+```
+
+### 多行文本
+
+```vue
+<Input v-model="value" type="textarea" placeholder="请输入内容" />
+```
+
+### 错误状态
+
+通过 `error` 属性可以设置输入框为错误状态。
+
+```vue
+<template>
+  <div>
+    <Input v-model="value" placeholder="请输入内容" :error="true" />
+  </div>
+</template>
+
+<script>
 import { ref } from 'vue'
-const password = ref('')
+
+export default {
+  setup() {
+    const value = ref('')
+    return {
+      value
+    }
+  }
+}
 </script>
+```
 
-````
+### 标签位置
 
-
-## 数字输入框
-
-<Input v-model="number" type="number" placeholder="请输入数字" />
+通过 `labelPosition` 属性可以设置标签的位置，可选值为 `top`（默认）和 `left`。
 
 ```vue
-<Input v-model="number" type="number" placeholder="请输入数字" />
-<script setup>
+<template>
+  <div style="display: flex; flex-direction: column; gap: 16px;">
+    <Input v-model="value1" label="顶部标签" placeholder="请输入内容" />
+    <Input v-model="value2" label="左侧标签" labelPosition="left" placeholder="请输入内容" />
+  </div>
+</template>
+
+<script>
 import { ref } from 'vue'
-const number = ref('')
-</script>
-````
 
-## 邮箱输入框
-
-<Input v-model="email" type="email" placeholder="请输入邮箱" />
-
-```vue
-<Input v-model="email" type="email" placeholder="请输入邮箱" />
-<script setup>
-import { ref } from "vue";
-const email = ref("");
+export default {
+  setup() {
+    const value1 = ref('')
+    const value2 = ref('')
+    return {
+      value1,
+      value2
+    }
+  }
+}
 </script>
 ```
 
-## 手机号输入框
+### 防抖输入
 
-<Input v-model="phone" type="tel" placeholder="请输入手机号" />
-
-```vue
-<Input v-model="phone" type="tel" placeholder="请输入手机号" />
-<script setup>
-import { ref } from "vue";
-const phone = ref("");
-</script>
-```
-
-## 网址输入框
-
-<Input v-model="website" type="url" placeholder="请输入网址" />
+通过 `debounce` 属性可以设置输入防抖时间（毫秒），当设置防抖时间后，可以通过 `@debounce-input` 事件获取防抖后的输入值。
 
 ```vue
-<Input v-model="website" type="url" placeholder="请输入网址" />
-<script setup>
-import { ref } from "vue";
-const website = ref("");
-</script>
-```
+<template>
+  <div>
+    <Input 
+      v-model="value" 
+      placeholder="请输入内容" 
+      :debounce="500"
+      @debounce-input="handleDebounceInput"
+    />
+    <p>防抖后的值: {{ debouncedValue }}</p>
+  </div>
+</template>
 
-## 搜索输入框
+<script>
+import { ref } from 'vue'
 
-<Input v-model="search" type="search" placeholder="请输入搜索内容" />
-
-```vue
-<Input v-model="search" type="search" placeholder="请输入搜索内容" />
-<script setup>
-import { ref } from "vue";
-const search = ref("");
-</script>
-```
-
-## 用户名输入框
-
-<Input v-model="username" placeholder="请输入用户名" />
-
-```vue
-<Input v-model="username" placeholder="请输入用户名" />
-<script setup>
-import { ref } from "vue";
-const username = ref("");
-</script>
-```
-
-## 多行文本输入框
-
-<Input v-model="text" type="textarea" placeholder="多行文本输入" />
-
-```vue
-<Input v-model="text" type="textarea" placeholder="多行文本输入" />
-<script setup>
-import { ref } from "vue";
-const text = ref("");
-</script>
-```
-
-## 密码输入框
-
-<Input v-model="pwd" type="password" placeholder="密码输入框" />
-
-```vue
-<Input v-model="pwd" type="password" placeholder="密码输入框" />
-<script setup>
-import { ref } from "vue";
-const pwd = ref("");
-</script>
-```
-
-## 自适应高度文本框
-
-<Input v-model="text2" type="textarea" placeholder="自适应高度文本框" />
-
-```vue
-<Input v-model="text2" type="textarea" placeholder="自适应高度文本框" />
-<script setup>
-import { ref } from "vue";
-const text2 = ref("");
+export default {
+  setup() {
+    const value = ref('')
+    const debouncedValue = ref('')
+    
+    const handleDebounceInput = (val) => {
+      debouncedValue.value = val
+    }
+    
+    return {
+      value,
+      debouncedValue,
+      handleDebounceInput
+    }
+  }
+}
 </script>
 ```
 
@@ -179,22 +188,111 @@ const text2 = ref("");
 
 Input 组件支持通过事件回调来处理用户交互，常用事件包括：
 
-- `@click`: 点击输入框触发
-- `@change`: 输入内容改变时触发
-- `@focus`: 输入框获得焦点时触发
-- `@blur`: 输入框失去焦点时触发
-- `@keydown`: 按下任意键时触发
-- `@keyup`: 松开任意键时触发
-- `@enter`: 按下回车键时触发
-- `@keydown.enter`: 按下回车键时触发
-- `@keyup.enter`: 松开回车键时触发
+```vue
+<Input
+  v-model="value"
+  placeholder="请输入内容"
+  @click="handleClick"
+  @input="handleInput"
+  @clear="handleClear"
+  @focus="handleFocus"
+  @blur="handleBlur"
+  @enter="handleEnter"
+  @debounce-input="handleDebounceInput"
+/>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const value = ref('')
+    const handleClick = () => {
+      console.log('点击事件')
+    }
+    const handleInput = (val) => {
+      console.log('输入事件', val)
+    }
+    const handleClear = () => {
+      console.log('清空事件')
+    }
+    const handleFocus = (e) => {
+      console.log('聚焦事件', e)
+    }
+    const handleBlur = (e) => {
+      console.log('失焦事件', e)
+    }
+    const handleEnter = (val) => {
+      console.log('回车事件', val)
+    }
+    const handleDebounceInput = (val) => {
+      console.log('防抖输入事件', val)
+    }
+    return {
+      value,
+      handleClick,
+      handleInput,
+      handleClear,
+      handleFocus,
+      handleBlur,
+      handleEnter,
+      handleDebounceInput
+    }
+  }
+}
+</script>
+```
+
+### 事件列表
+
+| 事件名 | 说明 | 回调参数 |
+| --- | --- | --- |
+| input | 输入时触发 | value: 输入值 |
+| debounce-input | 防抖输入时触发，只有设置了 debounce 属性才会触发 | value: 输入值 |
+| clear | 点击清空按钮时触发 | - |
+| click | 点击输入框时触发 | - |
+| focus | 聚焦时触发 | event: 原生事件 |
+| blur | 失焦时触发 | event: 原生事件 |
+| enter | 按下回车键时触发 | value: 输入值 |
+| mouse-enter | 鼠标进入输入框时触发 | - |
+| mouse-leave | 鼠标离开输入框时触发 | - |
+
+
 
 ## 属性说明
 
-| 属性名      | 类型    | 默认值 | 说明                                                    |
-| ----------- | ------- | ------ | ------------------------------------------------------- |
-| type        | string  | 'text' | 输入框类型，可选值：text, password, textarea, number 等 |
-| placeholder | string  | ''     | 占位文本                                                |
-| value       | string  | ''     | 输入框的值                                              |
-| readonly    | boolean | false  | 是否只读                                                |
-| disabled    | boolean | false  | 是否禁用                                                |
+| 属性名 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| type | String | text | 输入框类型，可选值为 text, textarea, password, number, email, tel, url, search |
+| modelValue | String / Number | '' | 绑定值 |
+| label | String | '' | 标签文本 |
+| labelPosition | String | top | 标签位置，可选值为 top, left |
+| placeholder | String | '' | 占位符文本 |
+| maxlength | Number | - | 最大输入长度 |
+| minlength | Number | - | 最小输入长度 |
+| showWordLimit | Boolean | false | 是否显示输入字数统计，只在 type 为 text 或 textarea 时有效 |
+| readonly | Boolean | false | 是否只读 |
+| disabled | Boolean | false | 是否禁用 |
+| error | Boolean | false | 是否为错误状态 |
+| clearable | Boolean | false | 是否可清空 |
+| showPassword | Boolean | false | 是否显示切换密码可见性的按钮，只在 type 为 password 时有效 |
+| size | String | - | 输入框尺寸，可选值为 medium, small, mini |
+| width | String | 300px | 输入框宽度 |
+| height | String | 30px | 输入框高度 |
+| debounce | Number | 0 | 输入防抖时间（毫秒），设置为 0 时不开启防抖 |
+| prefixIcon | String | - | 前缀图标 |
+| suffixIcon | String | - | 后缀图标 |
+| rows | Number | 2 | 多行文本输入框的行数，只在 type 为 textarea 时有效 |
+| autosize | Boolean / Object | false | 是否自动调整多行文本输入框的高度，只在 type 为 textarea 时有效 |
+| resize | String | - | 控制是否可以调整多行文本输入框的大小，只在 type 为 textarea 时有效 |
+| autocomplete | String | off | 自动完成，可选值为 on, off |
+| name | String | - | 原生 name 属性 |
+| maxlength | Number | - | 原生 maxlength 属性 |
+| minlength | Number | - | 原生 minlength 属性 |
+| max | String / Number | - | 原生 max 属性 |
+| min | String / Number | - | 原生 min 属性 |
+| step | String / Number | - | 原生 step 属性 |
+| autofocus | Boolean | false | 原生 autofocus 属性 |
+| form | String | - | 原生 form 属性 |
+| tabindex | String | - | 原生 tabindex 属性 |
+| validate-event | Boolean | true | 是否触发表单验证事件 |
