@@ -16,7 +16,10 @@
     @mouseleave="isHover = false"
   >
     <!-- 左侧图标 -->
-    <div v-if="effectiveIconPosition === 'left' && isSelected" class="x-select-option__icon">
+    <div
+      v-if="effectiveIconPosition === 'left' && isSelected"
+      class="x-select-option__icon"
+    >
       <slot name="icon" v-bind="{ isSelected, disabled }">
         <svg
           class="x-select-option__check-icon"
@@ -25,7 +28,9 @@
           height="14"
           fill="currentColor"
         >
-          <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+          <path
+            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"
+          />
         </svg>
       </slot>
     </div>
@@ -33,7 +38,10 @@
     <slot name="default">{{ label || value }}</slot>
 
     <!-- 右侧图标 -->
-    <div v-if="effectiveIconPosition === 'right' && isSelected" class="x-select-option__icon">
+    <div
+      v-if="effectiveIconPosition === 'right' && isSelected"
+      class="x-select-option__icon"
+    >
       <slot name="icon" v-bind="{ isSelected, disabled }">
         <svg
           class="x-select-option__check-icon"
@@ -42,7 +50,9 @@
           height="14"
           fill="currentColor"
         >
-          <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+          <path
+            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"
+          />
         </svg>
       </slot>
     </div>
@@ -128,11 +138,11 @@ const handleClick = () => {
 
 <style scoped>
 .x-select-option {
-  padding: 8px 12px;
+  padding: var(--padding-2);
   cursor: pointer;
   transition: all 0.2s;
   color: var(--color-text-3);
-  font-size: 14px;
+  font-size: var(--font-size-1);
   border-radius: var(--border-radius-0);
   display: flex;
   align-items: center;
