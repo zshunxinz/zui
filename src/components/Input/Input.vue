@@ -172,7 +172,7 @@ const props = defineProps({
   },
   width: {
     type: String,
-    default: "300px",
+    // default: "100%",
   },
   height: {
     type: String,
@@ -314,7 +314,8 @@ const handleBlur = (e) => {
 .x-input {
   display: inline-flex;
   flex-direction: column;
-  width: 100%;
+  width: var(--width-1);
+  min-width: var(--min-width-1);
 }
 
 .x-input--label-left {
@@ -386,6 +387,14 @@ const handleBlur = (e) => {
   color: var(--color-text-primary);
   background-color: var(--color-bg);
   transition: border-color 0.2s;
+}
+
+*:not(textarea) {
+  font-family: var(--font-family);
+}
+
+textarea {
+  font-family: var(--font-family);
 }
 
 .x-input__prefix {
