@@ -3,7 +3,9 @@
 常用的操作按钮。
 
 ## 基础用法
+
 基础的按钮用法。
+
 <script setup>
 // import Button from '../../src/components/Button.vue'
 import { ref } from 'vue';
@@ -35,6 +37,7 @@ const loadingHandleClick = () => {
 }
 </style>
 <div class="button-group">
+  <Button>Button</Button>
   <Button>默认按钮</Button>
   <Button type="primary">主要按钮</Button>
   <Button type="success">成功按钮</Button>
@@ -54,12 +57,7 @@ const loadingHandleClick = () => {
     <Button type="info">信息按钮</Button>
   </div>
 </template>
-
 ```
-
-
-
-
 
 ## 圆角按钮
 
@@ -74,7 +72,6 @@ const loadingHandleClick = () => {
   <Button type="info" :borderRadius="6">信息按钮</Button>
 </div>
 
-
 ```vue
 <template>
   <div class="button-group">
@@ -86,7 +83,6 @@ const loadingHandleClick = () => {
     <Button type="info" :borderRadius="6">信息按钮</Button>
   </div>
 </template>
-
 ```
 
 ## 浅色背景按钮
@@ -118,6 +114,7 @@ const loadingHandleClick = () => {
 ## 尺寸
 
 支持 `small`、`medium`、`large` 三种尺寸。
+
 <div class="button-group">
     <Button size="small">小型按钮</Button>
     <Button size="medium">中型按钮</Button>
@@ -137,6 +134,7 @@ const loadingHandleClick = () => {
 ## 禁用状态
 
 通过 `disabled` 属性设置禁用状态。
+
 <div class="button-group">
     <Button disabled>默认禁用</Button>
     <Button type="primary" disabled>主要禁用</Button>
@@ -145,7 +143,6 @@ const loadingHandleClick = () => {
     <Button type="danger" disabled>危险禁用</Button>
     <Button type="info" disabled>信息禁用</Button>
 </div>
-
 
 ```vue
 <template>
@@ -184,10 +181,10 @@ const loadingHandleClick = () => {
 </template>
 ```
 
-
 ## 文本按钮
 
 通过 `text` 属性设置文本按钮。
+
  <div class="button-group">
   <Button text>默认按钮</Button>
   <Button type="primary" text>主要按钮</Button>
@@ -199,7 +196,7 @@ const loadingHandleClick = () => {
 
 ```vue
 <template>
-   <div class="button-group">
+  <div class="button-group">
     <Button text>默认按钮</Button>
     <Button type="primary" text>主要按钮</Button>
     <Button type="success" text>成功按钮</Button>
@@ -237,6 +234,7 @@ const loadingHandleClick = () => {
 ```
 
 ## 自定义颜色
+
 通过 `color`、`bgColor` 和 `borderColor` 属性可以分别自定义按钮的文本颜色、背景颜色和边框颜色，实现多样化的按钮样式（`borderColor` 需配合 `border=true` 使用）。
 
 <div class="button-group">
@@ -258,20 +256,21 @@ const loadingHandleClick = () => {
     <Button bgColor="#3357FF" color="#FFFFFF">宝石蓝背景</Button>
     <Button bgColor="#F333FF" color="#FFFFFF">紫色背景</Button>
     <Button bgColor="#33FFF3" color="#000000">青色背景</Button>
-    <Button border :borderColor="'#FF5733'" bgColor="#f5f5f5" color="#333">自定义边框颜色</Button>
+    <Button border :borderColor="'#FF5733'" bgColor="#f5f5f5" color="#333"
+      >自定义边框颜色</Button
+    >
   </div>
 </template>
 ```
 
-
 ## 自定义样式
+
 通过原生 `class` 和 `style` 属性可以添加额外的自定义样式，覆盖或扩展按钮默认样式：
+
 <div class="button-group">
   <Button class="custom-btn" style="font-weight: bold; text-decoration: underline;">带自定义样式</Button>
   <Button class="custom-btn" style="box-shadow: 0 4px 8px rgba(0,0,0,0.2);">带阴影效果</Button>
 </div>
-
-
 
 ```vue
 <template>
@@ -279,7 +278,11 @@ const loadingHandleClick = () => {
   <Button class="custom-btn" style="font-weight: bold;">自定义样式按钮</Button>
 
   <!-- 直接使用style添加内联样式 -->
-  <Button class="custom-btn" style="box-shadow: 0 4px 8px rgba(0,0,0,0.2); border-radius: 8px;">带阴影按钮</Button>
+  <Button
+    class="custom-btn"
+    style="box-shadow: 0 4px 8px rgba(0,0,0,0.2); border-radius: 8px;"
+    >带阴影按钮</Button
+  >
 </template>
 
 <style scoped>
@@ -296,18 +299,14 @@ const loadingHandleClick = () => {
 </style>
 ```
 
-
-
-
-
-
-
 ## 加载状态
 
-按钮支持点击自动进入加载状态（2秒后自动退出）和外部控制加载状态两种模式：
+按钮支持点击自动进入加载状态（2 秒后自动退出）和外部控制加载状态两种模式：
 
 ### 加载状态
+
 加载状态
+
 <div class="button-group">
   <Button type="primary" loading>加载中</Button>
 </div>
@@ -334,15 +333,13 @@ function handleAutoLoading() {
   </Button>
 </div>
 
-
-
 ```vue
 <Button v-model:loading="isLoading" @click="handleClick">
   外部控制加载
 </Button>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from "vue";
 
 const isLoading = ref(false);
 const loadingHandleClick = () => {
@@ -357,17 +354,18 @@ const loadingHandleClick = () => {
 或者使用 `loading` 属性和 `update:loading` 事件手动控制：
 
 ```vue
-<Button :loading="isLoading" @update:loading="val => isLoading = val" @click="handleClick">
+<Button
+  :loading="isLoading"
+  @update:loading="(val) => (isLoading = val)"
+  @click="handleClick"
+>
   手动控制加载
 </Button>
 ```
 
-
-
-
-
 ## 加载状态文本内容
-loadData插槽控制加载中的内容
+
+loadData 插槽控制加载中的内容
 
 <div class="button-group">
   <Button type="primary" @click="loadingHandleClick":loading="isLoading"> 
@@ -378,17 +376,19 @@ loadData插槽控制加载中的内容
   </Button>
 </div>
 
-
-
 ```vue
-<Button type="primary" @click="loadingHandleClick" :loading="isLoading"> 外部控制加载
+<Button
+  type="primary"
+  @click="loadingHandleClick"
+  :loading="isLoading"
+> 外部控制加载
   <template #loadData>
     加载中
   </template>
 </Button>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from "vue";
 
 const isLoading = ref(false);
 const loadingHandleClick = () => {
@@ -399,7 +399,6 @@ const loadingHandleClick = () => {
 };
 </script>
 ```
-
 
 ## 事件
 
@@ -425,14 +424,13 @@ const handleHover = () => {
 
 <script setup>
 const handleClick = () => {
-  alert('按钮被点击了')
-}
+  alert("按钮被点击了");
+};
 const handleHover = () => {
-  alert('鼠标悬停在按钮上')
-}
+  alert("鼠标悬停在按钮上");
+};
 </script>
 ```
-
 
 ## 组合示例
 
@@ -458,40 +456,37 @@ const handleHover = () => {
     <Button type="info" border text>信息文本边框按钮</Button>
   </div>
 </template>
-
 ```
-
 
 ## 属性
 
-| 参数 | 说明 | 类型 | 可选值 | 默认值 |
-|------|------|------|--------|--------|
-| type | 按钮类型 | string | primary/success/warning/danger/info | primary |
-| size | 按钮尺寸 | string | small/medium/large | medium |
-| disabled | 是否禁用 | boolean | true/false | false |
-| text | 是否为文本按钮 | boolean | true/false | false |
-| border | 是否为边框按钮 | boolean | true/false | false |
-| shadow | 是否显示阴影效果 | boolean | true/false | false |
-| borderRadius | 按钮圆角大小(px) | Number | — | 6 |
-| bgColor | 自定义按钮背景颜色 | String | — | undefined |
-| bg | 是否为浅色背景按钮 | boolean | true/false | false |
-| color | 自定义按钮文本颜色 | String | — | undefined |
-| borderColor | 自定义按钮边框颜色（需配合border=true使用） | String | — | undefined |
-| class | 自定义类名 | String | — | undefined |
-| style | 自定义内联样式 | Object | — | undefined |
-| loading | 控制按钮加载状态，外部控制优先 | Boolean | true/false | false |
+| 参数         | 说明                                          | 类型    | 可选值                              | 默认值    |
+| ------------ | --------------------------------------------- | ------- | ----------------------------------- | --------- |
+| type         | 按钮类型                                      | string  | primary/success/warning/danger/info | primary   |
+| size         | 按钮尺寸                                      | string  | small/medium/large                  | medium    |
+| disabled     | 是否禁用                                      | boolean | true/false                          | false     |
+| text         | 是否为文本按钮                                | boolean | true/false                          | false     |
+| border       | 是否为边框按钮                                | boolean | true/false                          | false     |
+| shadow       | 是否显示阴影效果                              | boolean | true/false                          | false     |
+| borderRadius | 按钮圆角大小(px)                              | Number  | —                                   | 6         |
+| bgColor      | 自定义按钮背景颜色                            | String  | —                                   | undefined |
+| bg           | 是否为浅色背景按钮                            | boolean | true/false                          | false     |
+| color        | 自定义按钮文本颜色                            | String  | —                                   | undefined |
+| borderColor  | 自定义按钮边框颜色（需配合 border=true 使用） | String  | —                                   | undefined |
+| class        | 自定义类名                                    | String  | —                                   | undefined |
+| style        | 自定义内联样式                                | Object  | —                                   | undefined |
+| loading      | 控制按钮加载状态，外部控制优先                | Boolean | true/false                          | false     |
 
 ## 插槽
 
-| 插槽名称 | 说明 |
-|---------|------|
-| default | 按钮的默认内容 |
-| loadData | 加载状态时的自定义内容，仅在loading为true时显示，会替换默认的加载指示器和文本 |
+| 插槽名称 | 说明                                                                              |
+| -------- | --------------------------------------------------------------------------------- |
+| default  | 按钮的默认内容                                                                    |
+| loadData | 加载状态时的自定义内容，仅在 loading 为 true 时显示，会替换默认的加载指示器和文本 |
 
 ## 事件
 
-| 事件名称 | 说明 | 回调参数 |
-|---------|------|---------|
-| click | 点击按钮时触发 | (event: MouseEvent) |
-| hover | 鼠标移入按钮时触发 | — |
-
+| 事件名称 | 说明               | 回调参数            |
+| -------- | ------------------ | ------------------- |
+| click    | 点击按钮时触发     | (event: MouseEvent) |
+| hover    | 鼠标移入按钮时触发 | —                   |
