@@ -1,5 +1,6 @@
 .x-input {
   margin-bottom: 16px;
+  font-family: var(--font-family);
 }
 
 .x-input--medium .x-input__inner {

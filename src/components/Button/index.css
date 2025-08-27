@@ -4,12 +4,13 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem 1rem;
-  font-size: 14px;
+  /* padding: var(--padding-1); */
+  /* height: var(--height-1); */
+  font-size: var(--font-size);
   cursor: pointer;
   border: 1px solid transparent;
   transition: all 0.2s ease;
-  font-weight: 500;
+  font-family: var(--font-family);
 }
 
 .is-disabled {
