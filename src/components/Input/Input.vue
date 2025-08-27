@@ -1,6 +1,11 @@
 <template>
   <div
-    :class="['x-input', size ? `x-input--${size}` : '', $attrs.class]"
+    :class="[
+      'x-input',
+      size ? `x-input--${size}` : '',
+      labelPosition ? `x-input--label-${labelPosition}` : '',
+      $attrs.class,
+    ]"
     :style="[{ width }, { height }, $attrs.style]"
   >
     <label v-if="label" class="x-input__label" :for="id">{{ label }}</label>
@@ -37,6 +42,8 @@
         @mouseleave="handleMouseLeave"
         @click="handleClick"
         @keydown.enter="handleEnter"
+        @focus="handleFocus"
+        @blur="handleBlur"
         ref="textareaRef"
       ></textarea>
       <input
@@ -63,6 +70,8 @@
         @mouseleave="handleMouseLeave"
         @click="handleClick"
         @keydown.enter="handleEnter"
+        @focus="handleFocus"
+        @blur="handleBlur"
       />
       <span v-if="suffixIcon" class="x-input__suffix x-input__icon">{{
         suffixIcon
@@ -92,7 +101,7 @@
 </template>
 
 <script setup>
-import { ref, watch, computed, onMounted } from "vue";
+import { ref, watch, computed, onMounted, onUnmounted } from "vue";
 
 const props = defineProps({
   prefixIcon: String,
@@ -133,6 +142,11 @@ const props = defineProps({
     type: String,
     default: "",
   },
+  labelPosition: {
+    type: String,
+    default: "top",
+    validator: (value) => ["top", "left", "center", "right"].includes(value),
+  },
   maxlength: Number,
   minlength: Number,
   showWordLimit: {
@@ -164,6 +178,10 @@ const props = defineProps({
     type: String,
     default: "30px",
   },
+  debounce: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const emit = defineEmits([
@@ -174,7 +192,18 @@ const emit = defineEmits([
   "mouse-leave",
   "click",
   "enter",
+  "debounce-input",
+  "focus",
+  "blur",
 ]);
+
+let debounceTimer = null;
+const debounceInput = (value) => {
+  if (debounceTimer) clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(() => {
+    emit("debounce-input", value);
+  }, props.debounce);
+};
 const showPassword = ref(props.showPassword);
 const id = `x-input-${Math.random().toString(36).slice(-8)}`;
 const inputValue = ref(props.modelValue);
@@ -232,6 +261,9 @@ const handleInput = (e) => {
   if (props["validate-event"]) {
     emit("validate-event", e.target.value);
   }
+  if (props.debounce > 0) {
+    debounceInput(e.target.value);
+  }
   if (props.autosize && e.target.tagName === "TEXTAREA") {
     adjustTextareaHeight();
   }
@@ -239,6 +271,13 @@ const handleInput = (e) => {
 
 onMounted(() => {
   adjustTextareaHeight();
+});
+
+onUnmounted(() => {
+  if (debounceTimer) {
+    clearTimeout(debounceTimer);
+    debounceTimer = null;
+  }
 });
 
 const clear = () => {
@@ -261,6 +300,14 @@ const handleClick = () => {
 const handleEnter = () => {
   emit("enter", inputValue.value);
 };
+
+const handleFocus = (e) => {
+  emit("focus", e);
+};
+
+const handleBlur = (e) => {
+  emit("blur", e);
+};
 </script>
 
 <style scoped>
@@ -268,6 +315,45 @@ const handleEnter = () => {
   display: inline-flex;
   flex-direction: column;
   width: 100%;
+}
+
+.x-input--label-left {
+  flex-direction: row;
+  align-items: center;
+}
+
+.x-input--label-left .x-input__label {
+  margin-bottom: 0;
+  margin-right: 8px;
+  line-height: 100%;
+  white-space: nowrap;
+}
+
+.x-input--label-center {
+  flex-direction: column;
+  align-items: center;
+}
+
+.x-input--label-center .x-input__label {
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.x-input--label-right {
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.x-input--label-right .x-input__label {
+  order: 1;
+  margin-bottom: 0;
+  margin-left: 12px;
+  white-space: nowrap;
+}
+
+.x-input--label-right .x-input__wrapper {
+  order: 0;
 }
 
 .x-input__label {
@@ -288,7 +374,7 @@ const handleEnter = () => {
 .x-input__inner {
   flex: 1;
   min-width: 0;
-  padding: 8px 12px;
+  padding: 0.25rem 1rem;
   padding-left: v-bind('prefixIcon ? "36px" : "12px"');
   padding-right: v-bind(
     'suffixIcon || showPassword || clearable ? "36px" : "12px"'

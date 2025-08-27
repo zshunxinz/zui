@@ -80,6 +80,16 @@
   font-family: Inter, -apple-system, BlinkMacSystemFont, PingFang SC,
     Hiragino Sans GB, noto sans, Microsoft YaHei, Helvetica Neue, Helvetica,
     Arial, sans-serif !important;
+  --padding-1: 0.25rem 0.6rem;
+  --padding-2: 0.5rem 1rem;
+  --padding-3: 1rem 1rem;
+  --space-1: 8px;
+  --space-2: 10px;
+  --space-3: 12px;
+  --height-0: 30px;
+  --height-1: 2.05rem;
+  --height-2: 40px;
+  --height-3: 44px;
 }
 
 /* 暗色模式变量 */
