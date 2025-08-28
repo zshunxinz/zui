@@ -12,6 +12,9 @@
         'x-radio--disabled': disabled || option.disabled,
         'x-radio--square': shape === 'square',
         'x-radio--button': shape === 'button',
+        'x-radio--small--button': size === 'small' && shape === 'button',
+        'x-radio--medium--button': size === 'medium' && shape === 'button',
+        'x-radio--large--button': size === 'large' && shape === 'button',
         'x-radio--card': shape === 'card',
         'x-radio--tab': shape === 'tab',
         'x-radio--default': type === 'default',
@@ -68,6 +71,7 @@ const props = withDefaults(
     disabled?: boolean;
     shape?: "circle" | "square" | "button" | "card" | "tab";
     checkedClass?: any;
+    size?: "small" | "medium" | "large";
     type?: "default" | "primary" | "success" | "warning" | "danger" | "info";
   }>(),
   {
@@ -223,7 +227,22 @@ const handleChange = (e: Event) => {
 .x-radio--button {
   border: 1px solid var(--color-border-1);
   border-radius: var(--border-radius-0);
-  padding: 6px 12px;
+  padding: var(--padding-2);
+}
+
+.x-radio--small--button {
+  font-size: var(--font-size-0);
+  padding: var(--padding-1);
+}
+
+.x-radio--medium--button {
+  padding: var(--padding-2);
+  font-size: var(--font-size-1);
+}
+
+.x-radio--large--button {
+  padding: var(--padding-3);
+  font-size: var(--font-size-2);
 }
 
 .x-radio--button.x-radio--checked {
@@ -338,7 +357,7 @@ const handleChange = (e: Event) => {
 }
 
 .x-radio__label {
-  font-size: var(--font-size);
+  /* font-size: var(--font-size); */
   color: var(--color-text);
   user-select: none;
   display: flex;

@@ -38,7 +38,6 @@ const errors = ref({});
 const genderOptions = [
   { label: "男", value: "male" },
   { label: "女", value: "female" },
-  { label: "其他", value: "other" },
 ];
 
 const provinceOptions = [
@@ -159,183 +158,593 @@ const resetForm = () => {
       <ThemeToggle />
     </div>
 
-    <Card style="margin: 20px">
-      <Tabs v-model="activeTab" :tabs="tabs">
-        <!-- 基本信息标签页 -->
-        <template #basic>
-          <div class="form-content">
-            <Row :gutter="16">
-              <Col :span="24">
-                <div class="form-group">
-                  <label for="name">姓名 <span class="required">*</span></label>
-                  <Input
-                    id="name"
-                    v-model="formData.name"
-                    placeholder="请输入您的姓名"
-                    :error-message="errors.name"
-                  />
-                </div>
-              </Col>
+    <Row>
+      <Col :span="8">
+        <Card
+          style="margin: 20px; width: 360px"
+          size="large"
+          class="large-card"
+        >
+          <Tabs v-model="activeTab" :tabs="tabs">
+            <!-- 基本信息标签页 -->
+            <template #basic>
+              <div class="form-content">
+                <Row :gutter="16">
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label for="name"
+                        >姓名 <span class="required">*</span></label
+                      >
+                      <Input
+                        size="large"
+                        type="text"
+                        id="name"
+                        v-model="formData.name"
+                        placeholder="请输入您的姓名"
+                        :error-message="errors.name"
+                      />
+                    </div>
+                  </Col>
 
-              <Col :span="24">
-                <div class="form-group">
-                  <label for="email"
-                    >邮箱 <span class="required">*</span></label
-                  >
-                  <Input
-                    id="email"
-                    v-model="formData.email"
-                    type="email"
-                    placeholder="请输入您的邮箱"
-                    :error-message="errors.email"
-                  />
-                </div>
-              </Col>
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label for="email"
+                        >邮箱 <span class="required">*</span></label
+                      >
+                      <Input
+                        size="large"
+                        id="email"
+                        v-model="formData.email"
+                        type="email"
+                        placeholder="请输入您的邮箱"
+                        :error-message="errors.email"
+                      />
+                    </div>
+                  </Col>
 
-              <Col :span="24">
-                <div class="form-group">
-                  <label for="phone"
-                    >电话 <span class="required">*</span></label
-                  >
-                  <Input
-                    id="phone"
-                    v-model="formData.phone"
-                    placeholder="请输入您的手机号码"
-                    :error-message="errors.phone"
-                  />
-                </div>
-              </Col>
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label for="phone"
+                        >电话 <span class="required">*</span></label
+                      >
+                      <Input
+                        size="large"
+                        id="phone"
+                        v-model="formData.phone"
+                        placeholder="请输入您的手机号码"
+                        :error-message="errors.phone"
+                      />
+                    </div>
+                  </Col>
 
-              <Col :span="24">
-                <div class="form-group">
-                  <label>性别</label>
-                  <Radio
-                    v-model="formData.gender"
-                    :options="genderOptions"
-                    shape="button"
-                  />
-                </div>
-              </Col>
-            </Row>
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label>性别</label>
+                      <Radio
+                        size="large"
+                        v-model="formData.gender"
+                        :options="genderOptions"
+                        shape="button"
+                      />
+                    </div>
+                  </Col>
+                </Row>
+              </div>
+            </template>
+
+            <!-- 地址信息标签页 -->
+            <template #address>
+              <div class="form-content">
+                <Row :gutter="16">
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label for="address"
+                        >详细地址 <span class="required">*</span></label
+                      >
+                      <Input
+                        size="large"
+                        id="address"
+                        v-model="formData.address"
+                        type="textarea"
+                        rows="1"
+                        placeholder="请输入您的详细地址"
+                        :error-message="errors.address"
+                      />
+                    </div>
+                  </Col>
+
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label for="province"
+                        >省份 <span class="required">*</span></label
+                      >
+                      <Select
+                        size="large"
+                        v-model="formData.province"
+                        placeholder="请选择"
+                        type="default"
+                      >
+                        <Option label="北京" value="1" />
+                        <Option label="上海" value="2" />
+                        <Option label="重庆" value="3" />
+                        <Option label="广州" value="4" disabled />
+                      </Select>
+                    </div>
+                  </Col>
+
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label for="city"
+                        >城市 <span class="required">*</span></label
+                      >
+                      <Input
+                        size="large"
+                        id="city"
+                        v-model="formData.city"
+                        placeholder="请输入城市名称"
+                        :error-message="errors.city"
+                      />
+                    </div>
+                  </Col>
+
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label for="zipCode"
+                        >邮政编码 <span class="required">*</span></label
+                      >
+                      <Input
+                        size="large"
+                        id="zipCode"
+                        v-model="formData.zipCode"
+                        placeholder="请输入邮政编码"
+                        :error-message="errors.zipCode"
+                      />
+                    </div>
+                  </Col>
+                </Row>
+              </div>
+            </template>
+
+            <!-- 偏好设置标签页 -->
+            <template #preferences>
+              <div class="form-content">
+                <Row :gutter="16">
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label>接收通知</label>
+                      <Switch
+                        size="large"
+                        v-model="formData.notifications"
+                        active-text="开启"
+                        inactive-text="关闭"
+                      />
+                    </div>
+                  </Col>
+
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label>首选联系方式</label>
+                      <Radio
+                        size="large"
+                        v-model="formData.preferredContact"
+                        :options="contactOptions"
+                        shape="radio"
+                      />
+                    </div>
+                  </Col>
+
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label>兴趣爱好</label>
+                      <CheckboxGroup v-model="formData.interests">
+                        <Checkbox
+                          v-for="option in interestOptions"
+                          size="large"
+                          :key="option.value"
+                          :label="option.label"
+                          >{{ option.label }}</Checkbox
+                        >
+                      </CheckboxGroup>
+                    </div>
+                  </Col>
+                </Row>
+              </div>
+            </template>
+          </Tabs>
+
+          <div class="button-group">
+            <Button @click="submitForm" size="large">Button</Button>
+            <Button @click="submitForm" size="large">提交</Button>
+            <Button text bg @click="resetForm" size="large">重置</Button>
           </div>
-        </template>
+        </Card>
+      </Col>
+      <Col :span="8">
+        <Card style="margin: 20px; width: 360px">
+          <Tabs v-model="activeTab" :tabs="tabs">
+            <!-- 基本信息标签页 -->
+            <template #basic>
+              <div class="form-content">
+                <Row :gutter="16">
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label for="name"
+                        >姓名 <span class="required">*</span></label
+                      >
+                      <Input
+                        type="text"
+                        id="name"
+                        v-model="formData.name"
+                        placeholder="请输入您的姓名"
+                        :error-message="errors.name"
+                      />
+                    </div>
+                  </Col>
 
-        <!-- 地址信息标签页 -->
-        <template #address>
-          <div class="form-content">
-            <Row :gutter="16">
-              <Col :span="24">
-                <div class="form-group">
-                  <label for="address"
-                    >详细地址 <span class="required">*</span></label
-                  >
-                  <Input
-                    id="address"
-                    v-model="formData.address"
-                    type="textarea"
-                    rows="1"
-                    placeholder="请输入您的详细地址"
-                    :error-message="errors.address"
-                  />
-                </div>
-              </Col>
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label for="email"
+                        >邮箱 <span class="required">*</span></label
+                      >
+                      <Input
+                        id="email"
+                        v-model="formData.email"
+                        type="email"
+                        placeholder="请输入您的邮箱"
+                        :error-message="errors.email"
+                      />
+                    </div>
+                  </Col>
 
-              <Col :span="24">
-                <div class="form-group">
-                  <label for="province"
-                    >省份 <span class="required">*</span></label
-                  >
-                  <Select
-                    v-model="formData.province"
-                    placeholder="请选择"
-                    type="default"
-                  >
-                    <Option label="北京" value="1" />
-                    <Option label="上海" value="2" />
-                    <Option label="重庆" value="3" />
-                    <Option label="广州" value="4" disabled />
-                  </Select>
-                </div>
-              </Col>
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label for="phone"
+                        >电话 <span class="required">*</span></label
+                      >
+                      <Input
+                        id="phone"
+                        v-model="formData.phone"
+                        placeholder="请输入您的手机号码"
+                        :error-message="errors.phone"
+                      />
+                    </div>
+                  </Col>
 
-              <Col :span="24">
-                <div class="form-group">
-                  <label for="city">城市 <span class="required">*</span></label>
-                  <Input
-                    id="city"
-                    v-model="formData.city"
-                    placeholder="请输入城市名称"
-                    :error-message="errors.city"
-                  />
-                </div>
-              </Col>
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label>性别</label>
+                      <Radio
+                        v-model="formData.gender"
+                        :options="genderOptions"
+                        shape="button"
+                      />
+                    </div>
+                  </Col>
+                </Row>
+              </div>
+            </template>
 
-              <Col :span="24">
-                <div class="form-group">
-                  <label for="zipCode"
-                    >邮政编码 <span class="required">*</span></label
-                  >
-                  <Input
-                    id="zipCode"
-                    v-model="formData.zipCode"
-                    placeholder="请输入邮政编码"
-                    :error-message="errors.zipCode"
-                  />
-                </div>
-              </Col>
-            </Row>
+            <!-- 地址信息标签页 -->
+            <template #address>
+              <div class="form-content">
+                <Row :gutter="16">
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label for="address"
+                        >详细地址 <span class="required">*</span></label
+                      >
+                      <Input
+                        id="address"
+                        v-model="formData.address"
+                        type="textarea"
+                        rows="1"
+                        placeholder="请输入您的详细地址"
+                        :error-message="errors.address"
+                      />
+                    </div>
+                  </Col>
+
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label for="province"
+                        >省份 <span class="required">*</span></label
+                      >
+                      <Select
+                        v-model="formData.province"
+                        placeholder="请选择"
+                        type="default"
+                      >
+                        <Option label="北京" value="1" />
+                        <Option label="上海" value="2" />
+                        <Option label="重庆" value="3" />
+                        <Option label="广州" value="4" disabled />
+                      </Select>
+                    </div>
+                  </Col>
+
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label for="city"
+                        >城市 <span class="required">*</span></label
+                      >
+                      <Input
+                        id="city"
+                        v-model="formData.city"
+                        placeholder="请输入城市名称"
+                        :error-message="errors.city"
+                      />
+                    </div>
+                  </Col>
+
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label for="zipCode"
+                        >邮政编码 <span class="required">*</span></label
+                      >
+                      <Input
+                        id="zipCode"
+                        v-model="formData.zipCode"
+                        placeholder="请输入邮政编码"
+                        :error-message="errors.zipCode"
+                      />
+                    </div>
+                  </Col>
+                </Row>
+              </div>
+            </template>
+
+            <!-- 偏好设置标签页 -->
+            <template #preferences>
+              <div class="form-content">
+                <Row :gutter="16">
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label>接收通知</label>
+                      <Switch
+                        v-model="formData.notifications"
+                        active-text="开启"
+                        inactive-text="关闭"
+                      />
+                    </div>
+                  </Col>
+
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label>首选联系方式</label>
+                      <Radio
+                        v-model="formData.preferredContact"
+                        :options="contactOptions"
+                        shape="radio"
+                      />
+                    </div>
+                  </Col>
+
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label>兴趣爱好</label>
+                      <CheckboxGroup v-model="formData.interests">
+                        <Checkbox
+                          v-for="option in interestOptions"
+                          :key="option.value"
+                          :label="option.label"
+                          >{{ option.label }}</Checkbox
+                        >
+                      </CheckboxGroup>
+                    </div>
+                  </Col>
+                </Row>
+              </div>
+            </template>
+          </Tabs>
+
+          <div class="button-group">
+            <Button @click="submitForm">Button</Button>
+            <Button @click="submitForm">提交</Button>
+            <Button text bg @click="resetForm">重置</Button>
           </div>
-        </template>
+        </Card>
+      </Col>
+      <Col :span="8">
+        <Card
+          style="margin: 20px; width: 360px"
+          size="small"
+          class="small-card"
+        >
+          <Tabs v-model="activeTab" :tabs="tabs" size="small">
+            <!-- 基本信息标签页 -->
+            <template #basic>
+              <div class="form-content">
+                <Row :gutter="16">
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label for="name"
+                        >姓名 <span class="required">*</span></label
+                      >
+                      <Input
+                        size="small"
+                        type="text"
+                        id="name"
+                        v-model="formData.name"
+                        placeholder="请输入您的姓名"
+                        :error-message="errors.name"
+                      />
+                    </div>
+                  </Col>
 
-        <!-- 偏好设置标签页 -->
-        <template #preferences>
-          <div class="form-content">
-            <Row :gutter="16">
-              <Col :span="24">
-                <div class="form-group">
-                  <label>接收通知</label>
-                  <Switch
-                    v-model="formData.notifications"
-                    active-text="开启"
-                    inactive-text="关闭"
-                  />
-                </div>
-              </Col>
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label for="email"
+                        >邮箱 <span class="required">*</span></label
+                      >
+                      <Input
+                        size="small"
+                        id="email"
+                        v-model="formData.email"
+                        type="email"
+                        placeholder="请输入您的邮箱"
+                        :error-message="errors.email"
+                      />
+                    </div>
+                  </Col>
 
-              <Col :span="24">
-                <div class="form-group">
-                  <label>首选联系方式</label>
-                  <Radio
-                    v-model="formData.preferredContact"
-                    :options="contactOptions"
-                    shape="radio"
-                  />
-                </div>
-              </Col>
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label for="phone"
+                        >电话 <span class="required">*</span></label
+                      >
+                      <Input
+                        size="small"
+                        id="phone"
+                        v-model="formData.phone"
+                        placeholder="请输入您的手机号码"
+                        :error-message="errors.phone"
+                      />
+                    </div>
+                  </Col>
 
-              <Col :span="24">
-                <div class="form-group">
-                  <label>兴趣爱好</label>
-                  <CheckboxGroup v-model="formData.interests">
-                    <Checkbox
-                      v-for="option in interestOptions"
-                      :key="option.value"
-                      :label="option.label"
-                      >{{ option.label }}</Checkbox
-                    >
-                  </CheckboxGroup>
-                </div>
-              </Col>
-            </Row>
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label>性别</label>
+                      <Radio
+                        size="small"
+                        v-model="formData.gender"
+                        :options="genderOptions"
+                        shape="button"
+                      />
+                    </div>
+                  </Col>
+                </Row>
+              </div>
+            </template>
+
+            <!-- 地址信息标签页 -->
+            <template #address>
+              <div class="form-content">
+                <Row :gutter="16">
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label for="address"
+                        >详细地址 <span class="required">*</span></label
+                      >
+                      <Input
+                        size="small"
+                        id="address"
+                        v-model="formData.address"
+                        type="textarea"
+                        rows="1"
+                        placeholder="请输入您的详细地址"
+                        :error-message="errors.address"
+                      />
+                    </div>
+                  </Col>
+
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label for="province"
+                        >省份 <span class="required">*</span></label
+                      >
+                      <Select
+                        size="small"
+                        v-model="formData.province"
+                        placeholder="请选择"
+                        type="default"
+                      >
+                        <Option label="北京" value="1" />
+                        <Option label="上海" value="2" />
+                        <Option label="重庆" value="3" />
+                        <Option label="广州" value="4" disabled />
+                      </Select>
+                    </div>
+                  </Col>
+
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label for="city"
+                        >城市 <span class="required">*</span></label
+                      >
+                      <Input
+                        size="small"
+                        id="city"
+                        v-model="formData.city"
+                        placeholder="请输入城市名称"
+                        :error-message="errors.city"
+                      />
+                    </div>
+                  </Col>
+
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label for="zipCode"
+                        >邮政编码 <span class="required">*</span></label
+                      >
+                      <Input
+                        size="small"
+                        id="zipCode"
+                        v-model="formData.zipCode"
+                        placeholder="请输入邮政编码"
+                        :error-message="errors.zipCode"
+                      />
+                    </div>
+                  </Col>
+                </Row>
+              </div>
+            </template>
+
+            <!-- 偏好设置标签页 -->
+            <template #preferences>
+              <div class="form-content">
+                <Row :gutter="16">
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label>接收通知</label>
+                      <Switch
+                        size="small"
+                        v-model="formData.notifications"
+                        active-text="开启"
+                        inactive-text="关闭"
+                      />
+                    </div>
+                  </Col>
+
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label>首选联系方式</label>
+                      <Radio
+                        size="small"
+                        v-model="formData.preferredContact"
+                        :options="contactOptions"
+                        shape="radio"
+                      />
+                    </div>
+                  </Col>
+
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label>兴趣爱好</label>
+                      <CheckboxGroup v-model="formData.interests">
+                        <Checkbox
+                          v-for="option in interestOptions"
+                          size="small"
+                          :key="option.value"
+                          :label="option.label"
+                          >{{ option.label }}</Checkbox
+                        >
+                      </CheckboxGroup>
+                    </div>
+                  </Col>
+                </Row>
+              </div>
+            </template>
+          </Tabs>
+
+          <div class="button-group">
+            <Button @click="submitForm" size="small">Button</Button>
+            <Button @click="submitForm" size="small">提交</Button>
+            <Button text bg @click="resetForm" size="small">重置</Button>
           </div>
-        </template>
-      </Tabs>
-
-      <div class="button-group">
-        <Button @click="submitForm">提交</Button>
-        <Button text bg @click="resetForm">重置</Button>
-      </div>
-    </Card>
+        </Card>
+      </Col>
+    </Row>
 
     <div class="component-section">
       <h2>Card 组件</h2>
@@ -825,7 +1234,6 @@ const resetForm = () => {
 }
 
 .button-group {
-  margin-top: 0.25rem;
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
@@ -933,6 +1341,14 @@ label {
   margin-bottom: 8px;
   font-weight: 500;
   font-size: var(--font-size);
+}
+
+.small-card label {
+  font-size: var(--font-size-0);
+}
+
+.large-card label {
+  font-size: var(--font-size-2);
 }
 
 .form-control {

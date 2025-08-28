@@ -12,15 +12,29 @@ const toggleLoading = () => {
   loading.value = !loading.value;
 };
 </script>
-
-<Card title="基础卡片">
-    <div>这是卡片内容</div>
+<style scoped>
+.card-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+</style>
+<Card title="基础卡片" headerBorder width="500px">
+    <Row :gutter="10">
+      <Col :span="20">
+        <Input placeholder="账号" style="height:100%;width:100%"/>
+      </Col>
+      <Col :span="4">
+        <Button style="width:100%">确认</Button>
+      </Col>
+    </Row>
 </Card>
 
 ```vue
 <template>
-  <Card title="基础卡片">
-    <div>这是卡片内容</div>
+  <Card title="基础卡片" headerBorder>
+    <Input placeholder="账号" />
+    <Button style="height:100%">确认</Button>
   </Card>
 </template>
 ```
@@ -28,18 +42,24 @@ const toggleLoading = () => {
 ## 控制卡片尺寸
 
 通过`width`和`height`属性可以手动控制卡片的宽度和高度。支持数字(px)和字符串形式的 CSS 值。
+<Row :gutter="[16,16]">
 
-<Card title="自定义宽度卡片" :width="300">
-    <div>宽度为300px的卡片</div>
-</Card>
-
-<Card title="自定义高度卡片" :height="200">
-    <div>高度为200px的卡片</div>
-</Card>
-
-<Card title="自定义宽高卡片" width="50%" height="150px">
-    <div>宽度为50%，高度为150px的卡片</div>
-</Card>
+  <Col :span="24">
+    <Card title="自定义宽度卡片" :width="300" headerBorder>
+      <div>宽度为300px的卡片</div>
+    </Card>
+  </Col>
+  <Col :span="12">
+    <Card title="自定义高度卡片" :height="200">
+      <div>高度为200px的卡片</div>
+    </Card>
+  </Col>
+  <Col :span="24">
+    <Card title="自定义宽高卡片" width="100%" height="150px" headerBorder>
+      <div>宽度为100%，高度为150px的卡片</div>
+    </Card>
+  </Col>
+</Row>
 
 ```vue
 <template>

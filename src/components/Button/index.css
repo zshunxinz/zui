@@ -159,18 +159,21 @@
 }
 
 .btn--small {
-  padding: 0.25rem 0.5rem;
-  font-size: 12px;
+  padding: var(--padding-1);
+  font-size: var(--font-size-0);
+  height: var(--height-1);
 }
 
-.btu--medium {
-  padding: 0.25rem 0.5rem;
-  font-size: 12px;
+.btn--medium {
+  padding: var(--padding-2);
+  font-size: var(--font-size-1);
+  height: var(--height-2);
 }
 
 .btn--large {
-  padding: 0.25rem 3rem;
-  font-size: 16px;
+  padding: var(--padding-3);
+  font-size: var(--font-size-2);
+  height: var(--height-3);
 }
 
 /* btn--text */

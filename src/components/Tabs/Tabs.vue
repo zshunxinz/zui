@@ -16,6 +16,7 @@
         tabsBg ? 'x-tabs_nav_bg-0' : '',
         tabsBgClass ? tabsBgClass : '',
       ]"
+      :style="tabsBgStyle"
     >
       <div
         v-for="(tab, index) in tabs"
@@ -77,6 +78,7 @@ interface Props {
   tabsBgClass?: string;
   tabFull?: boolean;
   buttonStyleText?: boolean;
+  tabsBgStyle?: string;
 }
 
 interface Emits {
@@ -98,6 +100,7 @@ const props = withDefaults(defineProps<Props>(), {
   tabsBgClass: "",
   tabFull: false,
   buttonStyleText: false,
+  tabsBgStyle: "",
 });
 
 const emit = defineEmits<Emits>();

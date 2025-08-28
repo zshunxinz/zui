@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Slot Test</title>
+    <script type="importmap">
+        {
+            "imports": {
+                "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js",
+                "@/": "../"
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-item {
+            margin: 20px 0;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .controls {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f8f8;
+            border-radius: 4px;
+        }
+        label {
+            margin-right: 10px;
+        }
+        input, select {
+            margin: 5px;
+            padding: 5px;
+        }
+        .content-toggle {
+            margin: 10px 0;
+        }
+        .inspector {
+            background: #e8f4fd;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>Card Slot 测试</h1>
+        
+        <div class="controls">
+            <div>
+                <label>显示内容：</label>
+                <input type="checkbox" v-model="showContent">
+            </div>
+            <div>
+                <label>显示标题：</label>
+                <input type="checkbox" v-model="showTitle">
+            </div>
+            <div>
+                <label>显示页脚：</label>
+                <input type="checkbox" v-model="showFooter">
+            </div>
+            <div>
+                <label>启用骨架屏：</label>
+                <input type="checkbox" v-model="skeleton">
+            </div>
+            <div>
+                <label>可折叠：</label>
+                <input type="checkbox" v-model="collapsible">
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>测试场景</h2>
+            
+            <div class="test-item">
+                <h3>场景1：有内容（正常情况）</h3>
+                <x-card title="有内容的卡片">
+                    <p>这是卡片的内容区域，应该显示x-card__body类。</p>
+                    <p>当前内容：{{ contentText }}</p>
+                </x-card>
+            </div>
+
+            <div class="test-item">
+                <h3>场景2：无内容（空slot）</h3>
+                <x-card title="无内容的卡片">
+                    <!-- 故意留空，不传入任何内容 -->
+                </x-card>
+            </div>
+
+            <div class="test-item">
+                <h3>场景3：动态内容切换</h3>
+                <x-card :title="dynamicTitle">
+                    <template v-if="showContent">
+                        <p>这是动态显示的内容</p>
+                        <ul>
+                            <li>列表项1</li>
+                            <li>列表项2</li>
+                        </ul>
+                    </template>
+                </x-card>
+            </div>
+
+            <div class="test-item">
+                <h3>场景4：仅标题无内容</h3>
+                <x-card title="仅标题卡片">
+                    <!-- 无默认slot内容 -->
+                </x-card>
+            </div>
+
+            <div class="test-item">
+                <h3>场景5：带页脚无内容</h3>
+                <x-card title="带页脚卡片">
+                    <!-- 无默认slot内容 -->
+                    <template #footer>
+                        <button>操作按钮</button>
+                    </template>
+                </x-card>
+            </div>
+
+            <div class="test-item">
+                <h3>场景6：复杂布局</h3>
+                <x-card 
+                    :title="dynamicTitle" 
+                    :skeleton="skeleton"
+                    :collapsible="collapsible"
+                    header-border
+                    footer-border
+                >
+                    <template v-if="showContent">
+                        <div>
+                            <h4>复杂内容</h4>
+                            <p>包含多个元素的复杂内容区域。</p>
+                            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjUwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iNTAiIGZpbGw9IiNkZGQiLz48dGV4dCB4PSI1MCIgeT0iMjUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPjEwMHg1MDwvdGV4dD48L3N2Zz4=" alt="示例图片" style="width: 100px; height: 50px;">
+                        </div>
+                    </template>
+                    <template #footer v-if="showFooter">
+                        <button>保存</button>
+                        <button>取消</button>
+                    </template>
+                </x-card>
+            </div>
+        </div>
+
+        <div class="inspector">
+            <h3>调试信息</h3>
+            <div>showContent: {{ showContent }}</div>
+            <div>showTitle: {{ showTitle }}</div>
+            <div>showFooter: {{ showFooter }}</div>
+            <div>skeleton: {{ skeleton }}</div>
+            <div>collapsible: {{ collapsible }}</div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { createApp, ref, computed } from 'vue';
+        import Card from './Card.vue';
+
+        const app = createApp({
+            components: {
+                'x-card': Card
+            },
+            setup() {
+                const showContent = ref(true);
+                const showTitle = ref(true);
+                const showFooter = ref(false);
+                const skeleton = ref(false);
+                const collapsible = ref(false);
+                
+                const contentText = ref('测试内容');
+                
+                const dynamicTitle = computed(() => {
+                    return showContent.value ? '动态内容卡片' : '空内容卡片';
+                });
+
+                return {
+                    showContent,
+                    showTitle,
+                    showFooter,
+                    skeleton,
+                    collapsible,
+                    contentText,
+                    dynamicTitle
+                };
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+</html>

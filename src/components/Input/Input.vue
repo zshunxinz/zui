@@ -1,53 +1,27 @@
 <template>
   <div
+    v-if="type != 'textarea'"
     :class="[
       'x-input',
       size ? `x-input--${size}` : '',
       labelPosition ? `x-input--label-${labelPosition}` : '',
       $attrs.class,
     ]"
-    :style="[{ width }, { height }, $attrs.style]"
   >
     <label v-if="label" class="x-input__label" :for="id">{{ label }}</label>
     <div
       class="x-input__wrapper"
-      :class="{ 'is-disabled': disabled, 'is-clearable': clearable }"
+      :class="[
+        { 'is-disabled': disabled, 'is-clearable': clearable },
+        $attrs.class,
+      ]"
+      :style="[{ width }, { height }, $attrs.style]"
     >
       <span v-if="prefixIcon" class="x-input__prefix x-input__icon">{{
         prefixIcon
       }}</span>
-      <textarea
-        v-if="type === 'textarea'"
-        :id="id"
-        :value="inputValue"
-        :placeholder="placeholder"
-        :disabled="disabled"
-        :maxlength="maxlength"
-        :minlength="minlength"
-        :rows="autosize ? undefined : rows"
-        :style="autosizeStyle"
-        :resize="resize"
-        :autocomplete="autocomplete"
-        :name="name"
-        :readonly="readonly"
-        :max="max"
-        :min="min"
-        :step="step"
-        :autofocus="autofocus"
-        :form="form"
-        :tabindex="tabindex"
-        class="x-input__inner"
-        @input="handleInput"
-        @mouseenter="handleMouseEnter"
-        @mouseleave="handleMouseLeave"
-        @click="handleClick"
-        @keydown.enter="handleEnter"
-        @focus="handleFocus"
-        @blur="handleBlur"
-        ref="textareaRef"
-      ></textarea>
+
       <input
-        v-else
         :id="id"
         :value="inputValue"
         :type="showPassword && type === 'password' ? 'text' : type"
@@ -168,7 +142,7 @@ const props = defineProps({
   },
   size: {
     type: String,
-    validator: (value) => ["medium", "small", "mini"].includes(value),
+    validator: (value) => ["small", "medium", "large"].includes(value),
   },
   width: {
     type: String,
@@ -176,7 +150,7 @@ const props = defineProps({
   },
   height: {
     type: String,
-    default: "30px",
+    default: "100%",
   },
   debounce: {
     type: Number,
@@ -211,10 +185,10 @@ const autosizeStyle = computed(() => {
   if (typeof props.autosize === "object") {
     return {
       minHeight: `${props.autosize.minRows || 2}em`,
-      maxHeight: `${props.autosize.maxRows || 6}em`,
+      // maxHeight: `${props.autosize.maxRows || 6}em`,
     };
   } else if (props.autosize) {
-    return { minHeight: "2em", maxHeight: "6em" };
+    return { minHeight: "2em" };
   }
   return {};
 });
@@ -316,6 +290,16 @@ const handleBlur = (e) => {
   flex-direction: column;
   width: var(--width-1);
   min-width: var(--min-width-1);
+  height: var(--height-2);
+}
+.x-input--small {
+  height: var(--height-1);
+}
+.x-input--medium {
+  height: var(--height-2);
+}
+.x-input--large {
+  height: var(--height-3);
 }
 
 .x-input--label-left {
@@ -368,22 +352,26 @@ const handleBlur = (e) => {
   position: relative;
   display: inline-flex;
   width: 100%;
-  height: v-bind("type === 'textarea' && autosize ? 'auto' : height");
+  height: 100%;
+  /* height: v-bind("type === 'textarea' && autosize ? 'auto' : height"); */
   align-items: flex-start;
 }
 
 .x-input__inner {
   flex: 1;
   min-width: 0;
-  padding: 0.25rem 1rem;
-  padding-left: v-bind('prefixIcon ? "36px" : "12px"');
+  padding: var(--padding-2);
+  /* padding-left: var();
   padding-right: v-bind(
-    'suffixIcon || showPassword || clearable ? "36px" : "12px"'
-  );
+    'suffixIcon || showPassword || clearable ? "var(--padding-1)" : "var(--padding-1)"'
+  ); */
+  height: 100%;
   border: 1px solid var(--color-border-1);
+  box-sizing: border-box;
   border-radius: var(--border-radius-0);
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: var(--font-size-1);
+
+  /* line-height: 1.5; */
   color: var(--color-text-primary);
   background-color: var(--color-bg);
   transition: border-color 0.2s;
@@ -413,7 +401,7 @@ textarea {
 
 .x-input__inner:focus {
   outline: none;
-  border-color: var(--color-default);
+  outline: 1px solid var(--color-default);
 }
 
 .x-input__inner:disabled {
@@ -446,13 +434,20 @@ textarea {
 }
 
 .x-input--small .x-input__inner {
-  padding: 5px 10px;
-  font-size: 12px;
+  padding: var(--padding-1);
+  font-size: var(--font-size-0);
+  height: var(--height-1);
+}
+.x-input--medium .x-input__inner {
+  padding: var(--padding-2);
+  font-size: var(--font-size-1);
+  height: var(--height-2);
 }
 
-.x-input--mini .x-input__inner {
-  padding: 3px 8px;
-  font-size: 12px;
+.x-input--large .x-input__inner {
+  padding: var(--padding-3);
+  font-size: var(--font-size-2);
+  height: var(--height-3);
 }
 
 .is-disabled .x-input__inner {

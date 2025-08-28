@@ -94,9 +94,9 @@
     </div>
 
     <!-- 卡片内容 -->
-    <div v-if="!collapsible || isExpanded" class="x-card__body">
+    <div v-if="!collapsible || isExpanded">
       <template v-if="skeleton">
-        <div class="x-card__skeleton">
+        <div class="x-card__skeleton x-card__body">
           <div class="x-card__skeleton-image"></div>
           <div class="x-card__skeleton-title"></div>
           <div class="x-card__skeleton-content"></div>
@@ -104,7 +104,9 @@
         </div>
       </template>
       <template v-else>
-        <slot></slot>
+        <div v-if="$slots.default" class="x-card__body">
+          <slot></slot>
+        </div>
       </template>
     </div>
 
@@ -135,7 +137,7 @@ import { ref, computed, useSlots } from "vue";
 interface Props {
   title?: string;
   type?: "default" | "primary" | "success" | "warning" | "danger" | "info";
-  size?: "small" | "default" | "large";
+  size?: "small" | "medium" | "large";
   layout?: "default" | "flexible" | "tight";
   collapsible?: boolean;
   defaultOpen?: boolean;
@@ -163,7 +165,7 @@ interface Emits {
 const props = withDefaults(defineProps<Props>(), {
   title: "",
   type: "default",
-  size: "default",
+  size: "medium",
   layout: "default",
   collapsible: false,
   defaultOpen: true,
@@ -346,11 +348,11 @@ const toggleCollapse = () => {
 
 /* 尺寸变体 */
 .x-card--small {
-  font-size: 12px;
+  font-size: var(--font-size-0);
 }
 
 .x-card--large {
-  font-size: 16px;
+  font-size: var(--font-size-2);
 }
 
 /* 样式变体 */
@@ -377,19 +379,19 @@ const toggleCollapse = () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0px;
-  /* min-height: 52px; */
+  height: var(--height-2);
+  padding: var(--padding-2);
   box-sizing: border-box;
 }
 
 .x-card--small .x-card__header {
-  padding: 2px 6px;
-  min-height: 44px;
+  padding: var(--padding-1);
+  height: var(--height-1);
 }
 
 .x-card--large .x-card__header {
-  padding: 0px 4px;
-  min-height: 60px;
+  padding: var(--padding-3);
+  height: var(--height-3);
 }
 
 .x-card__header--with-border {
@@ -402,18 +404,18 @@ const toggleCollapse = () => {
 
 .x-card__title {
   margin: 0;
-  font-size: 16px;
+  font-size: var(--font-size-1);
   font-weight: 500;
   color: var(--color-text);
-  line-height: 1.5;
+  /* line-height: 1.5; */
 }
 
 .x-card--small .x-card__title {
-  font-size: 14px;
+  font-size: var(--font-size-0);
 }
 
 .x-card--large .x-card__title {
-  font-size: 18px;
+  font-size: var(--font-size-2);
 }
 
 .x-card__header-extra {
@@ -444,21 +446,25 @@ const toggleCollapse = () => {
 
 /* 内容样式 */
 :root {
-  --x-card-padding: 10px;
+  --x-card-padding: var(--padding-1);
 }
 
 .x-card__body {
+  font-size: var(--font-size-1);
   padding: var(--x-card-padding, 10px);
-  flex: 1;
-  box-sizing: content-box;
+  box-sizing: border-box;
 }
 
 .x-card--small .x-card__body {
-  padding: 16px;
+  padding: var(--padding-1);
+}
+
+.x-card--default .x-card__body {
+  padding: var(--padding-2);
 }
 
 .x-card--large .x-card__body {
-  padding: 24px;
+  padding: var(--padding-2);
 }
 
 /* 底部样式 */
