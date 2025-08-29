@@ -261,7 +261,7 @@ const toggleCollapse = () => {
 
 .x-card__skeleton-image {
   height: 160px;
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background: var(--skeleton-1);
   background-size: 200% 100%;
   animation: xCardSkeletonLoading 1.5s infinite;
 }
@@ -269,7 +269,8 @@ const toggleCollapse = () => {
 .x-card__skeleton-title {
   height: 20px;
   margin: 16px 16px 8px;
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background: var(--skeleton-1);
+  /* background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); */
   background-size: 200% 100%;
   animation: xCardSkeletonLoading 1.5s infinite;
   width: 60%;
@@ -278,7 +279,14 @@ const toggleCollapse = () => {
 .x-card__skeleton-content {
   height: 16px;
   margin: 8px 16px;
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background: linear-gradient(
+    90deg,
+    var(--color-text) 25%,
+    var(--color-text-muted) 50%,
+    var(--color-border-1) 75%
+  );
+  background: var(--skeleton-1);
+
   background-size: 200% 100%;
   animation: xCardSkeletonLoading 1.5s infinite;
   width: 80%;
@@ -298,7 +306,9 @@ const toggleCollapse = () => {
 .x-card__skeleton-actions::after {
   content: "";
   height: 32px;
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  /* background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); */
+  background: var(--skeleton-1);
+
   background-size: 200% 100%;
   animation: xCardSkeletonLoading 1.5s infinite;
   border-radius: var(--border-radius);
@@ -451,7 +461,7 @@ const toggleCollapse = () => {
 
 .x-card__body {
   font-size: var(--font-size-1);
-  padding: var(--x-card-padding, 10px);
+  padding: var(--x-card-padding, 0px);
   box-sizing: border-box;
 }
 

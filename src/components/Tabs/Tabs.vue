@@ -209,7 +209,7 @@ const handleTabClose = (index: number) => {
 }
 
 .x-tabs__content {
-  padding: 16px 0;
+  padding: var(--font-size) 0;
   flex: 1;
 }
 

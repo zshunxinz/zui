@@ -16,9 +16,8 @@
 .is-disabled {
   /* opacity: 0.6; */
   cursor: not-allowed;
-  background-color: var(--color-disabled);
   color: var(--color-text-muted);
-  border-color: var(--color-border);
+  border-color: var(--color-border-1);
   box-shadow: none;
 }
 

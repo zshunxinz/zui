@@ -405,7 +405,7 @@ textarea {
 }
 
 .x-input__inner:disabled {
-  background-color: var(--color-bg-disabled);
+  background-color: var(--color-disabled-text);
   cursor: not-allowed;
 }
 
@@ -451,7 +451,7 @@ textarea {
 }
 
 .is-disabled .x-input__inner {
-  border-color: var(--color-border-disabled);
+  /* border-color: var(--color-border-1); */
   color: var(--color-text-disabled);
 }
 </style>

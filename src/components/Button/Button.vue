@@ -15,7 +15,7 @@
     ]"
     :style="{
       borderRadius: `${borderRadius}px`,
-      'background-color':  bgColor1,
+      'background-color': bgColor1,
       color: fontColor,
       'border-color': borderColor,
     }"
@@ -100,7 +100,7 @@ const isLoading = ref(props.loading !== undefined ? props.loading : false);
 const bgColor1 = computed(() => {
   if (props.bgColor) {
     return props.bgColor;
-  } 
+  }
 });
 
 const fontColor = computed(() => {
@@ -161,4 +161,6 @@ function handleHover() {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+@import "./index.css";
+</style>

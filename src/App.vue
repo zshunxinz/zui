@@ -13,6 +13,11 @@ import { Tabs } from "./components/Tabs";
 import { Card } from "./components/Card";
 import { ref } from "vue";
 
+const value1 = ref("");
+const value2 = ref("");
+const value3 = ref("");
+const value4 = ref("");
+
 // 表单数据
 const formData = ref({
   // 基本信息
@@ -165,7 +170,7 @@ const resetForm = () => {
           size="large"
           class="large-card"
         >
-          <Tabs v-model="activeTab" :tabs="tabs">
+          <Tabs v-model="activeTab" :tabs="tabs" size="large">
             <!-- 基本信息标签页 -->
             <template #basic>
               <div class="form-content">
@@ -179,6 +184,7 @@ const resetForm = () => {
                         size="large"
                         type="text"
                         id="name"
+                        disabled
                         v-model="formData.name"
                         placeholder="请输入您的姓名"
                         :error-message="errors.name"
@@ -194,6 +200,7 @@ const resetForm = () => {
                       <Input
                         size="large"
                         id="email"
+                        disabled
                         v-model="formData.email"
                         type="email"
                         placeholder="请输入您的邮箱"
@@ -210,6 +217,7 @@ const resetForm = () => {
                       <Input
                         size="large"
                         id="phone"
+                        disabled
                         v-model="formData.phone"
                         placeholder="请输入您的手机号码"
                         :error-message="errors.phone"
@@ -262,6 +270,7 @@ const resetForm = () => {
                         size="large"
                         v-model="formData.province"
                         placeholder="请选择"
+                        disabled
                         type="default"
                       >
                         <Option label="北京" value="1" />
@@ -351,12 +360,13 @@ const resetForm = () => {
               </div>
             </template>
           </Tabs>
-
-          <div class="button-group">
-            <Button @click="submitForm" size="large">Button</Button>
-            <Button @click="submitForm" size="large">提交</Button>
-            <Button text bg @click="resetForm" size="large">重置</Button>
-          </div>
+          <template #footer>
+            <div class="button-group">
+              <Button @click="submitForm" size="large">Button</Button>
+              <Button @click="submitForm" size="large">提交</Button>
+              <Button text bg @click="resetForm" size="large">重置</Button>
+            </div>
+          </template>
         </Card>
       </Col>
       <Col :span="8">
@@ -536,12 +546,13 @@ const resetForm = () => {
               </div>
             </template>
           </Tabs>
-
-          <div class="button-group">
-            <Button @click="submitForm">Button</Button>
-            <Button @click="submitForm">提交</Button>
-            <Button text bg @click="resetForm">重置</Button>
-          </div>
+          <template #bottomRight>
+            <div class="button-group">
+              <Button @click="submitForm">Button</Button>
+              <Button @click="submitForm">提交</Button>
+              <Button text bg @click="resetForm">重置</Button>
+            </div>
+          </template>
         </Card>
       </Col>
       <Col :span="8">
@@ -736,12 +747,13 @@ const resetForm = () => {
               </div>
             </template>
           </Tabs>
-
-          <div class="button-group">
-            <Button @click="submitForm" size="small">Button</Button>
-            <Button @click="submitForm" size="small">提交</Button>
-            <Button text bg @click="resetForm" size="small">重置</Button>
-          </div>
+          <template #bottomLeft>
+            <div class="button-group">
+              <Button @click="submitForm" size="small">Button</Button>
+              <Button @click="submitForm" size="small">提交</Button>
+              <Button text bg @click="resetForm" size="small">重置</Button>
+            </div>
+          </template>
         </Card>
       </Col>
     </Row>
@@ -865,347 +877,6 @@ const resetForm = () => {
 
       <!-- 骨架屏卡片 -->
       <Card skeleton class="card-item"></Card>
-    </div>
-    <div class="component-section">
-      <div>
-        <Select v-model="value" placeholder="请选择" size="small" disabled>
-          <Option label="选项1" value="1" />
-          <Option label="选项2" value="2" />
-          <Option label="选项3" value="3" />
-        </Select>
-      </div>
-
-      <div style="margin: 20px 0">
-        <h3>多选</h3>
-        <Select v-model="value3" placeholder="请选择" multiple type="default">
-          <Option label="北京" value="beijing" />
-          <Option label="上海" value="shanghai" />
-          <Option label="广州" value="guangzhou" />
-          <Option label="深圳" value="shenzhen" />
-        </Select>
-        <p>当前值: {{ value3 }}</p>
-      </div>
-
-      <div style="margin: 20px 0">
-        <h3>主题颜色</h3>
-        <Select v-model="value4" type="primary" placeholder="主要主题">
-          <Option label="选项A" value="A" />
-          <Option label="选项B" value="B" />
-          <Option label="选项C" value="C" />
-        </Select>
-        <p>当前值: {{ value4 }}</p>
-
-        <Select
-          v-model="value5"
-          type="success"
-          placeholder="成功主题"
-          style="margin-top: 10px"
-        >
-          <Option label="成功1" value="success1" />
-          <Option label="成功2" value="success2" />
-        </Select>
-        <p>当前值: {{ value5 }}</p>
-
-        <Select
-          v-model="value6"
-          type="warning"
-          placeholder="警告主题"
-          style="margin-top: 10px"
-        >
-          <Option label="警告1" value="warning1" />
-          <Option label="警告2" value="warning2" />
-        </Select>
-        <p>当前值: {{ value6 }}</p>
-
-        <Select
-          v-model="value7"
-          type="danger"
-          placeholder="危险主题"
-          style="margin-top: 10px"
-        >
-          <Option label="危险1" value="danger1" />
-          <Option label="危险2" value="danger2" />
-        </Select>
-        <p>当前值: {{ value7 }}</p>
-
-        <Select
-          v-model="value8"
-          type="info"
-          placeholder="信息主题"
-          style="margin-top: 10px"
-        >
-          <Option label="信息1" value="info1" />
-          <Option label="信息2" value="info2" />
-        </Select>
-        <p>当前值: {{ value8 }}</p>
-      </div>
-    </div>
-    <div class="component-section">
-      <h2>Radio 组件</h2>
-      <div class="radio-group">
-        <Radio v-model="radioValue" :options="radioOptions" shape="square" />
-        <Radio v-model="radioValue" :options="radioOptions" shape="button" />
-      </div>
-
-      <div class="radio-group">
-        <h3>选项卡模式</h3>
-        <Radio v-model="radioValue" :options="radioOptions" shape="tab" />
-      </div>
-      <div>
-        <Radio
-          v-model="selectedValueCard"
-          :options="radioOptionsCard"
-          shape="card"
-          checked-class="custom-checked-class"
-        >
-          <template #card-option1="{ option }">
-            <div class="custom-card-content">
-              <div>{{ option.label }}</div>
-              <span>{{ option.text }}</span>
-            </div>
-          </template>
-          <template #card-option2="{ option }">
-            <div class="custom-card-content">
-              <div>{{ option.label }}</div>
-              <span>{{ option.text }}</span>
-            </div>
-          </template>
-          <template #card-option3="{ option }">
-            <div class="custom-card-content">
-              <div>{{ option.label }}</div>
-              <span>{{ option.text }}</span>
-            </div>
-          </template>
-        </Radio>
-      </div>
-    </div>
-
-    <!-- Checkbox 多选框示例 -->
-    <div class="component-section">
-      <h3 class="section-title">Checkbox 多选框</h3>
-      <div class="example-card">
-        <h4>基础用法</h4>
-        <div class="checkbox-demo">
-          <Checkbox v-model="checked1" label="备选项1"></Checkbox>
-          <Checkbox v-model="checked2" label="备选项2"></Checkbox>
-        </div>
-      </div>
-
-      <div class="example-card">
-        <h4>多选框组</h4>
-        <CheckboxGroup v-model="checkboxGroupValue">
-          <Checkbox label="选项1"></Checkbox>
-          <Checkbox label="选项2"></Checkbox>
-          <Checkbox label="选项3"></Checkbox>
-          <Checkbox label="选项4" disabled></Checkbox>
-        </CheckboxGroup>
-      </div>
-
-      <div class="example-card">
-        <h4>按钮样式</h4>
-        <CheckboxGroup v-model="buttonGroupValue" size="small">
-          <CheckboxButton label="A"></CheckboxButton>
-          <CheckboxButton label="B"></CheckboxButton>
-          <CheckboxButton label="C"></CheckboxButton>
-          <CheckboxButton label="D"></CheckboxButton>
-        </CheckboxGroup>
-      </div>
-
-      <div class="example-card">
-        <h4>Indeterminate 状态</h4>
-        <Checkbox
-          v-model="checkAll"
-          :indeterminate="isIndeterminate"
-          @change="handleCheckAll"
-          label="全选"
-        ></Checkbox>
-        <CheckboxGroup v-model="indeterminateValue">
-          <Checkbox label="项目1"></Checkbox>
-          <Checkbox label="项目2"></Checkbox>
-          <Checkbox label="项目3"></Checkbox>
-        </CheckboxGroup>
-      </div>
-    </div>
-
-    <div class="component-section">
-      <h2>Grid 组件</h2>
-      <Row>
-        <Col :span="8">
-          <div class="grid-content">Col-8</div>
-        </Col>
-        <Col :span="8">
-          <div class="grid-content">Col-8</div>
-        </Col>
-        <Col :span="8">
-          <div class="grid-content">Col-8</div>
-        </Col>
-      </Row>
-      <Row>
-        <Col :span="12">
-          <div class="grid-content">Col-12</div>
-        </Col>
-        <Col :span="12">
-          <div class="grid-content">Col-12</div>
-        </Col>
-      </Row>
-    </div>
-
-    <!-- <div class="component-section"> -->
-    <!-- <h2>HelloWorld 组件1</h2> -->
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
-    <!-- </div> -->
-    <div class="component-section">
-      <h2>Tabs 组件</h2>
-
-      <h3>默认类型</h3>
-      <Tabs v-model="activeTab" :tabs="tabs">
-        <template #account>
-          <div class="tab-content">
-            <h3>Account</h3>
-            <p>
-              Make changes to your account here. Click save when you're done.
-            </p>
-            <div class="form-group">
-              <label>Name</label>
-              <Input type="text" value="Pedro Duarte" class="form-control" />
-            </div>
-            <div class="form-group">
-              <label>Username</label>
-              <Input type="text" value="@peduarte" class="form-control" />
-            </div>
-            <Button type="primary">Save changes</Button>
-          </div>
-        </template>
-        <template #password>
-          <div class="tab-content">
-            <h3>Password</h3>
-            <p>
-              Change your password here. After saving, you'll be logged out.
-            </p>
-            <div class="form-group">
-              <label>Current password</label>
-              <Input type="password" class="form-control" />
-            </div>
-            <div class="form-group">
-              <label>New password</label>
-              <Input type="password" class="form-control" />
-            </div>
-            <div class="form-group">
-              <label>Confirm new password</label>
-              <Input type="password" class="form-control" />
-            </div>
-            <Button type="primary">Save password</Button>
-          </div>
-        </template>
-      </Tabs>
-
-      <h3>不同类型展示</h3>
-      <div
-        style="
-          display: flex;
-          flex-direction: column;
-          gap: 20px;
-          margin-top: 20px;
-        "
-      >
-        <Tabs v-model="activeTab" :tabs="tabs" type="primary">
-          <template #account>
-            <div class="tab-content">
-              <p>Primary 类型内容</p>
-            </div>
-          </template>
-          <template #password>
-            <div class="tab-content">
-              <p>Primary 类型内容</p>
-            </div>
-          </template>
-        </Tabs>
-
-        <Tabs v-model="activeTab" :tabs="tabs" type="success">
-          <template #account>
-            <div class="tab-content">
-              <p>Success 类型内容</p>
-            </div>
-          </template>
-          <template #password>
-            <div class="tab-content">
-              <p>Success 类型内容</p>
-            </div>
-          </template>
-        </Tabs>
-
-        <Tabs v-model="activeTab" :tabs="tabs" type="warning">
-          <template #account>
-            <div class="tab-content">
-              <p>Warning 类型内容</p>
-            </div>
-          </template>
-          <template #password>
-            <div class="tab-content">
-              <p>Warning 类型内容</p>
-            </div>
-          </template>
-        </Tabs>
-
-        <Tabs v-model="activeTab" :tabs="tabs" type="danger">
-          <template #account>
-            <div class="tab-content">
-              <p>Danger 类型内容</p>
-            </div>
-          </template>
-          <template #password>
-            <div class="tab-content">
-              <p>Danger 类型内容</p>
-            </div>
-          </template>
-        </Tabs>
-
-        <Tabs v-model="activeTab" :tabs="tabs" type="info">
-          <template #account>
-            <div class="tab-content">
-              <p>Info 类型内容</p>
-            </div>
-          </template>
-          <template #password>
-            <div class="tab-content">
-              <p>Info 类型内容</p>
-            </div>
-          </template>
-        </Tabs>
-      </div>
-
-      <h3>可关闭标签页</h3>
-      <Tabs
-        v-model="activeClosableTab"
-        :tabs="closableTabs"
-        :closable="true"
-        @tab-close="handleTabClose"
-      >
-        <template #home>
-          <div class="tab-content">
-            <h3>首页</h3>
-            <p>这是首页内容区域</p>
-          </div>
-        </template>
-        <template #products>
-          <div class="tab-content">
-            <h3>产品</h3>
-            <p>这是产品内容区域</p>
-          </div>
-        </template>
-        <template #services>
-          <div class="tab-content">
-            <h3>服务</h3>
-            <p>这是服务内容区域</p>
-          </div>
-        </template>
-        <template #about>
-          <div class="tab-content">
-            <h3>关于我们</h3>
-            <p>这是关于我们内容区域</p>
-          </div>
-        </template>
-      </Tabs>
     </div>
   </div>
 </template>

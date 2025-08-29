@@ -740,5 +740,5 @@ defineExpose({
 </script>
 
 <style scoped>
-@import url("./index.css");
+@import "./index.css";
 </style>

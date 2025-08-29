@@ -141,7 +141,7 @@ const handleClick = () => {
   padding: var(--padding-2);
   cursor: pointer;
   transition: all 0.2s;
-  color: var(--color-text-3);
+  color: var(--color-text-2);
   font-size: var(--font-size-1);
   border-radius: var(--border-radius-0);
   display: flex;
