@@ -307,7 +307,7 @@ const resetForm = () => {
                         v-model="formData.address"
                         type="textarea"
                         autosize
-                        rows="1"
+                        rows="2"
                         placeholder="地址"
                         size="large"
                       />
