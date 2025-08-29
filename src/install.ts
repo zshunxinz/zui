@@ -13,6 +13,7 @@ import { Switch } from "./components/Switch";
 import { Tabs } from "./components/Tabs";
 import { Card } from "./components/Card";
 import { Select, Option, OptionGroup } from "./components/Select";
+import { Textarea } from "./components/Textarea";
 
 import type { App } from "vue";
 
@@ -41,6 +42,7 @@ export {
   Select,
   Option,
   OptionGroup,
+  Textarea,
   Tabs,
   Card,
 };

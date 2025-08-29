@@ -12,6 +12,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { Tabs } from "./components/Tabs";
 import { Card } from "./components/Card";
 import { ref } from "vue";
+import { Textarea } from "./components/Textarea";
 
 const value1 = ref("");
 const value2 = ref("");
@@ -185,6 +186,7 @@ const resetForm = () => {
                         type="text"
                         id="name"
                         disabled
+                        autosize
                         v-model="formData.name"
                         placeholder="请输入您的姓名"
                         :error-message="errors.name"
@@ -246,23 +248,6 @@ const resetForm = () => {
                 <Row :gutter="16">
                   <Col :span="24">
                     <div class="form-group">
-                      <label for="address"
-                        >详细地址 <span class="required">*</span></label
-                      >
-                      <Input
-                        size="large"
-                        id="address"
-                        v-model="formData.address"
-                        type="textarea"
-                        rows="1"
-                        placeholder="请输入您的详细地址"
-                        :error-message="errors.address"
-                      />
-                    </div>
-                  </Col>
-
-                  <Col :span="24">
-                    <div class="form-group">
                       <label for="province"
                         >省份 <span class="required">*</span></label
                       >
@@ -307,6 +292,24 @@ const resetForm = () => {
                         v-model="formData.zipCode"
                         placeholder="请输入邮政编码"
                         :error-message="errors.zipCode"
+                      />
+                    </div>
+                  </Col>
+                  <Col :span="24">
+                    <div class="form-group">
+                      <label for="address"
+                        >详细地址 <span class="required">*</span>
+                      </label>
+
+                      <Textarea
+                        class="group1"
+                        id="address"
+                        v-model="formData.address"
+                        type="textarea"
+                        autosize
+                        rows="1"
+                        placeholder="地址"
+                        size="large"
                       />
                     </div>
                   </Col>

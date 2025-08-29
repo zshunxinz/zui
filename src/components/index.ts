@@ -1,4 +1,5 @@
 import { Input } from "./Input";
+import { Textarea } from "./Textarea";
 import { Row } from "./Row";
 import { Col } from "./Col";
 import { Button } from "./Button";
@@ -20,6 +21,7 @@ const install = (app: any) => {
   app.component("Button", Button);
   app.component("ButtonGroup", ButtonGroup);
   app.component("Input", Input);
+  app.component("Textarea", Textarea);
   app.component("Radio", Radio);
   app.component("Checkbox", Checkbox);
   app.component("CheckboxGroup", CheckboxGroup);
@@ -37,6 +39,7 @@ export default { install };
 
 export {
   Input,
+  Textarea,
   Row,
   Col,
   Button,

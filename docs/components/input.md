@@ -118,13 +118,7 @@ Input 组件支持多种输入类型，如文本输入、密码输入、数字�
 <Input v-model="value" type="search" placeholder="请输入搜索内容" />
 ```
 
-### 多行文本
 
-<Input v-model="value" type="textarea" placeholder="请输入内容" />
-
-```vue
-<Input v-model="value" type="textarea" placeholder="请输入内容" />
-```
 
 ### 错误状态
 
@@ -323,14 +317,14 @@ const handleDebounceInput = (val) => {
 
 | 属性名         | 类型             | 默认值 | 说明                                                                           |
 | -------------- | ---------------- | ------ | ------------------------------------------------------------------------------ |
-| type           | String           | text   | 输入框类型，可选值为 text, textarea, password, number, email, tel, url, search |
+| type           | String           | text   | 输入框类型，可选值为 text, password, number, email, tel, url, search |
 | modelValue     | String / Number  | ''     | 绑定值                                                                         |
 | label          | String           | ''     | 标签文本                                                                       |
 | labelPosition  | String           | top    | 标签位置，可选值为 top, left, center, right                                    |
 | placeholder    | String           | ''     | 占位符文本                                                                     |
 | maxlength      | Number           | -      | 最大输入长度                                                                   |
 | minlength      | Number           | -      | 最小输入长度                                                                   |
-| showWordLimit  | Boolean          | false  | 是否显示输入字数统计，只在 type 为 text 或 textarea 时有效                     |
+| showWordLimit  | Boolean          | false  | 是否显示输入字数统计，只在 type 为 text 时有效                                 |
 | readonly       | Boolean          | false  | 是否只读                                                                       |
 | disabled       | Boolean          | false  | 是否禁用                                                                       |
 | error          | Boolean          | false  | 是否为错误状态                                                                 |

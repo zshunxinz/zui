@@ -1,6 +1,5 @@
 <template>
   <div
-    v-if="type != 'textarea'"
     :class="[
       'x-input',
       size ? `x-input--${size}` : '',
@@ -66,7 +65,7 @@
       </button>
     </div>
     <div
-      v-if="showWordLimit && (type === 'text' || type === 'textarea')"
+      v-if="showWordLimit && type === 'text'"
       class="x-input__word-limit"
     >
       {{ modelValue.length }}/{{ maxlength }}
@@ -80,8 +79,6 @@ import { ref, watch, computed, onMounted, onUnmounted } from "vue";
 const props = defineProps({
   prefixIcon: String,
   suffixIcon: String,
-  rows: { type: Number, default: 2 },
-  autosize: { type: [Boolean, Object], default: false },
   autocomplete: { type: String, default: "off" },
   "auto-complete": { type: String, default: "off" },
   name: String,
@@ -89,7 +86,6 @@ const props = defineProps({
   max: [String, Number],
   min: [String, Number],
   step: [String, Number],
-  resize: String,
   autofocus: { type: Boolean, default: false },
   form: String,
   tabindex: String,
@@ -100,7 +96,6 @@ const props = defineProps({
     validator: (value) =>
       [
         "text",
-        "textarea",
         "password",
         "number",
         "email",
@@ -181,17 +176,6 @@ const debounceInput = (value) => {
 const showPassword = ref(props.showPassword);
 const id = `x-input-${Math.random().toString(36).slice(-8)}`;
 const inputValue = ref(props.modelValue);
-const autosizeStyle = computed(() => {
-  if (typeof props.autosize === "object") {
-    return {
-      minHeight: `${props.autosize.minRows || 2}em`,
-      // maxHeight: `${props.autosize.maxRows || 6}em`,
-    };
-  } else if (props.autosize) {
-    return { minHeight: "2em" };
-  }
-  return {};
-});
 
 watch(
   () => props.showPassword,
@@ -208,26 +192,6 @@ watch(
   { immediate: true }
 );
 
-const textareaRef = ref(null);
-
-const adjustTextareaHeight = () => {
-  if (textareaRef.value && props.autosize) {
-    // 保存当前内容
-    const currentValue = textareaRef.value.value;
-    // 重置高度并强制重绘
-    textareaRef.value.style.height = "auto";
-    textareaRef.value.value = "";
-    textareaRef.value.value = currentValue;
-    // 设置最小高度
-    const minHeight = `${props.rows || 2}em`;
-    // 获取计算后的高度
-    const computedHeight = `${textareaRef.value.scrollHeight}px`;
-    // 应用样式
-    textareaRef.value.style.minHeight = minHeight;
-    textareaRef.value.style.height = computedHeight;
-  }
-};
-
 const handleInput = (e) => {
   inputValue.value = e.target.value;
   emit("update:modelValue", e.target.value);
@@ -238,13 +202,10 @@ const handleInput = (e) => {
   if (props.debounce > 0) {
     debounceInput(e.target.value);
   }
-  if (props.autosize && e.target.tagName === "TEXTAREA") {
-    adjustTextareaHeight();
-  }
 };
 
 onMounted(() => {
-  adjustTextareaHeight();
+  // 移除textarea相关的初始化逻辑
 });
 
 onUnmounted(() => {

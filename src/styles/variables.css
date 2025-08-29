@@ -91,7 +91,7 @@
     Hiragino Sans GB, noto sans, Microsoft YaHei, Helvetica Neue, Helvetica,
     Arial, sans-serif !important;
 
-  --padding-1: 0.25rem; /*small尺寸/输入框内边距*/
+  --padding-1: 0.25rem 0.5rem; /*small尺寸/输入框内边距*/
   --padding-2: 0.5rem 0.75rem; /*default尺寸*/
   --padding-3: 0.75rem 1rem; /*large尺寸*/
   --space-1: 8px;
