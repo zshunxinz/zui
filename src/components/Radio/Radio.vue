@@ -1,47 +1,40 @@
 <template>
   <div class="x-radio-group" :class="{ 'x-radio-group--disabled': disabled }">
-    <label
-      v-for="(option, index) in typedOptions"
-      :key="option.value"
-      class="x-radio"
-      :class="{
-        'x-radio--checked':
-          modelValue === option.value && (shape !== 'card' || !checkedClass),
-        [checkedClass]:
-          modelValue === option.value && shape === 'card' && checkedClass,
-        'x-radio--disabled': disabled || option.disabled,
-        'x-radio--square': shape === 'square',
-        'x-radio--button': shape === 'button',
-        'x-radio--small--button': size === 'small' && shape === 'button',
-        'x-radio--medium--button': size === 'medium' && shape === 'button',
-        'x-radio--large--button': size === 'large' && shape === 'button',
-        'x-radio--card': shape === 'card',
-        'x-radio--tab': shape === 'tab',
+    <label v-for="(option, index) in typedOptions" :key="option.value" class="x-radio" :class="{
+      'x-radio--checked':
+        modelValue === option.value && (shape !== 'card' || !checkedClass),
+      [checkedClass]:
+        modelValue === option.value && shape === 'card' && checkedClass,
+      'x-radio--disabled': disabled || option.disabled,
+      'x-radio--square': shape === 'square',
+      'x-radio--button': shape === 'button',
+      'x-radio--small--circle': size === 'small' && shape === 'circle',
+      'x-radio--medium--circle': size === 'medium' && shape === 'circle',
+      'x-radio--large--circle': size === 'large' && shape === 'circle',
+      'x-radio--small--square': size === 'small' && shape === 'square',
+      'x-radio--medium--square': size === 'medium' && shape === 'square',
+      'x-radio--large--square': size === 'large' && shape === 'square',
+      'x-radio--small--button': size === 'small' && shape === 'button',
+      'x-radio--medium--button': size === 'medium' && shape === 'button',
+      'x-radio--large--button': size === 'large' && shape === 'button',
+      'x-radio--card': shape === 'card',
+      'x-radio--tab': shape === 'tab',
+      'x-radio--default': type === 'default',
+      'x-radio--primary': type === 'primary',
+      'x-radio--success': type === 'success',
+      'x-radio--warning': type === 'warning',
+      'x-radio--danger': type === 'danger',
+      'x-radio--info': type === 'info',
+    }">
+      <input type="radio" class="x-radio__input" :class="{
         'x-radio--default': type === 'default',
         'x-radio--primary': type === 'primary',
         'x-radio--success': type === 'success',
         'x-radio--warning': type === 'warning',
         'x-radio--danger': type === 'danger',
         'x-radio--info': type === 'info',
-      }"
-    >
-      <input
-        type="radio"
-        class="x-radio__input"
-        :class="{
-          'x-radio--default': type === 'default',
-          'x-radio--primary': type === 'primary',
-          'x-radio--success': type === 'success',
-          'x-radio--warning': type === 'warning',
-          'x-radio--danger': type === 'danger',
-          'x-radio--info': type === 'info',
-        }"
-        :name="name"
-        :value="option.value"
-        :checked="modelValue === option.value"
-        :disabled="disabled || option.disabled"
-        @change="handleChange"
-      />
+      }" :name="name" :value="option.value" :checked="modelValue === option.value"
+        :disabled="disabled || option.disabled" @change="handleChange" />
       <template v-if="shape === 'card'">
         <slot :name="`card-${option.value}`" :option="option">
           <span class="x-radio__label">{{ option.label }}</span>
@@ -76,6 +69,8 @@ const props = withDefaults(
   }>(),
   {
     type: "default",
+    size: "medium",
+    shape: "circle",
   }
 );
 
@@ -128,15 +123,113 @@ const handleChange = (e: Event) => {
   place-items: center;
 }
 
+.x-radio__label {
+  /* font-size: var(--font-size); */
+  color: var(--color-text);
+  user-select: none;
+  display: flex;
+  justify-self: center;
+  align-self: center;
+  height: 100%;
+  line-height: 100%;
+}
+
+.x-radio--small--circle .x-radio__input {
+  width: var(--font-size-0);
+  height: var(--font-size-0);
+}
+
+.x-radio--medium--circle .x-radio__input {
+  width: var(--font-size-1);
+  height: var(--font-size-1);
+}
+
+.x-radio--large--circle .x-radio__input {
+  width: var(--font-size-2);
+  height: var(--font-size-2);
+}
+
+
+
 .x-radio--default .x-radio__input {
   border: 1px solid var(--color-default);
 }
 
 .x-radio__input:checked::after {
   content: "";
+  /* width: 7px;
+  height: 7px; */
+  border-radius: 50%;
+}
+
+.x-radio--small--square .x-radio__input:checked::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+}
+
+.x-radio--medium--square .x-radio__input:checked::after {
+  content: "";
   width: 8px;
   height: 8px;
-  border-radius: 50%;
+}
+
+
+.x-radio--large--square .x-radio__input:checked::after {
+  content: "";
+  width: 9px;
+  height: 9px;
+}
+
+.x-radio--small--circle .x-radio__input:checked::after {
+  content: "";
+  padding: 2.9px;
+  border-radius: 100%;
+}
+
+.x-radio--medium--circle .x-radio__input:checked::after {
+  content: "";
+  padding: 3.9px;
+  border-radius: 100%;
+}
+
+.x-radio--large--circle .x-radio__input:checked::after {
+  content: "";
+  padding: 4.9px;
+  border-radius: 100%;
+}
+
+.x-radio--large--circle .x-radio__label {
+  font-size: var(--font-size-2);
+  color: var(--color-text);
+  user-select: none;
+  display: flex;
+  justify-self: center;
+  align-self: center;
+  height: var(--font-size-2);
+  line-height: var(--font-size-2);
+}
+
+.x-radio--medium--circle .x-radio__label {
+  font-size: var(--font-size-1);
+  color: var(--color-text);
+  user-select: none;
+  display: flex;
+  justify-self: center;
+  align-self: center;
+  height: var(--font-size-1);
+  line-height: var(--font-size-1);
+}
+
+.x-radio--small--square .x-radio__label {
+  /* font-size: var(--font-size-0);
+  color: var(--color-text);
+  user-select: none;
+  display: flex;
+  justify-self: center;
+  align-self: center;
+  height: var(--font-size-0);
+  line-height: var(--font-size-0); */
 }
 
 /* 为不同类型的单选按钮定义选中状态样式 */
@@ -245,6 +338,10 @@ const handleChange = (e: Event) => {
   font-size: var(--font-size-2);
 }
 
+
+
+
+
 .x-radio--button.x-radio--checked {
   /* background-color: var(--color-bg-hover); */
   border-color: var(--color-default-active);
@@ -277,18 +374,22 @@ const handleChange = (e: Event) => {
   border-color: var(--color-primary);
   /* background-color: var(--color-primary); */
 }
+
 .x-radio--success:checked {
   border-color: var(--color-success);
   background-color: var(--color-success);
 }
+
 .x-radio--warning:checked {
   border-color: var(--color-warning);
   background-color: var(--color-warning);
 }
+
 .x-radio--danger:checked {
   border-color: var(--color-danger);
   background-color: var(--color-danger);
 }
+
 .x-radio--info:checked {
   border-color: var(--color-info);
   background-color: var(--color-info);
@@ -335,18 +436,23 @@ const handleChange = (e: Event) => {
 .x-radio--tab.x-radio--default.x-radio--checked {
   border-bottom-color: var(--color-default);
 }
+
 .x-radio--tab.x-radio--primary.x-radio--checked {
   border-bottom-color: var(--color-primary);
 }
+
 .x-radio--tab.x-radio--success.x-radio--checked {
   border-bottom-color: var(--color-success);
 }
+
 .x-radio--tab.x-radio--warning.x-radio--checked {
   border-bottom-color: var(--color-warning);
 }
+
 .x-radio--tab.x-radio--danger.x-radio--checked {
   border-bottom-color: var(--color-danger);
 }
+
 .x-radio--tab.x-radio--info.x-radio--checked {
   border-bottom-color: var(--color-info);
 }
@@ -356,16 +462,7 @@ const handleChange = (e: Event) => {
   opacity: 0.5;
 }
 
-.x-radio__label {
-  /* font-size: var(--font-size); */
-  color: var(--color-text);
-  user-select: none;
-  display: flex;
-  justify-self: center;
-  align-self: center;
-  height: 16px;
-  line-height: 16px;
-}
+
 
 .x-radio-group--disabled .x-radio {
   cursor: not-allowed;
