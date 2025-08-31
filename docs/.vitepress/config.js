@@ -60,6 +60,7 @@ export default defineConfig({
             { text: "Select 选择器", link: "/components/Select" },
             { text: "Tabs 选项卡", link: "/components/Tabs" },
             { text: "Card 卡片", link: "/components/Card" },
+            { text: "Form 表单", link: "/components/Form" },
           ],
         },
       ],

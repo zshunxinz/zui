@@ -16,7 +16,7 @@
     color: fontColor,
     'border-color': borderColor,
   }" :disabled="disabled || isLoading" :aria-busy="isLoading" @click="handleClick" @mouseenter="handleHover"
-    v-bind="$attrs">
+    v-bind="$attrs" :type="htmlType">
     <template v-if="!isLoading">
       <slot />
     </template>
@@ -85,6 +85,10 @@ const props = defineProps({
   bg: {
     type: Boolean,
     default: false,
+  },
+  htmlType: {
+    type: String,
+    default: "button",
   },
 });
 

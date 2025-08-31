@@ -349,9 +349,7 @@ const value8 = ref([]);
 
 350| 除了使用 Option 子组件，还可以通过 `options` 属性传入选项数组
 
-...
-
-352| <Select v-model="value12" :options="[
+<Select v-model="value12" :options="[
   { label: '选项1', value: '1' },
   { label: '选项2', value: '2' },
   { label: '选项3', value: '3', disabled: true }

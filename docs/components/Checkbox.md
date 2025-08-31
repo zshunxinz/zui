@@ -10,6 +10,8 @@ const checked2 = ref(false);
 const checked3 = ref(false);
 const checked4 = ref(false);
 
+
+
 const checkedList = ref([]);
 const checkAll = ref(false);
 const isIndeterminate = computed(() => {
