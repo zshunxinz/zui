@@ -1,30 +1,25 @@
 <template>
-  <button
-    class="btn"
-    :class="[
-      `btn--${type}`,
-      `btn--${size}`,
-      {
-        'is-disabled': disabled,
-        'btn--text': text,
-        'btn--border': border,
-        'btn--shadow': shadow,
-        'btn--loading': isLoading,
-        'btn--bg': bg,
-      },
-    ]"
-    :style="{
-      borderRadius: `${borderRadius}px`,
-      'background-color': bgColor1,
-      color: fontColor,
-      'border-color': borderColor,
-    }"
-    :disabled="disabled || isLoading"
-    :aria-busy="isLoading"
-    @click="handleClick"
-    @mouseenter="handleHover"
-  >
-    <template v-if="!isLoading"><slot /></template>
+  <button class="btn" :class="[
+    `btn--${type}`,
+    `btn--${size}`,
+    {
+      'is-disabled': disabled,
+      'btn--text': text,
+      'btn--border': border,
+      'btn--shadow': shadow,
+      'btn--loading': isLoading,
+      'btn--bg': bg,
+    },
+  ]" :style="{
+    borderRadius: `${borderRadius}px`,
+    'background-color': bgColor1,
+    color: fontColor,
+    'border-color': borderColor,
+  }" :disabled="disabled || isLoading" :aria-busy="isLoading" @click="handleClick" @mouseenter="handleHover"
+    v-bind="$attrs">
+    <template v-if="!isLoading">
+      <slot />
+    </template>
     <template v-else>
       <span class="spinner"></span>
       <slot name="loadData">

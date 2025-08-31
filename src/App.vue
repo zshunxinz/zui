@@ -1,18 +1,19 @@
 <script setup>
-import { Button } from "@/components/Button";
-import { ButtonGroup } from "@/components/ButtonGroup";
-import { Col } from "@/components/Col";
-import { Row } from "@/components/Row";
-import { Input } from "@/components/Input";
-import { Radio } from "./components/Radio";
-import { Checkbox, CheckboxGroup } from "./components/Checkbox";
-import { Select, Option } from "./components/Select";
-import { Switch } from "./components/Switch";
-import { ThemeToggle } from "@/components/ThemeToggle";
-import { Tabs } from "./components/Tabs";
-import { Card } from "./components/Card";
+// import { Button } from "@/components/Button";
+// import { ButtonGroup } from "@/components/ButtonGroup";
+// import { Col } from "@/components/Col";
+// import { Row } from "@/components/Row";
+// import { Input } from "@/components/Input";
+// import { Radio } from "./components/Radio";
+// import { Checkbox, CheckboxGroup } from "./components/Checkbox";
+// import { Select, Option } from "./components/Select";
+// import { Switch } from "./components/Switch";
+// import { ThemeToggle } from "@/components/ThemeToggle";
+// import { Tabs } from "./components/Tabs";
+// import { Card } from "./components/Card";
 import { ref } from "vue";
 import { Textarea } from "./components/Textarea";
+import FormDemo from "@/view/FormDemo.vue";
 
 const value1 = ref("");
 const value2 = ref("");
@@ -285,7 +286,7 @@ const resetForm = () => {
           <div class="button-group">
             <Button @click="submitForm" size="large">Button</Button>
             <Button @click="submitForm" size="large">提交</Button>
-            <Button text bg @click="resetForm" size="large">重置</Button>
+            <Button text bg type="reset" size="large">重置</Button>
           </div>
         </template>
       </Card>
@@ -407,7 +408,7 @@ const resetForm = () => {
           <div class="button-group">
             <Button @click="submitForm">Button</Button>
             <Button @click="submitForm">提交</Button>
-            <Button text bg @click="resetForm">重置</Button>
+            <Button text bg type="reset">重置</Button>
           </div>
         </template>
       </Card>
@@ -538,6 +539,8 @@ const resetForm = () => {
       </Col>
     </Row>
 
+
+    <FormDemo></FormDemo>
     <div class="component-section">
       <h2>Card 组件</h2>
 

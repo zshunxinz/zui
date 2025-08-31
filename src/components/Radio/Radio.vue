@@ -99,6 +99,10 @@ const handleChange = (e: Event) => {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  height: var(--height-1);
+  line-height: var(--height-1);
+  display: flex;
+  align-items: center;
 }
 
 .x-radio {

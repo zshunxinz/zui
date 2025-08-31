@@ -14,6 +14,7 @@ import { Switch } from "./Switch";
 import { Tabs } from "./Tabs";
 import { Select, Option, OptionGroup } from "./Select";
 import { Card } from "./Card";
+import { Form, FormItem } from "./Form";
 
 const install = (app: any) => {
   app.component("GridRow", Row);
@@ -56,4 +57,7 @@ export {
   OptionGroup,
   Tabs,
   Card,
+  Form,
+  FormItem,
+
 };

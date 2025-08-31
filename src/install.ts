@@ -14,7 +14,7 @@ import { Tabs } from "./components/Tabs";
 import { Card } from "./components/Card";
 import { Select, Option, OptionGroup } from "./components/Select";
 import { Textarea } from "./components/Textarea";
-
+import { Form, FormItem } from "./components/Form";
 import type { App } from "vue";
 
 import * as components from "./components";
@@ -45,4 +45,6 @@ export {
   Textarea,
   Tabs,
   Card,
+  Form,
+  FormItem,
 };
