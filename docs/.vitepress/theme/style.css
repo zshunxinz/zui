@@ -445,15 +445,19 @@
 :lang(pt) {
   --vp-code-copy-copied-text-content: "Copiado";
 }
+
 :lang(fa) {
   --vp-code-copy-copied-text-content: "کپی شد";
 }
+
 :lang(ko) {
   --vp-code-copy-copied-text-content: "복사됨";
 }
+
 :lang(ru) {
   --vp-code-copy-copied-text-content: "Скопировано";
 }
+
 :lang(zh) {
   --vp-code-copy-copied-text-content: "已复制";
 }
@@ -661,6 +665,7 @@
 .VPButton.brand {
   border-radius: 1px !important;
 }
+
 .VPButton.alt {
   border-radius: 1px !important;
 }
@@ -668,4 +673,42 @@
 .vp-doc h2 {
   margin-top: 18px;
   opacity: 0.99;
+}
+
+/* .VPNavBar.has-sidebar .title {
+  padding-left: max(32px, calc((100% - (var(--vp-layout-max-width) - 0px)) / 2)) !important;
+  width: calc((100% - (var(--vp-layout-max-width) - 64px)) / 2 + var(--vp-sidebar-width) - 32px) !important;
+}
+
+@media (min-width: 1440px) {
+  .VPSidebar {
+    padding-left: max(32px, calc((100% - (var(--vp-layout-max-width) - 0px)) / 2)) !important;
+    width: calc((100% - (var(--vp-layout-max-width) - 10px)) / 2 + var(--vp-sidebar-width) - 36px) !important;
+  }
+} */
+
+@media (min-width: 960px) {
+  .VPDoc {
+    padding: 32px 12px !important;
+  }
+}
+
+@media (min-width: 1440px) {
+  .VPContent.has-sidebar {
+    padding-right: 0px !important;
+  }
+}
+
+#VPContent div.content .content-container {
+  max-width: 1000px;
+}
+
+
+.content-container {
+  /* width: 1000px; */
+}
+
+#doc-outline-aria-label {
+  /* display: none; */
+  color: var(--color-default);
 }

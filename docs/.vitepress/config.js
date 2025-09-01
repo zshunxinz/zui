@@ -1,14 +1,12 @@
 // https://vitepress.dev/reference/site-config
 import { fileURLToPath } from "url";
 import { defineConfig } from "vitepress";
-import Demo from "./Demo.vue";
-import CollapsibleCode from "./CollapsibleCode.vue";
-
 export default defineConfig({
   outDir: "./dist",
   title: "zui",
   description: "一个自己的vue组件库",
   themeConfig: {
+    outlineTitle: '页面目录',
     // https://vitepress.dev/reference/default-theme-config
     search: {
       provider: "local",
@@ -49,11 +47,16 @@ export default defineConfig({
       ],
       "/components/": [
         {
+          text: "布局", link: "/components/grid", collapsed: true, items: [
+            { text: "Grid 网格布局", link: "/components/grid" },
+          ]
+        },
+        {
           text: "基础组件",
+          collapsed: false,
           items: [
             { text: "Button 按钮", link: "/components/Button" },
             { text: "ButtonGroup 组合按钮", link: "/components/ButtonGroup" },
-            { text: "Grid 网格布局", link: "/components/grid" },
             { text: "Input 输入框", link: "/components/input" },
             { text: "Textarea 文本域", link: "/components/Textarea" },
             { text: "Radio 单选框", link: "/components/Radio" },
@@ -62,7 +65,11 @@ export default defineConfig({
             { text: "Select 选择器", link: "/components/Select" },
             { text: "Tabs 选项卡", link: "/components/Tabs" },
             { text: "Card 卡片", link: "/components/Card" },
-            { text: "Form 表单", link: "/components/Form" },
+            {
+              text: "Form 表单", link: "/components/Form", collapsed: true, items: [
+                { text: "Form 表单", link: "/components/Form" },
+              ]
+            },
           ],
         },
       ],
