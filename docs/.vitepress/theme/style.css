@@ -465,13 +465,13 @@
 :root {
   --vp-button-brand-border: transparent;
   --vp-button-brand-text: var(--vp-c-white);
-  --vp-button-brand-bg: var(--color-primary);
+  --vp-button-brand-bg: var(--color-default);
   --vp-button-brand-hover-border: transparent;
   --vp-button-brand-hover-text: var(--vp-c-white);
-  --vp-button-brand-hover-bg: var(--color-primary-hover);
+  --vp-button-brand-hover-bg: var(--color-default-hover);
   --vp-button-brand-active-border: transparent;
   --vp-button-brand-active-text: var(--vp-c-white);
-  --vp-button-brand-active-bg: var(--color-primary-active);
+  --vp-button-brand-active-bg: var(--color-default-active);
 
   --vp-button-alt-border: transparent;
   --vp-button-alt-text: var(--vp-c-text-1);
@@ -659,8 +659,13 @@
 }
 
 .VPButton.brand {
-  border-radius: 10px !important;
+  border-radius: 1px !important;
 }
 .VPButton.alt {
-  border-radius: 10px !important;
+  border-radius: 1px !important;
+}
+
+.vp-doc h2 {
+  margin-top: 18px;
+  opacity: 0.99;
 }

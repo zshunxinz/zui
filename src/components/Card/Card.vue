@@ -48,9 +48,8 @@
       }"
     >
       <div class="x-card__header-content">
-        <slot name="header">
-          <h3 v-if="title" class="x-card__title">{{ title }}</h3>
-        </slot>
+        <h3 v-if="title" class="x-card__title">{{ title }}</h3>
+        <slot name="header"></slot>
       </div>
       <div v-if="collapsible" class="x-card__header-extra">
         <button
@@ -192,7 +191,9 @@ const cardSizeClass = computed(() => `x-card--${props.size}`);
 const layoutClass = computed(() => `x-card--${props.layout}`);
 
 const showHeader = computed(() => {
-  return !!props.title || !!props.collapsible;
+  // console.log(slots.header!==undefined);
+
+  return !!props.title || !!props.collapsible || slots.header;
 });
 
 const showFooter = computed(() => {

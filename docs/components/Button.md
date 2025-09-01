@@ -2,14 +2,9 @@
 
 常用的操作按钮。
 
-## 基础用法
-
-基础的按钮用法。
-
 <script setup>
 // import Button from '../../src/components/Button.vue'
 import { ref } from 'vue';
-
 const isLoading = ref(false);
 const loadingHandleClick = () => {
   isLoading.value = true;
@@ -22,8 +17,10 @@ const loadingHandleClick = () => {
 </script>
 <style>
   .button-group {
-    padding: 20px 0px;
+    padding: 36px 36px;
     display:flex;
+    /* justify-content: center; */
+    align-items: center;
     flex-wrap:wrap;
     gap:10px;
   }
@@ -36,15 +33,53 @@ const loadingHandleClick = () => {
   transform: translateY(-2px);
 }
 </style>
-<div class="button-group">
-  <Button>Button</Button>
-  <Button>默认按钮</Button>
-  <Button type="primary">主要按钮</Button>
-  <Button type="success">成功按钮</Button>
-  <Button type="warning">警告按钮</Button>
-  <Button type="danger">危险按钮</Button>
-  <Button type="info">信息按钮</Button>
-</div>
+
+## 基础用法
+
+按钮有默认、背景、边框、文字四种样式，分别对应`default`、`bg`、`border`、`text`四个属性，可以彼此组合使用。
+<Demo>
+
+  <div class="button-group">
+    <Button>默认按钮</Button>
+    <Button bg>次要按钮</Button>
+    <Button border>边框按钮</Button>
+    <Button bg border>背景边框</Button>
+    <Button text>文字</Button>
+  </div>
+</Demo>
+
+<CollapsibleCode  >
+
+```vue
+<template>
+  <div class="button-group">
+    <Button>默认按钮</Button>
+    <Button bg>次要按钮</Button>
+    <Button border>边框按钮</Button>
+    <Button bg border>背景边框</Button>
+    <Button text>文字</Button>
+  </div>
+</template>
+```
+
+</CollapsibleCode>
+
+## 按钮类型
+
+按钮有默认、主要、成功、警告、危险、信息六种类型，分别对应`default`、`primary`、`success`、`warning`、`danger`、`info`六个属性。
+
+<Demo>
+  <div class="button-group">
+    <Button>默认按钮</Button>
+    <Button type="primary">主要按钮</Button>
+    <Button type="success">成功按钮</Button>
+    <Button type="warning">警告按钮</Button>
+    <Button type="danger">危险按钮</Button>
+    <Button type="info">信息按钮</Button>
+  </div>
+</Demo>
+
+<CollapsibleCode  >
 
 ```vue
 <template>
@@ -59,67 +94,85 @@ const loadingHandleClick = () => {
 </template>
 ```
 
+</CollapsibleCode>
+
 ## 圆角按钮
 
 可以通过`borderRadius`属性自定义按钮圆角大小：
+<Demo>
 
 <div class="button-group">
-  <Button :borderRadius="6">默认按钮</Button>
-  <Button type="primary" :borderRadius="6">主要按钮</Button>
-  <Button type="success" :borderRadius="6">成功按钮</Button>
-  <Button type="warning" :borderRadius="6">警告按钮</Button>
-  <Button type="danger" :borderRadius="6">危险按钮</Button>
-  <Button type="info" :borderRadius="6">信息按钮</Button>
+  <Button :borderRadius="1">默认按钮</Button>
+  <Button type="primary" :borderRadius="2">主要按钮</Button>
+  <Button type="success" :borderRadius="4">成功按钮</Button>
+  <Button type="warning" :borderRadius="8">警告按钮</Button>
+  <Button type="danger" :borderRadius="12">危险按钮</Button>
+  <Button type="info" :borderRadius="16">信息按钮</Button>
 </div>
+</Demo>
+
+<CollapsibleCode  >
 
 ```vue
 <template>
   <div class="button-group">
-    <Button>默认按钮</Button>
-    <Button type="primary" :borderRadius="6">主要按钮</Button>
-    <Button type="success" :borderRadius="6">成功按钮</Button>
-    <Button type="warning" :borderRadius="6">警告按钮</Button>
-    <Button type="danger" :borderRadius="6">危险按钮</Button>
-    <Button type="info" :borderRadius="6">信息按钮</Button>
+    <Button :borderRadius="1">默认按钮</Button>
+    <Button type="primary" :borderRadius="2">主要按钮</Button>
+    <Button type="success" :borderRadius="4">成功按钮</Button>
+    <Button type="warning" :borderRadius="8">警告按钮</Button>
+    <Button type="danger" :borderRadius="12">危险按钮</Button>
+    <Button type="info" :borderRadius="16">信息按钮</Button>
   </div>
 </template>
 ```
+
+</CollapsibleCode>
 
 ## 浅色背景按钮
 
-通过 `bg` 属性设置浅色背景按钮。
+通过 `borderRadius` 属性设置圆角大小，并与 `bg`、`border` 属性结合使用,
 
+<Demo>
 <div class="button-group">
-  <Button :borderRadius="6" bg>默认按钮</Button>
-  <Button type="primary" bg :borderRadius="6">主要按钮</Button>
-  <Button type="success" bg :borderRadius="6">成功按钮</Button>
-  <Button type="warning" bg :borderRadius="6">警告按钮</Button>
-  <Button type="danger" bg :borderRadius="6">危险按钮</Button>
-  <Button type="info" bg :borderRadius="6">信息按钮</Button>
+  <Button bg border  :borderRadius="2">默认按钮</Button>
+  <Button type="primary" bg border :borderRadius="4">主要按钮</Button>
+  <Button type="success" bg border :borderRadius="6">成功按钮</Button>
+  <Button type="warning" bg border :borderRadius="8">警告按钮</Button>
+  <Button type="danger" bg border :borderRadius="10">危险按钮</Button>
+  <Button type="info" bg border :borderRadius="12">信息按钮</Button>
 </div>
+</Demo>
+
+<CollapsibleCode  >
 
 ```vue
 <template>
   <div class="button-group">
-    <Button :borderRadius="6" bg>默认按钮</Button>
-    <Button type="primary" bg :borderRadius="6">主要按钮</Button>
-    <Button type="success" bg :borderRadius="6">成功按钮</Button>
-    <Button type="warning" bg :borderRadius="6">警告按钮</Button>
-    <Button type="danger" bg :borderRadius="6">危险按钮</Button>
-    <Button type="info" bg :borderRadius="6">信息按钮</Button>
+    <Button bg border :borderRadius="2">默认按钮</Button>
+    <Button type="primary" bg border :borderRadius="4">主要按钮</Button>
+    <Button type="success" bg border :borderRadius="6">成功按钮</Button>
+    <Button type="warning" bg border :borderRadius="8">警告按钮</Button>
+    <Button type="danger" bg border :borderRadius="10">危险按钮</Button>
+    <Button type="info" bg border :borderRadius="12">信息按钮</Button>
   </div>
 </template>
 ```
+
+</CollapsibleCode>
 
 ## 尺寸
 
 支持 `small`、`medium`、`large` 三种尺寸。
 
+<Demo>
 <div class="button-group">
     <Button size="small">小型按钮</Button>
     <Button size="medium">中型按钮</Button>
     <Button size="large">大型按钮</Button>
 </div>
+</Demo>
+
+<CollapsibleCode  >
 
 ```vue
 <template>
@@ -130,11 +183,14 @@ const loadingHandleClick = () => {
   </div>
 </template>
 ```
+
+</CollapsibleCode>
 
 ## 禁用状态
 
 通过 `disabled` 属性设置禁用状态。
 
+<Demo>
 <div class="button-group">
     <Button disabled>默认禁用</Button>
     <Button type="primary" disabled>主要禁用</Button>
@@ -143,6 +199,9 @@ const loadingHandleClick = () => {
     <Button type="danger" disabled>危险禁用</Button>
     <Button type="info" disabled>信息禁用</Button>
 </div>
+</Demo>
+
+<CollapsibleCode  >
 
 ```vue
 <template>
@@ -156,9 +215,12 @@ const loadingHandleClick = () => {
   </div>
 </template>
 ```
+
+</CollapsibleCode>
 
 通过 `disabled` 和 `bg` 属性设置浅色背景禁用状态。
 
+<Demo>
 <div class="button-group">
     <Button disabled bg>默认禁用</Button>
     <Button type="primary" disabled bg>主要禁用</Button>
@@ -167,6 +229,10 @@ const loadingHandleClick = () => {
     <Button type="danger" disabled bg>危险禁用</Button>
     <Button type="info" disabled bg>信息禁用</Button>
 </div>
+
+</Demo>
+
+<CollapsibleCode  >
 
 ```vue
 <template>
@@ -180,12 +246,15 @@ const loadingHandleClick = () => {
   </div>
 </template>
 ```
+
+</CollapsibleCode>
 
 ## 文本按钮
 
 通过 `text` 属性设置文本按钮。
 
- <div class="button-group">
+<Demo>
+<div class="button-group">
   <Button text>默认按钮</Button>
   <Button type="primary" text>主要按钮</Button>
   <Button type="success" text>成功按钮</Button>
@@ -193,6 +262,10 @@ const loadingHandleClick = () => {
   <Button type="danger" text>危险按钮</Button>
   <Button type="info" text>信息按钮</Button>
 </div>
+
+</Demo>
+
+<CollapsibleCode  >
 
 ```vue
 <template>
@@ -207,11 +280,14 @@ const loadingHandleClick = () => {
 </template>
 ```
 
+</CollapsibleCode>
+
 ## 边框按钮
 
 通过 `border` 属性设置边框按钮。
 
- <div class="button-group">
+<Demo>
+<div class="button-group">
   <Button text border>默认按钮</Button>
   <Button type="primary" text border>主要按钮</Button>
   <Button type="success" text border>成功按钮</Button>
@@ -219,6 +295,10 @@ const loadingHandleClick = () => {
   <Button type="danger" text border>危险按钮</Button>
   <Button type="info" text border>信息按钮</Button>
 </div>
+
+</Demo>
+
+<CollapsibleCode  >
 
 ```vue
 <template>
@@ -233,9 +313,13 @@ const loadingHandleClick = () => {
 </template>
 ```
 
+</CollapsibleCode>
+
 ## 自定义颜色
 
 通过 `color`、`bgColor` 和 `borderColor` 属性可以分别自定义按钮的文本颜色、背景颜色和边框颜色，实现多样化的按钮样式（`borderColor` 需配合 `border=true` 使用）。
+
+<Demo>
 
 <div class="button-group">
   <Button bgColor="#123987" color="#eee123">#eee123</Button>
@@ -247,6 +331,10 @@ const loadingHandleClick = () => {
   <Button border :borderColor="'#FF5733'" bgColor="#f5f5f5" color="#333">自定义边框颜色</Button>
 </div>
 
+</Demo>
+
+<CollapsibleCode>
+
 ```vue
 <template>
   <div class="button-group">
@@ -256,21 +344,27 @@ const loadingHandleClick = () => {
     <Button bgColor="#3357FF" color="#FFFFFF">宝石蓝背景</Button>
     <Button bgColor="#F333FF" color="#FFFFFF">紫色背景</Button>
     <Button bgColor="#33FFF3" color="#000000">青色背景</Button>
-    <Button border :borderColor="'#FF5733'" bgColor="#f5f5f5" color="#333"
-      >自定义边框颜色</Button
-    >
+    <Button border :borderColor="'#FF5733'" bgColor="#f5f5f5" color="#333">
+      自定义边框颜色
+    </Button>
   </div>
 </template>
 ```
+
+</CollapsibleCode>
 
 ## 自定义样式
 
 通过原生 `class` 和 `style` 属性可以添加额外的自定义样式，覆盖或扩展按钮默认样式：
 
-<div class="button-group">
-  <Button class="custom-btn" style="font-weight: bold; text-decoration: underline;">带自定义样式</Button>
-  <Button class="custom-btn" style="box-shadow: 0 4px 8px rgba(0,0,0,0.2);">带阴影效果</Button>
-</div>
+<Demo>
+  <div class="button-group">
+    <Button class="custom-btn" style="font-weight: bold; text-decoration: underline;">带自定义样式</Button>
+    <Button class="custom-btn" style="box-shadow: 0 4px 8px rgba(0,0,0,0.2);">带阴影效果</Button>
+  </div>
+</Demo>
+
+<CollapsibleCode  >
 
 ```vue
 <template>
@@ -299,6 +393,8 @@ const loadingHandleClick = () => {
 </style>
 ```
 
+</CollapsibleCode>
+
 ## 加载状态
 
 按钮支持点击自动进入加载状态（2 秒后自动退出）和外部控制加载状态两种模式：
@@ -307,9 +403,13 @@ const loadingHandleClick = () => {
 
 加载状态
 
+<Demo>
 <div class="button-group">
   <Button type="primary" loading>加载中</Button>
 </div>
+</Demo>
+
+<CollapsibleCode  >
 
 ```vue
 <template>
@@ -323,15 +423,21 @@ function handleAutoLoading() {
 </script>
 ```
 
+</CollapsibleCode>
+
 ### 外部控制加载状态
 
 通过 `v-model:loading` 可以双向绑定控制按钮的加载状态：
 
-<div class="button-group">
-  <Button type="primary" @click="loadingHandleClick" :loading="isLoading"> 外部控制加载
+<Demo>
 
-  </Button>
+<div class="button-group">
+  <Button type="primary" @click="loadingHandleClick" :loading="isLoading"> 外部控制加载</Button>
 </div>
+
+</Demo>
+
+<CollapsibleCode  >
 
 ```vue
 <Button v-model:loading="isLoading" @click="handleClick">
@@ -351,7 +457,23 @@ const loadingHandleClick = () => {
 </script>
 ```
 
+</CollapsibleCode>
+
 或者使用 `loading` 属性和 `update:loading` 事件手动控制：
+
+<Demo>
+<div class="button-group">
+  <Button
+    :loading="isLoading"
+    @update:loading="(val) => (isLoading = val)"
+    @click="handleClick"
+  >
+    手动控制加载
+  </Button>
+</div>
+</Demo>
+
+<CollapsibleCode  >
 
 ```vue
 <Button
@@ -363,10 +485,13 @@ const loadingHandleClick = () => {
 </Button>
 ```
 
+</CollapsibleCode>
+
 ## 加载状态文本内容
 
 loadData 插槽控制加载中的内容
 
+<Demo>
 <div class="button-group">
   <Button type="primary" @click="loadingHandleClick":loading="isLoading"> 
   外部控制加载
@@ -375,6 +500,9 @@ loadData 插槽控制加载中的内容
     </template>
   </Button>
 </div>
+</Demo>
+
+<CollapsibleCode  >
 
 ```vue
 <Button
@@ -400,12 +528,15 @@ const loadingHandleClick = () => {
 </script>
 ```
 
+</CollapsibleCode>
+
 ## 事件
 
 支持 `click`和`hover` 事件。
-
+<Demo>
 <Button @click="handleClick">点击触发事件</Button>
 <Button @hover="handleHover">悬停触发事件</Button>
+</Demo>
 
 <script>
 const handleClick = () => {
@@ -415,6 +546,8 @@ const handleHover = () => {
   alert('鼠标悬停在按钮上')
 }
 </script>
+
+<CollapsibleCode>
 
 ```vue
 <template>
@@ -432,9 +565,12 @@ const handleHover = () => {
 </script>
 ```
 
+</CollapsibleCode>
+
 ## 组合示例
 
 展示不同属性组合的按钮用法。
+<Demo>
 
  <div class="button-group">
     <Button type="primary" size="large">主要按钮</Button>
@@ -444,6 +580,9 @@ const handleHover = () => {
     <Button type="danger" disabled>禁用危险按钮</Button>
     <Button type="info" border text>信息文本边框按钮</Button>
   </div>
+</Demo>
+
+<CollapsibleCode  >
 
 ```vue
 <template>
@@ -457,6 +596,8 @@ const handleHover = () => {
   </div>
 </template>
 ```
+
+</CollapsibleCode>
 
 ## 属性
 

@@ -1,6 +1,8 @@
 // https://vitepress.dev/reference/site-config
 import { fileURLToPath } from "url";
 import { defineConfig } from "vitepress";
+import Demo from "./Demo.vue";
+import CollapsibleCode from "./CollapsibleCode.vue";
 
 export default defineConfig({
   outDir: "./dist",

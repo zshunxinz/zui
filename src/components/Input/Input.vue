@@ -1,40 +1,72 @@
 <template>
-  <div :class="[
-    'x-input',
-    size ? `x-input--${size}` : '',
-    labelPosition ? `x-input--label-${labelPosition}` : '',
-    $attrs.class,
-  ]">
-    <label v-if="label" class="x-input__label" :for="id">{{ label }}</label>
-    <div class="x-input__wrapper" :class="[
-      { 'is-disabled': disabled, 'is-clearable': clearable },
+  <div
+    :class="[
+      'x-input',
+      size ? `x-input--${size}` : '',
+      labelPosition ? `x-input--label-${labelPosition}` : '',
       $attrs.class,
-    ]" :style="[{ width }, { height }, $attrs.style]">
+    ]"
+  >
+    <label v-if="label" class="x-input__label" :for="id">{{ label }}</label>
+    <div
+      class="x-input__wrapper"
+      :class="[
+        { 'is-disabled': disabled, 'is-clearable': clearable },
+        $attrs.class,
+      ]"
+      :style="[{ width }, { height }, $attrs.style]"
+    >
       <span v-if="prefixIcon" class="x-input__prefix x-input__icon">{{
         prefixIcon
       }}</span>
 
-      <input :id="id" :value="inputValue" :type="showPassword && type === 'password' ? 'text' : type"
-        :placeholder="placeholder" :disabled="disabled" :maxlength="maxlength" :minlength="minlength"
-        :autocomplete="autocomplete" :name="name" :readonly="readonly" :max="max" :min="min" :step="step"
-        :autofocus="autofocus" :form="form" :tabindex="tabindex" class="x-input__inner" @input="handleInput"
-        @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave" @click="handleClick" @keydown.enter="handleEnter"
-        @focus="handleFocus" @blur="handleBlur" />
+      <input
+        :id="id"
+        :value="inputValue"
+        :type="showPassword && type === 'password' ? 'text' : type"
+        :placeholder="placeholder"
+        :disabled="disabled"
+        :maxlength="maxlength"
+        :minlength="minlength"
+        :autocomplete="autocomplete"
+        :name="name"
+        :readonly="readonly"
+        :max="max"
+        :min="min"
+        :step="step"
+        :autofocus="autofocus"
+        :form="form"
+        :tabindex="tabindex"
+        class="x-input__inner"
+        @input="handleInput"
+        @mouseenter="handleMouseEnter"
+        @mouseleave="handleMouseLeave"
+        @click="handleClick"
+        @keydown.enter="handleEnter"
+        @focus="handleFocus"
+        @blur="handleBlur"
+      />
       <span v-if="suffixIcon" class="x-input__suffix x-input__icon">{{
         suffixIcon
       }}</span>
-      <button v-if="showPassword && type === 'password'" class="x-input__suffix x-input__password"
-        @click="showPassword = !showPassword">
+      <button
+        v-if="showPassword && type === 'password'"
+        class="x-input__suffix x-input__password"
+        @click="showPassword = !showPassword"
+      >
         {{ showPassword ? "Hide" : "Show" }}
       </button>
-      <button v-if="clearable && modelValue && !disabled" class="x-input__suffix x-input__clear" @click="clear">
+      <button
+        v-if="clearable && modelValue && !disabled"
+        class="x-input__suffix x-input__clear"
+        @click="clear"
+      >
         ×
       </button>
     </div>
     <div v-if="showWordLimit && type === 'text'" class="x-input__word-limit">
       {{ modelValue.length }}/{{ maxlength }}
     </div>
-
   </div>
 </template>
 
@@ -59,14 +91,7 @@ const props = defineProps({
     type: String,
     default: "text",
     validator: (value) =>
-      [
-        "text",
-        "password",
-        "number",
-        "email",
-        "tel",
-        "url",
-      ].includes(value),
+      ["text", "password", "number", "email", "tel", "url"].includes(value),
   },
   modelValue: {
     type: [String, Number],
@@ -281,15 +306,15 @@ const handleBlur = (e) => {
 .x-input__wrapper {
   position: relative;
   display: inline-flex;
-  width: 100%;
-  height: 100%;
+  /* width: 100%; */
+  /* height: 100%; */
   /* height: v-bind("type === 'textarea' && autosize ? 'auto' : height"); */
   align-items: flex-start;
 }
 
 .x-input__inner {
   flex: 1;
-  min-width: 0;
+  /* min-width: 0; */
   /* padding: var(--padding-1); */
   /* padding-left: var();
   padding-right: v-bind(

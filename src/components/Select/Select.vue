@@ -15,7 +15,12 @@
     ]"
     :style="$attrs.style"
   >
-    <div class="x-select__wrapper" @click="toggleDropdown" ref="selectWrapper">
+    <div
+      class="x-select__wrapper"
+      @click="toggleDropdown"
+      ref="selectWrapper"
+      :style="[{ width }, { height }, $attrs.style]"
+    >
       <div class="x-select__tags" v-if="multiple">
         <div
           v-for="(tag, index) in displayTags"
@@ -242,6 +247,12 @@ const props = defineProps({
     type: String,
     default: "medium",
     validator: (val) => ["small", "medium", "large"].includes(val),
+  },
+  width: {
+    type: String,
+  },
+  height: {
+    type: String,
   },
   clearable: {
     type: Boolean,

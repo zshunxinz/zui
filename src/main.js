@@ -1,14 +1,12 @@
-import { createApp } from 'vue'
+import { createApp } from "vue";
 // import './styles/theme.css'
 // import '@/styles/variables.css'
-import '@/style.css'
-import App from '@/App.vue'
-import Zui from './install'
+import "@/style.css";
+import App from "@/App.vue";
+import Zui from "./install";
 
+let app = createApp(App);
 
-let app = createApp(App)
+app.use(Zui);
 
-app.use(Zui)
-
-
-app.mount('#app')
+app.mount("#app");

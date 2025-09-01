@@ -107,6 +107,14 @@ const emit = defineEmits<Emits>();
 
 const activeTabIndex = ref(props.modelValue);
 
+// 监听modelValue变化，同步activeTabIndex
+import { watch } from 'vue';
+watch(() => props.modelValue, (newValue) => {
+  if (newValue !== activeTabIndex.value) {
+    activeTabIndex.value = newValue;
+  }
+});
+
 const tabPositionClass = computed(() => `x-tabs--${props.position}`);
 const tabTypeClass = computed(() => `x-tabs--${props.type}`);
 const tabSizeClass = computed(() => `x-tabs--${props.size}`);
