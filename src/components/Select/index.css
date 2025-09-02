@@ -310,6 +310,7 @@
   font-size: var(--font-size-0);
   height: var(--height-1);
 }
+
 .x-select--medium .x-select__wrapper {
   min-height: var(--height-2);
   padding: var(--padding-2);

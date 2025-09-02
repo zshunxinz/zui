@@ -65,7 +65,8 @@ const handleSubmit = (data) => {
 };
 </script>
 
-<Demo>
+<Demo center>
+
 <Card width="430px" style="padding: 20px;">
     <Form v-model="formData" :rules="rules" @submit="handleSubmit"  labelAlign="left" labelJustifyContent="left"
         labelWidth="100px">
@@ -111,7 +112,7 @@ const handleSubmit = (data) => {
 
 </Demo>
 
-<CollapsibleCode title="基础表单示例" :defaultOpen="false">
+<CollapsibleCode>
 
 ```vue
 <template>
@@ -257,7 +258,8 @@ const handleSubmit = (data) => {
 
 设置 `labelPosition` 为 `top-left`,让 label 在输入框上方
 
-<Demo>
+<Demo center>
+
 
 <Card width="430px" style="padding: 20px;">
     <Form v-model="formData" :rules="rules" @submit="handleSubmit"  labelPosition="top-left"
@@ -289,14 +291,14 @@ const handleSubmit = (data) => {
         <FormItem label="Bio" prop="bio">
             <Textarea v-model="formData.bio" placeholder="Enter your bio" :rows="4" />
         </FormItem>
-        <FormItem>
+        <FormItem style="margin-top: 20px;">
             <Row :gutter="20">
-            <Col :span="12">
-                <Button style="width: 100%" type="default" class="x-button x-button--primary">Submit</Button>
-            </Col>
-            <Col :span="12">
-                <Button style="width: 100%" html-type="reset" text  border  class="x-button x-button--primary">Reset</Button>
-            </Col>
+              <Col :span="12">
+                  <Button style="width: 100%" type="default" class="x-button x-button--primary">Submit</Button>
+              </Col>
+              <Col :span="12">
+                  <Button style="width: 100%" html-type="reset" text  border  class="x-button x-button--primary">Reset</Button>
+              </Col>
             </Row>
         </FormItem>
     </Form>
@@ -304,7 +306,7 @@ const handleSubmit = (data) => {
 
 </Demo>
 
-<CollapsibleCode title="基础表单示例" :defaultOpen="false">
+<CollapsibleCode >
 
 ```VUE
 <template>

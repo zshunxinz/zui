@@ -1,91 +1,58 @@
 <template>
-  <div
-    class="x-card"
-    :class="[
-      cardTypeClass,
-      cardSizeClass,
-      layoutClass,
-      {
-        'x-card--shadow': shadow,
-        'x-card--border': border,
-        'x-card--no-radius': borderRadius === 0,
-        'x-card--disabled': disabled,
-        'x-card--hover': hoverable,
-      },
-    ]"
-    :style="{
-      width:
-        width !== undefined
-          ? typeof width === 'number'
-            ? `${width}px`
-            : width
-          : undefined,
-      height:
-        height !== undefined
-          ? typeof height === 'number'
-            ? `${height}px`
-            : height
-          : undefined,
-      padding:
-        padding !== undefined
-          ? typeof padding === 'number'
-            ? `${padding}px`
-            : padding
-          : undefined,
-    }"
-  >
+  <div class="x-card" :class="[
+    cardTypeClass,
+    cardSizeClass,
+    layoutClass,
+    {
+      'x-card--shadow': shadow,
+      'x-card--border': border,
+      'x-card--no-radius': borderRadius === 0,
+      'x-card--disabled': disabled,
+      'x-card--hover': hoverable,
+    },
+  ]" :style="{
+    width:
+      width !== undefined
+        ? typeof width === 'number'
+          ? `${width}px`
+          : width
+        : undefined,
+    height:
+      height !== undefined
+        ? typeof height === 'number'
+          ? `${height}px`
+          : height
+        : undefined,
+    padding:
+      padding !== undefined
+        ? typeof padding === 'number'
+          ? `${padding}px`
+          : padding
+        : undefined,
+  }">
     <!-- 右上角插槽 -->
     <div v-if="$slots.topRight" class="x-card__top-right">
       <slot name="topRight"></slot>
     </div>
 
     <!-- 卡片头部 -->
-    <div
-      v-if="showHeader"
-      class="x-card__header"
-      :class="{
-        'x-card__header--with-border': headerBorder,
-      }"
-    >
+    <div v-if="showHeader" class="x-card__header" :class="{
+      'x-card__header--with-border': headerBorder,
+    }">
       <div class="x-card__header-content">
         <h3 v-if="title" class="x-card__title">{{ title }}</h3>
         <slot name="header"></slot>
       </div>
       <div v-if="collapsible" class="x-card__header-extra">
-        <button
-          class="x-card__collapse-btn"
-          @click="toggleCollapse"
-          type="button"
-          aria-label="Toggle collapse"
-        >
-          <svg
-            v-if="isExpanded"
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="x-card__collapse-icon"
-          >
+        <button class="x-card__collapse-btn" @click="toggleCollapse" type="button" aria-label="Toggle collapse">
+          <svg v-if="isExpanded" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="x-card__collapse-icon">
             <path d="M6 9l6 6 6-6" />
           </svg>
-          <svg
-            v-else
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="x-card__collapse-icon"
-          >
+          <svg v-else xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="x-card__collapse-icon">
             <path d="M18 15l-6-6-6 6" />
           </svg>
         </button>
@@ -110,13 +77,9 @@
     </div>
 
     <!-- 卡片底部 -->
-    <div
-      v-if="showFooter"
-      class="x-card__footer"
-      :class="{
-        'x-card__footer--with-border': footerBorder,
-      }"
-    >
+    <div v-if="showFooter" class="x-card__footer" :class="{
+      'x-card__footer--with-border': footerBorder,
+    }">
       <div v-if="$slots.bottomLeft" class="x-card__footer-left">
         <slot name="bottomLeft"></slot>
       </div>
@@ -280,12 +243,10 @@ const toggleCollapse = () => {
 .x-card__skeleton-content {
   height: 16px;
   margin: 8px 16px;
-  background: linear-gradient(
-    90deg,
-    var(--color-text) 25%,
-    var(--color-text-muted) 50%,
-    var(--color-border-1) 75%
-  );
+  background: linear-gradient(90deg,
+      var(--color-text) 25%,
+      var(--color-text-muted) 50%,
+      var(--color-border-1) 75%);
   background: var(--skeleton-1);
 
   background-size: 200% 100%;
@@ -293,7 +254,7 @@ const toggleCollapse = () => {
   width: 80%;
 }
 
-.x-card__skeleton-content + .x-card__skeleton-content {
+.x-card__skeleton-content+.x-card__skeleton-content {
   width: 90%;
 }
 
@@ -327,6 +288,7 @@ const toggleCollapse = () => {
   0% {
     background-position: 200% 0;
   }
+
   100% {
     background-position: -200% 0;
   }
@@ -368,7 +330,8 @@ const toggleCollapse = () => {
 
 /* 样式变体 */
 .x-card--shadow {
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.08);
+  /* box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.08); */
+  box-shadow: var(--box-shadow-1);
 }
 
 .x-card--border {

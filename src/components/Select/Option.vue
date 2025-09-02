@@ -1,36 +1,20 @@
 <template>
-  <div
-    class="x-select-option"
-    :class="[
-      selectContext.type && isSelected
-        ? `is-selected--${selectContext.type.value}`
-        : '',
-      {
-        'is-disabled': disabled,
-        'is-hover': isHover,
-        [`x-select-option--${effectiveIconPosition}`]: effectiveIconPosition,
-      },
-    ]"
-    @click="handleClick"
-    @mouseenter="isHover = true"
-    @mouseleave="isHover = false"
-  >
+  <div class="x-select-option" :class="[
+    selectContext.type && isSelected
+      ? `is-selected--${selectContext.type.value}`
+      : '',
+    {
+      'is-disabled': disabled,
+      'is-hover': isHover,
+      [`x-select-option--${effectiveIconPosition}`]: effectiveIconPosition,
+    },
+  ]" @click="handleClick" @mouseenter="isHover = true" @mouseleave="isHover = false">
     <!-- 左侧图标 -->
-    <div
-      v-if="effectiveIconPosition === 'left' && isSelected"
-      class="x-select-option__icon"
-    >
+    <div v-if="effectiveIconPosition === 'left' && isSelected" class="x-select-option__icon">
       <slot name="icon" v-bind="{ isSelected, disabled }">
-        <svg
-          class="x-select-option__check-icon"
-          viewBox="0 0 16 16"
-          width="14"
-          height="14"
-          fill="currentColor"
-        >
+        <svg class="x-select-option__check-icon" viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
           <path
-            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"
-          />
+            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
         </svg>
       </slot>
     </div>
@@ -38,21 +22,11 @@
     <slot name="default">{{ label || value }}</slot>
 
     <!-- 右侧图标 -->
-    <div
-      v-if="effectiveIconPosition === 'right' && isSelected"
-      class="x-select-option__icon"
-    >
+    <div v-if="effectiveIconPosition === 'right' && isSelected" class="x-select-option__icon">
       <slot name="icon" v-bind="{ isSelected, disabled }">
-        <svg
-          class="x-select-option__check-icon"
-          viewBox="0 0 16 16"
-          width="14"
-          height="14"
-          fill="currentColor"
-        >
+        <svg class="x-select-option__check-icon" viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
           <path
-            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"
-          />
+            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
         </svg>
       </slot>
     </div>
@@ -139,7 +113,7 @@ const handleClick = () => {
 <style scoped>
 .x-select-option {
   padding: var(--padding-2);
-  min-width: var(--width-0);
+  /* min-width: var(--width-0); */
   max-width: 100%;
   cursor: pointer;
   transition: all 0.2s;

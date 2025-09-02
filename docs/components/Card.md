@@ -19,10 +19,7 @@ const toggleLoading = () => {
   gap: 16px;
 }
 </style>
-<Demo>
-  <CardDemo1 />
-</Demo>
-
+  <CardDemo1  />
 <CollapsibleCode>
 
 ```vue
