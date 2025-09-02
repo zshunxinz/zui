@@ -1,13 +1,32 @@
 <template>
-  <label class="x-checkbox" :class="[checkboxSize, borderStyle, disabledClass, colorClass]">
-    <input type="checkbox" class="x-checkbox__input" :name="name" :checked="modelValue" :disabled="disabled"
-      :indeterminate="indeterminate" @change="handleChange" />
+  <label
+    class="x-checkbox"
+    :class="[checkboxSize, borderStyle, disabledClass, colorClass]"
+  >
+    <input
+      type="checkbox"
+      class="x-checkbox__input"
+      :name="name"
+      :checked="modelValue"
+      :disabled="disabled"
+      :indeterminate="indeterminate"
+      @change="handleChange"
+    />
     <span class="x-checkbox__inner">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-        stroke-linecap="round" stroke-linejoin="round" class="x-checkbox__icon" :class="{
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="3"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="x-checkbox__icon"
+        :class="{
           'x-checkbox__icon--checked': modelValue,
           'x-checkbox__icon--indeterminate': indeterminate,
-        }">
+        }"
+      >
         <path d="M20 6 9 17l-5-5" v-if="!indeterminate" />
         <path d="M6 12 L18 12" v-if="indeterminate" />
       </svg>
@@ -51,7 +70,7 @@ const props = defineProps({
   size: {
     type: String,
     default: "medium",
-    validator: (value) => ["large", "medium", "small"].includes(value),
+    validator: (value: string) => ["large", "medium", "small"].includes(value),
   },
   name: {
     type: String,
@@ -209,59 +228,121 @@ watch(
   background-color: transparent;
 }
 
-.x-checkbox--default .x-checkbox__input:checked+.x-checkbox__inner {
-  background-color: var(--color-background);
-  border-color: var(--color-default);
+.x-checkbox--large .x-checkbox__inner {
+  width: var(--font-size-2);
+  height: var(--font-size-2);
+  font-size: var(--font-size-2);
+
+  .x-checkbox__icon {
+    width: var(--font-size-2);
+    height: var(--font-size-2);
+    font-size: var(--font-size-2);
+    color: var(--color-background);
+    opacity: 0;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
 }
 
-.x-checkbox--primary .x-checkbox__input:checked+.x-checkbox__inner {
+.x-checkbox--medium .x-checkbox__inner {
+  width: var(--font-size-1);
+  height: var(--font-size-1);
+  font-size: var(--font-size-1);
+
+  .x-checkbox__icon {
+    width: var(--font-size-1);
+    height: var(--font-size-1);
+    font-size: var(--font-size-1);
+    color: var(--color-background);
+    opacity: 0;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+}
+
+.x-checkbox--small .x-checkbox__inner {
+  width: var(--font-size-0);
+  height: var(--font-size-0);
+  font-size: var(--font-size-0);
+  .x-checkbox__icon {
+    width: var(--font-size-0);
+    height: var(--font-size-0);
+    font-size: var(--font-size-0);
+    color: var(--color-background);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+}
+
+.x-checkbox--default .x-checkbox__input:checked + .x-checkbox__inner {
+  background-color: var(--color-default);
+  border-color: var(--color-default);
+}
+.x-checkbox--primary .x-checkbox__input + .x-checkbox__inner {
+  border-color: var(--color-primary);
+}
+
+.x-checkbox--primary .x-checkbox__input:checked + .x-checkbox__inner {
   background-color: var(--color-primary);
   border-color: var(--color-primary);
 }
 
-.x-checkbox--success .x-checkbox__input:checked+.x-checkbox__inner {
+.x-checkbox--success .x-checkbox__input + .x-checkbox__inner {
+  border-color: var(--color-success);
+}
+.x-checkbox--success .x-checkbox__input:checked + .x-checkbox__inner {
   background-color: var(--color-success);
   border-color: var(--color-success);
 }
 
-.x-checkbox--warning .x-checkbox__input:checked+.x-checkbox__inner {
+.x-checkbox--warning .x-checkbox__input + .x-checkbox__inner {
+  border-color: var(--color-warning);
+}
+
+.x-checkbox--warning .x-checkbox__input:checked + .x-checkbox__inner {
   background-color: var(--color-warning);
   border-color: var(--color-warning);
 }
 
-.x-checkbox--danger .x-checkbox__input:checked+.x-checkbox__inner {
+.x-checkbox--danger .x-checkbox__input + .x-checkbox__inner {
+  border-color: var(--color-danger);
+}
+
+.x-checkbox--danger .x-checkbox__input:checked + .x-checkbox__inner {
   background-color: var(--color-danger);
   border-color: var(--color-danger);
 }
 
-.x-checkbox--info .x-checkbox__input:checked+.x-checkbox__inner {
-  background-color: var(--color-info);
+.x-checkbox--info .x-checkbox__input + .x-checkbox__inner {
   border-color: var(--color-info);
 }
 
-
+.x-checkbox--info .x-checkbox__input:checked + .x-checkbox__inner {
+  background-color: var(--color-info);
+  border-color: var(--color-info);
+}
 
 .x-checkbox__icon--checked {
   opacity: 1;
 }
 
-.x-checkbox__input:checked+.x-checkbox__inner .x-checkbox__icon {
+.x-checkbox__input:checked + .x-checkbox__inner .x-checkbox__icon {
   opacity: 1;
 }
 
-.x-checkbox__input:indeterminate+.x-checkbox__inner .x-checkbox__icon {
+.x-checkbox__input:indeterminate + .x-checkbox__inner .x-checkbox__icon {
   opacity: 1;
 }
 
-.x-checkbox__input:disabled+.x-checkbox__inner {
+.x-checkbox__input:disabled + .x-checkbox__inner {
   border-color: var(--color-disabled);
 }
 
-.x-checkbox__input:disabled+.x-checkbox__inner .x-checkbox__icon {
+.x-checkbox__input:disabled + .x-checkbox__inner .x-checkbox__icon {
   color: var(--color-disabled-text);
 }
 
-.x-checkbox__input:disabled+.x-checkbox__inner {
+.x-checkbox__input:disabled + .x-checkbox__inner {
   color: var(--color-disabled);
   /* background-color: var(--color-disabled); */
 }
@@ -287,58 +368,7 @@ watch(
   border: 1px solid var(--color-border);
 }
 
-.x-checkbox--large .x-checkbox__inner {
-  width: var(--font-size-2);
-  height: var(--font-size-2);
-  font-size: var(--font-size-2);
-
-  .x-checkbox__icon {
-    width: var(--font-size-2);
-    height: var(--font-size-2);
-    font-size: var(--font-size-2);
-    color: var(--color-background);
-    opacity: 0;
-    background-color: var(--color-text);
-    opacity: 0;
-    transition: opacity 0.2s ease;
-  }
-}
-
-.x-checkbox--medium .x-checkbox__inner {
-  width: var(--font-size-1);
-  height: var(--font-size-1);
-  font-size: var(--font-size-1);
-
-  .x-checkbox__icon {
-    width: var(--font-size-1);
-    height: var(--font-size-1);
-    font-size: var(--font-size-1);
-
-    color: var(--color-background);
-    opacity: 0;
-    background-color: var(--color-text);
-    opacity: 0;
-    transition: opacity 0.2s ease;
-  }
-}
-
-.x-checkbox--small .x-checkbox__inner {
-  width: var(--font-size-0);
-  height: var(--font-size-0);
-  font-size: var(--font-size-0);
-
-  .x-checkbox__icon {
-    width: var(--font-size-0);
-    height: var(--font-size-0);
-    font-size: var(--font-size-0);
-    color: var(--color-background);
-    opacity: 0;
-    background-color: var(--color-text);
-    transition: opacity 0.2s ease;
-  }
-}
-
-.x-checkbox--small .x-checkbox__input:checked+.x-checkbox__inner::after {
+.x-checkbox--small .x-checkbox__input:checked + .x-checkbox__inner::after {
   width: var(--font-size-2);
   /* height: var(--font-size-2); */
   /* font-size: var(--font-size-2); */
@@ -354,7 +384,7 @@ watch(
   transform: rotate(45deg) translateY(-70%) translateX(10%); */
 }
 
-.x-checkbox--medium .x-checkbox__input:checked+.x-checkbox__inner::after {
+.x-checkbox--medium .x-checkbox__input:checked + .x-checkbox__inner::after {
   /* content: "";
   position: absolute;
   top: 40%;
