@@ -293,12 +293,12 @@ const handleSubmit = (data) => {
         </FormItem>
         <FormItem style="margin-top: 20px;">
             <Row :gutter="20">
-              <Col :span="12">
-                  <Button style="width: 100%" type="default" class="x-button x-button--primary">Submit</Button>
-              </Col>
-              <Col :span="12">
-                  <Button style="width: 100%" html-type="reset" text  border  class="x-button x-button--primary">Reset</Button>
-              </Col>
+            <Col :span="12">
+                <Button style="width: 100%" type="default" class="x-button x-button--primary">Submit</Button>
+            </Col>
+            <Col :span="12">
+                <Button style="width: 100%" html-type="reset" text  border  class="x-button x-button--primary">Reset</Button>
+            </Col>
             </Row>
         </FormItem>
     </Form>
