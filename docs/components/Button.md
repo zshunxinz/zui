@@ -772,6 +772,7 @@ const handleHover = () => {
 | text         | 是否为文本按钮                                | boolean | true/false                          | false     |
 | border       | 是否为边框按钮                                | boolean | true/false                          | false     |
 | shadow       | 是否显示阴影效果                              | boolean | true/false                          | false     |
+| outline      | 是否为*outline*按钮                           | boolean | true/false                          | false     |
 | borderRadius | 按钮圆角大小(px)                              | Number  | —                                   | 6         |
 | bgColor      | 自定义按钮背景颜色                            | String  | —                                   | undefined |
 | bg           | 是否为浅色背景按钮                            | boolean | true/false                          | false     |

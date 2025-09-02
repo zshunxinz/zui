@@ -112,15 +112,20 @@ const handleChange = (e: Event) => {
   /* display: grid; */
 
   gap: 20px;
+
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
 }
 
 .x-radio {
   display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
+  height: var(--height-1);
+  line-height: var(--height-1);
 }
 
 .x-radio__input {
@@ -149,6 +154,21 @@ const handleChange = (e: Event) => {
   align-self: center;
   height: 100%;
   line-height: 100%;
+}
+
+.x-radio--small--circle {
+  height: var(--height-0);
+  line-height: var(--height-0);
+}
+
+.x-radio--medium--circle {
+  height: var(--height-1);
+  line-height: var(--height-1);
+}
+
+.x-radio--large--circle {
+  height: var(--height-2);
+  line-height: var(--height-2);
 }
 
 .x-radio--small--circle .x-radio__input {

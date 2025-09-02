@@ -65,8 +65,9 @@ const handleSubmit = (data) => {
 };
 </script>
 
+<Demo>
 <Card width="430px" style="padding: 20px;">
-    <Form v-model="formData" :rules="rules" @submit="handleSubmit"  labelAlign="left"
+    <Form v-model="formData" :rules="rules" @submit="handleSubmit"  labelAlign="left" labelJustifyContent="left"
         labelWidth="100px">
         <FormItem label="Name" prop="name" required>
             <Input v-model="formData.name" placeholder="Enter your name" />
@@ -107,6 +108,8 @@ const handleSubmit = (data) => {
         </FormItem>
     </Form>
 </Card>
+
+</Demo>
 
 <CollapsibleCode title="基础表单示例" :defaultOpen="false">
 
@@ -254,6 +257,8 @@ const handleSubmit = (data) => {
 
 设置 `labelPosition` 为 `top-left`,让 label 在输入框上方
 
+<Demo>
+
 <Card width="430px" style="padding: 20px;">
     <Form v-model="formData" :rules="rules" @submit="handleSubmit"  labelPosition="top-left"
         labelWidth="100px">
@@ -296,6 +301,8 @@ const handleSubmit = (data) => {
         </FormItem>
     </Form>
 </Card>
+
+</Demo>
 
 <CollapsibleCode title="基础表单示例" :defaultOpen="false">
 

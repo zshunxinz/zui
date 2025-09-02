@@ -123,6 +123,7 @@ watch(
     color: var(--color-text-primary);
     text-align: right;
     box-sizing: border-box; */
+  padding: 0px 1px;
   height: var(--height-1);
   display: flex;
   align-items: center;
