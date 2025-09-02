@@ -48,7 +48,7 @@ const loadingHandleClick = () => {
   </div>
 </Demo>
 
-<CollapsibleCode  >
+<CollapsibleCode>
 
 ```vue
 <template>

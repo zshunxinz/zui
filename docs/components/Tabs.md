@@ -137,6 +137,8 @@ label {
   background-color: var(--color-bg-hover-1);
 }
 </style>
+
+<Demo>
 <div class="demo-tabs-basic">
     <Tabs v-model="activeTab" :tabs="tabs" @tab-click="handleTabClick" @update:modelValue="handleUpdateModelValue" @tab-close="handleClose" >
         <template #account>
@@ -170,8 +172,10 @@ label {
           </div>
         </template>
       </Tabs>
-
 </div>
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
 <template>
@@ -257,10 +261,13 @@ input {
 </style>
 ```
 
+</CollapsibleCode>
+
 ## 不同类型
 
 支持多种类型的标签页，包括`primary`、`success`、`warning`、`danger`和`info`。
 
+<Demo>
 <Tabs v-model="activeTab1" :tabs="tabs1" type="primary">
       <template #tab1>Primary Tab Content</template>
       <template #tab2>Secondary Tab Content</template>
@@ -299,6 +306,9 @@ style="margin-top: 20px;">
 <template #tab1>Info Tab Content</template>
 <template #tab2>Secondary Tab Content</template>
 </Tabs>
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
 <template>
@@ -361,9 +371,13 @@ const tabs = [
 </script>
 ```
 
+</CollapsibleCode>
+
 ## 不同尺寸
 
 支持`small`、`default`和`large`三种尺寸。
+
+<Demo>
 
 <div class="demo-tabs-sizes">
   <Tabs v-model="activeTab" :tabs="tabs" size="small">
@@ -387,6 +401,9 @@ style="margin-top: 20px;">
 </Tabs>
 
 </div>
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
 <template>
@@ -429,9 +446,13 @@ const tabs = [
 </script>
 ```
 
+</CollapsibleCode>
+
 ## 不同位置
 
 标签页可以放置在`top`、`bottom`、`left`或`right`四个位置。
+
+<Demo>
 
 <div class="demo-tabs-position">
   <Tabs v-model="activeTab1" :tabs="tabs1" position="top" style="border: 1px solid var(--color-border);padding:10px">
@@ -456,6 +477,9 @@ const tabs = [
       <template #tab2>Secondary Tab Content</template>
     </Tabs>
 </div>
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
 <template>
@@ -498,10 +522,13 @@ const tabs = [
 </script>
 ```
 
+</CollapsibleCode>
+
 ## 按钮样式
 
 设置`buttonStyle`属性为`true`可以启用按钮样式的标签页，使标签看起来像按钮一样。
 
+<Demo>
 <Tabs v-model="buttonStyleTab" :tabs="buttonStyleTabs" buttonStyle="true">
   <template #btn1>
     <div class="tab-content">
@@ -522,6 +549,10 @@ const tabs = [
     </div>
   </template>
 </Tabs>
+
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
 <template>
@@ -574,8 +605,13 @@ const buttonStyleTabs = ref([
 </style>
 ```
 
+</CollapsibleCode>
+
+## 按钮样式类型
+
 按钮样式可以与不同类型结合使用：
 
+<Demo>
 <div class="tabs-button-style-types">
   <Tabs v-model="buttonStyleTypeTab" :tabs="buttonStyleTypeTabs" buttonStyle="true" type="primary">
     <template #primary1>
@@ -598,6 +634,10 @@ const buttonStyleTabs = ref([
     </template>
   </Tabs>
 </div>
+
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
 <template>
@@ -655,15 +695,18 @@ const buttonStyleTypeTabs = ref([
 </style>
 ```
 
+</CollapsibleCode>
+
 ## 自定义样式
 
 ### 背景与边框
 
 设置`tabsBg`属性为`true`可以为标签页添加默认背景颜色。
 设置`borderLine`属性为`false`可以移除标签页的底部边框。
-
+<Demo>
 <Tabs v-model="activeTab1" :tabs="tabs1" :tabsBg="true" :borderLine="false" type="primary">
 <template #tab1>
+
   <div class="tab-content">
     <h3>带背景的标签页 1</h3>
     <p>这是带背景颜色的标签页内容</p>
@@ -676,6 +719,9 @@ const buttonStyleTypeTabs = ref([
   </div>
 </template>
 </Tabs>
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
 <template>
@@ -712,12 +758,15 @@ const tabs1 = [
 </script>
 ```
 
+</CollapsibleCode>
+
 ### 自定义背景类
 
 设置`tabsBgClass`属性可以自定义标签页的背景颜色类名。
-
+<Demo>
 <Tabs v-model="activeTab1" :tabs="tabs1" :tabsBgClass="'x-tabs_nav_bg'" :borderLine="false">
 <template #tab1>
+
   <div class="tab-content">
     <h3>自定义背景标签页 1</h3>
     <p>这是使用自定义背景类的标签页内容</p>
@@ -730,6 +779,9 @@ const tabs1 = [
   </div>
 </template>
 </Tabs>
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
 <template>
@@ -769,12 +821,15 @@ const tabs1 = [
 </style>
 ```
 
+</CollapsibleCode>
+
 ### 全宽标签
 
 设置`tabFull`属性为`true`可以使标签页宽度平均分配并占满父容器。
-
+<Demo>
 <Tabs v-model="activeTab1" :tabs="tabs1" :borderLine="false" :tabFull="true">
 <template #tab1>
+
   <div class="tab-content">
     <h3>全宽标签页 1</h3>
     <p>这是全宽标签页的内容</p>
@@ -787,6 +842,9 @@ const tabs1 = [
   </div>
 </template>
 </Tabs>
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
 <template>
@@ -816,9 +874,13 @@ const tabs1 = [
 </script>
 ```
 
+</CollapsibleCode>
+
 ### 按钮样式标签
 
 设置`buttonStyle`属性为`true`可以使用按钮样式的标签页。
+
+<Demo>
 
 <Tabs v-model="activeTab1" :buttonStyle="true" :tabs="tabs1" :borderLine="false">
 <template #tab1>
@@ -834,6 +896,9 @@ const tabs1 = [
   </div>
 </template>
 </Tabs>
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
 <template>
@@ -868,10 +933,13 @@ const tabs1 = [
 </script>
 ```
 
+</CollapsibleCode>
+
 ### 按钮样式与类型组合
 
 按钮样式可以与`type`属性组合使用，创建不同颜色的按钮标签。
 
+<Demo>
 <Tabs v-model="activeTab1" :buttonStyle="true" :tabs="tabs1" :borderLine="false" type="primary">
 <template #tab1>
   <div class="tab-content">
@@ -901,6 +969,9 @@ const tabs1 = [
   </div>
 </template>
 </Tabs>
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
 <template>
@@ -936,10 +1007,13 @@ const tabs1 = [
 </script>
 ```
 
+</CollapsibleCode>
+
 ### 文本按钮样式
 
 设置`buttonStyleText`属性为`true`可以使标签页按钮样式为文本主题（仅边框和文字变色，背景保持透明）。
 
+<Demo>
 <Tabs v-model="activeTab1" :buttonStyle="true" :buttonStyleText="true" :tabs="tabs1" :borderLine="false">
 <template #tab1>
   <div class="tab-content">
@@ -969,6 +1043,10 @@ const tabs1 = [
   </div>
 </template>
 </Tabs>
+
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
 <template>
@@ -1005,12 +1083,15 @@ const tabs1 = [
 </script>
 ```
 
+</CollapsibleCode>
+
 ### 全宽按钮标签
 
 `tabFull`属性可以与按钮样式组合，创建全宽的按钮标签。
-
+<Demo>
 <Tabs v-model="activeTab1" :buttonStyle="true" :tabs="tabs1" :borderLine="false" :tabFull="true">
 <template #tab1>
+
   <div class="tab-content">
     <h3>全宽按钮标签页 1</h3>
     <p>这是全宽按钮样式的标签页内容</p>
@@ -1023,6 +1104,9 @@ const tabs1 = [
   </div>
 </template>
 </Tabs>
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
 <template>
@@ -1058,10 +1142,12 @@ const tabs1 = [
 </script>
 ```
 
+</CollapsibleCode>
 ### 自定义背景类名与全宽按钮标签
 
 将 tabFull、tabsBgClass、buttonStyleText 结合使用
 
+<Demo>
 <Tabs v-model="activeTab1" :buttonStyle="true" :buttonStyleText="true" :tabs="tabs1" :borderLine="false" :tabFull="true" :tabsBgClass="'x-tabs_nav_bg-1'">
 <template #tab1>
   <div class="tab-content">
@@ -1151,15 +1237,20 @@ const tabs1 = [
   </div>
 </template>
 </Tabs>
+</Demo>
 
 ## 禁用标签
 
 可以禁用某些标签页。
+<Demo>
 <Tabs v-model="activeTab2" :tabs="tabs2">
 <template #tab1>Active Tab Content</template>
 <template #tab2>Disabled Tab Content</template>
 <template #tab3>Another Active Tab Content</template>
 </Tabs>
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
 <template>
@@ -1184,12 +1275,13 @@ const tabs2 = [
 </script>
 ```
 
+</CollapsibleCode>
 ## 可关闭标签页
 
 ### 全部标签可关闭
 
 设置`closable`属性为`true`可以启用标签页的关闭功能，并通过`@tab-close`事件处理标签关闭的逻辑。
-
+<Demo>
 <Tabs v-model="activeClosableTab" :tabs="closableTabs" :closable="true" @tab-close="handleTabClose">
 <template #home>
 
@@ -1217,6 +1309,10 @@ const tabs2 = [
 </div>
 </template>
 </Tabs>
+
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
 <template>
@@ -1297,10 +1393,12 @@ const handleTabClose = (index) => {
 </style>
 ```
 
+</CollapsibleCode>
+
 ### 部分标签可关闭
 
 可以在标签配置中设置`close`属性来控制单个标签是否可关闭，而不是使用`closable`属性控制所有标签。
-
+<Demo>
 <Tabs v-model="partialClosableTab" :tabs="partialClosableTabs" @tab-close="handlePartialClose">
 <template #tab1>
 
@@ -1328,6 +1426,10 @@ const handleTabClose = (index) => {
 </div>
 </template>
 </Tabs>
+
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
 <template>
@@ -1412,6 +1514,8 @@ const handlePartialClose = (index) => {
 }
 </style>
 ```
+
+</CollapsibleCode>
 
 ## API
 

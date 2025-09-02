@@ -2,10 +2,9 @@
 
 用于在两个互斥状态之间切换的开关组件。
 
-## 基础用法
-
 <script setup>
 import { ref } from 'vue'
+
 const value1 = ref(true)
 const value2 = ref(true)
 const value3 = ref(true)
@@ -31,9 +30,11 @@ const changeText = ref('未改变')
 const handleChange1 = (value) => {
   changeText.value = value ? '已开启' : '已关闭'
 }
+
 const handleChange2 = (value) => {
   console.log('开关状态改变:', value)
 }
+
 let switchLoading = ref(false);
 const handleLoad = () => {
   if (value1.value == true) {
@@ -44,74 +45,161 @@ const handleLoad = () => {
   }
 };
 </script>
-<div class="demo-switch">
-  <Switch v-model="value1" />
-  <span style="margin-left: 12px;">{{ value1 }}</span>
-</div>
 
-<style>
+<style scoped>
+.switch-demo {
+  padding: 20px 0;
+}
 .demo-switch {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 12px;
+  padding: 20px;
 }
 </style>
 
+## 基础用法
+
+<Demo>
+  <div class="switch-demo">
+    <div class="demo-switch">
+      <Switch v-model="value1" />
+      <span>{{ value1 }}</span>
+    </div>
+  </div>
+</Demo>
+
+<CollapsibleCode>
+
 ```vue
 <template>
-  <Switch v-model="value" />
+  <div class="switch-demo">
+    <div class="demo-switch">
+      <Switch v-model="value" />
+      <span>{{ value }}</span>
+    </div>
+  </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
+
 const value = ref(true);
 </script>
 ```
+
+</CollapsibleCode>
 
 ## 文字描述
 
 使用 `active-text` 和 `inactive-text` 属性来设置开关的文字描述。
 
-<Switch
-  v-model="value2"
-  active-text="开启"
-  inactive-text="关闭"
-/>
+<Demo>
+  <div class="switch-demo">
+    <div class="demo-switch">
+      <Switch
+        v-model="value2"
+        active-text="开启"
+        inactive-text="关闭"
+      />
+    </div>
+  </div>
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
-<Switch v-model="value" active-text="开启" inactive-text="关闭" />
+<template>
+  <div class="switch-demo">
+    <div class="demo-switch">
+      <Switch v-model="value" active-text="开启" inactive-text="关闭" />
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref } from "vue";
+
+const value = ref(true);
+</script>
 ```
+
+</CollapsibleCode>
 
 ## 禁用状态
 
-<div class="demo-switch">
-  <Switch v-model="value3" disabled />
-  <Switch v-model="value4" disabled style="margin-left: 20px;" />
-</div>
+<Demo>
+  <div class="switch-demo">
+    <div class="demo-switch">
+      <Switch v-model="value3" disabled />
+      <Switch v-model="value4" disabled />
+    </div>
+  </div>
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
-<Switch v-model="value1" disabled />
-<Switch v-model="value2" disabled />
+<template>
+  <div class="switch-demo">
+    <div class="demo-switch">
+      <Switch v-model="value1" disabled />
+      <Switch v-model="value2" disabled />
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref } from "vue";
+
+const value1 = ref(true);
+const value2 = ref(false);
+</script>
 ```
+
+</CollapsibleCode>
 
 ## 加载状态
 
-<div class="demo-switch">
-  <Switch
+<Demo>
+  <div class="switch-demo">
+    <div class="demo-switch">
+      <Switch
+        v-model="value5"
+        type="primary"
+        :loading="switchLoading"
+        @change="handleLoad"
+      />
+      <Switch v-model="value6" loading />
+    </div>
+  </div>
+</Demo>
+
+<CollapsibleCode>
+
+```vue
+<template>
+  <div class="switch-demo">
+    <div class="demo-switch">
+      <Switch
         v-model="value1"
         type="primary"
         :loading="switchLoading"
         @change="handleLoad"
       />
-  <Switch v-model="value6" loading style="margin-left: 20px;" />
-</div>
+      <Switch v-model="value2" loading />
+    </div>
+  </div>
+</template>
 
-```vue
 <script setup>
 import { ref } from "vue";
+
 const value1 = ref(true);
+const value2 = ref(true);
 const switchLoading = ref(false);
+
 const handleLoad = () => {
   if (value1.value == true) {
     switchLoading.value = true;
@@ -121,85 +209,170 @@ const handleLoad = () => {
   }
 };
 </script>
-<template>
-  <Switch
-    v-model="value1"
-    type="primary"
-    :loading="switchLoading"
-    @change="handleLoad"
-  />
-  <Switch v-model="value6" loading style="margin-left: 20px;" />
-</template>
 ```
+
+</CollapsibleCode>
 
 ## 不同尺寸
 
-<div class="demo-switch">
-  <Switch v-model="value7" size="small" />
-  <Switch v-model="value8" style="margin-left: 20px;" />
-  <Switch v-model="value9" size="large" style="margin-left: 20px;" />
-</div>
+<Demo>
+  <div class="switch-demo">
+    <div class="demo-switch">
+      <Switch v-model="value7" size="small" />
+      <Switch v-model="value8" />
+      <Switch v-model="value9" size="large" />
+    </div>
+  </div>
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
-<Switch v-model="value1" size="small" />
-<Switch v-model="value2" />
-<Switch v-model="value3" size="large" />
+<template>
+  <div class="switch-demo">
+    <div class="demo-switch">
+      <Switch v-model="value1" size="small" />
+      <Switch v-model="value2" />
+      <Switch v-model="value3" size="large" />
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref } from "vue";
+
+const value1 = ref(true);
+const value2 = ref(true);
+const value3 = ref(true);
+</script>
 ```
+
+</CollapsibleCode>
 
 ## 不同颜色
 
-<div class="demo-switch">
-  <Switch v-model="value10" type="primary" />
-  <Switch v-model="value11" type="success" style="margin-left: 20px;" />
-  <Switch v-model="value12" type="warning" style="margin-left: 20px;" />
-  <Switch v-model="value13" type="danger" style="margin-left: 20px;" />
-  <Switch v-model="value14" type="info" style="margin-left: 20px;" />
-</div>
+<Demo>
+  <div class="switch-demo">
+    <div class="demo-switch">
+      <Switch v-model="value10" type="primary" />
+      <Switch v-model="value11" type="success" />
+      <Switch v-model="value12" type="warning" />
+      <Switch v-model="value13" type="danger" />
+      <Switch v-model="value14" type="info" />
+    </div>
+  </div>
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
-<Switch v-model="value1" type="primary" />
-<Switch v-model="value2" type="success" />
-<Switch v-model="value3" type="warning" />
-<Switch v-model="value4" type="danger" />
-<Switch v-model="value5" type="info" />
+<template>
+  <div class="switch-demo">
+    <div class="demo-switch">
+      <Switch v-model="value1" type="primary" />
+      <Switch v-model="value2" type="success" />
+      <Switch v-model="value3" type="warning" />
+      <Switch v-model="value4" type="danger" />
+      <Switch v-model="value5" type="info" />
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref } from "vue";
+
+const value1 = ref(true);
+const value2 = ref(true);
+const value3 = ref(true);
+const value4 = ref(true);
+const value5 = ref(true);
+</script>
 ```
+
+</CollapsibleCode>
 
 ## 自定义值
 
-<div class="demo-switch">
-  <Switch
-    v-model="value15"
-    active-value="开启"
-    inactive-value="关闭"
-  />
-  <span style="margin-left: 12px;">{{ value15 }}</span>
-</div>
+<Demo>
+  <div class="switch-demo">
+    <div class="demo-switch">
+      <Switch
+        v-model="value15"
+        active-value="开启"
+        inactive-value="关闭"
+      />
+      <span>{{ value15 }}</span>
+    </div>
+  </div>
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
-<Switch v-model="value" active-value="开启" inactive-value="关闭" />
+<template>
+  <div class="switch-demo">
+    <div class="demo-switch">
+      <Switch v-model="value" active-value="开启" inactive-value="关闭" />
+      <span>{{ value }}</span>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref } from "vue";
+
+const value = ref("开启");
+</script>
 ```
+
+</CollapsibleCode>
 
 ## 不同形状
 
 支持圆形和方形两种形状，默认为圆形。
 
-<div class="demo-switch">
-  <Switch v-model="value18" shape="round" />
-  <Switch v-model="value18" shape="square" style="margin-left: 20px;" />
-  <Switch v-model="value18" shape="square" size="small" style="margin-left: 20px;" />
-  <Switch v-model="value18" shape="square" size="large" style="margin-left: 20px;" />
-</div>
+<Demo>
+  <div class="switch-demo">
+    <div class="demo-switch">
+      <Switch v-model="value18" shape="round" />
+      <Switch v-model="value19" shape="square" />
+      <Switch v-model="value20" shape="square" size="small" />
+      <Switch v-model="value21" shape="square" size="large" />
+    </div>
+  </div>
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
-<Switch v-model="value" shape="round" />
-<Switch v-model="value" shape="square" />
-<Switch v-model="value" shape="square" size="small" />
-<Switch v-model="value" shape="square" size="large" />
+<template>
+  <div class="switch-demo">
+    <div class="demo-switch">
+      <Switch v-model="value1" shape="round" />
+      <Switch v-model="value2" shape="square" />
+      <Switch v-model="value3" shape="square" size="small" />
+      <Switch v-model="value4" shape="square" size="large" />
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref } from "vue";
+
+const value1 = ref(true);
+const value2 = ref(true);
+const value3 = ref(true);
+const value4 = ref(true);
+</script>
 ```
+
+</CollapsibleCode>
 
 ## 自定义图标
 
 使用插槽自定义开关内的图标内容。
+
+<Demo>
 
 <div class="demo-switch">
   <Switch v-model="value19" type="default">
@@ -253,6 +426,10 @@ const handleLoad = () => {
     </template>
   </Switch>
 </div>
+
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
 <template>
@@ -318,8 +495,11 @@ const handleLoad = () => {
 </template>
 ```
 
+</CollapsibleCode>
+
 ## 自定义颜色
 
+<Demo>    
 <div class="demo-switch">
   <Switch
     v-model="value16"
@@ -333,14 +513,20 @@ const handleLoad = () => {
     style="margin-left: 20px;"
   />
 </div>
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
 <Switch v-model="value1" active-color="#ff6b6b" inactive-color="#495057" />
 <Switch v-model="value2" active-color="#4ecdc4" inactive-color="#868e96" />
 ```
 
+</CollapsibleCode>
+
 ## 事件监听
 
+<Demo>
 <div class="demo-switch">
   <Switch
     v-model="value18"
@@ -348,6 +534,9 @@ const handleLoad = () => {
   />
   <span style="margin-left: 12px;">状态：{{ changeText }}</span>
 </div>
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
 <template>
@@ -363,6 +552,8 @@ const handleChange1 = (value) => {
 };
 </script>
 ```
+
+</CollapsibleCode>
 
 ## API
 

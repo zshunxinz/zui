@@ -1,8 +1,6 @@
 # Input 输入框
 
-## 基本用法
-
-Input 组件用于接收用户输入的文本信息，支持多种输入类型和交互功能。
+输入框组件，用于接收用户输入的文本信息，支持多种输入类型和交互功能。
 
 <script setup>
 import { ref } from 'vue'
@@ -39,7 +37,6 @@ const handleDebounceInput = (val) => {
   debouncedValue.value = val;
 };
 
-
 const handleInput = (val) => {
   console.log("输入事件", val);
 };
@@ -54,137 +51,177 @@ const handleBlur = (e) => {
 };
 </script>
 <style>
-    .input-group .x-input { margin-bottom: 10px; }
+.input-group {
+  padding: 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.input-demo {
+  margin-bottom: 10px;
+}
 </style>
+
+## 基础用法
+
+输入框有默认、错误、禁用等多种状态，通过设置不同的属性来实现。
+
+### 文本输入
+
+<Demo>
+<div class="input-group">
+  <Input v-model="value" placeholder="请输入内容" />
+</div>
+</Demo>
+
+<CollapsibleCode>
+
+```vue
+<template>
+  <div class="input-group">
+    <Input v-model="value" placeholder="请输入内容" />
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+const value = ref('')
+</script>
+```
+
+</CollapsibleCode>
 
 ## 输入类型
 
 Input 组件支持多种输入类型，如文本输入、密码输入、数字输入等。通过设置`type`属性来指定输入框的类型。
 
-### 文本输入
+### 文本类型
 
-<Input v-model="value" placeholder="请输入内容" />
+<Demo>
+<div class="input-group">
+  <Input v-model="text" placeholder="请输入文本内容" />
+  <Input v-model="password" type="password" placeholder="请输入密码" />
+  <Input v-model="number" type="number" placeholder="请输入数字" />
+  <Input v-model="email" type="email" placeholder="请输入邮箱" />
+  <Input v-model="phone" type="tel" placeholder="请输入手机号" />
+  <Input v-model="website" type="url" placeholder="请输入网址" />
+  <Input v-model="search" type="search" placeholder="请输入搜索内容" />
+</div>
+</Demo>
 
-```vue
-<Input v-model="value" placeholder="请输入内容" />
-```
-
-### 密码输入
-
-<Input v-model="value" type="password" placeholder="请输入密码" />
-
-```vue
-<Input v-model="value" type="password" placeholder="请输入密码" />
-```
-
-### 数字输入
-
-<Input v-model="value" type="number" placeholder="请输入数字" />
+<CollapsibleCode>
 
 ```vue
-<Input v-model="value" type="number" placeholder="请输入数字" />
+<template>
+  <div class="input-group">
+    <Input v-model="text" placeholder="请输入文本内容" />
+    <Input v-model="password" type="password" placeholder="请输入密码" />
+    <Input v-model="number" type="number" placeholder="请输入数字" />
+    <Input v-model="email" type="email" placeholder="请输入邮箱" />
+    <Input v-model="phone" type="tel" placeholder="请输入手机号" />
+    <Input v-model="website" type="url" placeholder="请输入网址" />
+    <Input v-model="search" type="search" placeholder="请输入搜索内容" />
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+const text = ref('')
+const password = ref('')
+const number = ref('')
+const email = ref('')
+const phone = ref('')
+const website = ref('')
+const search = ref('')
+</script>
 ```
 
-### 邮箱输入
+</CollapsibleCode>
 
-<Input v-model="value" type="email" placeholder="请输入邮箱" />
-
-```vue
-<Input v-model="value" type="email" placeholder="请输入邮箱" />
-```
-
-### 手机号输入
-
-<Input v-model="value" type="tel" placeholder="请输入手机号" />
-
-```vue
-<Input v-model="value" type="tel" placeholder="请输入手机号" />
-```
-
-### 网址输入
-
-<Input v-model="value" type="url" placeholder="请输入网址" />
-
-```vue
-<Input v-model="value" type="url" placeholder="请输入网址" />
-```
-
-### 搜索输入
-
-搜索类型输入框会在输入内容时显示搜索图标。
-<Input v-model="value" type="search" placeholder="请输入搜索内容" />
-
-```vue
-<Input v-model="value" type="search" placeholder="请输入搜索内容" />
-```
-
-
+## 状态设置
 
 ### 错误状态
 
 通过 `error` 属性可以设置输入框为错误状态。
-<Input v-model="value" placeholder="请输入内容" :error="true" />
+
+<Demo>
+<div class="input-group">
+  <Input v-model="value" placeholder="请输入内容" :error="true" />
+  <Input v-model="value2" type="email" placeholder="请输入邮箱" :error="true" />
+</div>
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
 <template>
-  <div>
+  <div class="input-group">
     <Input v-model="value" placeholder="请输入内容" :error="true" />
+    <Input v-model="value2" type="email" placeholder="请输入邮箱" :error="true" />
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
 const value = ref("");
+const value2 = ref("");
 </script>
 ```
+
+</CollapsibleCode>
+
+### 禁用状态
+
+通过 `disabled` 属性设置禁用状态。
+
+<Demo>
+<div class="input-group">
+  <Input v-model="value" placeholder="禁用状态" disabled />
+  <Input v-model="password" type="password" placeholder="密码禁用" disabled />
+</div>
+</Demo>
+
+<CollapsibleCode>
+
+```vue
+<template>
+  <div class="input-group">
+    <Input v-model="value" placeholder="禁用状态" disabled />
+    <Input v-model="password" type="password" placeholder="密码禁用" disabled />
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+const value = ref('')
+const password = ref('')
+</script>
+```
+
+</CollapsibleCode>
 
 ## 标签位置
 
 通过 `labelPosition` 属性可以设置标签的位置，可选值为 `top`（默认）、`left`、`center`、`right`，支持自定义位置。
 
-<div style="height:500px">
-  <Col :span="24" style="height:80px">
-    <Input v-model="value1" label="默认标签"  placeholder="请输入内容" />
-  </Col>
-  <Col :span="24" style="height:80px">
-    <Input v-model="value1" labelPosition="top" label="顶部标签" placeholder="请输入内容" />
-  </Col>
-  <Col :span="24" style="height:80px">
-    <Input v-model="value1" labelPosition="left" label="左侧标签" placeholder="请输入内容" />
-  </Col>
-  <Col :span="24" style="height:80px">
-    <Input v-model="value1" labelPosition="center" label="居中标签" placeholder="请输入内容" />
-  </Col>
-   <Col :span="24" style="height:80px">
-    <Input v-model="value1" labelPosition="top" label="顶部标签" placeholder="请输入内容" />
-  </Col>
-  <Col :span="24" style="height:80px">
-    <Input v-model="value1" labelPosition="right" label="右侧标签" placeholder="请输入内容" />
-  </Col>
+<Demo>
+<div class="input-group">
+  <Input v-model="value1" label="顶部标签" placeholder="请输入内容" />
+  <Input v-model="value2" label="左侧标签" labelPosition="left" placeholder="请输入内容" />
+  <Input v-model="value3" label="居中标签" labelPosition="center" placeholder="请输入内容" />
+  <Input v-model="value4" label="右侧标签" labelPosition="right" placeholder="请输入内容" />
 </div>
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
 <template>
-  <div style="display: flex; flex-direction: column; gap: 16px;">
+  <div class="input-group">
     <Input v-model="value1" label="顶部标签" placeholder="请输入内容" />
-    <Input
-      v-model="value2"
-      label="左侧标签"
-      labelPosition="left"
-      placeholder="请输入内容"
-    />
-    <Input
-      v-model="value3"
-      label="居中标签"
-      labelPosition="center"
-      placeholder="请输入内容"
-    />
-    <Input
-      v-model="value4"
-      label="右侧标签"
-      labelPosition="right"
-      placeholder="请输入内容"
-    />
+    <Input v-model="value2" label="左侧标签" labelPosition="left" placeholder="请输入内容" />
+    <Input v-model="value3" label="居中标签" labelPosition="center" placeholder="请输入内容" />
+    <Input v-model="value4" label="右侧标签" labelPosition="right" placeholder="请输入内容" />
   </div>
 </template>
 
@@ -198,27 +235,33 @@ const value4 = ref("");
 </script>
 ```
 
+</CollapsibleCode>
+
 ### 防抖输入
 
 通过 `debounce` 属性可以设置输入防抖时间（毫秒），当设置防抖时间后，可以通过 `@debounce-input` 事件获取防抖后的输入值。
 
-<div>
-    <Input
-      v-model="value"
-      placeholder="请输入内容"
-      :debounce="1000"
-      @debounce-input="handleDebounceInput"
-    />
-    <p>防抖后的值: {{ debouncedValue }}</p>
-  </div>
+<Demo>
+<div class="input-group">
+  <Input
+    v-model="debounceValue"
+    placeholder="请输入内容"
+    :debounce="1000"
+    @debounce-input="handleDebounceInput"
+  />
+  <p>防抖后的值: {{ debouncedValue }}</p>
+</div>
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
 <template>
-  <div>
+  <div class="input-group">
     <Input
-      v-model="value"
+      v-model="debounceValue"
       placeholder="请输入内容"
-      :debounce="500"
+      :debounce="1000"
       @debounce-input="handleDebounceInput"
     />
     <p>防抖后的值: {{ debouncedValue }}</p>
@@ -228,7 +271,7 @@ const value4 = ref("");
 <script setup>
 import { ref } from "vue";
 
-const value = ref("");
+const debounceValue = ref("");
 const debouncedValue = ref("");
 
 const handleDebounceInput = (val) => {
@@ -237,44 +280,55 @@ const handleDebounceInput = (val) => {
 </script>
 ```
 
+</CollapsibleCode>
+
 ## 事件回调
 
 Input 组件支持通过事件回调来处理用户交互，常用事件包括：
 
-<div>
-    <Input
-      v-model="value"
-      placeholder="请输入内容"
-      @click="handleClick"
-      @input="handleInput"
-      @clear="handleClear"
-      @focus="handleFocus"
-      @blur="handleBlur"
-      @enter="handleEnter"
-      @debounce-input="handleDebounceInput"
-    />
-  </div>
+<Demo>
+<div class="input-group">
+  <Input
+    v-model="eventValue"
+    placeholder="请输入内容查看控制台输出"
+    clearable
+    @click="handleClick"
+    @input="handleInput"
+    @clear="handleClear"
+    @focus="handleFocus"
+    @blur="handleBlur"
+    @enter="handleEnter"
+    @mouse-enter="handleMouseEnter"
+    @mouse-leave="handleMouseLeave"
+  />
+</div>
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
 <template>
-  <div>
+  <div class="input-group">
     <Input
-      v-model="value"
-      placeholder="请输入内容"
+      v-model="eventValue"
+      placeholder="请输入内容查看控制台输出"
+      clearable
       @click="handleClick"
       @input="handleInput"
       @clear="handleClear"
       @focus="handleFocus"
       @blur="handleBlur"
       @enter="handleEnter"
-      @debounce-input="handleDebounceInput"
+      @mouse-enter="handleMouseEnter"
+      @mouse-leave="handleMouseLeave"
     />
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
-const value = ref("");
+const eventValue = ref("");
+
 const handleClick = () => {
   console.log("点击事件");
 };
@@ -293,11 +347,55 @@ const handleBlur = (e) => {
 const handleEnter = (val) => {
   console.log("回车事件", val);
 };
-const handleDebounceInput = (val) => {
-  console.log("防抖输入事件", val);
+const handleMouseEnter = () => {
+  console.log("鼠标移入输入框");
+};
+const handleMouseLeave = () => {
+  console.log("鼠标移出输入框");
 };
 </script>
 ```
+
+</CollapsibleCode>
+
+## 组合示例
+
+展示不同属性组合的输入框用法。
+
+<Demo>
+<div class="input-group">
+  <Input v-model="value1" label="用户名" placeholder="请输入用户名" />
+  <Input v-model="value2" label="邮箱" type="email" placeholder="请输入邮箱" :error="true" />
+  <Input v-model="value3" label="密码" type="password" placeholder="请输入密码" clearable />
+  <Input v-model="value4" label="搜索" type="search" placeholder="请输入搜索内容" clearable />
+  <Input v-model="value5" label="手机号" type="tel" placeholder="请输入手机号" disabled />
+</div>
+</Demo>
+
+<CollapsibleCode>
+
+```vue
+<template>
+  <div class="input-group">
+    <Input v-model="value1" label="用户名" placeholder="请输入用户名" />
+    <Input v-model="value2" label="邮箱" type="email" placeholder="请输入邮箱" :error="true" />
+    <Input v-model="value3" label="密码" type="password" placeholder="请输入密码" clearable />
+    <Input v-model="value4" label="搜索" type="search" placeholder="请输入搜索内容" clearable />
+    <Input v-model="value5" label="手机号" type="tel" placeholder="请输入手机号" disabled />
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+const value1 = ref('')
+const value2 = ref('')
+const value3 = ref('')
+const value4 = ref('')
+const value5 = ref('')
+</script>
+```
+
+</CollapsibleCode>
 
 ### 事件列表
 

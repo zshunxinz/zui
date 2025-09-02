@@ -26,9 +26,11 @@
         </div>
       </span>
     </div>
-    <div class="code-content" v-show="isOpen" v-transition:expand>
-      <slot></slot>
-    </div>
+    <transition name="expand">
+      <div class="code-content" v-show="isOpen">
+        <slot></slot>
+      </div>
+    </transition>
   </div>
 </template>
 

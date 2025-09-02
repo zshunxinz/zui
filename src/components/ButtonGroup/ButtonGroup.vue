@@ -1,26 +1,29 @@
 <template>
-  <div class="btn-group" :class="{ 'btn-group--vertical': vertical }">
-    <slot></slot>
+  <div>
+    <div class="btn-group" :class="{ 'btn-group--vertical': vertical }">
+      <slot></slot>
+    </div>
   </div>
 </template>
 
 <script setup>
-import './index.css'
+import "./index.css";
 const props = defineProps({
   /**
    * 是否垂直排列按钮
    */
   vertical: {
     type: Boolean,
-    default: false
-  }
-})
+    default: false,
+  },
+});
 </script>
 
 <style scoped>
 .btn-group {
   display: inline-flex;
   overflow: hidden;
+  height: 100%;
 }
 
 .btn-group--vertical {

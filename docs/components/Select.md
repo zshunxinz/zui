@@ -23,6 +23,8 @@ const value11 = ref('')
 const value12 = ref('')
 </script>
 
+<Demo>
+
 <Select v-model="value" placeholder="请选择" >
   <Option value="数据12356789">
     数据
@@ -42,6 +44,10 @@ const value12 = ref('')
   <Option label="选项13" value="13" />
 </Select>
 
+</Demo>
+
+<CollapsibleCode>
+
 ```html
 <template>
   <select v-model="value" placeholder="请选择">
@@ -57,10 +63,13 @@ const value12 = ref('')
 </script>
 ```
 
+</CollapsibleCode>
+
 ## 不同类型
 
 支持 6 种主题类型：`default`、`primary`、`success`、`warning`、`danger`、`info`
 
+<Demo>
 <Row :gutter="[20,20]" >
   <Col :span="12">
     <Select v-model="value1" placeholder="请选择" type="default">
@@ -105,6 +114,9 @@ const value12 = ref('')
     </Select>
   </Col>
 </Row>
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
 <script setup>
@@ -164,9 +176,13 @@ const value6 = ref("");
 </template>
 ```
 
+</CollapsibleCode>
+
 ## 多选模式
 
 支持多选，通过设置 `multiple` 属性为 `true`
+
+<Demo>
 <Row :gutter="[20, 20]">
 
   <Col :span="24">
@@ -198,6 +214,9 @@ const value6 = ref("");
   </Col>
   
 </Row>
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
 <template>
@@ -216,10 +235,13 @@ const value8 = ref([]);
 </script>
 ```
 
+</CollapsibleCode>
+
 ## 禁用选项
 
 可以通过设置 `disabled` 属性来禁用整个选择器或特定选项
 
+<Demo>
 <Row :gutter="[20, 20]">
   <Col :span="12">
     <Select v-model="value7" placeholder="禁用的选择器" disabled>
@@ -235,6 +257,9 @@ const value8 = ref([]);
     </Select>
   </Col>
 </Row>
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
 <template>
@@ -251,15 +276,21 @@ const value8 = ref([]);
 </template>
 ```
 
+</CollapsibleCode>
+
 ## 可清空
 
 通过设置 `clearable` 属性可以清空已选择的值
 
+<Demo>
 <Select v-model="value9" placeholder="可清空的选择" clearable>
   <Option label="选项1" value="1" />
   <Option label="选项2" value="2" />
   <Option label="选项3" value="3" />
 </Select>
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
 <template>
@@ -271,10 +302,13 @@ const value8 = ref([]);
 </template>
 ```
 
+</CollapsibleCode>
+
 ## 可搜索
 
 通过设置 `filterable` 属性启用搜索功能
 
+<Demo>
 <Select v-model="value10" placeholder="可搜索的选择" filterable>
   <Option label="JavaScript" value="js" />
   <Option label="TypeScript" value="ts" />
@@ -282,6 +316,9 @@ const value8 = ref([]);
   <Option label="Java" value="java" />
   <Option label="Go" value="go" />
 </Select>
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
 <template>
@@ -295,10 +332,13 @@ const value8 = ref([]);
 </template>
 ```
 
+</CollapsibleCode>
+
 ## 不同尺寸
 
 支持三种尺寸：`small`、`medium`、`large`
 
+<Demo>
 <Row :gutter="[20,20]">
   <Col :span="24">
     <Select v-model="value11" placeholder="小尺寸" size="small">
@@ -319,6 +359,9 @@ const value8 = ref([]);
     </Select>
   </Col>
 </Row>
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
 <template>
@@ -345,15 +388,21 @@ const value8 = ref([]);
 </template>
 ```
 
+</CollapsibleCode>
+
 ## 使用 options 属性
 
-350| 除了使用 Option 子组件，还可以通过 `options` 属性传入选项数组
+除了使用 Option 子组件，还可以通过 `options` 属性传入选项数组
 
+<Demo>
 <Select v-model="value12" :options="[
   { label: '选项1', value: '1' },
   { label: '选项2', value: '2' },
   { label: '选项3', value: '3', disabled: true }
 ]" placeholder="使用 options 属性" />
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
 <template>
@@ -370,10 +419,13 @@ const value8 = ref([]);
 </template>
 ```
 
+</CollapsibleCode>
+
 ## 图标位置
 
 可以通过 `icon-position` 属性设置选中图标的位置
 
+<Demo>
 <Row :gutter="[20,20]">
   <Col :span="12">
     <Select v-model="value1" placeholder="图标在左侧" icon-position="left">
@@ -390,6 +442,9 @@ const value8 = ref([]);
     </Select>
   </Col>
 </Row>
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
 <template>
@@ -412,10 +467,13 @@ const value8 = ref([]);
 </template>
 ```
 
+</CollapsibleCode>
+
 ## 自定义图标
 
 使用 `icon` 插槽自定义选中图标
 
+<Demo>
 <Row :gutter="[20,20]">
   <Col :span="12">
     <Select v-model="value3" placeholder="自定义图标" icon-position="left">
@@ -450,6 +508,9 @@ const value8 = ref([]);
     </Select>
   </Col>
 </Row>
+</Demo>
+
+<CollapsibleCode>
 
 ```vue
 <template>
@@ -471,7 +532,11 @@ const value8 = ref([]);
       </Select>
     </Col>
     <Col :span="12">
-      <Select v-model="value4" placeholder="右侧自定义图标" icon-position="right">
+      <Select
+        v-model="value4"
+        placeholder="右侧自定义图标"
+        icon-position="right"
+      >
         <Option label="选项1" value="1">
           <template #icon>
             <span style="color: var(--color-warning);">✓</span>
@@ -489,6 +554,8 @@ const value8 = ref([]);
   </Row>
 </template>
 ```
+
+</CollapsibleCode>
 
 ## 属性
 
