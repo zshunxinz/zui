@@ -36,7 +36,7 @@ const loadingHandleClick = () => {
 
 ## 基础用法
 
-按钮有默认、背景、边框、文字四种样式，分别对应`default`、`bg`、`border`、`text`四个属性，可以彼此组合使用。
+按钮有默认、背景、边框、文字、轮廓五种样式，分别对应`default`、`bg`、`border`、`text`、`outline`五个属性，可以彼此组合使用。
 <Demo>
 
   <div class="button-group">
@@ -44,7 +44,8 @@ const loadingHandleClick = () => {
     <Button bg>次要按钮</Button>
     <Button border>边框按钮</Button>
     <Button bg border>背景边框</Button>
-    <Button text>文字</Button>
+    <Button outline>轮廓按钮</Button>
+    <Button text>文字按钮</Button>
   </div>
 </Demo>
 
@@ -57,7 +58,8 @@ const loadingHandleClick = () => {
     <Button bg>次要按钮</Button>
     <Button border>边框按钮</Button>
     <Button bg border>背景边框</Button>
-    <Button text>文字</Button>
+    <Button outline>轮廓按钮</Button>
+    <Button text>文字按钮</Button>
   </div>
 </template>
 ```
@@ -130,7 +132,7 @@ const loadingHandleClick = () => {
 
 ## 浅色背景按钮
 
-通过 `borderRadius` 属性设置圆角大小，并与 `bg`、`border` 属性结合使用,
+通过 `borderRadius` 属性设置圆角大小，并与 `bg`、`border`、`outline` 属性结合使用,
 
 <Demo>
 <div class="button-group">
@@ -140,6 +142,14 @@ const loadingHandleClick = () => {
   <Button type="warning" bg border :borderRadius="8">警告按钮</Button>
   <Button type="danger" bg border :borderRadius="10">危险按钮</Button>
   <Button type="info" bg border :borderRadius="12">信息按钮</Button>
+</div>
+<div class="button-group">
+  <Button bg  :borderRadius="2" outline>默认按钮</Button>
+  <Button type="primary" bg  :borderRadius="4" outline>主要按钮</Button>
+  <Button type="success" bg  :borderRadius="6" outline>成功按钮</Button>
+  <Button type="warning" bg  :borderRadius="8" outline>警告按钮</Button>
+  <Button type="danger" bg  :borderRadius="10" outline>危险按钮</Button>
+  <Button type="info" bg  :borderRadius="12" outline>信息按钮</Button>
 </div>
 </Demo>
 
@@ -154,6 +164,14 @@ const loadingHandleClick = () => {
     <Button type="warning" bg border :borderRadius="8">警告按钮</Button>
     <Button type="danger" bg border :borderRadius="10">危险按钮</Button>
     <Button type="info" bg border :borderRadius="12">信息按钮</Button>
+  </div>
+  <div class="button-group">
+    <Button bg :borderRadius="2" outline>默认按钮</Button>
+    <Button type="primary" bg :borderRadius="4" outline>主要按钮</Button>
+    <Button type="success" bg :borderRadius="6" outline>成功按钮</Button>
+    <Button type="warning" bg :borderRadius="8" outline>警告按钮</Button>
+    <Button type="danger" bg :borderRadius="10" outline>危险按钮</Button>
+    <Button type="info" bg :borderRadius="12" outline>信息按钮</Button>
   </div>
 </template>
 ```
@@ -199,6 +217,7 @@ const loadingHandleClick = () => {
     <Button type="danger" disabled>危险禁用</Button>
     <Button type="info" disabled>信息禁用</Button>
 </div>
+
 </Demo>
 
 <CollapsibleCode  >
@@ -572,13 +591,83 @@ const handleHover = () => {
 展示不同属性组合的按钮用法。
 <Demo>
 
+<div class="button-group">
+    <Button color="rgb(100,200,255)" bgColor="rgb(10,0,50)">主要按钮</Button>
+    <Button color="rgb(100,200,255)" bgColor="rgb(10,0,50)"  shadow>带阴影主要按钮</Button>
+    <Button color="rgb(100,200,255)" bg>主要按钮</Button>
+    <Button color="rgb(100,200,255)" border borderColor="rgb(100,200,255)">主要按钮</Button>
+    <Button color="rgb(100,200,255)" outline>主要按钮</Button>
+    <Button color="rgb(100,200,255)" outline bg>主要按钮</Button>
+    <Button color="rgb(100,200,255)" text bg>主要按钮</Button>
+    <Button color="rgb(100,200,255)" text >主要按钮</Button>
+    <Button color="rgb(100,200,255)" text outline>主要按钮</Button>
+    <Button color="rgb(100,200,255)" text shadow>主要按钮</Button>
+    <Button color="rgb(100,200,255)" bg shadow>主要按钮</Button>
+  </div>
  <div class="button-group">
-    <Button type="primary" size="large">主要按钮</Button>
+    <Button type="primary">主要按钮</Button>
     <Button type="primary" shadow>带阴影主要按钮</Button>
-    <Button type="success" text border>成功边框按钮</Button>
-    <Button type="warning" text size="small">警告文本按钮</Button>
-    <Button type="danger" disabled>禁用危险按钮</Button>
-    <Button type="info" border text>信息文本边框按钮</Button>
+    <Button type="primary" bg>主要按钮</Button>
+    <Button type="primary" border>主要按钮</Button>
+    <Button type="primary" outline>主要按钮</Button>
+    <Button type="primary" outline bg>主要按钮</Button>
+    <Button type="primary" text bg>主要按钮</Button>
+    <Button type="primary" text >主要按钮</Button>
+    <Button type="primary" text outline>主要按钮</Button>
+    <Button type="primary" text shadow>主要按钮</Button>
+    <Button type="primary" bg shadow>主要按钮</Button>
+  </div>
+   <div class="button-group">
+    <Button type="success">主要按钮</Button>
+    <Button type="success" shadow>带阴影主要按钮</Button>
+    <Button type="success" bg>主要按钮</Button>
+    <Button type="success" border>主要按钮</Button>
+    <Button type="success" outline>主要按钮</Button>
+    <Button type="success" outline bg>主要按钮</Button>
+    <Button type="success" text bg>主要按钮</Button>
+    <Button type="success" text >主要按钮</Button>
+    <Button type="success" text outline>主要按钮</Button>
+    <Button type="success" text shadow>主要按钮</Button>
+    <Button type="success" bg shadow>主要按钮</Button>
+  </div>
+  <div class="button-group">
+    <Button type="warning">主要按钮</Button>
+    <Button type="warning" shadow>带阴影主要按钮</Button>
+    <Button type="warning" bg>主要按钮</Button>
+    <Button type="warning" border>主要按钮</Button>
+    <Button type="warning" outline>主要按钮</Button>
+    <Button type="warning" outline bg>主要按钮</Button>
+    <Button type="warning" text bg>主要按钮</Button>
+    <Button type="warning" text >主要按钮</Button>
+    <Button type="warning" text outline>主要按钮</Button>
+    <Button type="warning" text shadow>主要按钮</Button>
+    <Button type="warning" bg shadow>主要按钮</Button>
+  </div>
+  <div class="button-group">
+    <Button type="danger">主要按钮</Button>
+    <Button type="danger" shadow>带阴影主要按钮</Button>
+    <Button type="danger" bg>主要按钮</Button>
+    <Button type="danger" border>主要按钮</Button>
+    <Button type="danger" outline>主要按钮</Button>
+    <Button type="danger" outline bg>主要按钮</Button>
+    <Button type="danger" text bg>主要按钮</Button>
+    <Button type="danger" text >主要按钮</Button>
+    <Button type="danger" text outline>主要按钮</Button>
+    <Button type="danger" text shadow>主要按钮</Button>
+    <Button type="danger" bg shadow>主要按钮</Button>
+  </div>
+  <div class="button-group">
+    <Button type="info">主要按钮</Button>
+    <Button type="info" shadow>带阴影主要按钮</Button>
+    <Button type="info" bg>主要按钮</Button>
+    <Button type="info" border>主要按钮</Button>
+    <Button type="info" outline>主要按钮</Button>
+    <Button type="info" outline bg>主要按钮</Button>
+    <Button type="info" text bg>主要按钮</Button>
+    <Button type="info" text >主要按钮</Button>
+    <Button type="info" text outline>主要按钮</Button>
+    <Button type="info" text shadow>主要按钮</Button>
+    <Button type="info" bg shadow>主要按钮</Button>
   </div>
 </Demo>
 
@@ -587,12 +676,86 @@ const handleHover = () => {
 ```vue
 <template>
   <div class="button-group">
-    <Button type="primary" size="large">主要按钮</Button>
+    <Button color="rgb(100,200,255)" bgColor="rgb(10,0,50)">主要按钮</Button>
+    <Button color="rgb(100,200,255)" bgColor="rgb(10,0,50)" shadow
+      >带阴影主要按钮</Button
+    >
+    <Button color="rgb(100,200,255)" bg>主要按钮</Button>
+    <Button color="rgb(100,200,255)" border borderColor="rgb(100,200,255)"
+      >主要按钮</Button
+    >
+    <Button color="rgb(100,200,255)" outline>主要按钮</Button>
+    <Button color="rgb(100,200,255)" outline bg>主要按钮</Button>
+    <Button color="rgb(100,200,255)" text bg>主要按钮</Button>
+    <Button color="rgb(100,200,255)" text>主要按钮</Button>
+    <Button color="rgb(100,200,255)" text outline>主要按钮</Button>
+    <Button color="rgb(100,200,255)" text shadow>主要按钮</Button>
+    <Button color="rgb(100,200,255)" bg shadow>主要按钮</Button>
+  </div>
+  <div class="button-group">
+    <Button type="primary">主要按钮</Button>
     <Button type="primary" shadow>带阴影主要按钮</Button>
-    <Button type="success" border>成功边框按钮</Button>
-    <Button type="warning" text size="small">警告文本按钮</Button>
-    <Button type="danger" disabled>禁用危险按钮</Button>
-    <Button type="info" border text>信息文本边框按钮</Button>
+    <Button type="primary" bg>主要按钮</Button>
+    <Button type="primary" border>主要按钮</Button>
+    <Button type="primary" outline>主要按钮</Button>
+    <Button type="primary" outline bg>主要按钮</Button>
+    <Button type="primary" text bg>主要按钮</Button>
+    <Button type="primary" text>主要按钮</Button>
+    <Button type="primary" text outline>主要按钮</Button>
+    <Button type="primary" text shadow>主要按钮</Button>
+    <Button type="primary" bg shadow>主要按钮</Button>
+  </div>
+  <div class="button-group">
+    <Button type="success">主要按钮</Button>
+    <Button type="success" shadow>带阴影主要按钮</Button>
+    <Button type="success" bg>主要按钮</Button>
+    <Button type="success" border>主要按钮</Button>
+    <Button type="success" outline>主要按钮</Button>
+    <Button type="success" outline bg>主要按钮</Button>
+    <Button type="success" text bg>主要按钮</Button>
+    <Button type="success" text>主要按钮</Button>
+    <Button type="success" text outline>主要按钮</Button>
+    <Button type="success" text shadow>主要按钮</Button>
+    <Button type="success" bg shadow>主要按钮</Button>
+  </div>
+  <div class="button-group">
+    <Button type="warning">主要按钮</Button>
+    <Button type="warning" shadow>带阴影主要按钮</Button>
+    <Button type="warning" bg>主要按钮</Button>
+    <Button type="warning" border>主要按钮</Button>
+    <Button type="warning" outline>主要按钮</Button>
+    <Button type="warning" outline bg>主要按钮</Button>
+    <Button type="warning" text bg>主要按钮</Button>
+    <Button type="warning" text>主要按钮</Button>
+    <Button type="warning" text outline>主要按钮</Button>
+    <Button type="warning" text shadow>主要按钮</Button>
+    <Button type="warning" bg shadow>主要按钮</Button>
+  </div>
+  <div class="button-group">
+    <Button type="danger">主要按钮</Button>
+    <Button type="danger" shadow>带阴影主要按钮</Button>
+    <Button type="danger" bg>主要按钮</Button>
+    <Button type="danger" border>主要按钮</Button>
+    <Button type="danger" outline>主要按钮</Button>
+    <Button type="danger" outline bg>主要按钮</Button>
+    <Button type="danger" text bg>主要按钮</Button>
+    <Button type="danger" text>主要按钮</Button>
+    <Button type="danger" text outline>主要按钮</Button>
+    <Button type="danger" text shadow>主要按钮</Button>
+    <Button type="danger" bg shadow>主要按钮</Button>
+  </div>
+  <div class="button-group">
+    <Button type="info">主要按钮</Button>
+    <Button type="info" shadow>带阴影主要按钮</Button>
+    <Button type="info" bg>主要按钮</Button>
+    <Button type="info" border>主要按钮</Button>
+    <Button type="info" outline>主要按钮</Button>
+    <Button type="info" outline bg>主要按钮</Button>
+    <Button type="info" text bg>主要按钮</Button>
+    <Button type="info" text>主要按钮</Button>
+    <Button type="info" text outline>主要按钮</Button>
+    <Button type="info" text shadow>主要按钮</Button>
+    <Button type="info" bg shadow>主要按钮</Button>
   </div>
 </template>
 ```

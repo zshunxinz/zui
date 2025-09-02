@@ -10,6 +10,7 @@
         'btn--border': border,
         'btn--shadow': shadow,
         'btn--loading': isLoading,
+        'btn--outline': outline,
         'btn--bg': bg,
       },
     ]"
@@ -64,6 +65,10 @@ const props = defineProps({
     default: false,
   },
   border: {
+    type: Boolean,
+    default: false,
+  },
+  outline: {
     type: Boolean,
     default: false,
   },

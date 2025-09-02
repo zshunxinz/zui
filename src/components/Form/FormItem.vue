@@ -127,7 +127,7 @@ watch(
   display: flex;
   align-items: center;
   justify-content: start;
-
+  color: var(--color-text);
   /* line-height: var(--height-1); */
 }
 

@@ -4,6 +4,7 @@
   --color-default: var(--color-neutral-950);
   --color-default-1: var(--color-neutral-900);
   --color-default-hover: var(--color-neutral-800);
+  --color-default-hover-text: var(--color-neutral-100);
   --color-default-active: var(--color-neutral-700);
   --color-default-disabled: var(--color-neutral-400);
   --color-default-disabled-text: var(--color-neutral-200);
@@ -13,6 +14,7 @@
   /* 主色调 */
   --color-primary: var(--color-blue-500);
   --color-primary-hover: var(--color-blue-400);
+  --color-primary-hover-text: var(--color-neutral-100);
   --color-primary-active: var(--color-blue-300);
   --color-primary-disabled: var(--color-blue-300);
   --color-primary-disabled-text: var(--color-blue-200);
@@ -22,24 +24,28 @@
   /* 功能色 */
   --color-success: var(--color-teal-500);
   --color-success-hover: var(--color-teal-400);
+  --color-success-hover-text: var(--color-neutral-100);
   --color-success-active: var(--color-teal-300);
   --color-success-disabled: var(--color-teal-300);
   --color-success-text-1: var(--color-neutral-50);
 
   --color-warning: var(--color-amber-500);
   --color-warning-hover: var(--color-amber-400);
+  --color-warning-hover-text: var(--color-neutral-100);
   --color-warning-active: var(--color-amber-300);
   --color-warning-disabled: var(--color-amber-300);
   --color-warning-text-1: var(--color-neutral-50);
 
   --color-danger: var(--color-red-500);
   --color-danger-hover: var(--color-red-400);
+  --color-danger-hover-text: var(--color-neutral-100);
   --color-danger-active: var(--color-red-300);
   --color-danger-disabled: var(--color-red-300);
   --color-danger-text-1: var(--color-neutral-50);
 
   --color-info: var(--color-violet-500);
   --color-info-hover: var(--color-violet-400);
+  --color-info-hover-text: var(--color-neutral-100);
   --color-info-active: var(--color-violet-300);
   --color-info-disabled: var(--color-violet-300);
   --color-info-text-1: var(--color-neutral-50);
@@ -104,6 +110,7 @@
   --height-1: 1.75rem;
   --height-2: 2rem;
   --height-3: 2.25rem;
+  --width-0: 260px;
   --width-1: 100%;
   --min-width-1: 100%;
 }
@@ -145,6 +152,7 @@
   /* ------------------------------------- */
   --color-default: var(--color-neutral-50);
   --color-default-hover: var(--color-neutral-200);
+  --color-default-hover-text: var(--color-neutral-900);
   --color-default-active: var(--color-neutral-200);
   --color-default-text-1: var(--color-neutral-950);
   --color-default-text-2: var(--color-neutral-900);
@@ -152,6 +160,7 @@
   /* 主色调 */
   --color-primary: var(--color-blue-500);
   --color-primary-hover: var(--color-blue-600);
+  --color-primary-hover-text: var(--color-blue-950);
   --color-primary-active: var(--color-blue-700);
   --color-primary-disabled: var(--color-blue-300);
   --color-primary-text-1: var(--color-neutral-50);
@@ -159,6 +168,7 @@
   /* 功能色 */
   --color-success: var(--color-teal-500);
   --color-success-hover: var(--color-teal-600);
+  --color-success-hover-text: var(--color-teal-950);
   --color-success-active: var(--color-teal-700);
   --color-success-disabled: var(--color-teal-300);
   --color-success-text-1: var(--color-neutral-50);
@@ -166,18 +176,21 @@
   /* 警告色 */
   --color-warning: var(--color-amber-500);
   --color-warning-hover: var(--color-amber-600);
+  --color-warning-hover-text: var(--color-amber-950);
   --color-warning-active: var(--color-amber-700);
   --color-warning-disabled: var(--color-amber-300);
   --color-warning-text-1: var(--color-neutral-50);
 
   --color-danger: var(--color-red-500);
   --color-danger-hover: var(--color-red-600);
+  --color-danger-hover-text: var(--color-neutral-800);
   --color-danger-active: var(--color-red-700);
   --color-danger-disabled: var(--color-red-300);
   --color-danger-text-1: var(--color-neutral-50);
 
   --color-info: var(--color-violet-500);
   --color-info-hover: var(--color-violet-600);
+  --color-info-hover-text: var(--color-violet-950);
   --color-info-active: var(--color-violet-700);
   --color-info-disabled: var(--color-violet-300);
   --color-info-text-1: var(--color-neutral-50);

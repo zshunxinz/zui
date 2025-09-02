@@ -218,7 +218,7 @@ const toggleCollapse = () => {
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  /* overflow: hidden; */
   position: relative;
 }
 

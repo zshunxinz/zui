@@ -7,7 +7,13 @@
       $attrs.class,
     ]"
   >
-    <label v-if="label" class="x-input__label" :for="id">{{ label }}</label>
+    <label
+      v-if="label"
+      class="x-input__label"
+      :style="$attrs.style"
+      :for="id"
+      >{{ label }}</label
+    >
     <div
       class="x-input__wrapper"
       :class="[
@@ -38,6 +44,7 @@
         :form="form"
         :tabindex="tabindex"
         class="x-input__inner"
+        :style="$attrs.style"
         @input="handleInput"
         @mouseenter="handleMouseEnter"
         @mouseleave="handleMouseLeave"

@@ -1,7 +1,7 @@
 .x-select {
   position: relative;
   display: inline-block;
-  width: var(--width-1);
+  /* width: var(--width-1); */
   min-width: var(--min-width-1);
   font-family: var(--font-family);
   font-size: var(--font-size-1);
@@ -248,13 +248,13 @@
 
 .x-select-dropdown {
   position: absolute;
-  left: 0;
+  /* min-width: var(--width-0); */
+  /* max-width: 100%; */
   width: 100%;
   margin-top: 4px;
   border: 1px solid var(--color-border-1);
   border-radius: var(--border-radius-0);
-  z-index: 1000;
-  /* background-color: #fff; */
+  z-index: 100;
   padding: 0.25rem;
   box-sizing: border-box;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);

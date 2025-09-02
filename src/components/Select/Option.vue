@@ -139,6 +139,8 @@ const handleClick = () => {
 <style scoped>
 .x-select-option {
   padding: var(--padding-2);
+  min-width: var(--width-0);
+  max-width: 100%;
   cursor: pointer;
   transition: all 0.2s;
   color: var(--color-text-2);

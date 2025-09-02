@@ -1,22 +1,34 @@
 <template>
-  <label class="x-switch" :class="[
-    sizeClass,
-    colorClass,
-    `x-switch--${props.shape}`,
-    {
-      'is-checked': isChecked,
-      'is-disabled': disabled,
-      'is-loading': loading,
-    },
-  ]" :style="switchStyle">
-    <input type="checkbox" class="x-switch__input" :checked="isChecked" :disabled="disabled || loading"
-      @change="handleChange" />
+  <label
+    class="x-switch"
+    :class="[
+      sizeClass,
+      colorClass,
+      `x-switch--${props.shape}`,
+      {
+        'is-checked': isChecked,
+        'is-disabled': disabled,
+        'is-loading': loading,
+      },
+    ]"
+    :style="switchStyle"
+  >
+    <input
+      type="checkbox"
+      class="x-switch__input"
+      :checked="isChecked"
+      :disabled="disabled || loading"
+      @change="handleChange"
+    />
     <span class="x-switch__core">
       <span class="x-switch__button">
         <slot name="icon"> </slot>
       </span>
     </span>
-    <span v-if="$slots.default || inactiveText || activeText" class="x-switch__label">
+    <span
+      v-if="$slots.default || inactiveText || activeText"
+      class="x-switch__label"
+    >
       <slot>
         <span>{{ isChecked ? activeText : inactiveText }}</span>
       </slot>
@@ -131,7 +143,7 @@ const handleChange = (event: Event) => {
 }
 
 .x-switch--small .x-switch__core {
-  width: 29px;
+  width: 28px;
   height: 15px;
   border-radius: 9px;
 }
@@ -214,15 +226,15 @@ const handleChange = (event: Event) => {
 }
 
 .x-switch.is-checked .x-switch__button {
-  transform: translateX(calc(100% - 3px));
+  transform: translateX(calc(100% - 2px));
 }
 
 .x-switch--small.is-checked .x-switch__button {
-  transform: translateX(calc(100%));
+  transform: translateX(calc(100% - 0px));
 }
 
 .x-switch--large.is-checked .x-switch__button {
-  transform: translateX(calc(100% - 3px));
+  transform: translateX(calc(100% - 2px));
 }
 
 .x-switch__label {
@@ -324,11 +336,13 @@ const handleChange = (event: Event) => {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg,
-      transparent,
-      rgba(255, 255, 255, 0.1) 0%,
-      rgba(255, 255, 255, 0.6) 60%,
-      transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.6) 60%,
+    transparent
+  );
   animation: x-switch-shimmer 1s infinite;
 }
 

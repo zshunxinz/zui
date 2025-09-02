@@ -6,7 +6,7 @@ Card 组件用于展示内容，支持多种类型、尺寸和自定义功能。
 
 <script setup>
 import { ref } from "vue";
-
+import CardDemo1 from "../demo/CardDemo1.vue";
 const loading = ref(true);
 const toggleLoading = () => {
   loading.value = !loading.value;
@@ -20,16 +20,7 @@ const toggleLoading = () => {
 }
 </style>
 <Demo>
-<Card title="基础卡片" headerBorder width="500px">
-    <Row :gutter="10">
-      <Col :span="20">
-        <Input placeholder="账号" style="height:100%;width:100%"/>
-      </Col>
-      <Col :span="4">
-        <Button style="width:100%">确认</Button>
-      </Col>
-    </Row>
-</Card>
+  <CardDemo1 />
 </Demo>
 
 <CollapsibleCode>
@@ -336,6 +327,7 @@ const handleToggle = (isExpanded) => {
 通过`skeleton`属性可以控制卡片是否显示骨架屏效果。通常与异步数据加载配合使用：
 <Demo>
 <Card :skeleton="loading" padding="0px">
+
 <div v-if="!loading">
 这是异步加载的数据内容。
 </div>
