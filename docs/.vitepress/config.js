@@ -68,6 +68,7 @@ export default defineConfig({
             { text: "Card 卡片", link: "/components/Card" },
             { text: "Form 表单", link: "/components/Form" },
             { text: "Accordion 手风琴", link: "/components/Accordion" },
+            { text: "Tooltip 提示", link: "/components/Tooltip" },
           ],
         },
       ],

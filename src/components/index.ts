@@ -15,6 +15,7 @@ import { Tabs } from "./Tabs";
 import { Select, Option, OptionGroup } from "./Select";
 import { Card } from "./Card";
 import { Form, FormItem } from "./Form";
+import { Tooltip } from "./Tooltip";
 import {
   Accordion,
   AccordionItem,
@@ -45,6 +46,7 @@ const install = (app: any) => {
   app.component("AccordionItem", AccordionItem);
   app.component("AccordionTrigger", AccordionTrigger);
   app.component("AccordionContent", AccordionContent);
+  app.component("Tooltip", Tooltip);
 };
 
 // 支持 use 方式安装
@@ -75,4 +77,5 @@ export {
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
+  Tooltip,
 };

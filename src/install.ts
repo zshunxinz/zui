@@ -21,6 +21,7 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "./components/Accordion";
+import { Tooltip } from "./components/Tooltip";
 
 import type { App } from "vue";
 
@@ -58,4 +59,5 @@ export {
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
+  Tooltip,
 };

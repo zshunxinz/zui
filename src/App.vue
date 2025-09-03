@@ -3,6 +3,7 @@ import { ref } from "vue";
 import { Textarea } from "./components/Textarea";
 import FormDemo from "@/view/FormDemo.vue";
 import TabsDemo from "@/view/TabsDemo.vue";
+import TooltipDemo from "@/view/TooltipDemo.vue";
 
 const value1 = ref("");
 const value2 = ref("");
@@ -151,11 +152,10 @@ const resetForm = () => {
 <template>
   <div class="app-container">
     <div class="app-header">
-      <ThemeToggle />
-    </div>
+      <ThemeToggle />    </div>
     <TabsDemo></TabsDemo>
     <FormDemo></FormDemo>
-  </div>
+    <TooltipDemo></TooltipDemo>  </div>
 </template>
 
 <style scoped>

@@ -138,7 +138,7 @@ label {
 }
 </style>
 
-<Demo>
+<Demo center>
 <div class="demo-tabs-basic">
     <Tabs v-model="activeTab" :tabs="tabs" @tab-click="handleTabClick" @update:modelValue="handleUpdateModelValue" @tab-close="handleClose" >
         <template #account>

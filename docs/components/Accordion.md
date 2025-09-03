@@ -390,8 +390,9 @@ const handleToggle = (isExpanded) => {
 | 事件名            | 说明                 | 回调参数                                   |
 | ----------------- | -------------------- | ------------------------------------------ |
 | update:modelValue | 当展开状态变化时触发 | `value: string \| string[]` - 当前展开的值 |
+| change            | 当展开状态变化时触发 | `value: string \| string[]` - 当前展开的值 |
 
-## Accessibility
+<!-- ## Accessibility
 
 Accordion 组件遵循 WAI-ARIA 设计模式，提供了适当的 ARIA 属性，包括：
 
@@ -400,4 +401,4 @@ Accordion 组件遵循 WAI-ARIA 设计模式，提供了适当的 ARIA 属性，
 - `aria-expanded` 和 `aria-controls` 在触发器上
 - `role="region"` 和 `aria-labelledby` 在内容区域上
 
-这些属性确保了组件对屏幕阅读器和其他辅助技术的良好支持。
+这些属性确保了组件对屏幕阅读器和其他辅助技术的良好支持。 -->

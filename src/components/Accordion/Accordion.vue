@@ -139,7 +139,7 @@ provide("accordion", {
 <style scoped>
 .x-accordion {
   background-color: var(--color-background);
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-0);
   overflow: hidden;
 }
 
