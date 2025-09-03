@@ -15,6 +15,13 @@ import { Card } from "./components/Card";
 import { Select, Option, OptionGroup } from "./components/Select";
 import { Textarea } from "./components/Textarea";
 import { Form, FormItem } from "./components/Form";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "./components/Accordion";
+
 import type { App } from "vue";
 
 import * as components from "./components";
@@ -47,4 +54,8 @@ export {
   Card,
   Form,
   FormItem,
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
 };

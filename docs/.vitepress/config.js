@@ -6,7 +6,7 @@ export default defineConfig({
   title: "zui",
   description: "一个自己的vue组件库",
   themeConfig: {
-    outlineTitle: '页面目录',
+    outlineTitle: "页面目录",
     // https://vitepress.dev/reference/default-theme-config
     search: {
       provider: "local",
@@ -47,9 +47,10 @@ export default defineConfig({
       ],
       "/components/": [
         {
-          text: "布局", link: "/components/grid", collapsed: false, items: [
-            { text: "Grid 网格布局", link: "/components/grid" },
-          ]
+          text: "布局",
+          link: "/components/grid",
+          collapsed: false,
+          items: [{ text: "Grid 网格布局", link: "/components/grid" }],
         },
         {
           text: "基础组件",
@@ -65,9 +66,8 @@ export default defineConfig({
             { text: "Select 选择器", link: "/components/Select" },
             { text: "Tabs 选项卡", link: "/components/Tabs" },
             { text: "Card 卡片", link: "/components/Card" },
-            {
-              text: "Form 表单", link: "/components/Form"
-            },
+            { text: "Form 表单", link: "/components/Form" },
+            { text: "Accordion 手风琴", link: "/components/Accordion" },
           ],
         },
       ],

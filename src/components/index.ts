@@ -15,6 +15,12 @@ import { Tabs } from "./Tabs";
 import { Select, Option, OptionGroup } from "./Select";
 import { Card } from "./Card";
 import { Form, FormItem } from "./Form";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "./Accordion";
 
 const install = (app: any) => {
   app.component("GridRow", Row);
@@ -33,6 +39,12 @@ const install = (app: any) => {
   app.component("Option", Option);
   app.component("OptionGroup", OptionGroup);
   app.component("Card", Card);
+  app.component("Form", Form);
+  app.component("FormItem", FormItem);
+  app.component("Accordion", Accordion);
+  app.component("AccordionItem", AccordionItem);
+  app.component("AccordionTrigger", AccordionTrigger);
+  app.component("AccordionContent", AccordionContent);
 };
 
 // 支持 use 方式安装
@@ -59,5 +71,8 @@ export {
   Card,
   Form,
   FormItem,
-
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
 };
