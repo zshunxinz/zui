@@ -16,6 +16,7 @@ import { Select, Option, OptionGroup } from "./Select";
 import { Card } from "./Card";
 import { Form, FormItem } from "./Form";
 import { Tooltip } from "./Tooltip";
+import { Space } from "./Space";
 import {
   Accordion,
   AccordionItem,
@@ -47,6 +48,7 @@ const install = (app: any) => {
   app.component("AccordionTrigger", AccordionTrigger);
   app.component("AccordionContent", AccordionContent);
   app.component("Tooltip", Tooltip);
+  app.component("Space", Space);
 };
 
 // 支持 use 方式安装
@@ -78,4 +80,5 @@ export {
   AccordionTrigger,
   AccordionContent,
   Tooltip,
+  Space,
 };

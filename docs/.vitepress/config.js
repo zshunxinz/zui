@@ -50,7 +50,10 @@ export default defineConfig({
           text: "布局",
           link: "/components/grid",
           collapsed: false,
-          items: [{ text: "Grid 网格布局", link: "/components/grid" }],
+          items: [
+            { text: "Grid 网格布局", link: "/components/grid" },
+            { text: "Space 间距", link: "/components/Space" },
+          ],
         },
         {
           text: "基础组件",
