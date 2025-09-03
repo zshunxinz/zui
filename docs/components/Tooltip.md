@@ -212,7 +212,7 @@ import { Tooltip, Button } from "xui";
 
 <Demo>
   <Tooltip content="这个提示不会显示" disabled>
-    <Button disabled>禁用状态</Button>
+    <Button >禁用状态</Button>
   </Tooltip>
 </Demo>
 
@@ -221,7 +221,7 @@ import { Tooltip, Button } from "xui";
 ```vue
 <template>
   <Tooltip content="这个提示不会显示" disabled>
-    <Button disabled>禁用状态</Button>
+    <Button>禁用状态</Button>
   </Tooltip>
 </template>
 
@@ -237,32 +237,36 @@ import { Tooltip, Button } from "xui";
 通过设置 arrow 属性为 false 可以隐藏 Tooltip 的箭头。
 
 <Demo>
-<Row  :gutter="1">
-<Col span="2">
+<Space>
   <Tooltip content="无箭头提示" :arrow="false">
     <Button>无箭头</Button>
   </Tooltip>
-</Col>
-<Col span="2">
+
   <Tooltip content="无箭头提示" :arrow="false" theme="primary" placement="right">
     <Button type="primary">无箭头</Button>
   </Tooltip>
-</Col>
-</Row>
+</Space>
 </Demo>
 
 <CollapsibleCode>
 
 ```vue
 <template>
-  <Tooltip content="无箭头提示" :arrow="false">
-    <Button>无箭头</Button>
-  </Tooltip>
-</template>
+  <Space>
+    <Tooltip content="无箭头提示" :arrow="false">
+      <Button>无箭头</Button>
+    </Tooltip>
 
-<script setup>
-import { Tooltip, Button } from "xui";
-</script>
+    <Tooltip
+      content="无箭头提示"
+      :arrow="false"
+      theme="primary"
+      placement="right"
+    >
+      <Button type="primary">无箭头</Button>
+    </Tooltip>
+  </Space>
+</template>
 ```
 
 </CollapsibleCode>
