@@ -23,6 +23,7 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "./Accordion";
+import { Divider } from "./Divider";
 
 const install = (app: any) => {
   app.component("GridRow", Row);
@@ -49,6 +50,8 @@ const install = (app: any) => {
   app.component("AccordionContent", AccordionContent);
   app.component("Tooltip", Tooltip);
   app.component("Space", Space);
+  app.component("Divider", Divider);
+
 };
 
 // 支持 use 方式安装
@@ -81,4 +84,6 @@ export {
   AccordionContent,
   Tooltip,
   Space,
+  Divider,
+
 };

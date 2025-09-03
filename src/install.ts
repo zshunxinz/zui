@@ -26,6 +26,8 @@ import { Tooltip } from "./components/Tooltip";
 import type { App } from "vue";
 
 import * as components from "./components";
+import { Space } from "./components/Space";
+import { Divider } from "./components/Divider";
 
 export default {
   install(app: App) {
@@ -60,4 +62,6 @@ export {
   AccordionTrigger,
   AccordionContent,
   Tooltip,
+  Space,
+  Divider,
 };

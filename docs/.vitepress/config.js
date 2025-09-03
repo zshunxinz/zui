@@ -53,6 +53,7 @@ export default defineConfig({
           items: [
             { text: "Grid 网格布局", link: "/components/grid" },
             { text: "Space 间距", link: "/components/Space" },
+            { text: "Divider 分割线", link: "/components/Divider" },
           ],
         },
         {
