@@ -6,12 +6,22 @@ Card 组件用于展示内容，支持多种类型、尺寸和自定义功能。
 
 <script setup>
 import { ref } from "vue";
-import CardDemo1 from "../demo/CardDemo1.vue";
+import CardDemo1 from "../demo/Card/CardDemo1.vue";
+import CardDemo2 from "../demo/Card/CardDemo2.vue";
+import CardDemo3 from "../demo/Card/CardDemo3.vue";
+import CardDemo4 from "../demo/Card/CardDemo4.vue";
+import CardDemo5 from "../demo/Card/CardDemo5.vue";
+import CardDemo6 from "../demo/Card/CardDemo6.vue";
+import CardDemo7 from "../demo/Card/CardDemo7.vue";
+import CardDemo8 from "../demo/Card/CardDemo8.vue";
+import CardDemo9 from "../demo/Card/CardDemo9.vue";
+import CardDemo10 from "../demo/Card/CardDemo10.vue";
 const loading = ref(true);
 const toggleLoading = () => {
   loading.value = !loading.value;
 };
 </script>
+
 <style scoped>
 .card-group {
   display: flex;
@@ -19,59 +29,14 @@ const toggleLoading = () => {
   gap: 16px;
 }
 </style>
-<CardDemo1  />
+
+<Demo center>
+  <CardDemo1  />
+</Demo>
 
 <CollapsibleCode>
 
-```vue
-<script setup lang="ts">
-import { ref } from "vue";
-const formData = ref({
-  name: "",
-  framework: "",
-});
-</script>
-<template>
-  <Demo center>
-    <Card style="
-      padding: 10px;
-      width: 360px;
-      
-    ">
-      <div style="margin-bottom: 20px">
-        <h1 style="color: var(--color-text-1); font-size: var(--font-size-3)">
-          Create Project
-        </h1>
-        <span style="color: var(--color-text-muted); font-size: var(--font-size-1)">Deploy your new project in
-          one-click.</span>
-      </div>
-      <Form labelPosition="top-left" size="large" labelAlignItems="buttom" labelTextAlign="buttom">
-        <FormItem label="Project Name">
-          <Input placeholder="Name of project" v-model="formData.name" size="large"
-            style="font-size: var(--font-size-1)" />
-        </FormItem>
-        <FormItem label="Framework">
-          <Select placeholder="Select" v-model="formData.framework" size="large" style="font-size: var(--font-size-1)">
-            <Option value="vue">Vue</Option>
-            <Option value="react">React</Option>
-            <Option value="angular">Angular</Option>
-          </Select>
-        </FormItem>
-        <Row justify="space-between" style="margin-top: 30px">
-          <Col span="6">
-          <Button outline size="large" style="width: 100%; font-size: var(--font-size-1)">Cancel</Button>
-          </Col>
-          <Col span="6">
-          <Button default size="large" style="width: 100%; font-size: var(--font-size-1)">Deploy</Button>
-          </Col>
-        </Row>
-      </Form>
-    </Card>
-  </Demo>
-
-</template>
-
-```
+<<< @/demo/Card/CardDemo1.vue
 
 </CollapsibleCode>
 
@@ -79,119 +44,33 @@ const formData = ref({
 
 通过`width`和`height`属性可以手动控制卡片的宽度和高度。支持数字(px)和字符串形式的 CSS 值。
 
-<Demo>
-
-<Row :gutter="[16,16]">
-
-  <Col :span="24">
-    <Card title="自定义宽度卡片" :width="300" headerBorder>
-      <div>宽度为300px的卡片</div>
-    </Card>
-  </Col>
-  <Col :span="12">
-    <Card title="自定义高度卡片" :height="200">
-      <div>高度为200px的卡片</div>
-    </Card>
-  </Col>
-  <Col :span="24">
-    <Card title="自定义宽高卡片" width="100%" height="150px" headerBorder>
-      <div>宽度为100%，高度为150px的卡片</div>
-    </Card>
-  </Col>
-</Row>
-
-</Demo>
-  
+<CardDemo2 />
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <div class="card-group">
-    <Card title="自定义宽度卡片" :width="300">
-      <div>宽度为300px的卡片</div>
-    </Card>
-    <Card title="自定义高度卡片" :height="200">
-      <div>高度为200px的卡片</div>
-    </Card>
-    <Card title="自定义宽高卡片" width="50%" height="150px">
-      <div>宽度为50%，高度为150px的卡片</div>
-    </Card>
-  </div>
-</template>
-```
+<<< @/demo/Card/CardDemo2.vue
 
 </CollapsibleCode>
 
 ## 类型和尺寸
 
-卡片支持多种尺寸：
-<Demo>
-
-<div class="card-group">
-<Card title="小型卡片" size="small"></Card>
-<Card title="默认卡片"></Card>
-<Card title="大型卡片" size="large"></Card>
-</div>
-</Demo>
+卡片支持多种尺寸和类型：
+<CardDemo3 />
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <div class="card-group">
-    <Card title="默认卡片"></Card>
-    <Card title="主要卡片" type="primary"></Card>
-    <Card title="成功卡片" type="success"></Card>
-    <Card title="警告卡片" type="warning"></Card>
-    <Card title="危险卡片" type="danger"></Card>
-  </div>
-
-  <div class="card-group">
-    <Card title="小型卡片" size="small"></Card>
-    <Card title="默认卡片"></Card>
-    <Card title="大型卡片" size="large"></Card>
-  </div>
-</template>
-```
+<<< @/demo/Card/CardDemo3.vue
 
 </CollapsibleCode>
 
 ## 控制内边距
 
 通过`padding`属性可以控制卡片内部的内边距。
-<Demo>
-<Card title="默认内边距" type="info">
-
-<div>这是默认内边距的卡片</div>
-</Card>
-
-<Card title="小内边距" padding="8px" type="info">
-    <div>这是内边距为8px的卡片</div>
-</Card>
-
-<Card title="大内边距" :padding="24" type="info">
-    <div>这是内边距为24px的卡片</div>
-</Card>
-</Demo>
+<CardDemo4 />
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <div class="card-group">
-    <Card title="默认内边距" type="info">
-      <div>这是默认内边距的卡片</div>
-    </Card>
-    <Card title="小内边距" padding="8px" type="info">
-      <div>这是内边距为8px的卡片</div>
-    </Card>
-    <Card title="大内边距" :padding="24" type="info">
-      <div>这是内边距为24px的卡片</div>
-    </Card>
-  </div>
-</template>
-```
+<<< @/demo/Card/CardDemo4.vue
 
 </CollapsibleCode>
 
@@ -199,205 +78,66 @@ const formData = ref({
 
 支持设置卡片为可折叠状态，并通过`@toggle`事件获取展开状态：
 
-<Demo>
-<Card title="可折叠卡片" collapsible default-open @toggle="handleToggle">
-
-<div>这是可折叠卡片的内容</div>
-</Card>
-</Demo>
+<CardDemo5 />
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <Card title="可折叠卡片" collapsible default-open @toggle="handleToggle">
-    <div>这是可折叠卡片的内容</div>
-  </Card>
-  <p style="margin-top: 16px;">展开状态: {{ expanded }}</p>
-</template>
-
-<script setup>
-import { ref } from "vue";
-
-const expanded = ref(true);
-const handleToggle = (isExpanded) => {
-  expanded.value = isExpanded;
-  console.log("卡片展开状态:", isExpanded);
-};
-</script>
-```
+<<< @/demo/Card/CardDemo5.vue
 
 </CollapsibleCode>
 
 ## 自定义插槽
 
 卡片支持多种插槽，包括头部、内容、底部以及新增的右上角、左下角和右下角插槽：
-<Demo>
-<Card title="自定义插槽卡片">
-<template #topRight>
-<Button text>更多</Button>
-</template>
-
-<div>
-<Input width="70%" placeholder="请输入账号"></Input>
-</div>
-<template #footer>
-<div>设置</div>
-</template>
-<template #bottomLeft>
-<Button >确认</Button>
-</template>
-<template #bottomRight>
-<Button  text border>取消</Button>
-</template>
-</Card>
-</Demo>
+<CardDemo6 />
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <Card title="自定义插槽卡片">
-    <template #topRight>
-      <Button size="small">更多</Button>
-    </template>
-    <div>这是卡片内容</div>
-    <template #footer>
-      <div>这是底部内容</div>
-    </template>
-    <template #bottomLeft>
-      <span>左下角内容</span>
-    </template>
-    <template #bottomRight>
-      <Button size="small">操作</Button>
-    </template>
-  </Card>
-</template>
-```
+<<< @/demo/Card/CardDemo6.vue
 
 </CollapsibleCode>
 
 ## 悬浮效果与阴影控制
 
 设置`hoverable`属性为`true`可以启用卡片悬浮效果。通过`shadow`属性可以控制卡片是否显示阴影。
-<Demo>
-<Card title="默认阴影卡片" shadow>
-
-<div>这是一张带有默认阴影的卡片</div>
-</Card>
-
-<Card title="无阴影卡片" :shadow="false">
-    <div>这是一张没有阴影的卡片</div>
-</Card>
-
-<Card title="悬浮卡片" hoverable>
-    <div>鼠标悬浮时会有阴影效果</div>
-  </Card>
-</Demo>
+<CardDemo7 />
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <div class="card-group">
-    <Card title="默认阴影卡片" shadow>
-      <div>这是一张带有默认阴影的卡片</div>
-    </Card>
-    <Card title="无阴影卡片" :shadow="false">
-      <div>这是一张没有阴影的卡片</div>
-    </Card>
-    <Card title="悬浮卡片" hoverable>
-      <div>鼠标悬浮时会有阴影效果</div>
-    </Card>
-  </div>
-</template>
-```
+<<< @/demo/Card/CardDemo7.vue
 
 </CollapsibleCode>
 
 ## 无边框模式
 
 设置`border`属性为`false`可以禁用卡片边框：
-<Demo>
-<Card title="无边框卡片" :border="false">
-
-<div>这是无边框卡片的内容</div>
-</Card>
-</Demo>
+<CardDemo8 />
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <Card title="无边框卡片" :border="false">
-    <div>这是无边框卡片的内容</div>
-  </Card>
-</template>
-```
+<<< @/demo/Card/CardDemo8.vue
 
 </CollapsibleCode>
 
 ## 灵活布局
 
 通过`layout`属性可以设置卡片的布局方式：
-<Demo>
+<CardDemo9 />
 
-<div class="card-group">
-    <Card title="默认布局" layout="default"></Card>
-    <Card title="灵活布局" layout="flexible"></Card>
-    <Card title="紧凑布局" layout="tight"></Card>
-</div>
-</Demo>
 <CollapsibleCode>
 
-```vue
-<template>
-  <div class="card-group">
-    <Card title="默认布局" layout="default"></Card>
-    <Card title="灵活布局" layout="flexible"></Card>
-    <Card title="紧凑布局" layout="tight"></Card>
-  </div>
-</template>
-```
+<<< @/demo/Card/CardDemo9.vue
 
 </CollapsibleCode>
 
 ## 骨架屏控制
 
 通过`skeleton`属性可以控制卡片是否显示骨架屏效果。通常与异步数据加载配合使用：
-<Demo>
-<Card :skeleton="loading" padding="0px">
-
-<div v-if="!loading">
-这是异步加载的数据内容。
-</div>
-</Card>
-<Button @click="toggleLoading" text>
-{{ loading ? '显示内容' : '显示骨架屏' }}
-</Button>
-</Demo>
+<CardDemo10 />
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <Card :skeleton="loading" title="数据加载卡片">
-    <div v-if="!loading">这是异步加载的数据内容。</div>
-  </Card>
-  <button @click="toggleLoading" style="margin-top: 16px;">
-    {{ loading ? "显示内容" : "显示骨架屏" }}
-  </button>
-</template>
-
-<script setup>
-import { ref } from "vue";
-
-const loading = ref(true);
-const toggleLoading = () => {
-  loading.value = !loading.value;
-};
-</script>
-```
+<<< @/demo/Card/CardDemo10.vue
 
 </CollapsibleCode>
 
