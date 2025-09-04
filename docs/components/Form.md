@@ -2,360 +2,58 @@
 
 表单组件
 
+<script setup lang="ts">
+import FormDemoBasic from '../demo/Form/FormDemoBasic.vue';
+import FormDemoAdvanced from '../demo/Form/FormDemoAdvanced.vue';
+import FormDemo1 from '../demo/Form/FormDemo1.vue';
+import FormDemo2 from '../demo/Form/FormDemo2.vue';
+import FormDemo3 from '../demo/Form/FormDemo3.vue';
+</script>
+
 ## 基础用法
 
-<script setup lang="ts">
-import { ref } from 'vue'
-const formData = ref({
-    name: '',
-    email: '',
-    age: null,
-    gender: '',
-    hobbies: [],
-    country: '',
-    bio: ''
-});
-
-// 表单验证规则
-const rules = {
-    name: {
-        required: true,
-        message: 'Name is required'
-    },
-    email: {
-        required: true,
-        message: 'Email is required',
-        validator: (value) => {
-            if (!value) return 'Email is required';
-            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-                return 'Please enter a valid email';
-            }
-            return true;
-        }
-    },
-    gender: {
-        required: true,
-        message: 'Please select gender'
-    },
-    country: {
-        required: true,
-        message: 'Please select country'
-    }
-};
-
-// 选项数据
-const genderOptions = [
-    { label: 'Male', value: 'male' },
-    { label: 'Female', value: 'female' },
-    { label: 'Other', value: 'other' }
-];
-
-const countryOptions = ref([
-    { label: 'China', value: 'cn' },
-    { label: 'United States', value: 'us' },
-    { label: 'United Kingdom', value: 'uk' },
-    { label: 'Japan', value: 'jp' },
-    { label: 'Canada', value: 'ca' }
-]);
-
-// 提交处理
-const handleSubmit = (data) => {
-    console.log('Form submitted successfully:', data);
-    alert('Form submitted successfully!');
-};
-</script>
-
 <Demo center>
-
-<Card width="430px" style="padding: 20px;">
-    <Form v-model="formData" :rules="rules" @submit="handleSubmit"  labelAlign="left" labelJustifyContent="left"
-        labelWidth="100px">
-        <FormItem label="Name" prop="name" required>
-            <Input v-model="formData.name" placeholder="Enter your name" />
-        </FormItem>
-        <FormItem label="Email" prop="email" required>
-            <Input v-model="formData.email" type="email" placeholder="Enter your email" />
-        </FormItem>
-        <FormItem label="Age" prop="age">
-            <Input v-model.number="formData.age" type="number" placeholder="Enter your age" />
-        </FormItem>
-        <FormItem label="Gender" prop="gender" required>
-            <Radio v-model="formData.gender" :options="genderOptions" />
-        </FormItem>
-        <FormItem label="Hobbies" prop="hobbies">
-            <CheckboxGroup v-model="formData.hobbies">
-                <Checkbox label="Reading" value="reading" />
-                <Checkbox label="Sports" value="sports" />
-                <Checkbox label="Music" value="music" />
-            </CheckboxGroup>
-        </FormItem>
-        <FormItem label="Country" prop="country">
-            <Select v-model="formData.country" placeholder="Select country" >
-                <Option>1</Option>
-            </Select>
-        </FormItem>
-        <FormItem label="Bio" prop="bio">
-            <Textarea v-model="formData.bio" placeholder="Enter your bio" :rows="4" />
-        </FormItem>
-        <FormItem>
-            <Row :gutter="20">
-            <Col :span="12">
-                <Button style="width: 100%" type="default" class="x-button x-button--primary">Submit</Button>
-            </Col>
-            <Col :span="12">
-                <Button style="width: 100%" html-type="reset" text  border  class="x-button x-button--primary">Reset</Button>
-            </Col>
-            </Row>
-        </FormItem>
-    </Form>
-</Card>
-
+  <FormDemoBasic />
 </Demo>
-
 <CollapsibleCode>
-
 ```vue
 <template>
-  <Card width="430px" style="padding: 20px;">
-    <Form
-      v-model="formData"
-      :rules="rules"
-      @submit="handleSubmit"
-      labelAlign="left"
-      labelWidth="100px"
-    >
-      <FormItem label="Name" prop="name" required>
-        <Input v-model="formData.name" placeholder="Enter your name" />
-      </FormItem>
-      <FormItem label="Email" prop="email" required>
-        <Input
-          v-model="formData.email"
-          type="email"
-          placeholder="Enter your email"
-        />
-      </FormItem>
-      <FormItem label="Age" prop="age">
-        <Input
-          v-model.number="formData.age"
-          type="number"
-          placeholder="Enter your age"
-        />
-      </FormItem>
-      <FormItem label="Gender" prop="gender" required>
-        <Radio v-model="formData.gender" :options="genderOptions" />
-      </FormItem>
-      <FormItem label="Hobbies" prop="hobbies">
-        <CheckboxGroup v-model="formData.hobbies">
-          <Checkbox label="Reading" value="reading" />
-          <Checkbox label="Sports" value="sports" />
-          <Checkbox label="Music" value="music" />
-        </CheckboxGroup>
-      </FormItem>
-      <FormItem label="Country" prop="country" required>
-        <Select
-          v-model="formData.country"
-          :options="countryOptions"
-          placeholder="Select country"
-        />
-      </FormItem>
-      <FormItem label="Bio" prop="bio">
-        <Textarea
-          v-model="formData.bio"
-          placeholder="Enter your bio"
-          :rows="4"
-        />
-      </FormItem>
-      <FormItem>
-        <Row :gutter="20">
-          <Col :span="12">
-            <Button
-              style="width: 100%"
-              type="default"
-              class="x-button x-button--primary"
-              >Submit</Button
-            >
-          </Col>
-          <Col :span="12">
-            <Button
-              style="width: 100%"
-              html-type="reset"
-              text
-              border
-              class="x-button x-button--primary"
-              >Reset</Button
-            >
-          </Col>
-        </Row>
-      </FormItem>
-    </Form>
-  </Card>
+  <FormDemoBasic />
 </template>
-
-<script setup lang="ts">
-import { ref } from "vue";
-
-const formData = ref({
-  name: "",
-  email: "",
-  age: null,
-  gender: "",
-  hobbies: [],
-  country: "",
-  bio: "",
-});
-
-// 表单验证规则
-const rules = {
-  name: {
-    required: true,
-    message: "Name is required",
-  },
-  email: {
-    required: true,
-    message: "Email is required",
-    validator: (value) => {
-      if (!value) return "Email is required";
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-        return "Please enter a valid email";
-      }
-      return true;
-    },
-  },
-  gender: {
-    required: true,
-    message: "Please select gender",
-  },
-  country: {
-    required: true,
-    message: "Please select country",
-  },
-};
-
-// 选项数据
-const genderOptions = [
-  { label: "Male", value: "male" },
-  { label: "Female", value: "female" },
-  { label: "Other", value: "other" },
-];
-
-const countryOptions = [
-  { label: "China", value: "cn" },
-  { label: "United States", value: "us" },
-  { label: "United Kingdom", value: "uk" },
-  { label: "Japan", value: "jp" },
-  { label: "Canada", value: "ca" },
-];
-
-// 提交处理
-const handleSubmit = (data) => {
-  console.log("Form submitted successfully:", data);
-  alert("Form submitted successfully!");
-};
-</script>
 ```
-
 </CollapsibleCode>
 
-设置 `labelPosition` 为 `top-left`,让 label 在输入框上方
+## 高级验证
+
+表单组件支持多种验证规则类型，包括必填验证、长度验证、数值范围验证、正则表达式验证和自定义验证函数。
 
 <Demo center>
-
-
-<Card width="430px" style="padding: 20px;">
-    <Form v-model="formData" :rules="rules" @submit="handleSubmit"  labelPosition="top-left"
-        labelWidth="100px">
-        <FormItem label="Name" prop="name" required>
-            <Input v-model="formData.name" placeholder="Enter your name" />
-        </FormItem>
-        <FormItem label="Email" prop="email" required>
-            <Input v-model="formData.email" type="email" placeholder="Enter your email" />
-        </FormItem>
-        <FormItem label="Age" prop="age">
-            <Input v-model.number="formData.age" type="number" placeholder="Enter your age" />
-        </FormItem>
-        <FormItem label="Gender" prop="gender" required>
-            <Radio v-model="formData.gender" :options="genderOptions" />
-        </FormItem>
-        <FormItem label="Hobbies" prop="hobbies">
-            <CheckboxGroup v-model="formData.hobbies">
-                <Checkbox label="Reading" value="reading" />
-                <Checkbox label="Sports" value="sports" />
-                <Checkbox label="Music" value="music" />
-            </CheckboxGroup>
-        </FormItem>
-        <FormItem label="Country" prop="country">
-            <Select v-model="formData.country" placeholder="Select country" >
-                <Option>1</Option>
-            </Select>
-        </FormItem>
-        <FormItem label="Bio" prop="bio">
-            <Textarea v-model="formData.bio" placeholder="Enter your bio" :rows="4" />
-        </FormItem>
-        <FormItem style="margin-top: 20px;">
-            <Row :gutter="20">
-            <Col :span="12">
-                <Button style="width: 100%" type="default" class="x-button x-button--primary">Submit</Button>
-            </Col>
-            <Col :span="12">
-                <Button style="width: 100%" html-type="reset" text  border  class="x-button x-button--primary">Reset</Button>
-            </Col>
-            </Row>
-        </FormItem>
-    </Form>
-</Card>
-
+  <FormDemoAdvanced />
 </Demo>
 
-<CollapsibleCode >
+## 动态表单
 
-```VUE
-<template>
-<Card width="430px" style="padding: 20px;">
-    <Form v-model="formData" :rules="rules" @submit="handleSubmit"  labelPosition="top-left"
-        labelWidth="100px">
-        <FormItem label="Name" prop="name" required>
-            <Input v-model="formData.name" placeholder="Enter your name" />
-        </FormItem>
-        <FormItem label="Email" prop="email" required>
-            <Input v-model="formData.email" type="email" placeholder="Enter your email" />
-        </FormItem>
-        <FormItem label="Age" prop="age">
-            <Input v-model.number="formData.age" type="number" placeholder="Enter your age" />
-        </FormItem>
-        <FormItem label="Gender" prop="gender" required>
-            <Radio v-model="formData.gender" :options="genderOptions" />
-        </FormItem>
-        <FormItem label="Hobbies" prop="hobbies">
-            <CheckboxGroup v-model="formData.hobbies">
-                <Checkbox label="Reading" value="reading" />
-                <Checkbox label="Sports" value="sports" />
-                <Checkbox label="Music" value="music" />
-            </CheckboxGroup>
-        </FormItem>
-        <FormItem label="Country" prop="country">
-            <Select v-model="formData.country" placeholder="Select country" >
-                <Option>1</Option>
-            </Select>
-        </FormItem>
-        <FormItem label="Bio" prop="bio">
-            <Textarea v-model="formData.bio" placeholder="Enter your bio" :rows="4" />
-        </FormItem>
-        <FormItem>
-            <Row :gutter="20">
-            <Col :span="12">
-                <Button style="width: 100%" type="default" class="x-button x-button--primary">Submit</Button>
-            </Col>
-            <Col :span="12">
-                <Button style="width: 100%" html-type="reset" text  border  class="x-button x-button--primary">Reset</Button>
-            </Col>
-            </Row>
-        </FormItem>
-    </Form>
-</Card>
-</template>
-```
+表单组件支持动态添加和移除表单项，适用于需要动态收集数据的场景，如技能列表、工作经历等。
 
-</CollapsibleCode>
+<Demo center>
+  <FormDemo1 />
+</Demo>
+
+## 表单布局切换
+
+表单组件支持多种布局方式和尺寸设置，可以根据不同的场景需求进行灵活配置。
+
+<Demo center>
+  <FormDemo2 />
+</Demo>
+
+## 表单联动
+
+表单组件支持灵活的联动功能，可以根据用户的选择动态显示或隐藏表单项，或者根据前面的输入动态改变后面的选项。
+
+<Demo center>
+  <FormDemo3 />
+</Demo>
 
 ## API
 
