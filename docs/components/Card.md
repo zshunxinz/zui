@@ -16,10 +16,6 @@ import CardDemo7 from "../demo/Card/CardDemo7.vue";
 import CardDemo8 from "../demo/Card/CardDemo8.vue";
 import CardDemo9 from "../demo/Card/CardDemo9.vue";
 import CardDemo10 from "../demo/Card/CardDemo10.vue";
-const loading = ref(true);
-const toggleLoading = () => {
-  loading.value = !loading.value;
-};
 </script>
 
 <style scoped>
