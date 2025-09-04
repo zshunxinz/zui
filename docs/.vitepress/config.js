@@ -73,6 +73,7 @@ export default defineConfig({
             { text: "Form 表单", link: "/components/Form" },
             { text: "Accordion 手风琴", link: "/components/Accordion" },
             { text: "Tooltip 提示", link: "/components/Tooltip" },
+            { text: "Popover 弹出层", link: "/components/Popover" },
           ],
         },
       ],

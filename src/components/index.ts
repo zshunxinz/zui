@@ -17,6 +17,7 @@ import { Card } from "./Card";
 import { Form, FormItem } from "./Form";
 import { Tooltip } from "./Tooltip";
 import { Space } from "./Space";
+import { Popover } from "./Popover";
 import {
   Accordion,
   AccordionItem,
@@ -51,6 +52,7 @@ const install = (app: any) => {
   app.component("Tooltip", Tooltip);
   app.component("Space", Space);
   app.component("Divider", Divider);
+  app.component("Popover", Popover);
 
 };
 
@@ -85,5 +87,6 @@ export {
   Tooltip,
   Space,
   Divider,
+  Popover,
 
 };
