@@ -5,101 +5,21 @@ Accordion 手风琴组件用于展示可折叠的内容区块，支持单开和�
 ## 基础用法
 
 <script setup>
-import { ref } from "vue";
-import AccordionDemo1 from "../demo/AccordionDemo1.vue";
-
-const expanded = ref()
-const handleChange = (isExpanded) => {
-  expanded.value = isExpanded
-}
-
-const defaultValue = "item-1";
-const loading = ref(true);
-
-const accordionItems = [
-  {
-    value: "item-1",
-    title: "Is it accessible?",
-    content: "Yes. It adheres to the WAI-ARIA design pattern.",
-  },
-  {
-    value: "item-2",
-    title: "Is it unstyled?",
-    content:
-      "Yes. It's unstyled by default, giving you freedom over the look and feel.",
-  },
-  {
-    value: "item-3",
-    title: "Can it be animated?",
-    content: "Yes! You can use the transition prop to configure the animation.",
-  },
-];
+import AccordionDemo1 from "/demo/Accordion/AccordionDemo1.vue";
+import AccordionDemo2 from "/demo/Accordion/AccordionDemo2.vue";
+import AccordionDemo3 from "/demo/Accordion/AccordionDemo3.vue";
+import AccordionDemo4 from "/demo/Accordion/AccordionDemo4.vue";
+import AccordionDemo5 from "/demo/Accordion/AccordionDemo5.vue";
+import AccordionDemo6 from "/demo/Accordion/AccordionDemo6.vue";
 </script>
 
-<AccordionDemo1 />
+<Demo>
+<AccordionDemo1/>
+</Demo>
 
 <CollapsibleCode>
 
-```vue
-<script setup lang="ts">
-const defaultValue = "item-1";
-
-const accordionItems = [
-  {
-    value: "item-1",
-    title: "Is it accessible?",
-    content: "Yes. It adheres to the WAI-ARIA design pattern.",
-  },
-  {
-    value: "item-2",
-    title: "Is it unstyled?",
-    content:
-      "Yes. It's unstyled by default, giving you freedom over the look and feel.",
-  },
-  {
-    value: "item-3",
-    title: "Can it be animated?",
-    content: "Yes! You can use the transition prop to configure the animation.",
-  },
-];
-</script>
-
-<template>
-  <Card title="Accordion 基础用法" :border="false">
-    <Accordion type="single" collapsible :default-value="defaultValue">
-      <AccordionItem
-        v-for="item in accordionItems"
-        :key="item.value"
-        :value="item.value"
-      >
-        <AccordionTrigger>{{ item.title }}</AccordionTrigger>
-        <AccordionContent>
-          {{ item.content }}
-        </AccordionContent>
-      </AccordionItem>
-    </Accordion>
-  </Card>
-  <Card title="Accordion 无边框模式" :border="false" style="margin-top: 20px">
-    <Accordion
-      type="single"
-      collapsible
-      :default-value="defaultValue"
-      :border="false"
-    >
-      <AccordionItem
-        v-for="item in accordionItems"
-        :key="item.value"
-        :value="item.value"
-      >
-        <AccordionTrigger>{{ item.title }}</AccordionTrigger>
-        <AccordionContent>
-          {{ item.content }}
-        </AccordionContent>
-      </AccordionItem>
-    </Accordion>
-  </Card>
-</template>
-```
+<<< ../demo/Accordion/AccordionDemo1.vue
 
 </CollapsibleCode>
 
@@ -108,43 +28,12 @@ const accordionItems = [
 通过设置 `collapsible` 属性为 `true` 并将 `defaultValue` 设置为空字符串，可以允许用户折叠所有项。
 
 <Demo>
-  <Accordion type="single" class="w-full" collapsible defaultValue="" @change="handleToggle">
-    <AccordionItem value="item-1">
-      <AccordionTrigger>什么是手风琴组件？</AccordionTrigger>
-      <AccordionContent>
-        手风琴组件是一种可折叠的内容展示组件，允许用户展开或折叠内容区域，常用于展示问答、详情等信息。
-      </AccordionContent>
-    </AccordionItem>
-    <AccordionItem value="item-2">
-      <AccordionTrigger>如何自定义手风琴样式？</AccordionTrigger>
-      <AccordionContent>
-        您可以通过添加自定义CSS类来自定义手风琴的样式，包括颜色、字体、间距等。
-      </AccordionContent>
-    </AccordionItem>
-  </Accordion>
-  {{expanded}}
+<AccordionDemo2/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <Accordion type="single" class="w-full" collapsible defaultValue="">
-    <AccordionItem value="item-1">
-      <AccordionTrigger>什么是手风琴组件？</AccordionTrigger>
-      <AccordionContent>
-        手风琴组件是一种可折叠的内容展示组件，允许用户展开或折叠内容区域，常用于展示问答、详情等信息。
-      </AccordionContent>
-    </AccordionItem>
-    <AccordionItem value="item-2">
-      <AccordionTrigger>如何自定义手风琴样式？</AccordionTrigger>
-      <AccordionContent>
-        您可以通过添加自定义CSS类来自定义手风琴的样式，包括颜色、字体、间距等。
-      </AccordionContent>
-    </AccordionItem>
-  </Accordion>
-</template>
-```
+<<< ../demo/Accordion/AccordionDemo2.vue
 
 </CollapsibleCode>
 
@@ -153,50 +42,12 @@ const accordionItems = [
 通过设置 `type` 属性为 `multiple`，可以启用多选模式，允许同时展开多个项目。
 
 <Demo>
-  <Accordion type="multiple" class="w-full">
-    <AccordionItem value="item-1">
-      <AccordionTrigger>选项一</AccordionTrigger>
-      <AccordionContent>
-        这是多选模式下的选项一内容，可以与其他选项同时展开。
-      </AccordionContent>
-    </AccordionItem>
-    <AccordionItem value="item-2">
-      <AccordionTrigger>选项二</AccordionTrigger>
-      <AccordionContent>
-        这是多选模式下的选项二内容。
-      </AccordionContent>
-    </AccordionItem>
-    <AccordionItem value="item-3">
-      <AccordionTrigger>选项三</AccordionTrigger>
-      <AccordionContent>
-        这是多选模式下的选项三内容。
-      </AccordionContent>
-    </AccordionItem>
-  </Accordion>
+<AccordionDemo3/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <Accordion type="multiple" class="w-full">
-    <AccordionItem value="item-1">
-      <AccordionTrigger>选项一</AccordionTrigger>
-      <AccordionContent>
-        这是多选模式下的选项一内容，可以与其他选项同时展开。
-      </AccordionContent>
-    </AccordionItem>
-    <AccordionItem value="item-2">
-      <AccordionTrigger>选项二</AccordionTrigger>
-      <AccordionContent> 这是多选模式下的选项二内容。 </AccordionContent>
-    </AccordionItem>
-    <AccordionItem value="item-3">
-      <AccordionTrigger>选项三</AccordionTrigger>
-      <AccordionContent> 这是多选模式下的选项三内容。 </AccordionContent>
-    </AccordionItem>
-  </Accordion>
-</template>
-```
+<<< ../demo/Accordion/AccordionDemo3.vue
 
 </CollapsibleCode>
 
@@ -205,38 +56,12 @@ const accordionItems = [
 通过设置 `disabled` 属性为 `true`，可以禁用整个手风琴组件。
 
 <Demo>
-  <Accordion type="single" class="w-full" disabled>
-    <AccordionItem value="item-1">
-      <AccordionTrigger>禁用的选项一</AccordionTrigger>
-      <AccordionContent>
-        此手风琴已被禁用，无法展开或折叠。
-      </AccordionContent>
-    </AccordionItem>
-    <AccordionItem value="item-2">
-      <AccordionTrigger>禁用的选项二</AccordionTrigger>
-      <AccordionContent>
-        此手风琴已被禁用。
-      </AccordionContent>
-    </AccordionItem>
-  </Accordion>
+<AccordionDemo4/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <Accordion type="single" class="w-full" disabled>
-    <AccordionItem value="item-1">
-      <AccordionTrigger>禁用的选项一</AccordionTrigger>
-      <AccordionContent> 此手风琴已被禁用，无法展开或折叠。 </AccordionContent>
-    </AccordionItem>
-    <AccordionItem value="item-2">
-      <AccordionTrigger>禁用的选项二</AccordionTrigger>
-      <AccordionContent> 此手风琴已被禁用。 </AccordionContent>
-    </AccordionItem>
-  </Accordion>
-</template>
-```
+<<< ../demo/Accordion/AccordionDemo4.vue
 
 </CollapsibleCode>
 
@@ -245,54 +70,12 @@ const accordionItems = [
 手风琴组件支持 `update:modelValue` 事件，可以监听展开状态的变化。
 
 <Demo>
- <Card title="Accordion 基础用法" :border="false">
-    <Accordion type="single" collapsible :default-value="defaultValue" @change="handleChange">
-      <AccordionItem
-        v-for="item in accordionItems"
-        :key="item.value"
-        :value="item.value"
-      >
-        <AccordionTrigger>{{ item.title }}</AccordionTrigger>
-        <AccordionContent>
-          {{ item.content }}
-        </AccordionContent>
-      </AccordionItem>
-    </Accordion>
-  </Card>
-   展开状态: {{ expanded  }}
+<AccordionDemo5/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <div>
-    <Accordion
-      type="single"
-      class="w-full"
-      default-value="item-1"
-      @update:modelValue="handleToggle"
-    >
-      <AccordionItem value="item-1">
-        <AccordionTrigger>点击查看状态变化</AccordionTrigger>
-        <AccordionContent>
-          展开状态: {{ expanded ? "已展开" : "已折叠" }}
-        </AccordionContent>
-      </AccordionItem>
-    </Accordion>
-  </div>
-</template>
-
-<script setup>
-import { ref } from "vue";
-
-const expanded = ref(true);
-const handleToggle = (isExpanded) => {
-  expanded.value = isExpanded;
-  console.log("Accordion expanded state:", isExpanded);
-};
-</script>
-```
+<<< ../demo/Accordion/AccordionDemo5.vue
 
 </CollapsibleCode>
 
@@ -301,62 +84,12 @@ const handleToggle = (isExpanded) => {
 手风琴组件支持嵌套使用，可以创建层级结构的内容展示。
 
 <Demo>
-  <Accordion type="single" class="w-full">
-    <AccordionItem value="item-1">
-      <AccordionTrigger>父级选项一</AccordionTrigger>
-      <AccordionContent>
-        <Accordion type="single" class="w-full mt-2">
-          <AccordionItem value="sub-item-1">
-            <AccordionTrigger>子选项一</AccordionTrigger>
-            <AccordionContent>
-              这是子选项一的内容
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="sub-item-2">
-            <AccordionTrigger>子选项二</AccordionTrigger>
-            <AccordionContent>
-              这是子选项二的内容
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-      </AccordionContent>
-    </AccordionItem>
-    <AccordionItem value="item-2">
-      <AccordionTrigger>父级选项二</AccordionTrigger>
-      <AccordionContent>
-        这是父级选项二的内容
-      </AccordionContent>
-    </AccordionItem>
-  </Accordion>
+<AccordionDemo6/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <Accordion type="single" class="w-full">
-    <AccordionItem value="item-1">
-      <AccordionTrigger>父级选项一</AccordionTrigger>
-      <AccordionContent>
-        <Accordion type="single" class="w-full mt-2">
-          <AccordionItem value="sub-item-1">
-            <AccordionTrigger>子选项一</AccordionTrigger>
-            <AccordionContent> 这是子选项一的内容 </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="sub-item-2">
-            <AccordionTrigger>子选项二</AccordionTrigger>
-            <AccordionContent> 这是子选项二的内容 </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-      </AccordionContent>
-    </AccordionItem>
-    <AccordionItem value="item-2">
-      <AccordionTrigger>父级选项二</AccordionTrigger>
-      <AccordionContent> 这是父级选项二的内容 </AccordionContent>
-    </AccordionItem>
-  </Accordion>
-</template>
-```
+<<< ../demo/Accordion/AccordionDemo6.vue
 
 </CollapsibleCode>
 

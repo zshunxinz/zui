@@ -1,5 +1,11 @@
 # ButtonGroup 组合按钮
 
+<script setup>
+import ButtonDemo1 from "../demo/ButtonGroup/ButtonDemo1.vue";
+import ButtonDemo2 from "../demo/ButtonGroup/ButtonDemo2.vue";
+import ButtonDemo3 from "../demo/ButtonGroup/ButtonDemo3.vue";
+</script>
+
 将多个按钮组合在一起，实现无间距排列和边缘圆角处理。
 
 ## 基础用法
@@ -8,29 +14,12 @@
 
 默认情况下，按钮组水平排列，中间按钮无圆角，仅保留最外侧按钮的圆角。
 <Demo>
-<ButtonGroup>
-<Button type="primary" text border >左侧按钮</Button>
-<Button type="primary" text border>中间按钮</Button>
-<Button type="primary" text border>右侧按钮</Button>
-</ButtonGroup>
+<ButtonDemo1 />
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <ButtonGroup>
-    <Button type="primary">左侧按钮</Button>
-    <Button type="primary">中间按钮</Button>
-    <Button type="primary">右侧按钮</Button>
-  </ButtonGroup>
-</template>
-
-<script setup>
-import Button from "../../src/components/Button.vue";
-import ButtonGroup from "../../src/components/ButtonGroup.vue";
-</script>
-```
+<<< @/demo/ButtonGroup/ButtonDemo1.vue
 
 </CollapsibleCode>
 
@@ -38,24 +27,12 @@ import ButtonGroup from "../../src/components/ButtonGroup.vue";
 
 通过`vertical`属性可以实现按钮组垂直排列。
 <Demo>
-<ButtonGroup vertical>
-<Button type="success">顶部按钮</Button>
-<Button type="success">中间按钮</Button>
-<Button type="success">底部按钮</Button>
-</ButtonGroup>
+<ButtonDemo2 />
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <ButtonGroup vertical>
-    <Button type="success">顶部按钮</Button>
-    <Button type="success">中间按钮</Button>
-    <Button type="success">底部按钮</Button>
-  </ButtonGroup>
-</template>
-```
+<<< @/demo/ButtonGroup/ButtonDemo2.vue
 
 </CollapsibleCode>
 
@@ -63,24 +40,12 @@ import ButtonGroup from "../../src/components/ButtonGroup.vue";
 
 可以在同一个按钮组中使用不同类型的按钮。
 <Demo>
-<ButtonGroup>
-<Button type="primary">主要操作</Button>
-<Button>次要操作</Button>
-<Button type="danger">危险操作</Button>
-</ButtonGroup>
+<ButtonDemo3 />
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <ButtonGroup>
-    <Button type="primary">主要操作</Button>
-    <Button>次要操作</Button>
-    <Button type="danger">危险操作</Button>
-  </ButtonGroup>
-</template>
-```
+<<< @/demo/ButtonGroup/ButtonDemo3.vue
 
 </CollapsibleCode>
 

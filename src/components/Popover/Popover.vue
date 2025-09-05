@@ -64,8 +64,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue';
-import type { Placement } from './types';
+import { ref, computed, onMounted, onUnmounted, nextTick } from "vue";
+import type { Placement } from "./types";
 
 interface Props {
   id?: string;
@@ -90,13 +90,13 @@ interface Props {
 }
 
 interface Emits {
-  (e: 'open', value: boolean): void;
-  (e: 'close', value: boolean): void;
+  (e: "open", value: boolean): void;
+  (e: "close", value: boolean): void;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  id: '',
-  placement: 'bottom',
+  id: "",
+  placement: "bottom",
   open: undefined,
   defaultOpen: false,
   disabled: false,
@@ -119,7 +119,9 @@ const contentRef = ref<HTMLElement>();
 const isOpen = ref(props.open ?? props.defaultOpen);
 
 // 生成唯一ID
-const id = computed(() => props.id || `x-popover-${Math.random().toString(36).slice(2, 9)}`);
+const id = computed(
+  () => props.id || `x-popover-${Math.random().toString(36).slice(2, 9)}`
+);
 
 const popoverClass = computed(() => {
   return [`x-popover--${props.placement}`];
@@ -129,13 +131,13 @@ const contentClass = computed(() => {
   return [
     `x-popover__content--${props.placement}`,
     {
-      'x-popover__content--no-arrow': !props.arrow,
+      "x-popover__content--no-arrow": !props.arrow,
     },
   ];
 });
 
 const overlayClass = computed(() => {
-  return ['x-popover__overlay'];
+  return ["x-popover__overlay"];
 });
 
 const arrowClass = computed(() => {
@@ -145,10 +147,12 @@ const arrowClass = computed(() => {
 const contentStyle = computed(() => {
   const style: Record<string, string | undefined> = {};
   if (props.width !== undefined) {
-    style.width = typeof props.width === 'number' ? `${props.width}px` : props.width;
+    style.width =
+      typeof props.width === "number" ? `${props.width}px` : props.width;
   }
   if (props.height !== undefined) {
-    style.height = typeof props.height === 'number' ? `${props.height}px` : props.height;
+    style.height =
+      typeof props.height === "number" ? `${props.height}px` : props.height;
   }
   if (props.padding !== undefined) {
     style.padding = props.padding;
@@ -163,95 +167,101 @@ const handlePosition = async () => {
 
   const triggerRect = popoverRef.value.getBoundingClientRect();
   const contentRect = contentRef.value.getBoundingClientRect();
-  const arrowElement = contentRef.value.querySelector('.x-popover__arrow') as HTMLElement;
+  const arrowElement = contentRef.value.querySelector(
+    ".x-popover__arrow"
+  ) as HTMLElement;
 
   let positionX = 0;
   let positionY = 0;
 
   // 基础位置计算
   switch (props.placement) {
-    case 'top':
-      positionX = triggerRect.left + triggerRect.width / 2 - contentRect.width / 2;
+    case "top":
+      positionX =
+        triggerRect.left + triggerRect.width / 2 - contentRect.width / 2;
       positionY = triggerRect.top - contentRect.height - props.offset;
       if (arrowElement) {
         arrowElement.style.left = `${triggerRect.width / 2 - 8}px`;
       }
       break;
-    case 'bottom':
-      positionX = triggerRect.left + triggerRect.width / 2 - contentRect.width / 2;
+    case "bottom":
+      positionX =
+        triggerRect.left + triggerRect.width / 2 - contentRect.width / 2;
       positionY = triggerRect.bottom + props.offset;
       if (arrowElement) {
         arrowElement.style.left = `${triggerRect.width / 2 - 8}px`;
       }
       break;
-    case 'left':
+    case "left":
       positionX = triggerRect.left - contentRect.width - props.offset;
-      positionY = triggerRect.top + triggerRect.height / 2 - contentRect.height / 2;
+      positionY =
+        triggerRect.top + triggerRect.height / 2 - contentRect.height / 2;
       if (arrowElement) {
         arrowElement.style.top = `${triggerRect.height / 2 - 8}px`;
       }
       break;
-    case 'right':
+    case "right":
       positionX = triggerRect.right + props.offset;
-      positionY = triggerRect.top + triggerRect.height / 2 - contentRect.height / 2;
+      positionY =
+        triggerRect.top + triggerRect.height / 2 - contentRect.height / 2;
       if (arrowElement) {
         arrowElement.style.top = `${triggerRect.height / 2 - 8}px`;
       }
       break;
-    case 'top-start':
+    case "top-start":
       positionX = triggerRect.left;
       positionY = triggerRect.top - contentRect.height - props.offset;
       if (arrowElement) {
-        arrowElement.style.left = '24px';
+        arrowElement.style.left = "24px";
       }
       break;
-    case 'top-end':
+    case "top-end":
       positionX = triggerRect.right - contentRect.width;
       positionY = triggerRect.top - contentRect.height - props.offset;
       if (arrowElement) {
-        arrowElement.style.right = '24px';
+        arrowElement.style.right = "24px";
       }
       break;
-    case 'bottom-start':
+    case "bottom-start":
       positionX = triggerRect.left;
       positionY = triggerRect.bottom + props.offset;
       if (arrowElement) {
-        arrowElement.style.left = '24px';
+        arrowElement.style.left = "24px";
       }
       break;
-    case 'bottom-end':
+    case "bottom-end":
       positionX = triggerRect.right - contentRect.width;
       positionY = triggerRect.bottom + props.offset;
       if (arrowElement) {
-        arrowElement.style.right = '24px';
+        arrowElement.style.right = "24px";
       }
       break;
-    case 'left-start':
+    case "left-start":
       positionX = triggerRect.left - contentRect.width - props.offset;
       positionY = triggerRect.top;
       if (arrowElement) {
-        arrowElement.style.top = '24px';
+        arrowElement.style.top = "24px";
       }
       break;
-    case 'left-end':
+    case "left-end":
       positionX = triggerRect.left - contentRect.width - props.offset;
       positionY = triggerRect.bottom - contentRect.height;
       if (arrowElement) {
-        arrowElement.style.bottom = '24px';
+        arrowElement.style.bottom = "24px";
       }
       break;
-    case 'right-start':
+    case "right-start":
       positionX = triggerRect.right + props.offset;
       positionY = triggerRect.top;
       if (arrowElement) {
-        arrowElement.style.top = '24px';
+        arrowElement.style.top = "24px";
       }
       break;
-    case 'right-end':
+    case "right-end":
       positionX = triggerRect.right + props.offset;
       positionY = triggerRect.bottom - contentRect.height;
       if (arrowElement) {
-        arrowElement.style.bottom = '24px';
+        arrowElement.style.bottom = "24px";
       }
       break;
   }
@@ -263,20 +273,23 @@ const handlePosition = async () => {
 
     // 左右翻转
     if (
-      (positionX < 0 && props.placement.includes('left')) ||
-      (positionX + contentRect.width > windowWidth && props.placement.includes('right'))
+      (positionX < 0 && props.placement.includes("left")) ||
+      (positionX + contentRect.width > windowWidth &&
+        props.placement.includes("right"))
     ) {
-      const flippedPlacement = props.placement.replace('left', 'right').replace('right', 'left');
+      const flippedPlacement = props.placement
+        .replace("left", "right")
+        .replace("right", "left");
       // 重新计算位置
       switch (flippedPlacement) {
-        case 'left':
-        case 'left-start':
-        case 'left-end':
+        case "left":
+        case "left-start":
+        case "left-end":
           positionX = triggerRect.left - contentRect.width - props.offset;
           break;
-        case 'right':
-        case 'right-start':
-        case 'right-end':
+        case "right":
+        case "right-start":
+        case "right-end":
           positionX = triggerRect.right + props.offset;
           break;
       }
@@ -284,20 +297,23 @@ const handlePosition = async () => {
 
     // 上下翻转
     if (
-      (positionY < 0 && props.placement.includes('top')) ||
-      (positionY + contentRect.height > windowHeight && props.placement.includes('bottom'))
+      (positionY < 0 && props.placement.includes("top")) ||
+      (positionY + contentRect.height > windowHeight &&
+        props.placement.includes("bottom"))
     ) {
-      const flippedPlacement = props.placement.replace('top', 'bottom').replace('bottom', 'top');
+      const flippedPlacement = props.placement
+        .replace("top", "bottom")
+        .replace("bottom", "top");
       // 重新计算位置
       switch (flippedPlacement) {
-        case 'top':
-        case 'top-start':
-        case 'top-end':
+        case "top":
+        case "top-start":
+        case "top-end":
           positionY = triggerRect.top - contentRect.height - props.offset;
           break;
-        case 'bottom':
-        case 'bottom-start':
-        case 'bottom-end':
+        case "bottom":
+        case "bottom-start":
+        case "bottom-end":
           positionY = triggerRect.bottom + props.offset;
           break;
       }
@@ -324,7 +340,7 @@ const handlePosition = async () => {
   }
 
   if (contentRef.value) {
-    contentRef.value.style.position = 'fixed';
+    contentRef.value.style.position = "fixed";
     contentRef.value.style.left = `${positionX}px`;
     contentRef.value.style.top = `${positionY}px`;
   }
@@ -335,15 +351,15 @@ const togglePopover = () => {
   if (props.disabled) return;
   isOpen.value = !isOpen.value;
   if (isOpen.value) {
-    emit('open', true);
+    emit("open", true);
     setTimeout(() => {
       handlePosition();
     }, 0);
     // 添加点击外部关闭的监听器
-    document.addEventListener('click', handleDocumentClick);
+    document.addEventListener("click", handleDocumentClick);
   } else {
-    emit('close', false);
-    document.removeEventListener('click', handleDocumentClick);
+    emit("close", false);
+    document.removeEventListener("click", handleDocumentClick);
   }
 };
 
@@ -351,8 +367,8 @@ const togglePopover = () => {
 const closePopover = () => {
   if (isOpen.value) {
     isOpen.value = false;
-    emit('close', false);
-    document.removeEventListener('click', handleDocumentClick);
+    emit("close", false);
+    document.removeEventListener("click", handleDocumentClick);
   }
 };
 
@@ -389,12 +405,12 @@ const handleResize = () => {
 };
 
 onMounted(() => {
-  window.addEventListener('resize', handleResize);
+  window.addEventListener("resize", handleResize);
 });
 
 onUnmounted(() => {
-  window.removeEventListener('resize', handleResize);
-  document.removeEventListener('click', handleDocumentClick);
+  window.removeEventListener("resize", handleResize);
+  document.removeEventListener("click", handleDocumentClick);
 });
 </script>
 
@@ -423,13 +439,14 @@ onUnmounted(() => {
   position: absolute;
   background-color: var(--color-background);
   border: 1px solid var(--color-border-1);
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-0);
   box-shadow: var(--box-shadow-1);
   z-index: var(--z-index-popover);
-  transition: opacity var(--transition-duration), transform var(--transition-duration);
+  transition: opacity var(--transition-duration),
+    transform var(--transition-duration);
   max-width: 360px;
   max-height: 60vh;
-  overflow: auto;
+  padding: var(--padding-1);
 }
 
 .x-popover__arrow {
@@ -438,6 +455,8 @@ onUnmounted(() => {
   height: 16px;
   background-color: var(--color-background);
   border: 1px solid var(--color-border-1);
+  /* border-buttom: none !important; */
+  /* border-right: none !important; */
   transform: rotate(45deg);
 }
 

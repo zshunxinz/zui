@@ -18,14 +18,6 @@ import CardDemo9 from "../demo/Card/CardDemo9.vue";
 import CardDemo10 from "../demo/Card/CardDemo10.vue";
 </script>
 
-<style scoped>
-.card-group {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-</style>
-
 <Demo center>
   <CardDemo1  />
 </Demo>

@@ -8,60 +8,25 @@
 
 <script setup>
 import { ref } from 'vue'
-const value = ref('1')
-const value1 = ref('')
-const value2 = ref('')
-const value3 = ref('')
-const value4 = ref('')
-const value5 = ref('')
-const value6 = ref('')
-const value7 = ref('')
-const value8 = ref([])
-const value9 = ref('')
-const value10 = ref('')
-const value11 = ref('')
-const value12 = ref('')
+import SelectDemo1 from '../demo/Select/SelectDemo1.vue'
+import SelectDemo2 from '../demo/Select/SelectDemo2.vue'
+import SelectDemo3 from '../demo/Select/SelectDemo3.vue'
+import SelectDemo4 from '../demo/Select/SelectDemo4.vue'
+import SelectDemo5 from '../demo/Select/SelectDemo5.vue'
+import SelectDemo6 from '../demo/Select/SelectDemo6.vue'
+import SelectDemo7 from '../demo/Select/SelectDemo7.vue'
+import SelectDemo8 from '../demo/Select/SelectDemo8.vue'
+import SelectDemo9 from '../demo/Select/SelectDemo9.vue'
+import SelectDemo10 from '../demo/Select/SelectDemo10.vue'
 </script>
 
 <Demo>
-
-<Select v-model="value" placeholder="请选择" >
-  <Option value="数据12356789">
-    数据
-  </Option>
-  <Option label="选项1" value="1" />
-  <Option label="选项2" value="2" />
-  <Option label="选项3" value="3" />
-  <Option label="选项4" value="4" />
-  <Option label="选项5" value="5" />
-  <Option label="选项6" value="6" />
-  <Option label="选项7" value="7" />
-  <Option label="选项8" value="8" />
-  <Option label="选项9" value="9" />
-  <Option label="选项10" value="10" />
-  <Option label="选项11" value="11" />
-  <Option label="选项12" value="12" />
-  <Option label="选项13" value="13" />
-</Select>
-
+<SelectDemo1/>
 </Demo>
 
 <CollapsibleCode>
 
-```html
-<template>
-  <select v-model="value" placeholder="请选择">
-    <option label="选项1" value="1" />
-    <option label="选项2" value="2" />
-    <option label="选项3" value="3" />
-  </select>
-</template>
-
-<script setup>
-  import { ref } from "vue";
-  const value = ref("");
-</script>
-```
+<<< ../demo/Select/SelectDemo1.vue
 
 </CollapsibleCode>
 
@@ -70,111 +35,12 @@ const value12 = ref('')
 支持 6 种主题类型：`default`、`primary`、`success`、`warning`、`danger`、`info`
 
 <Demo>
-<Row :gutter="[20,20]" >
-  <Col :span="12">
-    <Select v-model="value1" placeholder="请选择" type="default">
-      <Option label="默认" value="1" />
-      <Option label="选项2" value="2" />
-      <Option label="选项3" value="3" />
-    </Select>
-  </Col>
-  <Col :span="12">
-    <Select v-model="value2" placeholder="请选择" type="primary">
-      <Option label="主要" value="1" />
-      <Option label="选项2" value="2" />
-      <Option label="选项3" value="3" />
-    </Select>
-  </Col>
-  <Col :span="12">
-    <Select v-model="value3" placeholder="请选择" type="success">
-      <Option label="成功" value="1" />
-      <Option label="选项2" value="2" />
-      <Option label="选项3" value="3" />
-    </Select>
-  </Col>
-  <Col :span="12">
-    <Select v-model="value4" placeholder="请选择" type="info">
-      <Option label="信息" value="1" />
-      <Option label="选项2" value="2" />
-      <Option label="选项3" value="3" />
-    </Select>
-  </Col>
-  <Col :span="12">
-    <Select v-model="value5" placeholder="请选择" type="warning">
-      <Option label="警告" value="1" />
-      <Option label="选项2" value="2" />
-      <Option label="选项3" value="3" />
-    </Select>
-  </Col>
-  <Col :span="12">
-    <Select v-model="value6" placeholder="请选择" type="danger">
-      <Option label="危险" value="1" />
-      <Option label="选项2" value="2" />
-      <Option label="选项3" value="3" />
-    </Select>
-  </Col>
-</Row>
+<SelectDemo2/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<script setup>
-import { ref } from "vue";
-const value1 = ref("");
-const value2 = ref("");
-const value3 = ref("");
-const value4 = ref("");
-const value5 = ref("");
-const value6 = ref("");
-</script>
-<template>
-  <Row :gutter="[20, 20]">
-    <Col :xl="12" :md="24">
-      <Select v-model="value1" placeholder="请选择" type="default">
-        <Option label="默认" value="1" />
-        <Option label="选项2" value="2" />
-        <Option label="选项3" value="3" />
-      </Select>
-    </Col>
-    <Col :xl="12" :md="24">
-      <Select v-model="value2" placeholder="请选择" type="primary">
-        <Option label="主要" value="1" />
-        <Option label="选项2" value="2" />
-        <Option label="选项3" value="3" />
-      </Select>
-    </Col>
-    <Col :xl="12" :md="24">
-      <Select v-model="value3" placeholder="请选择" type="success">
-        <Option label="成功" value="1" />
-        <Option label="选项2" value="2" />
-        <Option label="选项3" value="3" />
-      </Select>
-    </Col>
-    <Col :xl="12" :md="24">
-      <Select v-model="value4" placeholder="请选择" type="info">
-        <Option label="信息" value="1" />
-        <Option label="选项2" value="2" />
-        <Option label="选项3" value="3" />
-      </Select>
-    </Col>
-    <Col :xl="12" :md="24">
-      <Select v-model="value5" placeholder="请选择" type="warning">
-        <Option label="警告" value="1" />
-        <Option label="选项2" value="2" />
-        <Option label="选项3" value="3" />
-      </Select>
-    </Col>
-    <Col :xl="12" :md="24">
-      <Select v-model="value6" placeholder="请选择" type="danger">
-        <Option label="危险" value="1" />
-        <Option label="选项2" value="2" />
-        <Option label="选项3" value="3" />
-      </Select>
-    </Col>
-  </Row>
-</template>
-```
+<<< ../demo/Select/SelectDemo2.vue
 
 </CollapsibleCode>
 
@@ -183,57 +49,12 @@ const value6 = ref("");
 支持多选，通过设置 `multiple` 属性为 `true`
 
 <Demo>
-<Row :gutter="[20, 20]">
-
-  <Col :span="24">
-    <Select v-model="value8" placeholder="请选择多个选项" multiple >
-      <Option label="北京" value="beijing" >中央</Option>
-      <Option label="上海" value="shanghai" />
-      <Option label="广州" value="guangzhou" />
-      <Option label="深圳" value="shenzhen" />
-      <Option label="重庆" value="chongqing" />
-    </Select>
-  </Col>
-  <Col :span="24">
-    <Select v-model="value8" placeholder="请选择多个选项" multiple type="primary">
-      <Option label="北京" value="beijing" />
-      <Option label="上海" value="shanghai" />
-      <Option label="广州" value="guangzhou" />
-      <Option label="深圳" value="shenzhen" />
-      <Option label="重庆" value="chongqing" />
-    </Select>
-  </Col>
-  <Col :span="24">
-    <Select v-model="value8" placeholder="请选择多个选项" multiple type="danger">
-      <Option label="北京" value="beijing" />
-      <Option label="上海" value="shanghai" />
-      <Option label="广州" value="guangzhou" />
-      <Option label="深圳" value="shenzhen" />
-      <Option label="重庆" value="chongqing" />
-    </Select>
-  </Col>
-  
-</Row>
+<SelectDemo3/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <Select v-model="value8" placeholder="请选择多个选项" multiple>
-    <Option label="北京" value="beijing" />
-    <Option label="上海" value="shanghai" />
-    <Option label="广州" value="guangzhou" />
-    <Option label="深圳" value="shenzhen" />
-    <Option label="杭州" value="hangzhou" />
-  </Select>
-</template>
-
-<script setup>
-import { ref } from "vue";
-const value8 = ref([]);
-</script>
-```
+<<< ../demo/Select/SelectDemo3.vue
 
 </CollapsibleCode>
 
@@ -242,39 +63,12 @@ const value8 = ref([]);
 可以通过设置 `disabled` 属性来禁用整个选择器或特定选项
 
 <Demo>
-<Row :gutter="[20, 20]">
-  <Col :span="12">
-    <Select v-model="value7" placeholder="禁用的选择器" disabled>
-      <Option label="选项1" value="1" />
-      <Option label="选项2" value="2" />
-    </Select>
-  </Col>
-  <Col :span="12">
-    <Select v-model="value9" placeholder="包含禁用选项">
-      <Option label="可用选项1" value="1" />
-      <Option label="禁用选项" value="2" disabled />
-      <Option label="可用选项2" value="3" />
-    </Select>
-  </Col>
-</Row>
+<SelectDemo4/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <Select v-model="value7" placeholder="禁用的选择器" disabled>
-    <Option label="选项1" value="1" />
-    <Option label="选项2" value="2" />
-  </Select>
-
-  <Select v-model="value8" placeholder="包含禁用选项">
-    <Option label="可用选项1" value="1" />
-    <Option label="禁用选项1" value="2" disabled />
-    <Option label="可用选项2" value="3" />
-  </Select>
-</template>
-```
+<<< ../demo/Select/SelectDemo4.vue
 
 </CollapsibleCode>
 
@@ -283,24 +77,12 @@ const value8 = ref([]);
 通过设置 `clearable` 属性可以清空已选择的值
 
 <Demo>
-<Select v-model="value9" placeholder="可清空的选择" clearable>
-  <Option label="选项1" value="1" />
-  <Option label="选项2" value="2" />
-  <Option label="选项3" value="3" />
-</Select>
+<SelectDemo5/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <Select v-model="value9" placeholder="可清空的选择" clearable>
-    <Option label="选项1" value="1" />
-    <Option label="选项2" value="2" />
-    <Option label="选项3" value="3" />
-  </Select>
-</template>
-```
+<<< ../demo/Select/SelectDemo5.vue
 
 </CollapsibleCode>
 
@@ -309,28 +91,12 @@ const value8 = ref([]);
 通过设置 `filterable` 属性启用搜索功能
 
 <Demo>
-<Select v-model="value10" placeholder="可搜索的选择" filterable>
-  <Option label="JavaScript" value="js" />
-  <Option label="TypeScript" value="ts" />
-  <Option label="Python" value="py" />
-  <Option label="Java" value="java" />
-  <Option label="Go" value="go" />
-</Select>
+<SelectDemo6/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <Select v-model="value10" placeholder="可搜索的选择" filterable>
-    <Option label="JavaScript" value="js" />
-    <Option label="TypeScript" value="ts" />
-    <Option label="Python" value="py" />
-    <Option label="Java" value="java" />
-    <Option label="Go" value="go" />
-  </Select>
-</template>
-```
+<<< ../demo/Select/SelectDemo6.vue
 
 </CollapsibleCode>
 
@@ -339,54 +105,12 @@ const value8 = ref([]);
 支持三种尺寸：`small`、`medium`、`large`
 
 <Demo>
-<Row :gutter="[20,20]">
-  <Col :span="24">
-    <Select v-model="value11" placeholder="小尺寸" size="small">
-      <Option label="小尺寸" value="1" />
-      <Option label="选项2" value="2" />
-    </Select>
-  </Col>
-  <Col :span="24">
-    <Select v-model="value11" placeholder="默认尺寸" size="medium">
-      <Option label="默认尺寸" value="1" />
-      <Option label="选项2" value="2" />
-    </Select>
-  </Col>
-  <Col :span="24">
-    <Select v-model="value11" placeholder="大尺寸" size="large">
-      <Option label="大尺寸" value="1" />
-      <Option label="选项2" value="2" />
-    </Select>
-  </Col>
-</Row>
+<SelectDemo7/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <Row :gutter="[20, 20]">
-    <Col :span="8">
-      <Select v-model="value11" placeholder="小尺寸" size="small">
-        <Option label="小尺寸" value="1" />
-        <Option label="选项2" value="2" />
-      </Select>
-    </Col>
-    <Col :span="8">
-      <Select v-model="value11" placeholder="默认尺寸" size="medium">
-        <Option label="默认尺寸" value="1" />
-        <Option label="选项2" value="2" />
-      </Select>
-    </Col>
-    <Col :span="8">
-      <Select v-model="value11" placeholder="大尺寸" size="large">
-        <Option label="大尺寸" value="1" />
-        <Option label="选项2" value="2" />
-      </Select>
-    </Col>
-  </Row>
-</template>
-```
+<<< ../demo/Select/SelectDemo7.vue
 
 </CollapsibleCode>
 
@@ -395,29 +119,12 @@ const value8 = ref([]);
 除了使用 Option 子组件，还可以通过 `options` 属性传入选项数组
 
 <Demo>
-<Select v-model="value12" :options="[
-  { label: '选项1', value: '1' },
-  { label: '选项2', value: '2' },
-  { label: '选项3', value: '3', disabled: true }
-]" placeholder="使用 options 属性" />
+<SelectDemo8/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <Select
-    v-model="value12"
-    type="primary"
-    :options="[
-      { label: '选项1', value: '1' },
-      { label: '选项2', value: '2' },
-      { label: '选项3', value: '3', disabled: true },
-    ]"
-    placeholder="使用 options 属性"
-  />
-</template>
-```
+<<< ../demo/Select/SelectDemo8.vue
 
 </CollapsibleCode>
 
@@ -426,46 +133,12 @@ const value8 = ref([]);
 可以通过 `icon-position` 属性设置选中图标的位置
 
 <Demo>
-<Row :gutter="[20,20]">
-  <Col :span="12">
-    <Select v-model="value1" placeholder="图标在左侧" icon-position="left">
-      <Option label="选项1" value="1" />
-      <Option label="选项2" value="2" />
-      <Option label="选项3" value="3" />
-    </Select>
-  </Col>
-  <Col :span="12">
-    <Select v-model="value2" placeholder="图标在右侧" icon-position="right">
-      <Option label="选项1" value="1" />
-      <Option label="选项2" value="2" />
-      <Option label="选项3" value="3" />
-    </Select>
-  </Col>
-</Row>
+<SelectDemo9/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <Row :gutter="[20, 20]">
-    <Col :span="12">
-      <Select v-model="value1" placeholder="图标在左侧" icon-position="left">
-        <Option label="选项1" value="1" />
-        <Option label="选项2" value="2" />
-        <Option label="选项3" value="3" />
-      </Select>
-    </Col>
-    <Col :span="12">
-      <Select v-model="value2" placeholder="图标在右侧" icon-position="right">
-        <Option label="选项1" value="1" />
-        <Option label="选项2" value="2" />
-        <Option label="选项3" value="3" />
-      </Select>
-    </Col>
-  </Row>
-</template>
-```
+<<< ../demo/Select/SelectDemo9.vue
 
 </CollapsibleCode>
 
@@ -474,86 +147,12 @@ const value8 = ref([]);
 使用 `icon` 插槽自定义选中图标
 
 <Demo>
-<Row :gutter="[20,20]">
-  <Col :span="12">
-    <Select v-model="value3" placeholder="自定义图标" icon-position="left">
-      <Option label="选项1" value="1">
-        <template #icon>
-          <span style="color: var(--color-primary);">★</span>
-        </template>
-        选项1
-      </Option>
-      <Option label="选项2" value="2">
-        <template #icon>
-          <span style="color: var(--color-success);">●</span>
-        </template>
-        选项2
-      </Option>
-    </Select>
-  </Col>
-  <Col :span="12">
-    <Select v-model="value4" placeholder="右侧自定义图标" icon-position="right">
-      <Option label="选项1" value="1">
-        <template #icon>
-          <span style="color: var(--color-warning);">✓</span>
-        </template>
-        选项1
-      </Option>
-      <Option label="选项2" value="2">
-        <template #icon>
-          <span style="color: var(--color-danger);">✗</span>
-        </template>
-        选项2
-      </Option>
-    </Select>
-  </Col>
-</Row>
+<SelectDemo10/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <Row :gutter="[20, 20]">
-    <Col :span="12">
-      <Select v-model="value3" placeholder="自定义图标" icon-position="left">
-        <Option label="选项1" value="1">
-          <template #icon>
-            <span style="color: var(--color-primary);">★</span>
-          </template>
-          选项1
-        </Option>
-        <Option label="选项2" value="2">
-          <template #icon>
-            <span style="color: var(--color-success);">●</span>
-          </template>
-          选项2
-        </Option>
-      </Select>
-    </Col>
-    <Col :span="12">
-      <Select
-        v-model="value4"
-        placeholder="右侧自定义图标"
-        icon-position="right"
-      >
-        <Option label="选项1" value="1">
-          <template #icon>
-            <span style="color: var(--color-warning);">✓</span>
-          </template>
-          选项1
-        </Option>
-        <Option label="选项2" value="2">
-          <template #icon>
-            <span style="color: var(--color-danger);">✗</span>
-          </template>
-          选项2
-        </Option>
-      </Select>
-    </Col>
-  </Row>
-</template>
-```
+<<< ../demo/Select/SelectDemo10.vue
 
 </CollapsibleCode>
 

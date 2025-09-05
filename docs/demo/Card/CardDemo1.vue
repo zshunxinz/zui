@@ -42,24 +42,20 @@ const formData = ref({
           <Option value="angular">Angular</Option>
         </Select>
       </FormItem>
-      <Row justify="space-between" style="margin-top: 30px">
-        <Col span="6">
-          <Button
-            outline
-            size="large"
-            style="width: 100%; font-size: var(--font-size-1)"
-            >Cancel</Button
-          >
-        </Col>
-        <Col span="6">
-          <Button
-            default
-            size="large"
-            style="width: 100%; font-size: var(--font-size-1)"
-            >Deploy</Button
-          >
-        </Col>
-      </Row>
+      <Space>
+        <Button
+          outline
+          size="large"
+          style="width: 100%; font-size: var(--font-size-1)"
+          >Cancel</Button
+        >
+        <Button
+          default
+          size="large"
+          style="width: 100%; font-size: var(--font-size-1)"
+          >Deploy</Button
+        >
+      </Space>
     </Form>
   </Card>
 </template>

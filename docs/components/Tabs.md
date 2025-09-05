@@ -7,259 +7,32 @@
 基础的标签页用法，通过`v-model`绑定当前激活的标签索引。
 
 <script setup>
-import { ref } from "vue";
-
-const activeTab = ref(0);
-const tabs = [
-  { label: "账号", name: "account" },
-  { label: "密码", name: "password" },
-];
-
-
-const activeTab1 = ref(0);
-const tabs1 = [
-  { label: "Tab 1", name: "tab1" },
-  { label: "Tab 2", name: "tab2" },
-];
-const activeTab2 = ref(0);
-const tabs2 = [
-  { label: "Active", name: "tab1" },
-  { label: "Disabled", name: "tab2", disabled: true },
-  { label: "Another Active", name: "tab3" },
-];
-const handleTabClick = (tab) => {
-  console.log("handleTabClick",tab);
-};
-const handleUpdateModelValue = (val) => {
-  console.log("handleUpdateModelValue",val);
-};
-
-const handleClose = (tab) => {
-  console.log("handleClose",tab);
-};
-
-const activeClosableTab = ref(0);
-const closableTabs = ref([
-  { label: "Home", name: "home" },
-  { label: "Products", name: "products" },
-  { label: "Services", name: "services" },
-  { label: "About", name: "about" },
-]);
-
-const handleTabClose = (index) => {
-  console.log("handleTabClose",index);
-  // 防止关闭最后一个标签页
-  if (closableTabs.value.length <= 1) {
-    // alert('至少需要保留一个标签页');
-    return;
-  }
-  
-  // 从tabs数组中移除对应标签
-  closableTabs.value.splice(index, 1);
-  
-  // 如果关闭的是当前激活的标签页，自动激活前一个标签页
-  if (activeClosableTab.value === index) {
-    activeClosableTab.value = Math.min(index, closableTabs.value.length - 1);
-  }
-}
-
-const partialClosableTab = ref(0);
-const partialClosableTabs = ref([
-  { label: "Tab 1", name: "tab1" },
-  { label: "Tab 2", name: "tab2", close: true },
-  { label: "Tab 3", name: "tab3" },
-  { label: "Tab 4", name: "tab4", close: true },
-]);
-
-const handlePartialClose = (index) => {
-  // 防止关闭所有可关闭的标签页
-  const closableCount = partialClosableTabs.value.filter(tab => tab.close).length;
-  if (closableCount <= 1) {
-    // alert('至少需要保留一个可关闭的标签页');
-    return;
-  }
-  
-  // 从tabs数组中移除对应标签
-  partialClosableTabs.value.splice(index, 1);
-  
-  // 如果关闭的是当前激活的标签页，自动激活前一个标签页
-  if (partialClosableTab.value === index) {
-    partialClosableTab.value = Math.min(index, partialClosableTabs.value.length - 1);
-  }
-}
-const buttonStyleTab = ref(0);
-const buttonStyleTabs = ref([
-  { label: "按钮 1", name: "btn1" },
-  { label: "按钮 2", name: "btn2" },
-  { label: "按钮 3", name: "btn3" },
-]);
-
-const buttonStyleTypeTab = ref(0);
-const buttonStyleTypeTabs = ref([
-  { label: "按钮样式1", name: "primary1" },
-  { label: "按钮样式2", name: "primary2" },
-  { label: "按钮样式3", name: "primary3" },
-]);
+import TabsDemo1 from '../demo/Tabs/TabsDemo1.vue';
+import TabsDemo2 from '../demo/Tabs/TabsDemo2.vue';
+import TabsDemo3 from '../demo/Tabs/TabsDemo3.vue';
+import TabsDemo4 from '../demo/Tabs/TabsDemo4.vue';
+import TabsDemo5 from '../demo/Tabs/TabsDemo5.vue';
+import TabsDemo6 from '../demo/Tabs/TabsDemo6.vue';
+import TabsDemo7 from '../demo/Tabs/TabsDemo7.vue';
+import TabsDemo8 from '../demo/Tabs/TabsDemo8.vue';
+import TabsDemo9 from '../demo/Tabs/TabsDemo9.vue';
+import TabsDemo10 from '../demo/Tabs/TabsDemo10.vue';
+import TabsDemo11 from '../demo/Tabs/TabsDemo11.vue';
+import TabsDemo12 from '../demo/Tabs/TabsDemo12.vue';
+import TabsDemo13 from '../demo/Tabs/TabsDemo13.vue';
+import TabsDemo14 from '../demo/Tabs/TabsDemo14.vue';
+import TabsDemo15 from '../demo/Tabs/TabsDemo15.vue';
+import TabsDemo16 from '../demo/Tabs/TabsDemo16.vue';
+import TabsDemo17 from '../demo/Tabs/TabsDemo17.vue';
 </script>
 
-<style scoped>
-.demo-tabs-basic {
-  width: 360px;
-}
-
-.tab-content {
-  padding: 10px;
-  border: 1px solid var(--color-border-1);
-  border-radius: var(--border-radius-1);
-}
-
-.form-group {
-  margin-bottom: 20px;
-  width: 100%;
-}
-
-label {
-  display: block;
-  font-size: 14px;
-  margin-bottom: 3px;
-}
-
-.form-control{
-  /* background-color:rgb(245, 245, 245); */
-}
-</style>
-<style>
-.x-tabs_nav_bg {
-  background-color: var(--color-bg-hover);
-}
-.x-tabs_nav_bg-1{
-  padding:0.25rem;
-  background-color: var(--color-bg-hover-1);
-}
-</style>
-
-<Demo center>
-<div class="demo-tabs-basic">
-    <Tabs v-model="activeTab" :tabs="tabs" @tab-click="handleTabClick" @update:modelValue="handleUpdateModelValue" @tab-close="handleClose" >
-        <template #account>
-          <div class="tab-content">
-            <div class="form-group">
-              <label>账号</label>
-              <Input v-model="value" placeholder="请输入账号" class="form-control" width="100%"/>
-            </div>
-            <div class="form-group">
-              <label>用户名</label>
-              <Input type="text" placeholder="@peduarte" class="form-control" width="100%"/>
-            </div>
-            <Row>
-              <Col :span="12">
-                <Button type="default">保存账号</Button>
-              </Col>
-            </Row>
-          </div>
-        </template>
-        <template #password>
-          <div class="tab-content">
-            <div class="form-group">
-              <label>当前密码</label>
-              <Input type="password" placeholder="请输入当前密码" class="form-control" width="100%"/>
-            </div>
-            <div class="form-group">
-              <label>新密码</label>
-              <Input type="password" placeholder="请输入新密码" class="form-control" width="100%"/>
-            </div>
-            <Button type="default" >保存密码</Button>
-          </div>
-        </template>
-      </Tabs>
-</div>
+<Demo>
+<TabsDemo1/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <div class="demo-tabs-basic">
-    <Tabs v-model="activeTab" :tabs="tabs">
-      <template #account>
-        <div class="tab-content">
-          <h3>Account</h3>
-          <p>Make changes to your account here. Click save when you're done.</p>
-          <div class="form-group">
-            <label>Name</label>
-            <Input type="text" value="Pedro Duarte" class="form-control" />
-          </div>
-          <div class="form-group">
-            <label>Username</label>
-            <Input type="text" value="@peduarte" class="form-control" />
-          </div>
-          <Button type="primary">保存</Button>
-        </div>
-      </template>
-      <template #password>
-        <div class="tab-content">
-          <h3>Password</h3>
-          <p>Change your password here. After saving, you'll be logged out.</p>
-          <div class="form-group">
-            <label>Current password</label>
-            <input type="password" class="form-control" />
-          </div>
-          <div class="form-group">
-            <label>New password</label>
-            <input type="password" class="form-control" />
-          </div>
-          <div class="form-group">
-            <label>Confirm new password</label>
-            <input type="password" class="form-control" />
-          </div>
-          <button class="btn btn-primary">Save password</button>
-        </div>
-      </template>
-    </Tabs>
-  </div>
-</template>
-
-<script setup>
-import { ref } from "vue";
-
-const activeTab = ref(0);
-const tabs = [
-  { label: "Account", name: "account" },
-  { label: "Password", name: "password" },
-];
-</script>
-
-<style scoped>
-.demo-tabs-basic {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.tab-content {
-  padding: 20px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
-}
-
-.form-group {
-  margin-bottom: 16px;
-}
-
-label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 500;
-}
-
-input {
-  width: 100%;
-  padding: 8px 12px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
-  box-sizing: border-box;
-}
-</style>
-```
+<<< ../demo/Tabs/TabsDemo1.vue
 
 </CollapsibleCode>
 
@@ -268,108 +41,12 @@ input {
 支持多种类型的标签页，包括`primary`、`success`、`warning`、`danger`和`info`。
 
 <Demo>
-<Tabs v-model="activeTab1" :tabs="tabs1" type="primary">
-      <template #tab1>Primary Tab Content</template>
-      <template #tab2>Secondary Tab Content</template>
-    </Tabs>
-
-<Tabs v-model="activeTab1"
-      :tabs="tabs1"
-      type="success"
-      style="margin-top: 20px;"
-    >
-<template #tab1>Success Tab Content</template>
-<template #tab2>Secondary Tab Content</template>
-</Tabs>
-<Tabs
-      v-model="activeTab1"
-      :tabs="tabs1"
-      type="warning"
-      style="margin-top: 20px;"
-    >
-<template #tab1>Warning Tab Content</template>
-<template #tab2>Secondary Tab Content</template>
-</Tabs>
-<Tabs
-v-model="activeTab1"
-:tabs="tabs1"
-type="danger"
-style="margin-top: 20px;">
-<template #tab1>Danger Tab Content</template>
-<template #tab2>Secondary Tab Content</template>
-</Tabs>
-<Tabs
-v-model="activeTab1"
-:tabs="tabs1"
-type="info"
-style="margin-top: 20px;">
-<template #tab1>Info Tab Content</template>
-<template #tab2>Secondary Tab Content</template>
-</Tabs>
+<TabsDemo2/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <div class="demo-tabs-types">
-    <Tabs v-model="activeTab" :tabs="tabs" type="primary">
-      <template #tab1>Primary Tab Content</template>
-      <template #tab2>Secondary Tab Content</template>
-    </Tabs>
-
-    <Tabs
-      v-model="activeTab"
-      :tabs="tabs"
-      type="success"
-      style="margin-top: 20px;"
-    >
-      <template #tab1>Success Tab Content</template>
-      <template #tab2>Secondary Tab Content</template>
-    </Tabs>
-
-    <Tabs
-      v-model="activeTab"
-      :tabs="tabs"
-      type="warning"
-      style="margin-top: 20px;"
-    >
-      <template #tab1>Warning Tab Content</template>
-      <template #tab2>Secondary Tab Content</template>
-    </Tabs>
-
-    <Tabs
-      v-model="activeTab"
-      :tabs="tabs"
-      type="danger"
-      style="margin-top: 20px;"
-    >
-      <template #tab1>Danger Tab Content</template>
-      <template #tab2>Secondary Tab Content</template>
-    </Tabs>
-
-    <Tabs
-      v-model="activeTab"
-      :tabs="tabs"
-      type="info"
-      style="margin-top: 20px;"
-    >
-      <template #tab1>Info Tab Content</template>
-      <template #tab2>Secondary Tab Content</template>
-    </Tabs>
-  </div>
-</template>
-
-<script setup>
-import { ref } from "vue";
-
-const activeTab = ref(0);
-const tabs = [
-  { label: "Tab 1", name: "tab1" },
-  { label: "Tab 2", name: "tab2" },
-];
-</script>
-```
+<<< ../demo/Tabs/TabsDemo2.vue
 
 </CollapsibleCode>
 
@@ -378,73 +55,12 @@ const tabs = [
 支持`small`、`default`和`large`三种尺寸。
 
 <Demo>
-
-<div class="demo-tabs-sizes">
-  <Tabs v-model="activeTab" :tabs="tabs" size="small">
-    <template #tab1>Small Tab Content</template>
-    <template #tab2>Secondary Tab Content</template>
-  </Tabs>
-
-<Tabs v-model="activeTab"
-:tabs="tabs"
-size="default"
-style="margin-top: 20px;">
-<template #tab1>Default Tab Content</template>
-<template #tab2>Secondary Tab Content</template>
-</Tabs>
-<Tabs v-model="activeTab"
-:tabs="tabs"
-size="large"
-style="margin-top: 20px;">
-<template #tab1>Large Tab Content</template>
-<template #tab2>Secondary Tab Content</template>
-</Tabs>
-
-</div>
+<TabsDemo3/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <div class="demo-tabs-sizes">
-    <Tabs v-model="activeTab" :tabs="tabs" size="small">
-      <template #tab1>Small Tab Content</template>
-      <template #tab2>Secondary Tab Content</template>
-    </Tabs>
-
-    <Tabs
-      v-model="activeTab"
-      :tabs="tabs"
-      size="default"
-      style="margin-top: 20px;"
-    >
-      <template #tab1>Default Tab Content</template>
-      <template #tab2>Secondary Tab Content</template>
-    </Tabs>
-
-    <Tabs
-      v-model="activeTab"
-      :tabs="tabs"
-      size="large"
-      style="margin-top: 20px;"
-    >
-      <template #tab1>Large Tab Content</template>
-      <template #tab2>Secondary Tab Content</template>
-    </Tabs>
-  </div>
-</template>
-
-<script setup>
-import { ref } from "vue";
-
-const activeTab = ref(0);
-const tabs = [
-  { label: "Tab 1", name: "tab1" },
-  { label: "Tab 2", name: "tab2" },
-];
-</script>
-```
+<<< ../demo/Tabs/TabsDemo3.vue
 
 </CollapsibleCode>
 
@@ -453,74 +69,12 @@ const tabs = [
 标签页可以放置在`top`、`bottom`、`left`或`right`四个位置。
 
 <Demo>
-
-<div class="demo-tabs-position">
-  <Tabs v-model="activeTab1" :tabs="tabs1" position="top" style="border: 1px solid var(--color-border);padding:10px">
-    <template #tab1>Top Tab Content</template>
-    <template #tab2>Secondary Tab Content</template>
-  </Tabs>
-  <Tabs
-    v-model="activeTab1"
-    :tabs="tabs1"
-    position="bottom"
-    style="margin-top: 20px;border: 1px solid var(--color-border);padding:10px"
-  >
-    <template #tab1>Bottom Tab Content</template>
-    <template #tab2>Secondary Tab Content</template>
-  </Tabs>
-    <Tabs v-model="activeTab1" :tabs="tabs1" position="left" style="margin-top: 20px;border: 1px solid var(--color-border);padding:10px">
-      <template #tab1>Left Tab Content</template>
-      <template #tab2>Secondary Tab Content</template>
-    </Tabs>
-    <Tabs v-model="activeTab1" :tabs="tabs1" position="right" style="margin-top: 20px;border: 1px solid var(--color-border);padding:10px">
-      <template #tab1>Right Tab Content</template>
-      <template #tab2>Secondary Tab Content</template>
-    </Tabs>
-</div>
+<TabsDemo4/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <div class="demo-tabs-position">
-    <Tabs v-model="activeTab" :tabs="tabs" position="top">
-      <template #tab1>Top Tab Content</template>
-      <template #tab2>Secondary Tab Content</template>
-    </Tabs>
-
-    <Tabs
-      v-model="activeTab"
-      :tabs="tabs"
-      position="bottom"
-      style="margin-top: 20px;"
-    >
-      <template #tab1>Bottom Tab Content</template>
-      <template #tab2>Secondary Tab Content</template>
-    </Tabs>
-    <div style="display: flex; gap: 20px; margin-top: 20px;">
-      <Tabs v-model="activeTab" :tabs="tabs" position="left">
-        <template #tab1>Left Tab Content</template>
-        <template #tab2>Secondary Tab Content</template>
-      </Tabs>
-      <Tabs v-model="activeTab" :tabs="tabs" position="right">
-        <template #tab1>Right Tab Content</template>
-        <template #tab2>Secondary Tab Content</template>
-      </Tabs>
-    </div>
-  </div>
-</template>
-
-<script setup>
-import { ref } from "vue";
-
-const activeTab = ref(0);
-const tabs = [
-  { label: "Tab 1", name: "tab1" },
-  { label: "Tab 2", name: "tab2" },
-];
-</script>
-```
+<<< ../demo/Tabs/TabsDemo4.vue
 
 </CollapsibleCode>
 
@@ -529,81 +83,12 @@ const tabs = [
 设置`buttonStyle`属性为`true`可以启用按钮样式的标签页，使标签看起来像按钮一样。
 
 <Demo>
-<Tabs v-model="buttonStyleTab" :tabs="buttonStyleTabs" buttonStyle="true">
-  <template #btn1>
-    <div class="tab-content">
-      <h3>按钮样式标签页 1</h3>
-      <p>这是按钮样式的标签页内容</p>
-    </div>
-  </template>
-  <template #btn2>
-    <div class="tab-content">
-      <h3>按钮样式标签页 2</h3>
-      <p>这是按钮样式的标签页内容</p>
-    </div>
-  </template>
-  <template #btn3>
-    <div class="tab-content">
-      <h3>按钮样式标签页 3</h3>
-      <p>这是按钮样式的标签页内容</p>
-    </div>
-  </template>
-</Tabs>
-
+<TabsDemo5/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <div class="demo-tabs-button-style">
-    <Tabs v-model="buttonStyleTab" :tabs="buttonStyleTabs" buttonStyle="true">
-      <template #btn1>
-        <div class="tab-content">
-          <h3>按钮样式标签页 1</h3>
-          <p>这是按钮样式的标签页内容</p>
-        </div>
-      </template>
-      <template #btn2>
-        <div class="tab-content">
-          <h3>按钮样式标签页 2</h3>
-          <p>这是按钮样式的标签页内容</p>
-        </div>
-      </template>
-      <template #btn3>
-        <div class="tab-content">
-          <h3>按钮样式标签页 3</h3>
-          <p>这是按钮样式的标签页内容</p>
-        </div>
-      </template>
-    </Tabs>
-  </div>
-</template>
-
-<script setup>
-import { ref } from "vue";
-
-const buttonStyleTab = ref(0);
-const buttonStyleTabs = ref([
-  { label: "按钮 1", name: "btn1" },
-  { label: "按钮 2", name: "btn2" },
-  { label: "按钮 3", name: "btn3" },
-]);
-</script>
-
-<style scoped>
-.demo-tabs-button-style {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.tab-content {
-  padding: 20px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
-}
-</style>
-```
+<<< ../demo/Tabs/TabsDemo5.vue
 
 </CollapsibleCode>
 
@@ -612,88 +97,12 @@ const buttonStyleTabs = ref([
 按钮样式可以与不同类型结合使用：
 
 <Demo>
-<div class="tabs-button-style-types">
-  <Tabs v-model="buttonStyleTypeTab" :tabs="buttonStyleTypeTabs" buttonStyle="true" type="primary">
-    <template #primary1>
-      <div class="tab-content">
-        <h3>主要按钮样式1</h3>
-        <p>这是主要颜色的按钮样式标签页</p>
-      </div>
-    </template>
-    <template #primary2>
-      <div class="tab-content">
-        <h3>主要按钮样式2</h3>
-        <p>这是主要颜色的按钮样式标签页</p>
-      </div>
-    </template>
-    <template #primary3>
-      <div class="tab-content">
-        <h3>主要按钮样式3</h3>
-        <p>这是主要颜色的按钮样式标签页</p>
-      </div>
-    </template>
-  </Tabs>
-</div>
-
+<TabsDemo6/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <div class="demo-tabs-button-style-types">
-    <Tabs
-      v-model="buttonStyleTypeTab"
-      :tabs="buttonStyleTypeTabs"
-      buttonStyle="true"
-      type="primary"
-    >
-      <template #primary1>
-        <div class="tab-content">
-          <h3>主要按钮样式</h3>
-          <p>这是主要颜色的按钮样式标签页</p>
-        </div>
-      </template>
-      <template #primary2>
-        <div class="tab-content">
-          <h3>主要按钮样式</h3>
-          <p>这是主要颜色的按钮样式标签页</p>
-        </div>
-      </template>
-      <template #primary3>
-        <div class="tab-content">
-          <h3>主要按钮样式</h3>
-          <p>这是主要颜色的按钮样式标签页</p>
-        </div>
-      </template>
-    </Tabs>
-  </div>
-</template>
-
-<script setup>
-import { ref } from "vue";
-
-const buttonStyleTypeTab = ref(0);
-const buttonStyleTypeTabs = ref([
-  { label: "主要", name: "primary1" },
-  { label: "成功", name: "primary2" },
-  { label: "警告", name: "primary3" },
-]);
-</script>
-
-<style scoped>
-.demo-tabs-button-style-types {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.tab-content {
-  padding: 20px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
-}
-</style>
-```
+<<< ../demo/Tabs/TabsDemo6.vue
 
 </CollapsibleCode>
 
@@ -704,59 +113,12 @@ const buttonStyleTypeTabs = ref([
 设置`tabsBg`属性为`true`可以为标签页添加默认背景颜色。
 设置`borderLine`属性为`false`可以移除标签页的底部边框。
 <Demo>
-<Tabs v-model="activeTab1" :tabs="tabs1" :tabsBg="true" :borderLine="false" type="primary">
-<template #tab1>
-
-  <div class="tab-content">
-    <h3>带背景的标签页 1</h3>
-    <p>这是带背景颜色的标签页内容</p>
-  </div>
-</template>
-<template #tab2>
-  <div class="tab-content">
-    <h3>带背景的标签页 2</h3>
-    <p>这是带背景颜色的标签页内容</p>
-  </div>
-</template>
-</Tabs>
+<TabsDemo7/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <Tabs
-    v-model="activeTab1"
-    :tabs="tabs1"
-    :tabsBg="true"
-    :borderLine="false"
-    type="primary"
-  >
-    <template #tab1>
-      <div class="tab-content">
-        <h3>带背景的标签页 1</h3>
-        <p>这是带背景颜色的标签页内容</p>
-      </div>
-    </template>
-    <template #tab2>
-      <div class="tab-content">
-        <h3>带背景的标签页 2</h3>
-        <p>这是带背景颜色的标签页内容</p>
-      </div>
-    </template>
-  </Tabs>
-</template>
-
-<script setup>
-import { ref } from "vue";
-
-const activeTab1 = ref(0);
-const tabs1 = [
-  { label: "Tab 1", name: "tab1" },
-  { label: "Tab 2", name: "tab2" },
-];
-</script>
-```
+<<< ../demo/Tabs/TabsDemo7.vue
 
 </CollapsibleCode>
 
@@ -764,62 +126,12 @@ const tabs1 = [
 
 设置`tabsBgClass`属性可以自定义标签页的背景颜色类名。
 <Demo>
-<Tabs v-model="activeTab1" :tabs="tabs1" :tabsBgClass="'x-tabs_nav_bg'" :borderLine="false">
-<template #tab1>
-
-  <div class="tab-content">
-    <h3>自定义背景标签页 1</h3>
-    <p>这是使用自定义背景类的标签页内容</p>
-  </div>
-</template>
-<template #tab2>
-  <div class="tab-content">
-    <h3>自定义背景标签页 2</h3>
-    <p>这是使用自定义背景类的标签页内容</p>
-  </div>
-</template>
-</Tabs>
+<TabsDemo8/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <Tabs
-    v-model="activeTab1"
-    :tabs="tabs1"
-    :tabsBgClass="'x-tabs_nav_bg'"
-    :borderLine="false"
-  >
-    <template #tab1>
-      <div class="tab-content">
-        <h3>自定义背景标签页 1</h3>
-        <p>这是使用自定义背景类的标签页内容</p>
-      </div>
-    </template>
-    <template #tab2>
-      <div class="tab-content">
-        <h3>自定义背景标签页 2</h3>
-        <p>这是使用自定义背景类的标签页内容</p>
-      </div>
-    </template>
-  </Tabs>
-</template>
-<script setup>
-import { ref } from "vue";
-
-const activeTab1 = ref(0);
-const tabs1 = [
-  { label: "Tab 1", name: "tab1" },
-  { label: "Tab 2", name: "tab2" },
-];
-</script>
-<style scoped>
-.x-tabs_nav_bg {
-  background-color: var(--color-bg-hover-1);
-}
-</style>
-```
+<<< ../demo/Tabs/TabsDemo8.vue
 
 </CollapsibleCode>
 
@@ -827,111 +139,26 @@ const tabs1 = [
 
 设置`tabFull`属性为`true`可以使标签页宽度平均分配并占满父容器。
 <Demo>
-<Tabs v-model="activeTab1" :tabs="tabs1" :borderLine="false" :tabFull="true">
-<template #tab1>
-
-  <div class="tab-content">
-    <h3>全宽标签页 1</h3>
-    <p>这是全宽标签页的内容</p>
-  </div>
-</template>
-<template #tab2>
-  <div class="tab-content">
-    <h3>全宽标签页 2</h3>
-    <p>这是全宽标签页的内容</p>
-  </div>
-</template>
-</Tabs>
+<TabsDemo9/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <Tabs v-model="activeTab1" :tabs="tabs1" :borderLine="false" :tabFull="true">
-    <template #tab1>
-      <div class="tab-content">
-        <h3>全宽标签页 1</h3>
-        <p>这是全宽标签页的内容</p>
-      </div>
-    </template>
-    <template #tab2>
-      <div class="tab-content">
-        <h3>全宽标签页 2</h3>
-        <p>这是全宽标签页的内容</p>
-      </div>
-    </template>
-  </Tabs>
-</template>
-<script setup>
-import { ref } from "vue";
-
-const activeTab1 = ref(0);
-const tabs1 = [
-  { label: "Tab 1", name: "tab1" },
-  { label: "Tab 2", name: "tab2" },
-];
-</script>
-```
+<<< ../demo/Tabs/TabsDemo9.vue
 
 </CollapsibleCode>
 
 ### 按钮样式标签
 
-设置`buttonStyle`属性为`true`可以使用按钮样式的标签页。
+设置`buttonStyle`属性为`true`可以启用按钮样式的标签页，与`borderLine`属性结合使用可以创建更简洁的按钮效果。
 
 <Demo>
-
-<Tabs v-model="activeTab1" :buttonStyle="true" :tabs="tabs1" :borderLine="false">
-<template #tab1>
-  <div class="tab-content">
-    <h3>按钮样式标签页 1</h3>
-    <p>这是按钮样式的标签页内容</p>
-  </div>
-</template>
-<template #tab2>
-  <div class="tab-content">
-    <h3>按钮样式标签页 2</h3>
-    <p>这是按钮样式的标签页内容</p>
-  </div>
-</template>
-</Tabs>
+<TabsDemo10/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <Tabs
-    v-model="activeTab1"
-    :buttonStyle="true"
-    :tabs="tabs1"
-    :borderLine="false"
-  >
-    <template #tab1>
-      <div class="tab-content">
-        <h3>按钮样式标签页 1</h3>
-        <p>这是按钮样式的标签页内容</p>
-      </div>
-    </template>
-    <template #tab2>
-      <div class="tab-content">
-        <h3>按钮样式标签页 2</h3>
-        <p>这是按钮样式的标签页内容</p>
-      </div>
-    </template>
-  </Tabs>
-</template>
-<script setup>
-import { ref } from "vue";
-
-const activeTab1 = ref(0);
-const tabs1 = [
-  { label: "Tab 1", name: "tab1" },
-  { label: "Tab 2", name: "tab2" },
-];
-</script>
-```
+<<< ../demo/Tabs/TabsDemo10.vue
 
 </CollapsibleCode>
 
@@ -940,72 +167,12 @@ const tabs1 = [
 按钮样式可以与`type`属性组合使用，创建不同颜色的按钮标签。
 
 <Demo>
-<Tabs v-model="activeTab1" :buttonStyle="true" :tabs="tabs1" :borderLine="false" type="primary">
-<template #tab1>
-  <div class="tab-content">
-    <h3>主色按钮标签页 1</h3>
-    <p>这是主色按钮样式的标签页内容</p>
-  </div>
-</template>
-<template #tab2>
-  <div class="tab-content">
-    <h3>主色按钮标签页 2</h3>
-    <p>这是主色按钮样式的标签页内容</p>
-  </div>
-</template>
-</Tabs>
-
-<Tabs v-model="activeTab1" :buttonStyle="true" :tabs="tabs1" :borderLine="false" type="success">
-<template #tab1>
-  <div class="tab-content">
-    <h3>成功色按钮标签页 1</h3>
-    <p>这是成功色按钮样式的标签页内容</p>
-  </div>
-</template>
-<template #tab2>
-  <div class="tab-content">
-    <h3>成功色按钮标签页 2</h3>
-    <p>这是成功色按钮样式的标签页内容</p>
-  </div>
-</template>
-</Tabs>
+<TabsDemo11/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <Tabs
-    v-model="activeTab1"
-    :buttonStyle="true"
-    :tabs="tabs1"
-    :borderLine="false"
-    type="primary"
-  >
-    <template #tab1>
-      <div class="tab-content">
-        <h3>主色按钮标签页 1</h3>
-        <p>这是主色按钮样式的标签页内容</p>
-      </div>
-    </template>
-    <template #tab2>
-      <div class="tab-content">
-        <h3>主色按钮标签页 2</h3>
-        <p>这是主色按钮样式的标签页内容</p>
-      </div>
-    </template>
-  </Tabs>
-</template>
-<script setup>
-import { ref } from "vue";
-
-const activeTab1 = ref(0);
-const tabs1 = [
-  { label: "Tab 1", name: "tab1" },
-  { label: "Tab 2", name: "tab2" },
-];
-</script>
-```
+<<< ../demo/Tabs/TabsDemo11.vue
 
 </CollapsibleCode>
 
@@ -1014,384 +181,53 @@ const tabs1 = [
 设置`buttonStyleText`属性为`true`可以使标签页按钮样式为文本主题（仅边框和文字变色，背景保持透明）。
 
 <Demo>
-<Tabs v-model="activeTab1" :buttonStyle="true" :buttonStyleText="true" :tabs="tabs1" :borderLine="false">
-<template #tab1>
-  <div class="tab-content">
-    <h3>文本按钮标签页 1</h3>
-    <p>这是文本按钮样式的标签页内容</p>
-  </div>
-</template>
-<template #tab2>
-  <div class="tab-content">
-    <h3>文本按钮标签页 2</h3>
-    <p>这是文本按钮样式的标签页内容</p>
-  </div>
-</template>
-</Tabs>
-
-<Tabs v-model="activeTab1" :buttonStyle="true" :buttonStyleText="true" :tabs="tabs1" :borderLine="false" type="primary">
-<template #tab1>
-  <div class="tab-content">
-    <h3>主色文本按钮标签页 1</h3>
-    <p>这是主色文本按钮样式的标签页内容</p>
-  </div>
-</template>
-<template #tab2>
-  <div class="tab-content">
-    <h3>主色文本按钮标签页 2</h3>
-    <p>这是主色文本按钮样式的标签页内容</p>
-  </div>
-</template>
-</Tabs>
-
+<TabsDemo12/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <Tabs
-    v-model="activeTab1"
-    :buttonStyle="true"
-    :buttonStyleText="true"
-    :tabs="tabs1"
-    :borderLine="false"
-    type="primary"
-  >
-    <template #tab1>
-      <div class="tab-content">
-        <h3>主色文本按钮标签页 1</h3>
-        <p>这是主色文本按钮样式的标签页内容</p>
-      </div>
-    </template>
-    <template #tab2>
-      <div class="tab-content">
-        <h3>主色文本按钮标签页 2</h3>
-        <p>这是主色文本按钮样式的标签页内容</p>
-      </div>
-    </template>
-  </Tabs>
-</template>
-<script setup>
-import { ref } from "vue";
-
-const activeTab1 = ref(0);
-const tabs1 = [
-  { label: "Tab 1", name: "tab1" },
-  { label: "Tab 2", name: "tab2" },
-];
-</script>
-```
+<<< ../demo/Tabs/TabsDemo12.vue
 
 </CollapsibleCode>
 
 ### 全宽按钮标签
 
 `tabFull`属性可以与按钮样式组合，创建全宽的按钮标签。
-<Demo>
-<Tabs v-model="activeTab1" :buttonStyle="true" :tabs="tabs1" :borderLine="false" :tabFull="true">
-<template #tab1>
 
-  <div class="tab-content">
-    <h3>全宽按钮标签页 1</h3>
-    <p>这是全宽按钮样式的标签页内容</p>
-  </div>
-</template>
-<template #tab2>
-  <div class="tab-content">
-    <h3>全宽按钮标签页 2</h3>
-    <p>这是全宽按钮样式的标签页内容</p>
-  </div>
-</template>
-</Tabs>
+<Demo>
+<TabsDemo13/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <Tabs
-    v-model="activeTab1"
-    :buttonStyle="true"
-    :tabs="tabs1"
-    :borderLine="false"
-    :tabFull="true"
-  >
-    <template #tab1>
-      <div class="tab-content">
-        <h3>全宽按钮标签页 1</h3>
-        <p>这是全宽按钮样式的标签页内容</p>
-      </div>
-    </template>
-    <template #tab2>
-      <div class="tab-content">
-        <h3>全宽按钮标签页 2</h3>
-        <p>这是全宽按钮样式的标签页内容</p>
-      </div>
-    </template>
-  </Tabs>
-</template>
-<script setup>
-import { ref } from "vue";
-
-const activeTab1 = ref(0);
-const tabs1 = [
-  { label: "Tab 1", name: "tab1" },
-  { label: "Tab 2", name: "tab2" },
-];
-</script>
-```
+<<< ../demo/Tabs/TabsDemo13.vue
 
 </CollapsibleCode>
+
 ### 自定义背景类名与全宽按钮标签
 
 将 tabFull、tabsBgClass、buttonStyleText 结合使用
 
 <Demo>
-<Tabs v-model="activeTab1" :buttonStyle="true" :buttonStyleText="true" :tabs="tabs1" :borderLine="false" :tabFull="true" :tabsBgClass="'x-tabs_nav_bg-1'">
-<template #tab1>
-  <div class="tab-content">
-    <h3>自定义背景类名标签页 1</h3>
-    <p>这是自定义背景类名的标签页内容</p>
-  </div>
-</template>
-<template #tab2>
-  <div class="tab-content">
-    <h3>自定义背景类名标签页 2</h3>
-    <p>这是自定义背景类名的标签页内容</p>
-  </div>
-</template>
-</Tabs>
-
-<Tabs v-model="activeTab1" :buttonStyle="true" :buttonStyleText="true" :tabs="tabs1" :borderLine="false" :tabFull="true" :tabsBgClass="'x-tabs_nav_bg-1'" type="primary">
-<template #tab1>
-  <div class="tab-content">
-    <h3>自定义背景类名标签页 1</h3>
-    <p>这是自定义背景类名的标签页内容</p>
-  </div>
-</template>
-<template #tab2>
-  <div class="tab-content">
-    <h3>自定义背景类名标签页 2</h3>
-    <p>这是自定义背景类名的标签页内容</p>
-  </div>
-</template>
-</Tabs>
-
-<Tabs v-model="activeTab1" :buttonStyle="true" :buttonStyleText="true" :tabs="tabs1" :borderLine="false" :tabFull="true" :tabsBgClass="'x-tabs_nav_bg-1'" type='success'>
-<template #tab1>
-  <div class="tab-content">
-    <h3>自定义背景类名标签页 1</h3>
-    <p>这是自定义背景类名的标签页内容</p>
-  </div>
-</template>
-<template #tab2>
-  <div class="tab-content">
-    <h3>自定义背景类名标签页 2</h3>
-    <p>这是自定义背景类名的标签页内容</p>
-  </div>
-</template>
-</Tabs>
-
-<Tabs v-model="activeTab1" :buttonStyle="true" :buttonStyleText="true" :tabs="tabs1" :borderLine="false" :tabFull="true" :tabsBgClass="'x-tabs_nav_bg-1'" type='warning'>
-<template #tab1>
-  <div class="tab-content">
-    <h3>自定义背景类名标签页 1</h3>
-    <p>这是自定义背景类名的标签页内容</p>
-  </div>
-</template>
-<template #tab2>
-  <div class="tab-content">
-    <h3>自定义背景类名标签页 2</h3>
-    <p>这是自定义背景类名的标签页内容</p>
-  </div>
-</template>
-</Tabs>
-
-<Tabs v-model="activeTab1" :buttonStyle="true" :buttonStyleText="true" :tabs="tabs1" :borderLine="false" :tabFull="true" :tabsBgClass="'x-tabs_nav_bg-1'" type='danger'>
-<template #tab1>
-  <div class="tab-content">
-    <h3>自定义背景类名标签页 1</h3>
-    <p>这是自定义背景类名的标签页内容</p>
-  </div>
-</template>
-<template #tab2>
-  <div class="tab-content">
-    <h3>自定义背景类名标签页 2</h3>
-    <p>这是自定义背景类名的标签页内容</p>
-  </div>
-</template>
-</Tabs>
-
-<Tabs v-model="activeTab1" :buttonStyle="true" :buttonStyleText="true" :tabs="tabs1" :borderLine="false" :tabFull="true" :tabsBgClass="'x-tabs_nav_bg-1'" type='info'>
-<template #tab1>
-  <div class="tab-content">
-    <h3>自定义背景类名标签页 1</h3>
-    <p>这是自定义背景类名的标签页内容</p>
-  </div>
-</template>
-<template #tab2>
-  <div class="tab-content">
-    <h3>自定义背景类名标签页 2</h3>
-    <p>这是自定义背景类名的标签页内容</p>
-  </div>
-</template>
-</Tabs>
+  <TabsDemo14/>
 </Demo>
+
+<CollapsibleCode>
+
+<<< ../demo/Tabs/TabsDemo14.vue
+
+</CollapsibleCode>
 
 ## 禁用标签
 
 可以禁用某些标签页。
 <Demo>
-<Tabs v-model="activeTab2" :tabs="tabs2">
-<template #tab1>Active Tab Content</template>
-<template #tab2>Disabled Tab Content</template>
-<template #tab3>Another Active Tab Content</template>
-</Tabs>
+<TabsDemo15/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <div class="demo-tabs-disabled">
-    <Tabs v-model="activeTab" :tabs="tabs">
-      <template #tab1>Active Tab Content</template>
-      <template #tab2>Disabled Tab Content</template>
-      <template #tab3>Another Active Tab Content</template>
-    </Tabs>
-  </div>
-</template>
-
-<script setup>
-import { ref } from "vue";
-
-const activeTab2 = ref(0);
-const tabs2 = [
-  { label: "Active", name: "tab1" },
-  { label: "Disabled", name: "tab2", disabled: true },
-  { label: "Another Active", name: "tab3" },
-];
-</script>
-```
-
-</CollapsibleCode>
-## 可关闭标签页
-
-### 全部标签可关闭
-
-设置`closable`属性为`true`可以启用标签页的关闭功能，并通过`@tab-close`事件处理标签关闭的逻辑。
-<Demo>
-<Tabs v-model="activeClosableTab" :tabs="closableTabs" :closable="true" @tab-close="handleTabClose">
-<template #home>
-
-<div class="tab-content">
-<h3>首页</h3>
-<p>这是首页内容区域</p>
-</div>
-</template>
-<template #products>
-<div class="tab-content">
-<h3>产品</h3>
-<p>这是产品内容区域</p>
-</div>
-</template>
-<template #services>
-<div class="tab-content">
-<h3>服务</h3>
-<p>这是服务内容区域</p>
-</div>
-</template>
-<template #about>
-<div class="tab-content">
-<h3>关于我们</h3>
-<p>这是关于我们内容区域</p>
-</div>
-</template>
-</Tabs>
-
-</Demo>
-
-<CollapsibleCode>
-
-```vue
-<template>
-  <div class="demo-tabs-closable">
-    <Tabs
-      v-model="activeClosableTab"
-      :tabs="closableTabs"
-      :closable="true"
-      @tab-close="handleTabClose"
-    >
-      <template #home>
-        <div class="tab-content">
-          <h3>首页</h3>
-          <p>这是首页内容区域</p>
-        </div>
-      </template>
-      <template #products>
-        <div class="tab-content">
-          <h3>产品</h3>
-          <p>这是产品内容区域</p>
-        </div>
-      </template>
-      <template #services>
-        <div class="tab-content">
-          <h3>服务</h3>
-          <p>这是服务内容区域</p>
-        </div>
-      </template>
-      <template #about>
-        <div class="tab-content">
-          <h3>关于我们</h3>
-          <p>这是关于我们内容区域</p>
-        </div>
-      </template>
-    </Tabs>
-  </div>
-</template>
-
-<script setup>
-import { ref } from "vue";
-
-const activeClosableTab = ref(0);
-const closableTabs = ref([
-  { label: "Home", name: "home" },
-  { label: "Products", name: "products" },
-  { label: "Services", name: "services" },
-  { label: "About", name: "about" },
-]);
-
-const handleTabClose = (index) => {
-  // 防止关闭最后一个标签页
-  if (closableTabs.value.length <= 1) {
-    // alert("至少需要保留一个标签页");
-    return;
-  }
-
-  // 从tabs数组中移除对应标签
-  closableTabs.value.splice(index, 1);
-
-  // 如果关闭的是当前激活的标签页，自动激活前一个标签页
-  if (activeClosableTab.value === index) {
-    activeClosableTab.value = Math.min(index, closableTabs.value.length - 1);
-  }
-};
-</script>
-
-<style scoped>
-.demo-tabs-closable {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.tab-content {
-  padding: 20px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
-}
-</style>
-```
+<<< ../demo/Tabs/TabsDemo15.vue
 
 </CollapsibleCode>
 
@@ -1399,121 +235,12 @@ const handleTabClose = (index) => {
 
 可以在标签配置中设置`close`属性来控制单个标签是否可关闭，而不是使用`closable`属性控制所有标签。
 <Demo>
-<Tabs v-model="partialClosableTab" :tabs="partialClosableTabs" @tab-close="handlePartialClose">
-<template #tab1>
-
-<div class="tab-content">
-<h3>Tab 1</h3>
-<p>这个标签不可关闭</p>
-</div>
-</template>
-<template #tab2>
-<div class="tab-content">
-<h3>Tab 2</h3>
-<p>这个标签可关闭 (带 close=true)</p>
-</div>
-</template>
-<template #tab3>
-<div class="tab-content">
-<h3>Tab 3</h3>
-<p>这个标签不可关闭</p>
-</div>
-</template>
-<template #tab4>
-<div class="tab-content">
-<h3>Tab 4</h3>
-<p>这个标签可关闭 (带 close=true)</p>
-</div>
-</template>
-</Tabs>
-
+<TabsDemo17/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <div class="demo-tabs-partial-closable">
-    <Tabs
-      v-model="partialClosableTab"
-      :tabs="partialClosableTabs"
-      @tab-close="handlePartialClose"
-    >
-      <template #tab1>
-        <div class="tab-content">
-          <h3>Tab 1</h3>
-          <p>这个标签不可关闭</p>
-        </div>
-      </template>
-      <template #tab2>
-        <div class="tab-content">
-          <h3>Tab 2</h3>
-          <p>这个标签可关闭 (带close=true)</p>
-        </div>
-      </template>
-      <template #tab3>
-        <div class="tab-content">
-          <h3>Tab 3</h3>
-          <p>这个标签不可关闭</p>
-        </div>
-      </template>
-      <template #tab4>
-        <div class="tab-content">
-          <h3>Tab 4</h3>
-          <p>这个标签可关闭 (带close=true)</p>
-        </div>
-      </template>
-    </Tabs>
-  </div>
-</template>
-
-<script setup>
-import { ref } from "vue";
-
-const partialClosableTab = ref(0);
-const partialClosableTabs = ref([
-  { label: "Tab 1", name: "tab1" },
-  { label: "Tab 2", name: "tab2", close: true },
-  { label: "Tab 3", name: "tab3" },
-  { label: "Tab 4", name: "tab4", close: true },
-]);
-
-const handlePartialClose = (index) => {
-  // 防止关闭所有可关闭的标签页
-  const closableCount = partialClosableTabs.value.filter(
-    (tab) => tab.close
-  ).length;
-  if (closableCount <= 1) {
-    // alert("至少需要保留一个可关闭的标签页");
-    return;
-  }
-
-  // 从tabs数组中移除对应标签
-  partialClosableTabs.value.splice(index, 1);
-
-  // 如果关闭的是当前激活的标签页，自动激活前一个标签页
-  if (partialClosableTab.value === index) {
-    partialClosableTab.value = Math.min(
-      index,
-      partialClosableTabs.value.length - 1
-    );
-  }
-};
-</script>
-
-<style scoped>
-.demo-tabs-partial-closable {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.tab-content {
-  padding: 20px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
-}
-</style>
-```
+<<< ../demo/Tabs/TabsDemo17.vue
 
 </CollapsibleCode>
 
@@ -1530,6 +257,8 @@ const handlePartialClose = (index) => {
 | `size`        | 标签尺寸，可选值为 `small`、`default`、`large`                                  | `string`     | `default` |
 | `closable`    | 是否可关闭                                                                      | `boolean`    | `false`   |
 | `buttonStyle` | 是否使用按钮样式的标签页                                                        | `boolean`    | `false`   |
+| `tabsBg`      | 浅色背景                                                                        | `boolean`    |
+| `tabsBgStyle` | 自定义背景样式                                                                  | `object`     | `{}`      |
 
 ### Tab 接口
 

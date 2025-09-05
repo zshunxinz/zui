@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onMounted, onBeforeUnmount } from 'vue';
+import { computed, ref, onMounted, onBeforeUnmount } from "vue";
 
 // 定义间距大小类型
 interface SpaceSize {
@@ -25,13 +25,19 @@ interface SpaceSize {
   xl?: number;
 }
 
-type SizeType = number | 'mini' | 'small' | 'medium' | 'large' | [SizeType, SizeType];
+type SizeType =
+  | number
+  | "mini"
+  | "small"
+  | "medium"
+  | "large"
+  | [SizeType, SizeType];
 
 interface Props {
   // 对齐方式
-  align?: 'start' | 'end' | 'center' | 'baseline';
+  align?: "start" | "end" | "center" | "baseline";
   // 间距方向
-  direction?: 'vertical' | 'horizontal';
+  direction?: "vertical" | "horizontal";
   // 间距大小
   size?: SizeType;
   // 环绕类型的间距
@@ -43,33 +49,33 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  direction: 'horizontal',
-  size: 'small',
+  direction: "horizontal",
+  size: "small",
   wrap: false,
   fill: false,
   items: () => [],
-  align: 'start'
+  align: "start",
 });
 
 // 计算间距类名
 const spaceClasses = computed(() => ({
   [`x-space--${props.direction}`]: true,
   [`x-space--align-${props.align}`]: true,
-  'x-space--wrap': props.wrap,
-  'x-space--fill': props.fill
+  "x-space--wrap": props.wrap,
+  "x-space--fill": props.fill,
 }));
 
 // 计算间距样式
 const spaceStyles = computed(() => {
   const styles: Record<string, string> = {};
   const size = getSizeValue(props.size);
-  
-  if (props.direction === 'horizontal') {
-    styles['gap'] = `${size}px`;
+
+  if (props.direction === "horizontal") {
+    styles["gap"] = `${size}px`;
   } else {
-    styles['gap'] = `${size}px`;
+    styles["gap"] = `${size}px`;
   }
-  
+
   return styles;
 });
 
@@ -77,25 +83,27 @@ const spaceStyles = computed(() => {
 function getSizeValue(size: SizeType): number {
   // 定义预设间距大小
   const sizeMap: Record<string, number> = {
-    'mini': 4,
-    'small': 8,
-    'medium': 12,
-    'large': 16
+    mini: 4,
+    small: 8,
+    medium: 12,
+    large: 16,
   };
-  
+
   // 如果是数组类型，根据方向选择对应的大小
   if (Array.isArray(size)) {
     const [horizontal, vertical = horizontal] = size;
-    return props.direction === 'horizontal' ? getSizeValue(horizontal) : getSizeValue(vertical);
+    return props.direction === "horizontal"
+      ? getSizeValue(horizontal)
+      : getSizeValue(vertical);
   }
-  
+
   // 如果是字符串类型，从预设中获取
-  if (typeof size === 'string') {
-    return sizeMap[size] || sizeMap['small'];
+  if (typeof size === "string") {
+    return sizeMap[size] || sizeMap["small"];
   }
-  
+
   // 如果是数字类型，直接返回
-  return typeof size === 'number' ? size : sizeMap['small'];
+  return typeof size === "number" ? size : sizeMap["small"];
 }
 </script>
 

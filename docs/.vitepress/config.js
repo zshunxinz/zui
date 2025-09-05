@@ -30,6 +30,7 @@ export default defineConfig({
           { text: "0.0.3", link: "/update/0.0.3" },
           { text: "0.0.4", link: "/update/0.0.4" },
           { text: "0.0.5", link: "/update/0.0.5" },
+          { text: "0.0.6", link: "/update/0.0.6" },
         ],
       },
     ],

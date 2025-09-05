@@ -3,30 +3,13 @@
 一组备选项中进行多选
 
 <script setup>
-import { ref, computed } from 'vue';
-
-const checked1 = ref(false);
-const checked2 = ref(false);
-const checked3 = ref(false);
-const checked4 = ref(false);
-
-const checkedList = ref([]);
-const checkAll = ref(false);
-const isIndeterminate = computed(() => {
-  return checkedList.value.length > 0 && checkedList.value.length < 3;
-});
-
-const handleCheckAllChange = (val) => {
-  checked1.value = val;
-  checked2.value = val;
-  checked3.value = val;
-  checkedList.value = val ? ['备选项1', '备选项2', '备选项3'] : [];
-};
-
-const handleCheckedChange = (val) => {
-  checkAll.value = val.length === 3;
-};
-
+import CheckboxDemo1 from '../demo/Checkbox/CheckboxDemo1.vue'
+import CheckboxDemo2 from '../demo/Checkbox/CheckboxDemo2.vue'
+import CheckboxDemo3 from '../demo/Checkbox/CheckboxDemo3.vue'
+import CheckboxDemo4 from '../demo/Checkbox/CheckboxDemo4.vue'
+import CheckboxDemo5 from '../demo/Checkbox/CheckboxDemo5.vue'
+import CheckboxDemo6 from '../demo/Checkbox/CheckboxDemo6.vue'
+import CheckboxDemo7 from '../demo/Checkbox/CheckboxDemo7.vue'
 </script>
 
 <style scoped>
@@ -51,33 +34,12 @@ const handleCheckedChange = (val) => {
 单独使用可以表示两种状态之间的切换，写在标签中的内容为 checkbox 按钮后的介绍。
 
 <Demo>
-  <div class="checkbox-demo">
-    <div class="checkbox-group">
-      <Checkbox v-model="checked1" label="HTML"></Checkbox>
-      <Checkbox v-model="checked2" label="CSS"></Checkbox>
-    </div>
-  </div>
+<CheckboxDemo1/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <div class="checkbox-demo">
-    <div class="checkbox-group">
-      <Checkbox v-model="checked1" label="HTML"></Checkbox>
-      <Checkbox v-model="checked2" label="CSS"></Checkbox>
-    </div>
-  </div>
-</template>
-
-<script setup>
-import { ref } from 'vue';
-
-const checked1 = ref(false);
-const checked2 = ref(false);
-</script>
-```
+<<< ../demo/Checkbox/CheckboxDemo1.vue
 
 </CollapsibleCode>
 
@@ -85,39 +47,12 @@ const checked2 = ref(false);
 通过设置`color`属性可以自定义多选框的颜色主题，支持`primary`、`success`、`danger`等内置主题色。
 
 <Demo>
-  <div class="checkbox-demo">
-    <div class="checkbox-type-demo">
-      <Checkbox v-model="checked1" label="Primary" color="primary"></Checkbox>
-      <Checkbox v-model="checked2" label="Success" color="success"></Checkbox>
-      <Checkbox v-model="checked3" label="Danger" color="danger"></Checkbox>
-      <Checkbox v-model="checked4" label="Warning" color="warning"></Checkbox>
-    </div>
-  </div>
+<CheckboxDemo2/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <div class="checkbox-demo">
-    <div class="checkbox-type-demo">
-      <Checkbox v-model="checked1" label="Primary" color="primary"></Checkbox>
-      <Checkbox v-model="checked2" label="Success" color="success"></Checkbox>
-      <Checkbox v-model="checked3" label="Danger" color="danger"></Checkbox>
-      <Checkbox v-model="checked4" label="Warning" color="warning"></Checkbox>
-    </div>
-  </div>
-</template>
-
-<script setup>
-import { ref } from 'vue';
-
-const checked1 = ref(true);
-const checked2 = ref(false);
-const checked3 = ref(false);
-const checked4 = ref(false);
-</script>
-```
+<<< ../demo/Checkbox/CheckboxDemo2.vue
 
 </CollapsibleCode>
 
@@ -126,33 +61,12 @@ const checked4 = ref(false);
 通过设置`disabled`属性可以禁用多选框，禁用的多选框无法被选中或取消选中。
 
 <Demo>
-  <div class="checkbox-demo">
-    <div class="checkbox-type-demo">
-      <Checkbox v-model="checked1" label="禁用选项" disabled></Checkbox>
-      <Checkbox v-model="checked2" label="已选中的禁用选项" disabled></Checkbox>
-    </div>
-  </div>
+<CheckboxDemo3/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <div class="checkbox-demo">
-    <div class="checkbox-type-demo">
-      <Checkbox v-model="checked1" label="禁用选项" disabled></Checkbox>
-      <Checkbox v-model="checked2" label="已选中的禁用选项" disabled></Checkbox>
-    </div>
-  </div>
-</template>
-
-<script setup>
-import { ref } from 'vue';
-
-const checked1 = ref(false);
-const checked2 = ref(true);
-</script>
-```
+<<< ../demo/Checkbox/CheckboxDemo3.vue
 
 </CollapsibleCode>
 
@@ -161,55 +75,12 @@ const checked2 = ref(true);
 通过`CheckboxGroup`组件可以创建多选框组，实现全选/全不选功能。
 
 <Demo>
-  <div class="checkbox-demo">
-    <div class="checkbox-type-demo">
-      <Checkbox v-model="checkAll" :indeterminate="isIndeterminate" @change="handleCheckAllChange">全选</Checkbox>
-      <div style="margin: 15px 0"></div>
-      <CheckboxGroup v-model="checkedList" @change="handleCheckedChange">
-        <Checkbox label="备选项1"></Checkbox>
-        <Checkbox label="备选项2"></Checkbox>
-        <Checkbox label="备选项3"></Checkbox>
-      </CheckboxGroup>
-    </div>
-  </div>
+<CheckboxDemo4/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <div class="checkbox-demo">
-    <div class="checkbox-type-demo">
-      <Checkbox v-model="checkAll" :indeterminate="isIndeterminate" @change="handleCheckAllChange">全选</Checkbox>
-      <div style="margin: 15px 0"></div>
-      <CheckboxGroup v-model="checkedList" @change="handleCheckedChange">
-        <Checkbox label="备选项1"></Checkbox>
-        <Checkbox label="备选项2"></Checkbox>
-        <Checkbox label="备选项3"></Checkbox>
-      </CheckboxGroup>
-    </div>
-  </div>
-</template>
-
-<script setup>
-import { ref, computed } from 'vue';
-
-const checkedList = ref([]);
-const checkAll = ref(false);
-const isIndeterminate = computed(() => {
-  return checkedList.value.length > 0 && checkedList.value.length < 3;
-});
-
-const handleCheckAllChange = (val) => {
-  checkedList.value = val ? ['备选项1', '备选项2', '备选项3'] : [];
-};
-
-const handleCheckedChange = (value) => {
-  const checkedCount = value.length;
-  checkAll.value = checkedCount === 3;
-};
-</script>
-```
+<<< ../demo/Checkbox/CheckboxDemo4.vue
 
 </CollapsibleCode>
 
@@ -218,40 +89,12 @@ const handleCheckedChange = (value) => {
 按钮样式的多选框可通过`CheckboxButton`组件实现
 
 <Demo>
-  <div class="checkbox-demo">
-    <div class="checkbox-type-demo">
-      <CheckboxGroup v-model="checkedList" size="small">
-        <CheckboxButton label="备选项1" color="primary"></CheckboxButton>
-        <CheckboxButton label="备选项2" color="success"></CheckboxButton>
-        <CheckboxButton label="备选项3" color="warning"></CheckboxButton>
-        <CheckboxButton label="备选项4" color="danger"></CheckboxButton>
-      </CheckboxGroup>
-    </div>
-  </div>
+<CheckboxDemo5/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <div class="checkbox-demo">
-    <div class="checkbox-type-demo">
-      <CheckboxGroup v-model="checkedList" size="small">
-        <CheckboxButton label="备选项1" color="primary"></CheckboxButton>
-        <CheckboxButton label="备选项2" color="success"></CheckboxButton>
-        <CheckboxButton label="备选项3" color="warning"></CheckboxButton>
-        <CheckboxButton label="备选项4" color="danger"></CheckboxButton>
-      </CheckboxGroup>
-    </div>
-  </div>
-</template>
-
-<script setup>
-import { ref } from 'vue';
-
-const checkedList = ref(['备选项1', '备选项3']);
-</script>
-```
+<<< ../demo/Checkbox/CheckboxDemo5.vue
 
 </CollapsibleCode>
 
@@ -260,36 +103,12 @@ const checkedList = ref(['备选项1', '备选项3']);
 设置`border`属性可以渲染为带有边框的多选框。
 
 <Demo>
-  <div class="checkbox-demo">
-    <div class="checkbox-type-demo">
-      <Checkbox v-model="checked1" label="HTML" border></Checkbox>
-      <Checkbox v-model="checked2" label="CSS" border></Checkbox>
-      <Checkbox v-model="checked3" label="JavaScript" border></Checkbox>
-    </div>
-  </div>
+<CheckboxDemo6/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <div class="checkbox-demo">
-    <div class="checkbox-type-demo">
-      <Checkbox v-model="checked1" label="HTML" border></Checkbox>
-      <Checkbox v-model="checked2" label="CSS" border></Checkbox>
-      <Checkbox v-model="checked3" label="JavaScript" border></Checkbox>
-    </div>
-  </div>
-</template>
-
-<script setup>
-import { ref } from 'vue';
-
-const checked1 = ref(true);
-const checked2 = ref(false);
-const checked3 = ref(false);
-</script>
-```
+<<< ../demo/Checkbox/CheckboxDemo6.vue
 
 </CollapsibleCode>
 
@@ -298,56 +117,12 @@ const checked3 = ref(false);
 `indeterminate`属性用以表示 checkbox 的不确定状态，一般用于实现全选的效果。
 
 <Demo>
-  <div class="checkbox-demo">
-    <div class="checkbox-type-demo">
-      <Checkbox v-model="checkAll" :indeterminate="isIndeterminate" @change="handleCheckAllChange">全选</Checkbox>
-      <div style="margin: 15px 0"></div>
-      <CheckboxGroup v-model="checkedList" @change="handleCheckedChange">
-        <Checkbox label="备选项1"></Checkbox>
-        <Checkbox label="备选项2"></Checkbox>
-        <Checkbox label="备选项3"></Checkbox>
-      </CheckboxGroup>
-    </div>
-  </div>
+<CheckboxDemo7/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <div class="checkbox-demo">
-    <div class="checkbox-type-demo">
-      <Checkbox v-model="checkAll" :indeterminate="isIndeterminate" @change="handleCheckAllChange">全选</Checkbox>
-      <div style="margin: 15px 0"></div>
-      <CheckboxGroup v-model="checkedList" @change="handleCheckedChange">
-        <Checkbox label="备选项1"></Checkbox>
-        <Checkbox label="备选项2"></Checkbox>
-        <Checkbox label="备选项3"></Checkbox>
-      </CheckboxGroup>
-    </div>
-  </div>
-</template>
-
-<script setup>
-import { ref, computed } from 'vue';
-
-const checkedList = ref([]);
-const checkAll = ref(false);
-const isIndeterminate = computed(() => {
-  return checkedList.value.length > 0 && checkedList.value.length < 3;
-});
-
-const handleCheckAllChange = (val) => {
-  checkedList.value = val ? ['备选项1', '备选项2', '备选项3'] : [];
-};
-
-const handleCheckedChange = (value) => {
-  const checkedCount = value.length;
-  checkAll.value = checkedCount === 3;
-};
-</script>
-
-```
+<<< ../demo/Checkbox/CheckboxDemo7.vue
 
 </CollapsibleCode>
 

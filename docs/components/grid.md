@@ -1,5 +1,18 @@
 # Grid 网格布局
 
+<script setup>
+import GridDemo1 from '../demo/Grid/GridDemo1.vue';
+import GridDemo2 from '../demo/Grid/GridDemo2.vue';
+import GridDemo3 from '../demo/Grid/GridDemo3.vue';
+import GridDemo4 from '../demo/Grid/GridDemo4.vue';
+import GridDemo5 from '../demo/Grid/GridDemo5.vue';
+import GridDemo6 from '../demo/Grid/GridDemo6.vue';
+import GridDemo7 from '../demo/Grid/GridDemo7.vue';
+import GridDemo8 from '../demo/Grid/GridDemo8.vue';
+import GridDemo9 from '../demo/Grid/GridDemo9.vue';
+import GridDemo10 from '../demo/Grid/GridDemo10.vue';
+</script>
+
 网格布局使用 24 列栅格系统，通过`Row`和`Col`组件快速创建响应式布局。
 
 ## 基础用法
@@ -17,53 +30,27 @@
     }
 
     .demo-box{
-      text-align: center; 
-      color:hsl(0, 0%, 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color:var(--color-text-1);
       background:hsl(217.2 91.2% 59.8%);
       border:1px solid hsla(200.6,94.4%,86.1%,0.5);
+      background:var(--color-bg);
+      border:1px solid var(--color-default);
+      color:var(--color-default);
       padding:10px;
+      margin:1px 1px;
     }
 </style>
 
 <Demo>
-<Row>
-  <Col :span="12"><div class="demo-box">col-12</div></Col>
-  <Col :span="12"><div class="demo-box">col-12</div></Col>
-</Row>
-<Row>
-  <Col :span="8"><div class="demo-box">col-8</div></Col>
-  <Col :span="8"><div class="demo-box">col-8</div></Col>
-  <Col :span="8"><div class="demo-box">col-8</div></Col>
-</Row>
-<Row>
-  <Col :span="6"><div class="demo-box">col-6</div></Col>
-  <Col :span="6"><div class="demo-box">col-6</div></Col>
-  <Col :span="6"><div class="demo-box">col-6</div></Col>
-  <Col :span="6"><div class="demo-box">col-6</div></Col>
-</Row>
+<GridDemo1/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <Row>
-    <Col :span="12"><div class="demo-box">col-12</div></Col>
-    <Col :span="12"><div class="demo-box">col-12</div></Col>
-  </Row>
-  <Row>
-    <Col :span="8"><div class="demo-box">col-8</div></Col>
-    <Col :span="8"><div class="demo-box">col-8</div></Col>
-    <Col :span="8"><div class="demo-box">col-8</div></Col>
-  </Row>
-  <Row>
-    <Col :span="6"><div class="demo-box">col-6</div></Col>
-    <Col :span="6"><div class="demo-box">col-6</div></Col>
-    <Col :span="6"><div class="demo-box">col-6</div></Col>
-    <Col :span="6"><div class="demo-box">col-6</div></Col>
-  </Row>
-</template>
-```
+<<< ../demo/Grid/GridDemo1.vue
 
 </CollapsibleCode>
 
@@ -72,27 +59,12 @@
 通过`gutter`属性设置列之间的间距，单位为`px`。
 
 <Demo>
-<Row :gutter="16">
-  <Col :span="6"><div class="demo-box">col-6</div></Col>
-  <Col :span="6"><div class="demo-box">col-6</div></Col>
-  <Col :span="6"><div class="demo-box">col-6</div></Col>
-  <Col :span="6"><div class="demo-box">col-6</div></Col>
-</Row>
-
+<GridDemo2/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <Row :gutter="16">
-    <Col :span="6"><div class="demo-box">col-6</div></Col>
-    <Col :span="6"><div class="demo-box">col-6</div></Col>
-    <Col :span="6"><div class="demo-box">col-6</div></Col>
-    <Col :span="6"><div class="demo-box">col-6</div></Col>
-  </Row>
-</template>
-```
+<<< ../demo/Grid/GridDemo2.vue
 
 </CollapsibleCode>
 
@@ -109,58 +81,12 @@
 可传入数字指定列宽，或对象形式指定更复杂配置：
 
 <Demo>
-
-<Row>
-  <Col :xs="24" :sm="12" :md="8" :lg="6" :xl="4">
-    <div class="demo-box">响应式列</div>
-  </Col>
-  <Col :xs="24" :sm="12" :md="8" :lg="6" :xl="4">
-    <div class="demo-box">响应式列</div>
-  </Col>
-  <Col :xs="24" :sm="12" :md="8" :lg="6" :xl="4">
-    <div class="demo-box">响应式列</div>
-  </Col>
-  <Col :xs="24" :sm="12" :md="8" :lg="6" :xl="4">
-    <div class="demo-box">响应式列</div>
-  </Col>
-  <Col :xs="24" :sm="12" :md="8" :lg="6" :xl="4">
-    <div class="demo-box">响应式列</div>
-  </Col>
-  <Col :xs="24" :sm="12" :md="8" :lg="6" :xl="4">
-    <div class="demo-box">响应式列</div>
-  </Col>
-</Row>
+<GridDemo3/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <Row>
-    <Col :xs="24" :sm="12" :md="8" :lg="6" :xl="4">
-      <div class="demo-box">响应式列</div>
-    </Col>
-    <Col :xs="24" :sm="12" :md="8" :lg="6" :xl="4">
-      <div class="demo-box">响应式列</div>
-    </Col>
-    <Col :xs="24" :sm="12" :md="8" :lg="6" :xl="4">
-      <div class="demo-box">响应式列</div>
-    </Col>
-    <Col :xs="24" :sm="12" :md="8" :lg="6" :xl="4">
-      <div class="demo-box">响应式列</div>
-    </Col>
-    <Col :xs="24" :sm="12" :md="8" :lg="6" :xl="4">
-      <div class="demo-box">响应式列</div>
-    </Col>
-    <Col :xs="24" :sm="12" :md="8" :lg="6" :xl="4">
-      <div class="demo-box">响应式列</div>
-    </Col>
-    <Col :xs="24" :sm="12" :md="8" :lg="6" :xl="4">
-      <div class="demo-box">响应式列</div>
-    </Col>
-  </Row>
-</template>
-```
+<<< ../demo/Grid/GridDemo3.vue
 
 </CollapsibleCode>
 
@@ -169,31 +95,12 @@
 通过`offset`属性设置列的偏移量，实现列之间的间距控制：
 
 <Demo>
-<Row>
-  <Col :span="8">
-    <div class="demo-box">col-8</div>
-  </Col>
-  <Col :span="8" :offset="8">
-    <div class="demo-box">col-8 offset-8</div>
-  </Col>
-  
-</Row>
+<GridDemo4/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <Row>
-    <Col :span="8">
-      <div class="demo-box">col-8</div>
-    </Col>
-    <Col :span="8" :offset="8">
-      <div class="demo-box">col-8 offset-8</div>
-    </Col>
-  </Row>
-</template>
-```
+<<< ../demo/Grid/GridDemo4.vue
 
 </CollapsibleCode>
 
@@ -201,31 +108,12 @@
 
 通过`push`（右移）和`pull`（左移）属性调整列的顺序：
 <Demo>
-<Row :gutter="16">
-
-  <Col :span="6" :push="8" style="background:rgb(173, 255, 207);">
-    <div class="demo-box">span: 10, push: 14（向右移动14列）</div>
-  </Col>
-  <Col :span="6" :pull="5" style="background:rgb(255, 207, 173);">
-    <div class="demo-box">span: 14, pull: 10（向左移动10列）</div>
-  </Col>
-</Row>
+<GridDemo5/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <Row :gutter="16">
-    <Col :span="10" :push="14" style="background: #f0f0f0; padding: 10px;"
-      >span: 10, push: 14（向右移动14列）</Col
-    >
-    <Col :span="14" :pull="10" style="background: #f0f0f0; padding: 10px;"
-      >span: 14, pull: 10（向左移动10列）</Col
-    >
-  </Row>
-</template>
-```
+<<< ../demo/Grid/GridDemo5.vue
 
 </CollapsibleCode>
 
@@ -235,46 +123,12 @@
 
 通过 Row 组件的`align`属性设置列的垂直对齐方式：
 <Demo>
-<Row align="top" style="height: 100px; background:var(--bg-color-1); margin-bottom: 10px;border:var(--border-1);">
-
-  <Col :span="8" ><div class="demo-box">align: top</div></Col>
-</Row>
-<Row align="middle" style="height: 100px; background:var(--bg-color-1); margin-bottom: 10px;border:var(--border-1);">
-  <Col :span="8" ><div class="demo-box">垂直居中对齐</div></Col>
-</Row>
-<Row align="bottom" style="height: 100px; background:var(--bg-color-1); margin-bottom: 10px;border:var(--border-1);">
-  <Col :span="8" ><div class="demo-box">垂直底部对齐</div></Col>
-</Row>
+<GridDemo6/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<script setup>
-import Row from "../../src/components/Row.vue";
-import Col from "../../src/components/Col.vue";
-</script>
-<template>
-  <Row
-    align="top"
-    style="height: 100px; background: #f5f5f5; margin-bottom: 10px;"
-  >
-    <Col :span="8" style="height: 30px; background: #ccc;">align: top</Col>
-    <Col :span="8" style="height: 60px; background: #ccc;">垂直顶部对齐</Col>
-  </Row>
-  <Row
-    align="middle"
-    style="height: 100px; background: #f5f5f5; margin-bottom: 10px;"
-  >
-    <Col :span="8" style="height: 30px; background: #ccc;">align: middle</Col>
-    <Col :span="8" style="height: 60px; background: #ccc;">垂直居中对齐</Col>
-  </Row>
-  <Row align="bottom" style="height: 100px; background: #f5f5f5;">
-    <Col :span="8" style="height: 30px; background: #ccc;">align: bottom</Col>
-    <Col :span="8" style="height: 60px; background: #ccc;">垂直底部对齐</Col>
-  </Row>
-</template>
-```
+<<< ../demo/Grid/GridDemo6.vue
 
 </CollapsibleCode>
 
@@ -282,56 +136,12 @@ import Col from "../../src/components/Col.vue";
 
 通过 Row 组件的`justify`属性设置列的水平排列方式：
 <Demo>
-<Row justify="start" style="background: var(--bg-color-1); margin-bottom: 10px;">
-
-  <Col :span="8" class="demo-box">justify: start</Col>
-  <Col :span="8" class="demo-box">左对齐</Col>
-</Row>
-<Row justify="center" style="background: var(--bg-color-1); margin-bottom: 10px;">
-  <Col :span="8" class="demo-box">justify: center</Col>
-  <Col :span="8" class="demo-box">居中对齐</Col>
-</Row>
-<Row justify="end" style="background: var(--bg-color-1); margin-bottom: 10px;">
-  <Col :span="8" class="demo-box">justify: end</Col>
-  <Col :span="8" class="demo-box">右对齐</Col>
-</Row>
-<Row justify="space-around" style="background: var(--bg-color-1); margin-bottom: 10px;">
-  <Col :span="8" class="demo-box">justify: space-around</Col>
-  <Col :span="8" class="demo-box">等距环绕</Col>
-</Row>
-<Row justify="space-between" style="background: var(--bg-color-1);">
-  <Col :span="8" class="demo-box">justify: space-between</Col>
-  <Col :span="8" class="demo-box">两端对齐</Col>
-</Row>
-
+<GridDemo7/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <Row justify="start" style="background: #f5f5f5; margin-bottom: 10px;">
-    <Col :span="8" class="demo-box">justify: start</Col>
-    <Col :span="8" class="demo-box">左对齐</Col>
-  </Row>
-  <Row justify="center" style="background: #f5f5f5; margin-bottom: 10px;">
-    <Col :span="8" class="demo-box">justify: center</Col>
-    <Col :span="8" class="demo-box">居中对齐</Col>
-  </Row>
-  <Row justify="end" style="background: #f5f5f5; margin-bottom: 10px;">
-    <Col :span="8" class="demo-box">justify: end</Col>
-    <Col :span="8" class="demo-box">右对齐</Col>
-  </Row>
-  <Row justify="space-around" style="background: #f5f5f5; margin-bottom: 10px;">
-    <Col :span="8" class="demo-box">justify: space-around</Col>
-    <Col :span="8" class="demo-box">等距环绕</Col>
-  </Row>
-  <Row justify="space-between" style="background: #f5f5f5;">
-    <Col :span="8" class="demo-box">justify: space-between</Col>
-    <Col :span="8" class="demo-box">两端对齐</Col>
-  </Row>
-</template>
-```
+<<< ../demo/Grid/GridDemo7.vue
 
 </CollapsibleCode>
 
@@ -339,50 +149,12 @@ import Col from "../../src/components/Col.vue";
 
 Col 组件内部可以嵌套 Row 组件，实现复杂布局：
 <Demo>
-<Row :gutter="10">
-
-  <Col :span="12">
-      <Col :span="24" class="demo-box">嵌套列 1</Col>
-      <Col :span="24" class="demo-box">嵌套列 1</Col>
-      <Row>
-          <Col :span="6" class="demo-box">嵌套列 3</Col>
-          <Col :span="12" class="demo-box">嵌套列 4</Col>
-          <Col :span="6" class="demo-box">嵌套列 5</Col>
-      </Row>
-  </Col>
-  <Col :span="12" >
-    <Col :span="24" class="demo-box">嵌套列 3</Col>
-    <Col :span="24" class="demo-box">嵌套列 4</Col>
-    <Col :span="24">
-      <Row :gutter="10" :span="24" justify="space-between">
-        <Col :span="6" class="demo-box">嵌套列 3</Col>
-        <Col :span="6" class="demo-box">嵌套列 3</Col>
-      </Row>
-    </Col>
-  </Col>
-</Row>
+<GridDemo8/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <Row :gutter="12">
-    <Col :span="12">
-      <Col :span="24" class="demo-box">嵌套列 1</Col>
-      <Col :span="24" class="demo-box">嵌套列 2</Col>
-    </Col>
-    <Col :span="12">
-      <Col :span="24" class="demo-box">嵌套列 3</Col>
-      <Col :span="24" class="demo-box">嵌套列 4</Col>
-      <Row>
-        <Col :span="12" class="demo-box">嵌套列 3</Col>
-        <Col :span="12" class="demo-box">嵌套列 4</Col>
-      </Row>
-    </Col>
-  </Row>
-</template>
-```
+<<< ../demo/Grid/GridDemo8.vue
 
 </CollapsibleCode>
 
@@ -390,88 +162,19 @@ Col 组件内部可以嵌套 Row 组件，实现复杂布局：
 
 Col 组件的`span`属性可以设置为数字或对象，用于响应式布局。例如：
 <Demo>
-<Row>
-
-  <Col 
-    :xs="{ span: 5, offset: 1 }" 
-    :lg="{ span: 6, offset: 2 }"
-  class="demo-box">
-    Col
-  </Col>
-  <Col 
-    :xs="{ span: 11, offset: 1 }" 
-    :lg="{ span: 6, offset: 2 }"
-  class="demo-box">
-    Col
-  </Col>
-  <Col 
-    :xs="{ span: 5, offset: 1 }" 
-    :lg="{ span: 6, offset: 2 }"
-  class="demo-box">
-    Col
-  </Col>
-</Row>
+<GridDemo9/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <Row>
-    <Col
-      :xs="{ span: 5, offset: 1 }"
-      :lg="{ span: 6, offset: 2 }"
-      class="demo-box"
-    >
-      Col
-    </Col>
-    <Col
-      :xs="{ span: 11, offset: 1 }"
-      :lg="{ span: 6, offset: 2 }"
-      class="demo-box"
-    >
-      Col
-    </Col>
-    <Col
-      :xs="{ span: 5, offset: 1 }"
-      :lg="{ span: 6, offset: 2 }"
-      class="demo-box"
-    >
-      Col
-    </Col>
-  </Row>
-</template>
-```
+<<< ../demo/Grid/GridDemo9.vue
 
 </CollapsibleCode>
 
 ## 典型页面布局
 
 <Demo>
-
-<div class="page-layout">
-  <Row>
-    <Col :span="24" >
-      <header class="header">Header</header>
-    </Col>
-  </Row>
-  <Row>
-    <Col :xs="24" :sm="24" :md="6" :lg="4" :xl="4">
-      <aside class="sidebar">Sidebar</aside>
-    </Col>
-    <Col :xs="24" :sm="24" :md="12" :lg="16" :xl="16">
-      <main class="main-content">Main Content</main>
-    </Col>
-    <Col :xs="24" :sm="24" :md="6" :lg="4" :xl="4">
-      <aside class="right-sidebar">Right Sidebar</aside>
-    </Col>
-  </Row>
-  <Row>
-    <Col :span="24">
-      <footer class="footer">Footer</footer>
-    </Col>
-  </Row>
-</div>
+<GridDemo10/>
 </Demo>
 
 <style scoped>
@@ -503,33 +206,7 @@ Col 组件的`span`属性可以设置为数字或对象，用于响应式布局�
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <div class="page-layout">
-    <Row>
-      <Col :span="24">
-        <header class="header">Header</header>
-      </Col>
-    </Row>
-    <Row :gutter="16">
-      <Col :xs="24" :sm="24" :md="6" :lg="4" :xl="4">
-        <aside class="sidebar">Sidebar</aside>
-      </Col>
-      <Col :xs="24" :sm="24" :md="12" :lg="16" :xl="16">
-        <main class="main-content">Main Content</main>
-      </Col>
-      <Col :xs="24" :sm="24" :md="6" :lg="4" :xl="4">
-        <aside class="right-sidebar">Right Sidebar</aside>
-      </Col>
-    </Row>
-    <Row>
-      <Col :span="24">
-        <footer class="footer">Footer</footer>
-      </Col>
-    </Row>
-  </div>
-</template>
-```
+<<< ../demo/Grid/GridDemo10.vue
 
 </CollapsibleCode>
 

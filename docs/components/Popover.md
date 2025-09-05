@@ -1,5 +1,15 @@
 # Popover 弹出层
 
+<script setup>
+import PopoverDemo1 from '../demo/Popover/PopoverDemo1.vue';
+import PopoverDemo2 from '../demo/Popover/PopoverDemo2.vue';
+import PopoverDemo3 from '../demo/Popover/PopoverDemo3.vue';
+import PopoverDemo4 from '../demo/Popover/PopoverDemo4.vue';
+import PopoverDemo5 from '../demo/Popover/PopoverDemo5.vue';
+import PopoverDemo6 from '../demo/Popover/PopoverDemo6.vue';
+import PopoverDemo7 from '../demo/Popover/PopoverDemo7.vue';
+</script>
+
 Popover 组件用于显示一个可以通过元素触发的、包含丰富内容的弹出层。它可以附加到任何元素上，并在用户与之交互时显示相关信息或操作。
 
 ## 基础用法
@@ -7,32 +17,12 @@ Popover 组件用于显示一个可以通过元素触发的、包含丰富内容
 最简单的 Popover 组件使用方式，点击按钮显示弹出内容。
 
 <Demo>
-  <Popover>
-    <Button>打开弹出层</Button>
-    <template #content>
-      <div class="x-popover-demo">
-        <h4>Popover 内容</h4>
-        <p>这是一个简单的Popover示例</p>
-      </div>
-    </template>
-  </Popover>
+  <PopoverDemo1/>
 </Demo>
 
 <CollapsibleCode>
 
-```vue
-<template>
-  <Popover>
-    <Button>打开弹出层</Button>
-    <template #content>
-      <div>
-        <h4>Popover 内容</h4>
-        <p>这是一个简单的Popover示例</p>
-      </div>
-    </template>
-  </Popover>
-</template>
-```
+<<< ../demo/Popover/PopoverDemo1.vue
 
 </CollapsibleCode>
 
@@ -41,213 +31,84 @@ Popover 组件用于显示一个可以通过元素触发的、包含丰富内容
 Popover 组件支持多种位置设置，可以根据需要显示在触发元素的不同方位。
 
 <Demo>
-  <Space wrap>
-    <Popover placement="top">
-      <Button>上</Button>
-      <template #content>
-        <div class="x-popover-demo">
-          <p>顶部弹出</p>
-        </div>
-      </template>
-    </Popover>
-    <Popover placement="bottom">
-      <Button>下</Button>
-      <template #content>
-        <div class="x-popover-demo">
-          <p>底部弹出</p>
-        </div>
-      </template>
-    </Popover>
-    <Popover placement="left">
-      <Button>左</Button>
-      <template #content>
-        <div class="x-popover-demo">
-          <p>左侧弹出</p>
-        </div>
-      </template>
-    </Popover>
-    <Popover placement="right">
-      <Button>右</Button>
-      <template #content>
-        <div class="x-popover-demo">
-          <p>右侧弹出</p>
-        </div>
-      </template>
-    </Popover>
-  </Space>
+  <PopoverDemo2/>
 </Demo>
 
-```vue
-<Popover placement="top">
-  <Button>上</Button>
-  <template #content>
-    <div>
-      <p>顶部弹出</p>
-    </div>
-  </template>
-</Popover>
+<CollapsibleCode>
 
-<Popover placement="bottom">
-  <Button>下</Button>
-  <template #content>
-    <div>
-      <p>底部弹出</p>
-    </div>
-  </template>
-</Popover>
+<<< ../demo/Popover/PopoverDemo2.vue
 
-<Popover placement="left">
-  <Button>左</Button>
-  <template #content>
-    <div>
-      <p>左侧弹出</p>
-    </div>
-  </template>
-</Popover>
-
-<Popover placement="right">
-  <Button>右</Button>
-  <template #content>
-    <div>
-      <p>右侧弹出</p>
-    </div>
-  </template>
-</Popover>
-```
+</CollapsibleCode>
 
 ## 带偏移的弹出层
 
 通过设置`offset`属性，可以调整弹出层与触发元素之间的距离。
 
 <Demo>
-  <Popover placement="right" :offset="20">
-    <Button>带偏移的弹出层</Button>
-    <template #content>
-      <div class="x-popover-demo">
-        <p>这是一个带有20px偏移的弹出层</p>
-      </div>
-    </template>
-  </Popover>
+  <PopoverDemo3/>
 </Demo>
 
-```vue
-<Popover placement="right" :offset="20">
-  <Button>带偏移的弹出层</Button>
-  <template #content>
-    <div>
-      <p>这是一个带有20px偏移的弹出层</p>
-    </div>
-  </template>
-</Popover>
-```
+<CollapsibleCode>
+
+<<< ../demo/Popover/PopoverDemo3.vue
+
+</CollapsibleCode>
 
 ## 禁用覆盖层
 
 通过设置`overlay`属性为`false`，可以禁用弹出层的背景覆盖。
 
 <Demo>
-  <Popover :overlay="false">
-    <Button>无覆盖层</Button>
-    <template #content>
-      <div class="x-popover-demo">
-        <p>点击空白处不会关闭弹出层</p>
-      </div>
-    </template>
-  </Popover>
+  <PopoverDemo4/>
 </Demo>
 
-```vue
-<Popover :overlay="false">
-  <Button>无覆盖层</Button>
-  <template #content>
-    <div>
-      <p>点击空白处不会关闭弹出层</p>
-    </div>
-  </template>
-</Popover>
-```
+<CollapsibleCode>
+
+<<< ../demo/Popover/PopoverDemo4.vue
+
+</CollapsibleCode>
 
 ## 禁用箭头
 
 通过设置`arrow`属性为`false`，可以禁用弹出层的箭头。
 
 <Demo>
-  <Popover :arrow="false">
-    <Button>无箭头</Button>
-    <template #content>
-      <div class="x-popover-demo">
-        <p>这是一个没有箭头的弹出层</p>
-      </div>
-    </template>
-  </Popover>
+  <PopoverDemo5/>
 </Demo>
 
-```vue
-<Popover :arrow="false">
-  <Button>无箭头</Button>
-  <template #content>
-    <div>
-      <p>这是一个没有箭头的弹出层</p>
-    </div>
-  </template>
-</Popover>
-```
+<CollapsibleCode>
+
+<<< ../demo/Popover/PopoverDemo5.vue
+
+</CollapsibleCode>
 
 ## 自定义尺寸
 
 通过设置`width`和`height`属性，可以自定义弹出层的尺寸。
 
 <Demo>
-  <Popover placement="bottom" width="300" height="200">
-    <Button>自定义尺寸</Button>
-    <template #content>
-      <div class="x-popover-demo" style="height: 100%; display: flex; flex-direction: column;">
-        <h4>自定义尺寸的弹出层</h4>
-        <p>宽度：300px，高度：200px</p>
-        <div style="flex: 1;"></div>
-      </div>
-    </template>
-  </Popover>
+  <PopoverDemo6/>
 </Demo>
 
-```vue
-<Popover placement="bottom" width="300" height="200">
-  <Button>自定义尺寸</Button>
-  <template #content>
-    <div style="height: 100%; display: flex; flex-direction: column;">
-      <h4>自定义尺寸的弹出层</h4>
-      <p>宽度：300px，高度：200px</p>
-      <div style="flex: 1;"></div>
-    </div>
-  </template>
-</Popover>
-```
+<CollapsibleCode>
+
+<<< ../demo/Popover/PopoverDemo6.vue
+
+</CollapsibleCode>
 
 ## 禁用状态
 
 通过设置`disabled`属性，可以禁用 Popover 组件。
 
 <Demo>
-  <Popover disabled>
-    <Button disabled>禁用状态</Button>
-    <template #content>
-      <div class="x-popover-demo">
-        <p>这是禁用状态的弹出层</p>
-      </div>
-    </template>
-  </Popover>
+  <PopoverDemo7/>
 </Demo>
 
-```vue
-<Popover disabled>
-  <Button disabled>禁用状态</Button>
-  <template #content>
-    <div>
-      <p>这是禁用状态的弹出层</p>
-    </div>
-  </template>
-</Popover>
-```
+<CollapsibleCode>
+
+<<< ../demo/Popover/PopoverDemo7.vue
+
+</CollapsibleCode>
 
 ## API
 
