@@ -21,7 +21,7 @@
       ref="selectWrapper"
       :style="[{ width }, { height }, $attrs.style]"
     >
-      <div class="x-select__tags" v-if="multiple">
+      <div class="x-select__tags" v-if="multiple && displayTags.length > 0">
         <div
           v-for="(tag, index) in displayTags"
           :key="index"
@@ -76,12 +76,12 @@
         type="text"
         class="x-select__input"
         :placeholder="inputPlaceholder"
-        v-model="searchQuery"
+        v-model="inputValue"
         @input="handleFilter"
         @focus="handleFocus"
         @blur="handleBlur"
         :disabled="disabled"
-        :readonly="!filterable || (multiple && !allowCreate)"
+        :readonly="!filterable"
         ref="inputRef"
       />
 
@@ -92,8 +92,8 @@
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
+          width="14"
+          height="14"
           viewBox="0 0 24 24"
           fill="none"
           :stroke="`var(--color-${type})`"
@@ -113,7 +113,7 @@
         height="14"
         viewBox="0 0 24 24"
         fill="none"
-        stroke="currentColor"
+        :stroke="`var(--color-${type})`"
         stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
@@ -289,7 +289,16 @@
             v-else-if="filteredOptions.length === 0"
             class="x-select-dropdown__empty"
           >
-            <slot name="empty">{{ noDataText }}</slot>
+            <slot name="empty">
+              <!-- 远程搜索模式下显示无匹配结果 -->
+              <template v-if="props.remote && searchQuery">
+                {{ noMatchText }}
+              </template>
+              <!-- 非远程模式或无搜索查询时显示无数据 -->
+              <template v-else>
+                {{ noDataText }}
+              </template>
+            </slot>
           </div>
           <slot name="footer" />
         </div>
@@ -549,6 +558,7 @@ const emit = defineEmits([
   'blur',
   'focus',
   'popup-scroll',
+  'search',
 ]);
 
 const visible = ref(false);
@@ -559,6 +569,12 @@ const selectWrapper = ref(null);
 const dropdownRef = ref(null);
 const selectData = ref();
 const selectDataList = ref([]);
+
+// 远程搜索模式下的已选中选项缓存
+const remoteSelectedOptionsCache = ref(new Map());
+
+// 用户是否正在主动输入（而不是自动清空）
+const isUserTyping = ref(false);
 
 const selectedOptions = computed(() => {
   if (!props.modelValue) return [];
@@ -572,13 +588,91 @@ const selectedOptions = computed(() => {
 
 const displayTags = computed(() => {
   const selectedLabels = selectedOptions.value.map(value => {
+    // 远程搜索模式下优先使用缓存的选项信息
+    if (props.remote && remoteSelectedOptionsCache.value.has(value)) {
+      const cachedOption = remoteSelectedOptionsCache.value.get(value);
+      return cachedOption;
+    }
+
     // 从有效选项中查找对应的label
     const option = effectiveOptions.value.find(opt => getValue(opt) === value);
-    return option || { value, label: value };
+    if (option) {
+      return option;
+    }
+
+    // fallback 到值作为标签
+    return { value, label: value };
   });
 
   if (!props.collapseTags) return selectedLabels;
   return selectedLabels.slice(0, props.maxCollapseTags);
+});
+
+// 计算输入框应该显示的值——优化远程搜索模式下的状态管理
+const inputValue = computed({
+  get() {
+    // 根据经验教训，必须优先处理 isUserTyping 状态
+    // 如果用户正在主动输入（包括删除到空），优先显示搜索内容
+    if (isUserTyping.value) {
+      return searchQuery.value;
+    }
+
+    // 在可搜索的单选模式下，优化远程搜索的处理逻辑
+    if (
+      props.filterable &&
+      !props.multiple &&
+      selectedOptions.value.length > 0 &&
+      !isUserTyping.value
+    ) {
+      const currentValue = selectedOptions.value[0];
+
+      // 远程搜索模式下的优化处理：按优先级顺序检查
+      if (props.remote) {
+        // 1. 首先检查缓存，这是最可靠的数据源
+        if (remoteSelectedOptionsCache.value.has(currentValue)) {
+          const cachedOption =
+            remoteSelectedOptionsCache.value.get(currentValue);
+          return cachedOption.label;
+        }
+
+        // 2. 检查当前直接设置的 selectData
+        if (selectData.value && selectData.value.label) {
+          return selectData.value.label;
+        }
+      } else {
+        // 非远程模式下优先检查 selectData
+        if (selectData.value && selectData.value.label) {
+          return selectData.value.label;
+        }
+      }
+
+      // 3. 从有效选项中查找
+      const option = effectiveOptions.value.find(
+        opt => getValue(opt) === currentValue
+      );
+
+      if (option) {
+        const label = getLabel(option);
+        return label;
+      }
+
+      // 4. fallback 到当前值
+      return currentValue;
+    }
+
+    // 多选模式下，输入框应该始终显示空字符串或搜索内容，不显示选中的标签
+    if (props.multiple) {
+      return '';
+    }
+
+    // 其他情况显示空字符串（让 placeholder 显示）
+    return '';
+  },
+  set(value) {
+    // 用户开始输入，标记为正在输入状态
+    isUserTyping.value = true;
+    searchQuery.value = value;
+  },
 });
 
 // 计算输入框的 placeholder
@@ -589,20 +683,47 @@ const inputPlaceholder = computed(() => {
     return selectedOptions.value.length > 0 ? '' : props.placeholder;
   }
 
-  // 单选模式下，如果有搜索内容或者没有选中值，显示 placeholder
-  if (searchQuery.value || !selectedLabel.value) {
-    return props.placeholder;
+  // 单选模式下，如果有选中值且没有搜索内容，不显示placeholder（因为会显示选中的值）
+  if (!searchQuery.value && selectedLabel.value) {
+    return '';
   }
 
-  // 如果没有搜索内容且有选中值，显示选中的标签
-  return selectedLabel.value;
+  // 其他情况显示默认 placeholder
+  return props.placeholder;
+});
+
+// 用于强制更新 slot 解析的响应式 key
+const slotUpdateKey = ref(0);
+
+// 缓存解析后的选项以优化性能
+const parsedOptionsCache = ref(new Map());
+const cacheKey = computed(() => {
+  // 修复缓存键生成逻辑，避免在组件未完全渲染时缓存空结果
+  // 只有在有实际 slot 内容时才进行缓存
+  const instance = getCurrentInstance();
+  const hasSlots = instance?.slots.default ? 'has-slots' : 'no-slots';
+  return `${slotUpdateKey.value}-${hasSlots}-${searchQuery.value}`;
 });
 
 const slotOptions = computed(() => {
-  const options = [];
-  const slots = getCurrentInstance()?.slots.default?.() || [];
+  // 获取当前缓存键
+  const currentCacheKey = cacheKey.value;
 
-  console.log('🔍 调试 slots:', slots);
+  // 先获取 slots，如果没有 slot 内容则直接返回空数组
+  const instance = getCurrentInstance();
+  const slots = instance?.slots.default?.() || [];
+
+  // 如果没有 slot 内容，直接返回空数组，不进行缓存
+  if (!slots || slots.length === 0) {
+    return [];
+  }
+
+  // 检查缓存，只有在有实际 slot 内容时才使用缓存
+  if (parsedOptionsCache.value.has(currentCacheKey)) {
+    return parsedOptionsCache.value.get(currentCacheKey);
+  }
+
+  const options = [];
 
   // 定义递归处理函数，支持嵌套分组和折叠状态
   const processVNode = (
@@ -627,16 +748,6 @@ const slotOptions = computed(() => {
     }
 
     const componentName = vnode.type.name || vnode.type.__name || '';
-    console.log(
-      `🏷️ 处理组件: ${componentName}`,
-      vnode.props,
-      '当前分组路径:',
-      groupPath,
-      '父级折叠状态:',
-      parentCollapsed,
-      '当前层级:',
-      currentLevel
-    );
 
     // 处理 OptionGroup
     if (componentName === 'OptionGroup') {
@@ -656,17 +767,19 @@ const slotOptions = computed(() => {
         },
       ];
 
-      console.log(`📁 处理分组: ${currentGroupLabel}，完整路径:`, newGroupPath);
-      console.log(
-        `📁 分组可折叠: ${isCollapsible}，默认折叠: ${defaultCollapsed}，图标位置: ${iconPosition}，层级: ${groupLevel}`
-      );
+      // 在开发环境下才输出调试日志
+      if (process.env.NODE_ENV === 'development') {
+        console.log(
+          `📁 处理分组: ${currentGroupLabel}，完整路径:`,
+          newGroupPath
+        );
+      }
 
       // 如果当前分组折叠或父级折叠，则跳过子元素处理
       const isCurrentCollapsed = defaultCollapsed || parentCollapsed;
 
       // 处理 OptionGroup 的 children
       if (!isCurrentCollapsed && vnode.children && vnode.children.default) {
-        console.log('📁 分组有default slot，处理子元素');
         const groupChildren = vnode.children.default();
         processVNode(
           groupChildren,
@@ -675,28 +788,26 @@ const slotOptions = computed(() => {
           groupLevel + 1
         );
       } else if (!isCurrentCollapsed && vnode.children) {
-        console.log('📁 分组有直接children，处理子元素');
         processVNode(
           vnode.children,
           newGroupPath,
           isCurrentCollapsed,
           groupLevel + 1
         );
-      } else {
-        console.log('📁 分组已折叠或无子元素，跳过处理');
       }
     }
     // 处理 Option
     else if (componentName === 'Option') {
       // 如果父级分组折叠，则不添加此选项
       if (parentCollapsed) {
-        console.log('❌ 选项被折叠的分组隐藏，跳过添加');
         return;
       }
 
       // 使用最后一个分组作为主要分组标签，同时保存完整路径
       const mainGroupLabel =
         groupPath.length > 0 ? groupPath[groupPath.length - 1].label : null;
+      // 选项的层级应该等于当前分组的深度
+      const optionLevel = groupPath.length;
       const option = {
         value: vnode.props?.value,
         label: vnode.props?.label || vnode.props?.value,
@@ -704,9 +815,8 @@ const slotOptions = computed(() => {
         groupLabel: mainGroupLabel,
         groupPath: groupPath.map(g => g.label), // 保存标签路径
         groupInfo: [...groupPath], // 保存完整的分组信息（包含折叠状态）
-        groupLevel: currentLevel, // 选项所在的层级
+        groupLevel: optionLevel, // 选项所在的层级 = 分组深度
       };
-      console.log('✅ 添加选项:', option);
       options.push(option);
     }
     // 处理其他有 children 的节点
@@ -727,11 +837,32 @@ const slotOptions = computed(() => {
   // 开始处理
   processVNode(slots);
 
-  console.log('🎯 最终选项列表:', options);
+  // 只有在有实际解析结果时才缓存
+  if (options.length > 0) {
+    parsedOptionsCache.value.set(currentCacheKey, options);
+
+    // 清理过期缓存（保持最近的10个结果）
+    if (parsedOptionsCache.value.size > 10) {
+      const firstKey = parsedOptionsCache.value.keys().next().value;
+      parsedOptionsCache.value.delete(firstKey);
+    }
+  }
+
   return options;
 });
 
 const effectiveOptions = computed(() => {
+  // 远程搜索模式下的逻辑调整：优先考虑 slot 内容，然后是 props.options
+  if (props.remote) {
+    // 如果有 slot 内容（如分组远程搜索），优先使用 slot
+    if (slotOptions.value.length > 0) {
+      return slotOptions.value;
+    }
+    // 没有 slot 内容时使用 props.options（如普通远程搜索）
+    return props.options;
+  }
+
+  // 非远程模式下优先使用 slot 解析的选项
   const options =
     slotOptions.value.length > 0 ? slotOptions.value : props.options;
   return options;
@@ -773,11 +904,14 @@ const toggleGroupCollapse = groupInfo => {
   // 在搜索模式下，我们需要重新渲染数据
   // 这里可以发出事件或者更新状态
   groupInfo.collapsed = !groupInfo.collapsed;
-  console.log(
-    `🔄 切换分组折叠状态: ${groupInfo.label} -> ${
-      groupInfo.collapsed ? '折叠' : '展开'
-    }`
-  );
+  // 在开发环境下才输出调试日志
+  if (process.env.NODE_ENV === 'development') {
+    console.log(
+      `🔄 切换分组折叠状态: ${groupInfo.label} -> ${
+        groupInfo.collapsed ? '折叠' : '展开'
+      }`
+    );
+  }
 
   // 触发重新计算
   // 这里我们需要触发 slotOptions 的重新计算
@@ -789,20 +923,22 @@ const getGroupLabelStyle = groupInfo => {
   const level = groupInfo.level || 0;
   const baseIndent = level * 6; // 每层缩进6px
   return {
-    marginLeft: `${baseIndent}px`,
-    fontSize: level > 1 ? '11px' : '12px',
-    opacity: Math.max(1 - level * 0.1, 0.6), // 每层递减0.1，最小0.6
-    padding: level > 1 ? '6px 12px' : '8px 12px',
+    marginLeft: `${baseIndent}px !important`,
+    fontSize: `${level > 1 ? '11px' : '12px'} !important`,
+    opacity: `${Math.max(1 - level * 0.1, 0.6)} !important`, // 每层递减0.1，最小0.6
+    padding: `${level > 1 ? '6px 12px' : '8px 12px'} !important`,
   };
 };
 
 // 计算选项的动态样式
 const getOptionStyle = option => {
   const level = option.groupLevel || 0;
-  const baseIndent = level * 8; // 选项每层缩进8px
-  return {
-    paddingLeft: `${12 + baseIndent}px`, // 基础padding 12px + 层级缩进
+  const baseIndent = level * 6; // 选项每层缩进6px，与分组保持一致
+  const style = {
+    paddingLeft: `${12 + baseIndent}px !important`, // 基础padding 12px + 层级缩进，使用!important确保优先级
   };
+
+  return style;
 };
 
 const filteredOptions = computed(() => {
@@ -871,15 +1007,40 @@ const toggleDropdown = () => {
 const selectOption = option => {
   if (getDisabled(option)) return;
 
-  console.log(option);
-
   const value = getValue(option);
+  const label = getLabel(option);
 
+  // 根据项目规范，在远程搜索模式下优先处理状态更新
+  // 1. 首先立即缓存选中的选项信息
+  if (props.remote) {
+    const cachedOption = {
+      value: value,
+      label: label,
+      disabled: getDisabled(option),
+      ...option,
+    };
+    remoteSelectedOptionsCache.value.set(value, cachedOption);
+  }
+
+  // 2. 立即更新 selectData，确保 inputValue 计算能获取到最新数据
+  selectData.value = option;
+
+  // 3. 根据规范立即清空搜索状态，防止闪现
+  if (!props.reserveKeyword) {
+    searchQuery.value = '';
+    isUserTyping.value = false;
+  }
+
+  // 4. 然后处理值的更新
   if (props.multiple) {
     const newValue = [...selectedOptions.value];
     const index = newValue.indexOf(value);
     if (index > -1) {
       newValue.splice(index, 1);
+      // 移除多选时也移除缓存
+      if (props.remote) {
+        remoteSelectedOptionsCache.value.delete(value);
+      }
     } else if (
       props.multipleLimit === 0 ||
       newValue.length < props.multipleLimit
@@ -889,15 +1050,10 @@ const selectOption = option => {
     emit('update:modelValue', newValue);
     emit('change', newValue);
   } else {
-    selectData.value = option;
     emit('update:modelValue', value);
     emit('change', value);
     visible.value = false;
     emit('visible-change', false);
-  }
-
-  if (!props.reserveKeyword) {
-    searchQuery.value = '';
   }
 };
 
@@ -913,21 +1069,51 @@ const clear = () => {
   emit('clear');
   emit('change', props.multiple ? [] : '');
   searchQuery.value = '';
+  isUserTyping.value = false; // 重置输入状态
+
+  // 清空远程搜索缓存
+  if (props.remote) {
+    remoteSelectedOptionsCache.value.clear();
+  }
 };
 
+// 远程搜索防抖定时器
+const remoteSearchTimer = ref(null);
+
+// 优化的防抖处理函数
+const debouncedRemoteSearch = computed(() => {
+  let timer = null;
+  return query => {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => {
+      props.remoteMethod(query);
+    }, 300);
+  };
+});
+
 const handleFilter = () => {
+  // 触发搜索事件
+  emit('search', searchQuery.value);
+
   if (props.remote && props.remoteMethod) {
-    props.remoteMethod(searchQuery.value);
+    // 清除之前的定时器
+    if (remoteSearchTimer.value) {
+      clearTimeout(remoteSearchTimer.value);
+    }
+
+    // 如果搜索查询为空，直接调用远程方法
+    if (!searchQuery.value.trim()) {
+      props.remoteMethod('');
+      return;
+    }
+
+    // 使用优化的防抖函数
+    debouncedRemoteSearch.value(searchQuery.value);
   }
 };
 
 const handleFocus = () => {
   emit('focus');
-
-  // 在聚焦时，如果是可搜索的单选模式且有选中值，清空搜索框以便输入
-  if (props.filterable && !props.multiple && selectedLabel.value) {
-    searchQuery.value = '';
-  }
 
   // 可搜索模式下聚焦时自动打开下拉框
   if (props.filterable && !visible.value) {
@@ -942,11 +1128,26 @@ const handleFocus = () => {
 const handleBlur = () => {
   emit('blur');
 
+  // 在失去焦点时，检查用户是否正在输入且输入框为空
+  if (isUserTyping.value && !searchQuery.value.trim()) {
+    // 如果用户手动清空了输入框，在失去焦点时重置输入状态
+    // 但保持空内容，不自动还原到选中的标签
+    setTimeout(() => {
+      if (!visible.value && !searchQuery.value.trim()) {
+        isUserTyping.value = false;
+      }
+    }, 100);
+  } else {
+    // 其他情况下正常重置输入状态
+    isUserTyping.value = false;
+  }
+
   // 在失去焦点时，如果是可搜索的单选模式且没有选中新值，恢复显示选中的标签
   if (props.filterable && !props.multiple && !props.reserveKeyword) {
     // 延迟清空，给点击选项的时间
     setTimeout(() => {
-      if (!visible.value) {
+      if (!visible.value && searchQuery.value.trim() && !isUserTyping.value) {
+        // 只有在不是用户主动清空的情况下才清空搜索内容
         searchQuery.value = '';
       }
     }, 200);
@@ -982,6 +1183,15 @@ onUnmounted(() => {
   if (typeof document !== 'undefined') {
     document.removeEventListener('click', handleClickOutside);
   }
+
+  // 清理远程搜索定时器
+  if (remoteSearchTimer.value) {
+    clearTimeout(remoteSearchTimer.value);
+    remoteSearchTimer.value = null;
+  }
+
+  // 清理缓存
+  parsedOptionsCache.value.clear();
 });
 
 // Provide context for Option components
@@ -999,9 +1209,58 @@ provide('selectContext', {
 
 watch(
   () => props.modelValue,
-  newVal => {
-    if (!props.reserveKeyword) {
-      searchQuery.value = '';
+  (newVal, oldVal) => {
+    // 根据经验教训，需要区分用户操作和外部更新
+    // 在用户选择操作时，selectOption 已经处理了所有状态，这里不需要重复处理
+
+    // 只有在非保留关键字模式下且值确实发生变化时才处理
+    if (!props.reserveKeyword && newVal !== oldVal) {
+      // 延迟重置，确保在非用户输入状态下才清空
+      nextTick(() => {
+        // 只有在不是用户正在输入时才清空搜索
+        if (!isUserTyping.value) {
+          searchQuery.value = '';
+        }
+      });
+    }
+
+    // 在远程搜索模式下，如果值被外部清空，也清理缓存
+    if (
+      props.remote &&
+      (!newVal || (Array.isArray(newVal) && newVal.length === 0))
+    ) {
+      remoteSelectedOptionsCache.value.clear();
+    }
+
+    // 如果是远程搜索模式且有新值，尝试从当前选项中寻找并缓存
+    if (props.remote && newVal && !Array.isArray(newVal)) {
+      // 单选模式下，如果缓存中没有这个值，尝试从当前可用选项中找到并缓存
+      if (!remoteSelectedOptionsCache.value.has(newVal)) {
+        const option = effectiveOptions.value.find(
+          opt => getValue(opt) === newVal
+        );
+        if (option) {
+          const cachedOption = {
+            value: newVal,
+            label: getLabel(option),
+            disabled: getDisabled(option),
+            ...option,
+          };
+          remoteSelectedOptionsCache.value.set(newVal, cachedOption);
+        }
+      }
+    }
+  },
+  { immediate: false } // 不立即执行，避免初始化时的不必要操作
+);
+
+// 监听搜索查询变化，在远程搜索模式下强制更新 slot 解析
+watch(
+  () => searchQuery.value,
+  (newQuery, oldQuery) => {
+    // 在远程搜索模式下，当搜索查询变化时，强制更新 slotOptions
+    if (props.remote && newQuery !== oldQuery) {
+      slotUpdateKey.value++;
     }
   }
 );
@@ -1020,6 +1279,12 @@ let selectedLabel = computed(() => {
 
   // 对于单选模式，从有效选项中查找对应的label
   const currentValue = selectedOptions.value[0];
+
+  // 远程搜索模式下优先使用缓存的选项信息
+  if (props.remote && remoteSelectedOptionsCache.value.has(currentValue)) {
+    const cachedOption = remoteSelectedOptionsCache.value.get(currentValue);
+    return cachedOption.label;
+  }
 
   // 优先检查selectData是否有值（这是用户点击选项时直接传递的完整选项对象）
   if (selectData.value && selectData.value.label) {

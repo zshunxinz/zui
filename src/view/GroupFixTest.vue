@@ -9,19 +9,35 @@
         placeholder="测试可折叠分组"
         @visible-change="onVisibleChange"
       >
-        <OptionGroup label="测试分组1" :collapsible="true" :default-collapsed="false">
+        <OptionGroup
+          label="测试分组1"
+          :collapsible="true"
+          :default-collapsed="false"
+        >
           <Option label="选项1" value="1" />
           <Option label="选项2" value="2" />
-          <OptionGroup label="测试分组2" :collapsible="true" :default-collapsed="true">
+          <OptionGroup
+            label="测试分组2"
+            :collapsible="true"
+            :default-collapsed="true"
+          >
             <Option label="选项03" value="3" />
             <Option label="选项04" value="4" />
-            <OptionGroup label="测试分组3" :collapsible="true" :default-collapsed="false">
+            <OptionGroup
+              label="测试分组3"
+              :collapsible="true"
+              :default-collapsed="false"
+            >
               <Option label="选项05" value="5" />
               <Option label="选项06" value="6" />
             </OptionGroup>
           </OptionGroup>
         </OptionGroup>
-        <OptionGroup label="独立分组" :collapsible="true" :default-collapsed="false">
+        <OptionGroup
+          label="独立分组"
+          :collapsible="true"
+          :default-collapsed="false"
+        >
           <Option label="独立选项1" value="independent1" />
           <Option label="独立选项2" value="independent2" />
         </OptionGroup>
@@ -51,15 +67,27 @@
     <section>
       <h3>可搜索 + 可折叠分组测试</h3>
       <Select v-model="value4" placeholder="搜索可折叠分组" :filterable="true">
-        <OptionGroup label="前端技术" :collapsible="true" :default-collapsed="false">
+        <OptionGroup
+          label="前端技术"
+          :collapsible="true"
+          :default-collapsed="false"
+        >
           <Option label="Vue.js" value="vue" />
           <Option label="React" value="react" />
-          <OptionGroup label="构建工具" :collapsible="true" :default-collapsed="true">
+          <OptionGroup
+            label="构建工具"
+            :collapsible="true"
+            :default-collapsed="true"
+          >
             <Option label="Vite" value="vite" />
             <Option label="Webpack" value="webpack" />
           </OptionGroup>
         </OptionGroup>
-        <OptionGroup label="后端技术" :collapsible="true" :default-collapsed="false">
+        <OptionGroup
+          label="后端技术"
+          :collapsible="true"
+          :default-collapsed="false"
+        >
           <Option label="Node.js" value="nodejs" />
           <Option label="Python" value="python" />
         </OptionGroup>

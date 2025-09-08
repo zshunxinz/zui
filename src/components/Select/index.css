@@ -12,7 +12,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   /* cursor: pointer; */
   padding: var(--padding-2);
   border: 1px solid;
@@ -24,6 +24,11 @@
   width: 100%;
   box-sizing: border-box;
   transition: border-color 0.2s, background-color 0.2s, color 0.2s;
+}
+
+/* 多选模式下确保箭头始终在右侧 */
+.x-select.is-multiple .x-select__wrapper {
+  justify-content: end;
 }
 
 .x-select__wrapper:focus {
@@ -129,6 +134,13 @@
   overflow: auto;
   line-height: 19px;
   align-items: center;
+  margin-right: 8px;
+}
+
+/* 确保在多选模式下内容区域占据剩余空间 */
+.x-select.is-multiple .x-select__tags {
+  flex: 1;
+  min-width: 0;
 }
 
 .x-select__tag {
@@ -218,6 +230,8 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-right: 8px;
+  min-width: 0; /* 确保在空间不足时可以正确收缩 */
 }
 
 .x-select__selected.is-placeholder {
@@ -386,10 +400,11 @@
 }
 
 /* 分组内的选项样式 */
-.x-option-group + .x-select-option,
+/* 注释掉此样式，改由 Select 组件的 getOptionStyle 统一处理缩进 */
+/* .x-option-group + .x-select-option,
 .x-option-group__label + .x-select-option {
   margin-left: 12px;
-}
+} */
 
 /* 嵌套选项的缩进 */
 /* 根据需要通过 JavaScript 动态计算 */

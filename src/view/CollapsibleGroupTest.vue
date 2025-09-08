@@ -187,40 +187,6 @@
     </section>
 
     <section>
-      <h3>可搜索 + 可折叠</h3>
-      <Select v-model="value5" placeholder="搜索技术" :filterable="true">
-        <OptionGroup
-          label="前端"
-          :collapsible="true"
-          :default-collapsed="false"
-          icon-position="left"
-        >
-          <Option label="Vue.js" value="vue" />
-          <Option label="React.js" value="react" />
-          <OptionGroup
-            label="构建工具"
-            :collapsible="true"
-            :default-collapsed="false"
-            icon-position="after-text"
-          >
-            <Option label="Vite" value="vite" />
-            <Option label="Webpack" value="webpack" />
-          </OptionGroup>
-        </OptionGroup>
-        <OptionGroup
-          label="后端"
-          :collapsible="true"
-          :default-collapsed="false"
-          icon-position="right"
-        >
-          <Option label="Express" value="express" />
-          <Option label="Koa" value="koa" />
-        </OptionGroup>
-      </Select>
-      <p>当前值: {{ value5 }}</p>
-    </section>
-
-    <section>
       <h3>🔎 嵌套缩进调试测试</h3>
       <p style="font-size: 12px; color: #666; margin-bottom: 10px">
         打开控制台查看调试信息，验证层级计算是否正确

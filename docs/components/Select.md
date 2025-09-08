@@ -23,6 +23,8 @@ import SelectDemo12 from '../demo/Select/SelectDemo12.vue'
 import SelectDemo13 from '../demo/Select/SelectDemo13.vue'
 import SelectDemo14 from '../demo/Select/SelectDemo14.vue'
 import SelectDemo15 from '../demo/Select/SelectDemo15.vue'
+import SelectDemo16 from '../demo/Select/SelectDemo16.vue'
+import SelectDemo17 from '../demo/Select/SelectDemo17.vue'
 </script>
 
 <Demo>
@@ -231,26 +233,58 @@ import SelectDemo15 from '../demo/Select/SelectDemo15.vue'
 
 </CollapsibleCode>
 
+## 远程搜索
+
+通过设置 `remote` 和 `remote-method` 属性启用远程搜索功能，可以从服务器动态获取数据
+
+<Demo>
+<SelectDemo16/>
+</Demo>
+
+<CollapsibleCode>
+
+<<< ../demo/Select/SelectDemo16.vue
+
+</CollapsibleCode>
+
+## 远程搜索进阶
+
+远程搜索支持多选、分组等高级功能，并提供防抖优化减少请求频率
+
+<Demo>
+<SelectDemo17/>
+</Demo>
+
+<CollapsibleCode>
+
+<<< ../demo/Select/SelectDemo17.vue
+
+</CollapsibleCode>
+
 ## 属性
 
 ### Select 属性
 
-| 属性名                | 说明               | 类型                                       | 可选值                                                | 默认值     |
-| --------------------- | ------------------ | ------------------------------------------ | ----------------------------------------------------- | ---------- |
-| model-value / v-model | 绑定值             | string / number / boolean / object / array | —                                                     | —          |
-| multiple              | 是否多选           | boolean                                    | —                                                     | false      |
-| disabled              | 是否禁用           | boolean                                    | —                                                     | false      |
-| clearable             | 是否可以清空选项   | boolean                                    | —                                                     | false      |
-| filterable            | 是否可搜索         | boolean                                    | —                                                     | false      |
-| placeholder           | 占位符             | string                                     | —                                                     | Select     |
-| type                  | 主题类型           | string                                     | default / primary / success / warning / danger / info | default    |
-| size                  | 尺寸               | string                                     | small / medium / large                                | medium     |
-| options               | 选项数组           | array                                      | —                                                     | []         |
-| collapse-tags         | 是否折叠标签       | boolean                                    | —                                                     | false      |
-| loading               | 是否正在加载       | boolean                                    | —                                                     | false      |
-| loading-text          | 加载时显示的文字   | string                                     | —                                                     | Loading... |
-| no-data-text          | 无数据时显示的文字 | string                                     | —                                                     | No data    |
-| icon-position         | 选中图标位置       | string                                     | left / right                                          | left       |
+| 属性名                | 说明                   | 类型                                       | 可选值                                                | 默认值           |
+| --------------------- | ---------------------- | ------------------------------------------ | ----------------------------------------------------- | ---------------- |
+| model-value / v-model | 绑定值                 | string / number / boolean / object / array | —                                                     | —                |
+| multiple              | 是否多选               | boolean                                    | —                                                     | false            |
+| disabled              | 是否禁用               | boolean                                    | —                                                     | false            |
+| clearable             | 是否可以清空选项       | boolean                                    | —                                                     | false            |
+| filterable            | 是否可搜索             | boolean                                    | —                                                     | false            |
+| remote                | 是否为远程搜索         | boolean                                    | —                                                     | false            |
+| remote-method         | 远程搜索方法           | function                                   | —                                                     | —                |
+| filter-method         | 本地搜索方法           | function                                   | —                                                     | —                |
+| placeholder           | 占位符                 | string                                     | —                                                     | Select           |
+| type                  | 主题类型               | string                                     | default / primary / success / warning / danger / info | default          |
+| size                  | 尺寸                   | string                                     | small / medium / large                                | medium           |
+| options               | 选项数组               | array                                      | —                                                     | []               |
+| collapse-tags         | 是否折叠标签           | boolean                                    | —                                                     | false            |
+| loading               | 是否正在加载           | boolean                                    | —                                                     | false            |
+| loading-text          | 加载时显示的文字       | string                                     | —                                                     | Loading...       |
+| no-data-text          | 无数据时显示的文字     | string                                     | —                                                     | No data          |
+| no-match-text         | 无匹配结果时显示的文字 | string                                     | —                                                     | No matching data |
+| icon-position         | 选中图标位置           | string                                     | left / right                                          | left             |
 
 ### OptionGroup 属性
 
@@ -275,6 +309,7 @@ import SelectDemo15 from '../demo/Select/SelectDemo15.vue'
 | clear          | 可清空的单选模式下用户点击清空按钮时触发 | —                             |
 | focus          | 获得焦点时触发                           | (event: Event)                |
 | blur           | 失去焦点时触发                           | (event: Event)                |
+| search         | 搜索查询发生变化时触发                   | 搜索查询字符串                |
 
 ### OptionGroup 事件
 

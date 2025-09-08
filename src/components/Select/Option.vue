@@ -11,6 +11,7 @@
         [`x-select-option--${effectiveIconPosition}`]: effectiveIconPosition,
       },
     ]"
+    :style="optionStyle"
     @click="handleClick"
     @mouseenter="isHover = true"
     @mouseleave="isHover = false"
@@ -61,6 +62,7 @@
 
 <script setup>
 import { inject, computed, ref, useSlots } from 'vue';
+import { useSelectStyles } from './composables/useSelectStyles';
 
 const props = defineProps({
   label: {
@@ -87,6 +89,9 @@ const optionGroupContext = inject('optionGroup', null);
 const isHover = ref(false);
 const slots = useSlots();
 
+// 使用 composable 获取样式计算函数
+const { getOptionStyle } = useSelectStyles();
+
 // 计算有效的禁用状态（考虑分组禁用）
 const effectiveDisabled = computed(() => {
   return props.disabled || optionGroupContext?.disabled?.value || false;
@@ -94,6 +99,22 @@ const effectiveDisabled = computed(() => {
 
 const effectiveIconPosition = computed(() => {
   return props.iconPosition || selectContext.iconPosition?.value || 'left';
+});
+
+// 计算选项的缩进样式（优化后）
+const optionStyle = computed(() => {
+  // 从 OptionGroup 上下文中获取层级信息
+  if (optionGroupContext && optionGroupContext.level) {
+    const level = optionGroupContext.level.value || 0;
+    if (level > 0) {
+      const styles = getOptionStyle(level);
+      return {
+        paddingLeft: `${styles.paddingLeft} !important`, // 使用 !important 确保优先级
+      };
+    }
+  }
+
+  return {};
 });
 
 const isSelected = computed(() => {
@@ -114,7 +135,7 @@ const handleClick = () => {
 
   let slotLabel = '';
   if (slots.default) {
-    console.log(slots.default());
+    // 优化后的 slot 内容提取
     const slotContent = slots.default();
     if (slotContent && slotContent.length > 0) {
       const content = slotContent[0].children;
@@ -127,12 +148,6 @@ const handleClick = () => {
   const label = props.label || slotLabel || props.value;
 
   if (selectContext.selectOption) {
-    console.log({
-      value: props.value,
-      label: label,
-      disabled: effectiveDisabled.value,
-    });
-
     selectContext.selectOption({
       value: props.value,
       label: label,

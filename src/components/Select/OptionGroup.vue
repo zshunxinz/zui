@@ -87,7 +87,15 @@
 </template>
 
 <script setup>
-import { provide, inject, computed, ref, getCurrentInstance } from 'vue';
+import {
+  provide,
+  inject,
+  computed,
+  ref,
+  getCurrentInstance,
+  onMounted,
+} from 'vue';
+import { useSelectStyles, useGroupLevel } from './composables/useSelectStyles';
 
 const props = defineProps({
   label: {
@@ -121,7 +129,11 @@ const props = defineProps({
 const parentOptionGroup = inject('optionGroup', null);
 const instance = getCurrentInstance();
 
-// 计算当前层级
+// 使用 composable 获取样式计算和层级计算函数
+const { getGroupLabelStyle, getOptionsAreaStyle } = useSelectStyles();
+const { calculateLevelFromInstance } = useGroupLevel();
+
+// 计算当前层级（优化后的算法）
 const currentLevel = computed(() => {
   // 如果明确设置了level属性，使用该值
   if (props.level !== undefined && props.level !== null) {
@@ -133,66 +145,28 @@ const currentLevel = computed(() => {
     return parentOptionGroup.level.value + 1;
   }
 
-  // 如果inject/provide失效，通过组件树手动计算层级
-  let parent = instance.parent;
-  let level = 0;
-  while (parent) {
-    // 检查父组件是否是OptionGroup
-    const isOptionGroup =
-      parent.type &&
-      (parent.type.name === 'OptionGroup' ||
-        parent.type.__name === 'OptionGroup' ||
-        (parent.type.__file && parent.type.__file.includes('OptionGroup.vue')));
-
-    if (isOptionGroup) {
-      level++;
-    }
-    parent = parent.parent;
-  }
-
-  console.log(`🔍 OptionGroup "${props.label}" - 计算层级:`, {
-    propsLevel: props.level,
-    parentLevel: level,
-    parentGroupLevel: parentOptionGroup?.level?.value,
-    calculatedLevel: level,
-    hasParent: !!parentOptionGroup,
-    instanceParent: !!instance.parent,
-    manualCalculation: true,
-  });
-
-  return level;
+  // 使用 composable 计算层级
+  return calculateLevelFromInstance(instance);
 });
 
-// 计算动态样式
+// 计算动态样式（使用 composable）
 const labelStyle = computed(() => {
-  const baseIndent = currentLevel.value * 6; // 每层缩进6px
-  const style = {
-    marginLeft: `${baseIndent}px !important`,
-    fontSize: `${currentLevel.value > 1 ? '11px' : '12px'} !important`,
-    opacity: `${Math.max(1 - currentLevel.value * 0.1, 0.6)} !important`, // 每层递减0.1，最小0.6
-    padding: `${currentLevel.value > 1 ? '6px 12px' : '8px 12px'} !important`,
-  };
-
-  console.log(`🎨 OptionGroup "${props.label}" - 样式计算:`, {
-    level: currentLevel.value,
-    style: style,
-  });
-
-  return style;
+  const styles = getGroupLabelStyle(currentLevel.value);
+  return Object.entries(styles).reduce((acc, [key, value]) => {
+    // 转换为 CSS 属性格式
+    const cssKey = key.replace(/([A-Z])/g, '-$1').toLowerCase();
+    acc[cssKey] = `${value} !important`;
+    return acc;
+  }, {});
 });
 
 const optionsStyle = computed(() => {
-  const baseIndent = currentLevel.value * 4; // 选项区域每层缩进4px
-  const style = {
-    marginLeft: `${baseIndent}px !important`,
-  };
-
-  console.log(`📋 OptionGroup "${props.label}" - 选项区域样式:`, {
-    level: currentLevel.value,
-    style: style,
-  });
-
-  return style;
+  const styles = getOptionsAreaStyle(currentLevel.value);
+  return Object.entries(styles).reduce((acc, [key, value]) => {
+    const cssKey = key.replace(/([A-Z])/g, '-$1').toLowerCase();
+    acc[cssKey] = `${value} !important`;
+    return acc;
+  }, {});
 });
 
 const emit = defineEmits(['collapse-change']);
@@ -228,6 +202,20 @@ provide('optionGroup', {
 // 同时传递 Select 的 context 给子组件
 if (selectContext) {
   provide('selectContext', selectContext);
+}
+
+// 添加调试日志（只在开发环境下）
+if (process.env.NODE_ENV === 'development') {
+  onMounted(() => {
+    console.log(`🔍 OptionGroup "${props.label}" - 初始化:`, {
+      propsLevel: props.level,
+      calculatedLevel: currentLevel.value,
+      hasParent: !!parentOptionGroup,
+      parentLevel: parentOptionGroup?.level?.value,
+      labelStyle: labelStyle.value,
+      optionsStyle: optionsStyle.value,
+    });
+  });
 }
 </script>
 
@@ -316,7 +304,8 @@ if (selectContext) {
 }
 
 /* 使用 :deep() 选择器来影响子组件 */
-.x-option-group__options :deep(.x-select-option) {
+/* 注释掉此样式，改由 Select 组件的 getOptionStyle 统一处理缩进 */
+/* .x-option-group__options :deep(.x-select-option) {
   margin-left: 12px;
-}
+} */
 </style>
