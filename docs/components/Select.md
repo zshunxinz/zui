@@ -18,6 +18,11 @@ import SelectDemo7 from '../demo/Select/SelectDemo7.vue'
 import SelectDemo8 from '../demo/Select/SelectDemo8.vue'
 import SelectDemo9 from '../demo/Select/SelectDemo9.vue'
 import SelectDemo10 from '../demo/Select/SelectDemo10.vue'
+import SelectDemo11 from '../demo/Select/SelectDemo11.vue'
+import SelectDemo12 from '../demo/Select/SelectDemo12.vue'
+import SelectDemo13 from '../demo/Select/SelectDemo13.vue'
+import SelectDemo14 from '../demo/Select/SelectDemo14.vue'
+import SelectDemo15 from '../demo/Select/SelectDemo15.vue'
 </script>
 
 <Demo>
@@ -156,7 +161,79 @@ import SelectDemo10 from '../demo/Select/SelectDemo10.vue'
 
 </CollapsibleCode>
 
+## 分组
+
+使用 `OptionGroup` 组件可以对选项进行分组
+
+<Demo>
+<SelectDemo11/>
+</Demo>
+
+<CollapsibleCode>
+
+<<< ../demo/Select/SelectDemo11.vue
+
+</CollapsibleCode>
+
+## 可折叠分组
+
+通过设置 `collapsible` 属性可以让分组支持折叠功能，使用 `default-collapsed` 设置默认折叠状态
+
+<Demo>
+<SelectDemo12/>
+</Demo>
+
+<CollapsibleCode>
+
+<<< ../demo/Select/SelectDemo12.vue
+
+</CollapsibleCode>
+
+## 嵌套分组
+
+支持多级嵌套分组，每个嵌套层级都可以独立设置折叠状态
+
+<Demo>
+<SelectDemo13/>
+</Demo>
+
+<CollapsibleCode>
+
+<<< ../demo/Select/SelectDemo13.vue
+
+</CollapsibleCode>
+
+## 折叠图标位置
+
+可以通过 `icon-position` 属性设置折叠图标的位置：`left`（左侧）、`after-text`（文字后）、`right`（右侧）
+
+<Demo>
+<SelectDemo14/>
+</Demo>
+
+<CollapsibleCode>
+
+<<< ../demo/Select/SelectDemo14.vue
+
+</CollapsibleCode>
+
+## 可搜索的分组
+
+可折叠分组功能与搜索功能可以同时使用
+
+<Demo>
+<SelectDemo15/>
+</Demo>
+
+<CollapsibleCode>
+
+<<< ../demo/Select/SelectDemo15.vue
+
+</CollapsibleCode>
+
 ## 属性
+
+### Select 属性
 
 | 属性名                | 说明               | 类型                                       | 可选值                                                | 默认值     |
 | --------------------- | ------------------ | ------------------------------------------ | ----------------------------------------------------- | ---------- |
@@ -175,7 +252,20 @@ import SelectDemo10 from '../demo/Select/SelectDemo10.vue'
 | no-data-text          | 无数据时显示的文字 | string                                     | —                                                     | No data    |
 | icon-position         | 选中图标位置       | string                                     | left / right                                          | left       |
 
+### OptionGroup 属性
+
+| 属性名            | 说明           | 类型    | 可选值                    | 默认值 |
+| ----------------- | -------------- | ------- | ------------------------- | ------ |
+| label             | 分组标签       | string  | —                         | —      |
+| disabled          | 是否禁用该分组 | boolean | —                         | false  |
+| collapsible       | 是否可折叠     | boolean | —                         | false  |
+| default-collapsed | 默认折叠状态   | boolean | —                         | false  |
+| icon-position     | 折叠图标位置   | string  | left / after-text / right | left   |
+| level             | 手动设置层级   | number  | —                         | —      |
+
 ## 事件
+
+### Select 事件
 
 | 事件名         | 说明                                     | 回调参数                      |
 | -------------- | ---------------------------------------- | ----------------------------- |
@@ -186,6 +276,12 @@ import SelectDemo10 from '../demo/Select/SelectDemo10.vue'
 | focus          | 获得焦点时触发                           | (event: Event)                |
 | blur           | 失去焦点时触发                           | (event: Event)                |
 
+### OptionGroup 事件
+
+| 事件名          | 说明                   | 回调参数                                |
+| --------------- | ---------------------- | --------------------------------------- |
+| collapse-change | 折叠状态发生变化时触发 | `{ collapsed: boolean, label: string }` |
+
 ## 插槽
 
 | 插槽名  | 说明            |
@@ -195,9 +291,3 @@ import SelectDemo10 from '../demo/Select/SelectDemo10.vue'
 | footer  | 下拉框底部内容  |
 | empty   | 无选项时的内容  |
 | loading | 自定义加载文案  |
-
-<style scoped>
-  .x-select__wrapper {
-    border-color: var(--color-primary);
-  }
-</style>

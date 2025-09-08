@@ -1,8 +1,6 @@
 <template>
   <Select v-model="value" placeholder="请选择">
-    <Option value="数据12356789">
-      数据
-    </Option>
+    <Option value="数据12356789">数据12356789</Option>
     <Option label="选项1" value="1" />
     <Option label="选项2" value="2" />
     <Option label="选项3" value="3" />
@@ -20,6 +18,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-const value = ref('1')
+import { ref } from 'vue';
+const value = ref('1');
 </script>

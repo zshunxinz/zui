@@ -197,24 +197,36 @@
   border: none;
   outline: none;
   background: transparent;
-  /* font-size: var(--font-size-1); */
-  color: var(--color-default-text-1);
+  color: var(--color-text-primary);
+  font-size: inherit;
+}
+
+.x-select__input::placeholder {
+  color: var(--color-text-muted);
 }
 
 .x-select__input:disabled {
   cursor: not-allowed;
   background: transparent;
+  color: var(--color-disabled-text-1);
 }
 
 .x-select__selected {
   flex: 1;
   box-sizing: content-box;
-  /* height: 100%;
-  line-height: 100%; */
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .x-select__selected.is-placeholder {
   color: var(--color-text-muted);
+}
+
+/* 在可搜索模式下隐藏选中文本 */
+.x-select.is-filterable .x-select__selected {
+  display: none;
 }
 
 .x-select__clear {
@@ -301,6 +313,86 @@
   color: var(--color-text-secondary);
   /* font-size: var(--font-size-1); */
 }
+
+/* OptionGroup 样式 */
+.x-option-group__label {
+  padding: 8px 12px;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: var(--color-bg-hover);
+  margin: 4px 0;
+  border-radius: var(--border-radius-0);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 0.2s;
+}
+
+/* 可折叠分组样式 */
+.x-option-group__label.is-collapsible {
+  cursor: pointer;
+  user-select: none;
+}
+
+.x-option-group__label.is-collapsible:hover {
+  background-color: var(--color-bg-hover-1);
+}
+
+/* 图标位置布局 */
+.x-option-group__label.icon-position--left {
+  flex-direction: row;
+}
+
+.x-option-group__label.icon-position--after-text {
+  flex-direction: row;
+  gap: 4px; /* 减小间距，让图标紧贴文字 */
+}
+
+.x-option-group__label.icon-position--right {
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.x-option-group__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  color: var(--color-text-secondary);
+  transform-origin: center;
+  flex-shrink: 0;
+}
+
+/* 展开状态的图标旋转 */
+.x-option-group__icon.is-expanded {
+  transform: rotate(90deg);
+}
+
+.x-option-group__text {
+  flex: 1;
+  min-width: 0;
+}
+
+/* after-text 位置时，文字不占满整个空间 */
+.x-option-group__label.icon-position--after-text .x-option-group__text {
+  flex: 0 1 auto;
+}
+
+/* 右侧图标时文字不需要 flex: 1 */
+.x-option-group__label.icon-position--right .x-option-group__text {
+  flex: 0 1 auto;
+}
+
+/* 分组内的选项样式 */
+.x-option-group + .x-select-option,
+.x-option-group__label + .x-select-option {
+  margin-left: 12px;
+}
+
+/* 嵌套选项的缩进 */
+/* 根据需要通过 JavaScript 动态计算 */
 
 .x-select--small .x-select__wrapper {
   min-height: var(--padding-1);

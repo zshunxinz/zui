@@ -1,20 +1,36 @@
 <template>
-  <div class="x-select-option" :class="[
-    selectContext.type && isSelected
-      ? `is-selected--${selectContext.type.value}`
-      : '',
-    {
-      'is-disabled': disabled,
-      'is-hover': isHover,
-      [`x-select-option--${effectiveIconPosition}`]: effectiveIconPosition,
-    },
-  ]" @click="handleClick" @mouseenter="isHover = true" @mouseleave="isHover = false">
+  <div
+    class="x-select-option"
+    :class="[
+      selectContext.type && isSelected
+        ? `is-selected--${selectContext.type.value}`
+        : '',
+      {
+        'is-disabled': effectiveDisabled,
+        'is-hover': isHover,
+        [`x-select-option--${effectiveIconPosition}`]: effectiveIconPosition,
+      },
+    ]"
+    @click="handleClick"
+    @mouseenter="isHover = true"
+    @mouseleave="isHover = false"
+  >
     <!-- 左侧图标 -->
-    <div v-if="effectiveIconPosition === 'left' && isSelected" class="x-select-option__icon">
-      <slot name="icon" v-bind="{ isSelected, disabled }">
-        <svg class="x-select-option__check-icon" viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
+    <div
+      v-if="effectiveIconPosition === 'left' && isSelected"
+      class="x-select-option__icon"
+    >
+      <slot name="icon" v-bind="{ isSelected, disabled: effectiveDisabled }">
+        <svg
+          class="x-select-option__check-icon"
+          viewBox="0 0 16 16"
+          width="14"
+          height="14"
+          fill="currentColor"
+        >
           <path
-            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"
+          />
         </svg>
       </slot>
     </div>
@@ -22,11 +38,21 @@
     <slot name="default">{{ label || value }}</slot>
 
     <!-- 右侧图标 -->
-    <div v-if="effectiveIconPosition === 'right' && isSelected" class="x-select-option__icon">
-      <slot name="icon" v-bind="{ isSelected, disabled }">
-        <svg class="x-select-option__check-icon" viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
+    <div
+      v-if="effectiveIconPosition === 'right' && isSelected"
+      class="x-select-option__icon"
+    >
+      <slot name="icon" v-bind="{ isSelected, disabled: effectiveDisabled }">
+        <svg
+          class="x-select-option__check-icon"
+          viewBox="0 0 16 16"
+          width="14"
+          height="14"
+          fill="currentColor"
+        >
           <path
-            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"
+          />
         </svg>
       </slot>
     </div>
@@ -34,12 +60,12 @@
 </template>
 
 <script setup>
-import { inject, computed, ref, useSlots } from "vue";
+import { inject, computed, ref, useSlots } from 'vue';
 
 const props = defineProps({
   label: {
     type: String,
-    default: "",
+    default: '',
   },
   value: {
     type: [String, Number, Boolean, Object],
@@ -52,16 +78,22 @@ const props = defineProps({
   iconPosition: {
     type: String,
     default: undefined,
-    validator: (val) => ["left", "right"].includes(val),
+    validator: val => ['left', 'right'].includes(val),
   },
 });
 
-const selectContext = inject("selectContext", {});
+const selectContext = inject('selectContext', {});
+const optionGroupContext = inject('optionGroup', null);
 const isHover = ref(false);
 const slots = useSlots();
 
+// 计算有效的禁用状态（考虑分组禁用）
+const effectiveDisabled = computed(() => {
+  return props.disabled || optionGroupContext?.disabled?.value || false;
+});
+
 const effectiveIconPosition = computed(() => {
-  return props.iconPosition || selectContext.iconPosition?.value || "left";
+  return props.iconPosition || selectContext.iconPosition?.value || 'left';
 });
 
 const isSelected = computed(() => {
@@ -78,15 +110,15 @@ const isSelected = computed(() => {
 
 // const isSelected = ref(false);
 const handleClick = () => {
-  if (props.disabled) return;
+  if (effectiveDisabled.value) return;
 
-  let slotLabel = "";
+  let slotLabel = '';
   if (slots.default) {
     console.log(slots.default());
     const slotContent = slots.default();
     if (slotContent && slotContent.length > 0) {
       const content = slotContent[0].children;
-      if (typeof content === "string") {
+      if (typeof content === 'string') {
         slotLabel = content;
       }
     }
@@ -98,13 +130,13 @@ const handleClick = () => {
     console.log({
       value: props.value,
       label: label,
-      disabled: props.disabled,
+      disabled: effectiveDisabled.value,
     });
 
     selectContext.selectOption({
       value: props.value,
       label: label,
-      disabled: props.disabled,
+      disabled: effectiveDisabled.value,
     });
   }
 };

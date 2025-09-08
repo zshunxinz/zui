@@ -65,7 +65,7 @@
         </span>
       </div>
       <div
-        v-if="!multiple"
+        v-if="!multiple && !filterable"
         class="x-select__selected"
         :class="{ 'is-placeholder': !selectedLabel }"
       >
@@ -75,7 +75,7 @@
         v-if="filterable"
         type="text"
         class="x-select__input"
-        :placeholder="currentPlaceholder"
+        :placeholder="inputPlaceholder"
         v-model="searchQuery"
         @input="handleFilter"
         @focus="handleFocus"
@@ -145,7 +145,134 @@
             class="x-select-dropdown__list"
           >
             <template v-if="$slots.default">
-              <slot></slot>
+              <!-- 当有搜索查询时，使用过滤后的选项渲染 -->
+              <template v-if="searchQuery">
+                <template
+                  v-for="(option, index) in filteredOptions"
+                  :key="option.value"
+                >
+                  <!-- 显示嵌套分组标签，支持折叠功能 -->
+                  <template
+                    v-if="option.groupInfo && option.groupInfo.length > 0"
+                  >
+                    <!-- 检查是否需要显示分组标签（避免重复） -->
+                    <template
+                      v-for="(groupInfo, pathIndex) in option.groupInfo"
+                      :key="`group-${pathIndex}-${groupInfo.label}`"
+                    >
+                      <div
+                        v-if="
+                          shouldShowGroupLabel(
+                            option,
+                            pathIndex,
+                            index,
+                            filteredOptions
+                          )
+                        "
+                        class="x-option-group__label"
+                        :class="[
+                          {
+                            'is-collapsible': groupInfo.collapsible,
+                            'is-collapsed': groupInfo.collapsed,
+                            [`icon-position--${
+                              groupInfo.iconPosition || 'left'
+                            }`]: groupInfo.collapsible,
+                          },
+                        ]"
+                        :style="getGroupLabelStyle(groupInfo)"
+                        @click="
+                          groupInfo.collapsible &&
+                            toggleGroupCollapse(groupInfo)
+                        "
+                      >
+                        <!-- 左侧图标 -->
+                        <span
+                          class="x-option-group__icon"
+                          v-if="
+                            groupInfo.collapsible &&
+                            (groupInfo.iconPosition || 'left') === 'left'
+                          "
+                          :class="{ 'is-expanded': !groupInfo.collapsed }"
+                        >
+                          <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path d="m9 18 6-6-6-6" />
+                          </svg>
+                        </span>
+
+                        <span class="x-option-group__text">{{
+                          groupInfo.label
+                        }}</span>
+
+                        <!-- 文字后图标 -->
+                        <span
+                          class="x-option-group__icon"
+                          v-if="
+                            groupInfo.collapsible &&
+                            (groupInfo.iconPosition || 'left') === 'after-text'
+                          "
+                          :class="{ 'is-expanded': !groupInfo.collapsed }"
+                        >
+                          <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path d="m9 18 6-6-6-6" />
+                          </svg>
+                        </span>
+
+                        <!-- 右侧图标 -->
+                        <span
+                          class="x-option-group__icon"
+                          v-if="
+                            groupInfo.collapsible &&
+                            (groupInfo.iconPosition || 'left') === 'right'
+                          "
+                          :class="{ 'is-expanded': !groupInfo.collapsed }"
+                        >
+                          <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path d="m9 18 6-6-6-6" />
+                          </svg>
+                        </span>
+                      </div>
+                    </template>
+                  </template>
+                  <Option
+                    :label="option.label"
+                    :value="option.value"
+                    :disabled="option.disabled"
+                    :icon-position="iconPosition"
+                    :style="getOptionStyle(option)"
+                  />
+                </template>
+              </template>
+              <!-- 没有搜索时，使用原始 slot 内容 -->
+              <template v-else>
+                <slot></slot>
+              </template>
             </template>
             <template v-else>
               <Option
@@ -156,27 +283,6 @@
                 :disabled="option.disabled"
                 :icon-position="iconPosition"
               ></Option>
-              <!-- <div
-                v-for="(option, index) in filteredOptions"
-                :key="getValue(option) + '-' + index"
-                class="x-select-dropdown__item"
-                :class="{
-                  'is-selected': isSelected(option),
-                  'is-disabled': getDisabled(option),
-                  'is-hover': hoverIndex === index,
-                }"
-                @click="selectOption(option)"
-                @mouseenter="hoverIndex = index"
-              >
-                <slot
-                  name="default"
-                  :option="option"
-                  :selected="isSelected(option)"
-                  :disabled="getDisabled(option)"
-                >
-                  {{ getLabel(option) }}
-                </slot>
-              </div> -->
             </template>
           </div>
           <div
@@ -194,7 +300,7 @@
 </template>
 
 <script setup>
-import Option from "./Option.vue";
+import Option from './Option.vue';
 import {
   ref,
   computed,
@@ -204,7 +310,7 @@ import {
   getCurrentInstance,
   provide,
   watch,
-} from "vue";
+} from 'vue';
 
 const props = defineProps({
   modelValue: {
@@ -222,9 +328,9 @@ const props = defineProps({
   props: {
     type: Object,
     default: () => ({
-      value: "value",
-      label: "label",
-      disabled: "disabled",
+      value: 'value',
+      label: 'label',
+      disabled: 'disabled',
     }),
   },
   disabled: {
@@ -233,20 +339,20 @@ const props = defineProps({
   },
   valueKey: {
     type: String,
-    default: "value",
+    default: 'value',
   },
   type: {
     type: String,
-    default: "default",
-    validator: (val) =>
-      ["default", "primary", "success", "warning", "danger", "info"].includes(
+    default: 'default',
+    validator: val =>
+      ['default', 'primary', 'success', 'warning', 'danger', 'info'].includes(
         val
       ),
   },
   size: {
     type: String,
-    default: "medium",
-    validator: (val) => ["small", "medium", "large"].includes(val),
+    default: 'medium',
+    validator: val => ['small', 'medium', 'large'].includes(val),
   },
   width: {
     type: String,
@@ -272,24 +378,24 @@ const props = defineProps({
   },
   id: {
     type: String,
-    default: "",
+    default: '',
   },
   name: {
     type: String,
-    default: "",
+    default: '',
   },
   effect: {
     type: String,
-    default: "light",
-    validator: (val) => ["dark", "light"].includes(val),
+    default: 'light',
+    validator: val => ['dark', 'light'].includes(val),
   },
   autocomplete: {
     type: String,
-    default: "off",
+    default: 'off',
   },
   placeholder: {
     type: String,
-    default: "Select",
+    default: 'Select',
   },
   filterable: {
     type: Boolean,
@@ -321,19 +427,19 @@ const props = defineProps({
   },
   loadingText: {
     type: String,
-    default: "Loading...",
+    default: 'Loading...',
   },
   noMatchText: {
     type: String,
-    default: "No matching data",
+    default: 'No matching data',
   },
   noDataText: {
     type: String,
-    default: "No data",
+    default: 'No data',
   },
   popperClass: {
     type: String,
-    default: "",
+    default: '',
   },
   reserveKeyword: {
     type: Boolean,
@@ -349,7 +455,7 @@ const props = defineProps({
   },
   appendTo: {
     type: String,
-    default: "body",
+    default: 'body',
   },
   persistent: {
     type: Boolean,
@@ -361,7 +467,7 @@ const props = defineProps({
   },
   clearIcon: {
     type: [String, Object],
-    default: "×",
+    default: '×',
   },
   fitInputWidth: {
     type: Boolean,
@@ -369,15 +475,15 @@ const props = defineProps({
   },
   suffixIcon: {
     type: [String, Object],
-    default: "▼",
+    default: '▼',
   },
   tagType: {
     type: String,
-    default: "info",
+    default: 'info',
   },
   tagEffect: {
     type: String,
-    default: "light",
+    default: 'light',
   },
   validateEvent: {
     type: Boolean,
@@ -393,11 +499,11 @@ const props = defineProps({
   },
   placement: {
     type: String,
-    default: "bottom-start",
+    default: 'bottom-start',
   },
   fallbackPlacements: {
     type: Array,
-    default: () => ["bottom-start", "top-start", "right", "left"],
+    default: () => ['bottom-start', 'top-start', 'right', 'left'],
   },
   maxCollapseTags: {
     type: Number,
@@ -409,15 +515,15 @@ const props = defineProps({
   },
   ariaLabel: {
     type: String,
-    default: "",
+    default: '',
   },
   emptyValues: {
     type: Array,
-    default: () => [undefined, null, ""],
+    default: () => [undefined, null, ''],
   },
   valueOnClear: {
     type: [String, Number, Boolean, Function],
-    default: "",
+    default: '',
   },
   suffixTransition: {
     type: Boolean,
@@ -425,28 +531,28 @@ const props = defineProps({
   },
   tabindex: {
     type: [String, Number],
-    default: "0",
+    default: '0',
   },
   iconPosition: {
     type: String,
-    default: "left",
-    validator: (val) => ["left", "right"].includes(val),
+    default: 'left',
+    validator: val => ['left', 'right', 'after-text'].includes(val),
   },
 });
 
 const emit = defineEmits([
-  "update:modelValue",
-  "change",
-  "visible-change",
-  "remove-tag",
-  "clear",
-  "blur",
-  "focus",
-  "popup-scroll",
+  'update:modelValue',
+  'change',
+  'visible-change',
+  'remove-tag',
+  'clear',
+  'blur',
+  'focus',
+  'popup-scroll',
 ]);
 
 const visible = ref(false);
-const searchQuery = ref("");
+const searchQuery = ref('');
 const hoverIndex = ref(-1);
 const inputRef = ref(null);
 const selectWrapper = ref(null);
@@ -465,11 +571,9 @@ const selectedOptions = computed(() => {
 });
 
 const displayTags = computed(() => {
-  const selectedLabels = selectedOptions.value.map((value) => {
+  const selectedLabels = selectedOptions.value.map(value => {
     // 从有效选项中查找对应的label
-    const option = effectiveOptions.value.find(
-      (opt) => getValue(opt) === value
-    );
+    const option = effectiveOptions.value.find(opt => getValue(opt) === value);
     return option || { value, label: value };
   });
 
@@ -477,70 +581,153 @@ const displayTags = computed(() => {
   return selectedLabels.slice(0, props.maxCollapseTags);
 });
 
-const currentPlaceholder = computed(() => {
-  if (props.multiple && selectedOptions.value.length > 0) return "";
-  return props.placeholder;
+// 计算输入框的 placeholder
+const inputPlaceholder = computed(() => {
+  if (!props.filterable) return '';
+
+  if (props.multiple) {
+    return selectedOptions.value.length > 0 ? '' : props.placeholder;
+  }
+
+  // 单选模式下，如果有搜索内容或者没有选中值，显示 placeholder
+  if (searchQuery.value || !selectedLabel.value) {
+    return props.placeholder;
+  }
+
+  // 如果没有搜索内容且有选中值，显示选中的标签
+  return selectedLabel.value;
 });
 
 const slotOptions = computed(() => {
   const options = [];
   const slots = getCurrentInstance()?.slots.default?.() || [];
 
-  // 提取插槽内容作为标签
-  const getSlotLabel = (slot) => {
-    if (slot.children && typeof slot.children === "function") {
-      const slotContent = slot.children();
-      if (Array.isArray(slotContent) && slotContent.length > 0) {
-        // 尝试获取第一个子节点的文本内容
-        if (typeof slotContent[0] === "string") {
-          return slotContent[0].trim();
-        }
-        // 处理嵌套结构
-        if (
-          slotContent[0].children &&
-          typeof slotContent[0].children === "string"
-        ) {
-          return slotContent[0].children.trim();
-        }
+  console.log('🔍 调试 slots:', slots);
+
+  // 定义递归处理函数，支持嵌套分组和折叠状态
+  const processVNode = (
+    vnode,
+    groupPath = [],
+    parentCollapsed = false,
+    currentLevel = 0
+  ) => {
+    if (!vnode) return;
+
+    // 处理数组
+    if (Array.isArray(vnode)) {
+      vnode.forEach(node =>
+        processVNode(node, groupPath, parentCollapsed, currentLevel)
+      );
+      return;
+    }
+
+    // 处理字符串或其他非对象类型
+    if (typeof vnode !== 'object' || !vnode.type) {
+      return;
+    }
+
+    const componentName = vnode.type.name || vnode.type.__name || '';
+    console.log(
+      `🏷️ 处理组件: ${componentName}`,
+      vnode.props,
+      '当前分组路径:',
+      groupPath,
+      '父级折叠状态:',
+      parentCollapsed,
+      '当前层级:',
+      currentLevel
+    );
+
+    // 处理 OptionGroup
+    if (componentName === 'OptionGroup') {
+      const currentGroupLabel = vnode.props?.label;
+      const isCollapsible = vnode.props?.collapsible || false;
+      const defaultCollapsed = vnode.props?.defaultCollapsed || false;
+      const iconPosition = vnode.props?.iconPosition || 'left';
+      const groupLevel = currentLevel;
+      const newGroupPath = [
+        ...groupPath,
+        {
+          label: currentGroupLabel,
+          collapsible: isCollapsible,
+          collapsed: defaultCollapsed,
+          iconPosition: iconPosition,
+          level: groupLevel,
+        },
+      ];
+
+      console.log(`📁 处理分组: ${currentGroupLabel}，完整路径:`, newGroupPath);
+      console.log(
+        `📁 分组可折叠: ${isCollapsible}，默认折叠: ${defaultCollapsed}，图标位置: ${iconPosition}，层级: ${groupLevel}`
+      );
+
+      // 如果当前分组折叠或父级折叠，则跳过子元素处理
+      const isCurrentCollapsed = defaultCollapsed || parentCollapsed;
+
+      // 处理 OptionGroup 的 children
+      if (!isCurrentCollapsed && vnode.children && vnode.children.default) {
+        console.log('📁 分组有default slot，处理子元素');
+        const groupChildren = vnode.children.default();
+        processVNode(
+          groupChildren,
+          newGroupPath,
+          isCurrentCollapsed,
+          groupLevel + 1
+        );
+      } else if (!isCurrentCollapsed && vnode.children) {
+        console.log('📁 分组有直接children，处理子元素');
+        processVNode(
+          vnode.children,
+          newGroupPath,
+          isCurrentCollapsed,
+          groupLevel + 1
+        );
+      } else {
+        console.log('📁 分组已折叠或无子元素，跳过处理');
       }
     }
-    return null;
+    // 处理 Option
+    else if (componentName === 'Option') {
+      // 如果父级分组折叠，则不添加此选项
+      if (parentCollapsed) {
+        console.log('❌ 选项被折叠的分组隐藏，跳过添加');
+        return;
+      }
+
+      // 使用最后一个分组作为主要分组标签，同时保存完整路径
+      const mainGroupLabel =
+        groupPath.length > 0 ? groupPath[groupPath.length - 1].label : null;
+      const option = {
+        value: vnode.props?.value,
+        label: vnode.props?.label || vnode.props?.value,
+        disabled: vnode.props?.disabled || false,
+        groupLabel: mainGroupLabel,
+        groupPath: groupPath.map(g => g.label), // 保存标签路径
+        groupInfo: [...groupPath], // 保存完整的分组信息（包含折叠状态）
+        groupLevel: currentLevel, // 选项所在的层级
+      };
+      console.log('✅ 添加选项:', option);
+      options.push(option);
+    }
+    // 处理其他有 children 的节点
+    else if (vnode.children) {
+      if (typeof vnode.children === 'function') {
+        processVNode(
+          vnode.children(),
+          groupPath,
+          parentCollapsed,
+          currentLevel
+        );
+      } else {
+        processVNode(vnode.children, groupPath, parentCollapsed, currentLevel);
+      }
+    }
   };
 
-  for (const slot of slots) {
-    if (
-      slot.type?.name === "XOption" ||
-      slot.type?.__name === "XOption" ||
-      slot.type?.__name === "Option"
-    ) {
-      const slotLabel = getSlotLabel(slot);
-      options.push({
-        value: slot.props?.value,
-        label: slot.props?.label || slotLabel || slot.props?.value,
-        disabled: slot.props?.disabled || false,
-      });
-    } else if (slot.type === "template" && slot.children) {
-      // Handle OptionGroup
-      const children = Array.isArray(slot.children)
-        ? slot.children
-        : [slot.children];
-      for (const child of children) {
-        if (Array.isArray(child)) {
-          for (const c of child) {
-            if (c.type?.name === "XOption" || c.type?.__name === "XOption") {
-              const slotLabel = getSlotLabel(c);
-              options.push({
-                value: c.props?.value,
-                label: c.props?.label || slotLabel || c.props?.value,
-                disabled: c.props?.disabled || false,
-              });
-            }
-          }
-        }
-      }
-    }
-  }
+  // 开始处理
+  processVNode(slots);
 
+  console.log('🎯 最终选项列表:', options);
   return options;
 });
 
@@ -549,6 +736,74 @@ const effectiveOptions = computed(() => {
     slotOptions.value.length > 0 ? slotOptions.value : props.options;
   return options;
 });
+
+// 判断是否需要显示分组标签（避免重复显示）
+const shouldShowGroupLabel = (
+  currentOption,
+  pathIndex,
+  currentIndex,
+  allOptions
+) => {
+  // 如果是第一个选项，显示所有级别的分组标签
+  if (currentIndex === 0) {
+    return true;
+  }
+
+  const prevOption = allOptions[currentIndex - 1];
+
+  // 如果前一个选项不存在或没有分组信息，显示当前所有级别
+  if (!prevOption || !prevOption.groupInfo) {
+    return true;
+  }
+
+  // 比较当前和前一个选项的分组信息
+  const currentGroupInfo = currentOption.groupInfo[pathIndex];
+  const prevGroupInfo = prevOption.groupInfo && prevOption.groupInfo[pathIndex];
+
+  // 如果分组信息不同或前一个选项没有这个级别的分组，则显示
+  if (!currentGroupInfo || !prevGroupInfo) {
+    return !!currentGroupInfo;
+  }
+
+  return currentGroupInfo.label !== prevGroupInfo.label;
+};
+
+// 切换分组折叠状态（在搜索模式下）
+const toggleGroupCollapse = groupInfo => {
+  // 在搜索模式下，我们需要重新渲染数据
+  // 这里可以发出事件或者更新状态
+  groupInfo.collapsed = !groupInfo.collapsed;
+  console.log(
+    `🔄 切换分组折叠状态: ${groupInfo.label} -> ${
+      groupInfo.collapsed ? '折叠' : '展开'
+    }`
+  );
+
+  // 触发重新计算
+  // 这里我们需要触发 slotOptions 的重新计算
+  // 可以通过修改一个响应式的 key 来实现
+};
+
+// 计算搜索模式下分组标签的动态样式
+const getGroupLabelStyle = groupInfo => {
+  const level = groupInfo.level || 0;
+  const baseIndent = level * 6; // 每层缩进6px
+  return {
+    marginLeft: `${baseIndent}px`,
+    fontSize: level > 1 ? '11px' : '12px',
+    opacity: Math.max(1 - level * 0.1, 0.6), // 每层递减0.1，最小0.6
+    padding: level > 1 ? '6px 12px' : '8px 12px',
+  };
+};
+
+// 计算选项的动态样式
+const getOptionStyle = option => {
+  const level = option.groupLevel || 0;
+  const baseIndent = level * 8; // 选项每层缩进8px
+  return {
+    paddingLeft: `${12 + baseIndent}px`, // 基础padding 12px + 层级缩进
+  };
+};
 
 const filteredOptions = computed(() => {
   if (!searchQuery.value) return effectiveOptions.value;
@@ -561,38 +816,59 @@ const filteredOptions = computed(() => {
     return effectiveOptions.value;
   }
 
-  return effectiveOptions.value.filter((option) => {
+  // 搜索选项，支持分组内的选项
+  return effectiveOptions.value.filter(option => {
     const label = getLabel(option);
-    return label.toLowerCase().includes(searchQuery.value.toLowerCase());
+    const searchText = searchQuery.value.toLowerCase();
+
+    // 搜索选项标签
+    const labelMatch = label.toLowerCase().includes(searchText);
+
+    // 搜索分组信息中的任意级别
+    const groupMatch =
+      option.groupInfo &&
+      option.groupInfo.some(
+        groupInfo =>
+          groupInfo.label && groupInfo.label.toLowerCase().includes(searchText)
+      );
+
+    return labelMatch || groupMatch;
   });
 });
 
-const getValue = (option) => {
+const getValue = option => {
   return option[props.props.value] || option.value || option;
 };
 
-const getLabel = (option) => {
+const getLabel = option => {
   if (option) {
     return option[props.props.label] || option.label || getValue(option);
   }
 };
 
-const getDisabled = (option) => {
+const getDisabled = option => {
   return option[props.props.disabled] || option.disabled || false;
 };
 
-const isSelected = (option) => {
+const isSelected = option => {
   const value = getValue(option);
   return selectedOptions.value.includes(value);
 };
 
 const toggleDropdown = () => {
   if (props.disabled) return;
+
+  // 如果是可搜索模式，点击时聚焦到输入框
+  if (props.filterable && inputRef.value) {
+    inputRef.value.focus();
+    return;
+  }
+
   visible.value = !visible.value;
-  emit("visible-change", visible.value);
+  emit('visible-change', visible.value);
 };
 
-const selectOption = (option) => {
+const selectOption = option => {
   if (getDisabled(option)) return;
 
   console.log(option);
@@ -610,33 +886,33 @@ const selectOption = (option) => {
     ) {
       newValue.push(value);
     }
-    emit("update:modelValue", newValue);
-    emit("change", newValue);
+    emit('update:modelValue', newValue);
+    emit('change', newValue);
   } else {
     selectData.value = option;
-    emit("update:modelValue", value);
-    emit("change", value);
+    emit('update:modelValue', value);
+    emit('change', value);
     visible.value = false;
-    emit("visible-change", false);
+    emit('visible-change', false);
   }
 
   if (!props.reserveKeyword) {
-    searchQuery.value = "";
+    searchQuery.value = '';
   }
 };
 
-const removeTag = (tag) => {
-  const newValue = selectedOptions.value.filter((v) => v !== tag.value);
-  emit("update:modelValue", newValue);
-  emit("remove-tag", tag);
-  emit("change", newValue);
+const removeTag = tag => {
+  const newValue = selectedOptions.value.filter(v => v !== tag.value);
+  emit('update:modelValue', newValue);
+  emit('remove-tag', tag);
+  emit('change', newValue);
 };
 
 const clear = () => {
-  emit("update:modelValue", props.multiple ? [] : "");
-  emit("clear");
-  emit("change", props.multiple ? [] : "");
-  searchQuery.value = "";
+  emit('update:modelValue', props.multiple ? [] : '');
+  emit('clear');
+  emit('change', props.multiple ? [] : '');
+  searchQuery.value = '';
 };
 
 const handleFilter = () => {
@@ -646,18 +922,38 @@ const handleFilter = () => {
 };
 
 const handleFocus = () => {
-  emit("focus");
-  if (props.automaticDropdown && !visible.value) {
+  emit('focus');
+
+  // 在聚焦时，如果是可搜索的单选模式且有选中值，清空搜索框以便输入
+  if (props.filterable && !props.multiple && selectedLabel.value) {
+    searchQuery.value = '';
+  }
+
+  // 可搜索模式下聚焦时自动打开下拉框
+  if (props.filterable && !visible.value) {
     visible.value = true;
-    emit("visible-change", true);
+    emit('visible-change', true);
+  } else if (props.automaticDropdown && !visible.value) {
+    visible.value = true;
+    emit('visible-change', true);
   }
 };
 
 const handleBlur = () => {
-  emit("blur");
+  emit('blur');
+
+  // 在失去焦点时，如果是可搜索的单选模式且没有选中新值，恢复显示选中的标签
+  if (props.filterable && !props.multiple && !props.reserveKeyword) {
+    // 延迟清空，给点击选项的时间
+    setTimeout(() => {
+      if (!visible.value) {
+        searchQuery.value = '';
+      }
+    }, 200);
+  }
 };
 
-const handleClickOutside = (event) => {
+const handleClickOutside = event => {
   if (
     selectWrapper.value &&
     !selectWrapper.value.contains(event.target) &&
@@ -665,7 +961,7 @@ const handleClickOutside = (event) => {
     !dropdownRef.value.contains(event.target)
   ) {
     visible.value = false;
-    emit("visible-change", false);
+    emit('visible-change', false);
   }
 };
 
@@ -677,19 +973,19 @@ const dropdownStyle = computed(() => {
 });
 
 onMounted(() => {
-  if (typeof document !== "undefined") {
-    document.addEventListener("click", handleClickOutside);
+  if (typeof document !== 'undefined') {
+    document.addEventListener('click', handleClickOutside);
   }
 });
 
 onUnmounted(() => {
-  if (typeof document !== "undefined") {
-    document.removeEventListener("click", handleClickOutside);
+  if (typeof document !== 'undefined') {
+    document.removeEventListener('click', handleClickOutside);
   }
 });
 
 // Provide context for Option components
-provide("selectContext", {
+provide('selectContext', {
   modelValue: computed(() => props.modelValue),
   multiple: computed(() => props.multiple),
   type: computed(() => props.type),
@@ -703,9 +999,9 @@ provide("selectContext", {
 
 watch(
   () => props.modelValue,
-  (newVal) => {
+  newVal => {
     if (!props.reserveKeyword) {
-      searchQuery.value = "";
+      searchQuery.value = '';
     }
   }
 );
@@ -720,7 +1016,7 @@ const blur = () => {
 };
 
 let selectedLabel = computed(() => {
-  if (selectedOptions.value.length === 0) return "";
+  if (selectedOptions.value.length === 0) return '';
 
   // 对于单选模式，从有效选项中查找对应的label
   const currentValue = selectedOptions.value[0];
@@ -732,7 +1028,7 @@ let selectedLabel = computed(() => {
 
   // 其次从有效选项中查找
   const option = effectiveOptions.value.find(
-    (opt) => getValue(opt) === currentValue
+    opt => getValue(opt) === currentValue
   );
 
   if (option) {
@@ -751,5 +1047,5 @@ defineExpose({
 </script>
 
 <style scoped>
-@import "./index.css";
+@import './index.css';
 </style>
