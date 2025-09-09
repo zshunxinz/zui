@@ -403,6 +403,7 @@ const handleChange = (e: Event) => {
 .x-radio--button .x-radio__input {
   position: absolute;
   opacity: 0;
+  display: none;
 }
 .x-radio--button {
   .x-radio__label {
@@ -685,7 +686,7 @@ const handleChange = (e: Event) => {
 
 .x-radio__input:disabled {
   cursor: not-allowed;
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
 .x-radio-group--disabled .x-radio {
@@ -694,5 +695,7 @@ const handleChange = (e: Event) => {
 
 .x-radio--disabled .x-radio__label {
   color: var(--color-text-disabled);
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 </style>

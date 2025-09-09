@@ -202,6 +202,7 @@ const typeValue = ref('1');
 const typeOptions = [
   { label: '主要选项', value: '1' },
   { label: '次要选项', value: '2' },
+  { label: '禁用选项', value: '3', disabled: true },
 ];
 </script>
 
