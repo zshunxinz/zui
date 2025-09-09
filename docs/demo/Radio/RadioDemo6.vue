@@ -1,30 +1,28 @@
 <template>
-  <div class="radio-type-demo">
-    <Radio v-model="typeValue" :options="typeOptions" type="default" />
-    <Radio v-model="typeValue" :options="typeOptions" type="primary" />
-    <Radio v-model="typeValue" :options="typeOptions" type="success" />
-    <Radio v-model="typeValue" :options="typeOptions" type="warning" />
-    <Radio v-model="typeValue" :options="typeOptions" type="danger" />
-    <Radio v-model="typeValue" :options="typeOptions" type="info" />
+  <div class="radio-demo">
+    <Radio
+      v-model="typeValue"
+      :options="typeOptions"
+      shape="tab-line"
+      type="primary"
+    />
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import Radio from '../../../src/components/Radio/Radio.vue'
+import { ref } from 'vue';
+import Radio from '../../../src/components/Radio/Radio.vue';
 
-const typeValue = ref('1')
+const typeValue = ref('1');
 const typeOptions = [
   { label: '主要选项', value: '1' },
-  { label: '次要选项', value: '2' }
-]
+  { label: '次要选项', value: '2' },
+  { label: '次要选项', value: '3' },
+];
 </script>
 
 <style scoped>
-.radio-type-demo {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+.radio-demo {
+  padding: 20px 0;
 }
 </style>

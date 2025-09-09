@@ -1,19 +1,24 @@
 <template>
   <div class="radio-demo">
-    <Radio v-model="selectedValue" :options="radioOptions" disabled />
+    <Radio
+      v-model="typeValue"
+      :options="typeOptions"
+      shape="tab-button"
+      type="primary"
+    />
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import Radio from '../../../src/components/Radio/Radio.vue'
+import { ref } from 'vue';
+import Radio from '../../../src/components/Radio/Radio.vue';
 
-const selectedValue = ref('option1')
-const radioOptions = [
-  { label: '选项一', value: 'option1' },
-  { label: '选项二', value: 'option2', disabled: true },
-  { label: '选项三', value: 'option3' }
-]
+const typeValue = ref('1');
+const typeOptions = [
+  { label: '主要选项', value: '1' },
+  { label: '次要选项', value: '2' },
+  { label: '次要选项', value: '3' },
+];
 </script>
 
 <style scoped>

@@ -11,6 +11,8 @@ import RadioDemo4 from '../demo/Radio/RadioDemo4.vue'
 import RadioDemo5 from '../demo/Radio/RadioDemo5.vue'
 import RadioDemo6 from '../demo/Radio/RadioDemo6.vue'
 import RadioDemo7 from '../demo/Radio/RadioDemo7.vue'
+import RadioDemo8 from '../demo/Radio/RadioDemo8.vue'
+import RadioDemo9 from '../demo/Radio/RadioDemo9.vue'
 </script>
 
 <style scoped>
@@ -71,7 +73,7 @@ import RadioDemo7 from '../demo/Radio/RadioDemo7.vue'
 
 ## 选项卡样式
 
-选项卡模式提供标签式的单选体验，底部边框颜色随 type 属性变化
+设置 shape 为`tab`,选项卡模式提供标签式的单选体验，底部边框颜色随 type 属性变化
 
 <Demo>
 <RadioDemo5 />
@@ -83,9 +85,7 @@ import RadioDemo7 from '../demo/Radio/RadioDemo7.vue'
 
 </CollapsibleCode>
 
-## 颜色类型
-
-通过`type`属性可以设置单选框的颜色类型，支持与 Button 组件相同的颜色体系。
+设置 shape 为`tab-line`,选项卡模式提供没有默认圆形的标签式的单选体验，底部边框颜色随 type 属性变化
 
 <Demo>
 <RadioDemo6 />
@@ -97,7 +97,7 @@ import RadioDemo7 from '../demo/Radio/RadioDemo7.vue'
 
 </CollapsibleCode>
 
-## 禁用状态
+设置 shape 为`tab-button`,选项卡模式，按钮样式
 
 <Demo>
 <RadioDemo7 />
@@ -106,6 +106,32 @@ import RadioDemo7 from '../demo/Radio/RadioDemo7.vue'
 <CollapsibleCode>
 
 <<< ../demo/Radio/RadioDemo7.vue
+
+</CollapsibleCode>
+
+## 颜色类型
+
+通过`type`属性可以设置单选框的颜色类型，支持与 Button 组件相同的颜色体系。
+
+<Demo>
+<RadioDemo8 />
+</Demo>
+
+<CollapsibleCode>
+
+<<< ../demo/Radio/RadioDemo8.vue
+
+</CollapsibleCode>
+
+## 禁用状态
+
+<Demo>
+<RadioDemo9 />
+</Demo>
+
+<CollapsibleCode>
+
+<<< ../demo/Radio/RadioDemo9.vue
 
 </CollapsibleCode>
 

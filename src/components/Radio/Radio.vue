@@ -1,5 +1,11 @@
 <template>
-  <div class="x-radio-group" :class="{ 'x-radio-group--disabled': disabled }">
+  <div
+    class="x-radio-group"
+    :class="{
+      'x-radio-group--disabled': disabled,
+      'x-radio-group--tab-button': shape === 'tab-button',
+    }"
+  >
     <label
       v-for="(option, index) in typedOptions"
       :key="option.value"
@@ -12,6 +18,8 @@
         'x-radio--disabled': disabled || option.disabled,
         'x-radio--square': shape === 'square',
         'x-radio--button': shape === 'button',
+        'x-radio--tab-line': shape === 'tab-line',
+        'x-radio--tab-button': shape === 'tab-button',
         'x-radio--small--circle': size === 'small' && shape === 'circle',
         'x-radio--medium--circle': size === 'medium' && shape === 'circle',
         'x-radio--large--circle': size === 'large' && shape === 'circle',
@@ -21,6 +29,15 @@
         'x-radio--small--button': size === 'small' && shape === 'button',
         'x-radio--medium--button': size === 'medium' && shape === 'button',
         'x-radio--large--button': size === 'large' && shape === 'button',
+        'x-radio--small--tab-line': size === 'small' && shape === 'tab-line',
+        'x-radio--medium--tab-line': size === 'medium' && shape === 'tab-line',
+        'x-radio--large--tab-line': size === 'large' && shape === 'tab-line',
+        'x-radio--small--tab-button':
+          size === 'small' && shape === 'tab-button',
+        'x-radio--medium--tab-button':
+          size === 'medium' && shape === 'tab-button',
+        'x-radio--large--tab-button':
+          size === 'large' && shape === 'tab-button',
         'x-radio--card': shape === 'card',
         'x-radio--tab': shape === 'tab',
         'x-radio--default': type === 'default',
@@ -75,7 +92,14 @@ const props = withDefaults(
     options: RadioOption[];
     name?: string;
     disabled?: boolean;
-    shape?: 'circle' | 'square' | 'button' | 'card' | 'tab';
+    shape?:
+      | 'circle'
+      | 'square'
+      | 'button'
+      | 'card'
+      | 'tab'
+      | 'tab-line'
+      | 'tab-button';
     checkedClass?: any;
     size?: 'small' | 'medium' | 'large';
     type?: 'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info';
@@ -373,13 +397,58 @@ const handleChange = (e: Event) => {
 }
 
 .x-radio--button.x-radio--checked {
-  /* background-color: var(--color-bg-hover); */
   border-color: var(--color-default-active);
 }
 
 .x-radio--button .x-radio__input {
   position: absolute;
   opacity: 0;
+}
+.x-radio--button {
+  .x-radio__label {
+    color: var(--color-text-1);
+  }
+}
+.x-radio--button.x-radio--checked.x-radio--default {
+  border-color: var(--color-default);
+  .x-radio__label {
+    color: var(--color-default);
+  }
+}
+
+.x-radio--button.x-radio--checked.x-radio--primary {
+  border-color: var(--color-primary);
+  .x-radio__label {
+    color: var(--color-primary);
+  }
+}
+
+.x-radio--button.x-radio--checked.x-radio--success {
+  border-color: var(--color-success);
+  .x-radio__label {
+    color: var(--color-success);
+  }
+}
+
+.x-radio--button.x-radio--checked.x-radio--warning {
+  border-color: var(--color-warning);
+  .x-radio__label {
+    color: var(--color-warning);
+  }
+}
+
+.x-radio--button.x-radio--checked.x-radio--danger {
+  border-color: var(--color-danger);
+  .x-radio__label {
+    color: var(--color-danger);
+  }
+}
+
+.x-radio--button.x-radio--checked.x-radio--info {
+  border-color: var(--color-info);
+  .x-radio__label {
+    color: var(--color-info);
+  }
 }
 
 /* 卡片样式 */
@@ -463,6 +532,23 @@ const handleChange = (e: Event) => {
   z-index: 1;
 }
 
+/* 为tab形状添加选中状态的中间圆点样式 */
+.x-radio--tab .x-radio__input {
+  position: relative;
+  opacity: 1;
+}
+
+.x-radio--tab.x-radio--checked .x-radio__input::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .x-radio--tab.x-radio--default.x-radio--checked {
   border-bottom-color: var(--color-default);
 }
@@ -485,6 +571,116 @@ const handleChange = (e: Event) => {
 
 .x-radio--tab.x-radio--info.x-radio--checked {
   border-bottom-color: var(--color-info);
+}
+
+.x-radio--tab-line {
+  border-bottom: 2px solid var(--color-border);
+  /* border-radius: 100%; */
+  padding: 10px 20px;
+  /* border-bottom: 2px solid transparent; */
+  margin-right: -1px;
+  font-size: var(--font-size);
+  /* font-weight: 500; */
+}
+.x-radio--tab-line .x-radio__input {
+  display: none;
+}
+.x-radio--tab-line.x-radio--checked {
+  border-bottom-color: var(--color-default);
+}
+
+.x-radio--tab-line.x-radio--default.x-radio--checked {
+  border-bottom-color: var(--color-default);
+}
+
+.x-radio--tab-line.x-radio--primary.x-radio--checked {
+  border-bottom-color: var(--color-primary);
+}
+
+.x-radio--tab-line.x-radio--success.x-radio--checked {
+  border-bottom-color: var(--color-success);
+}
+
+.x-radio--tab-line.x-radio--warning.x-radio--checked {
+  border-bottom-color: var(--color-warning);
+}
+
+.x-radio--tab-line.x-radio--danger.x-radio--checked {
+  border-bottom-color: var(--color-danger);
+}
+
+.x-radio--tab-line.x-radio--info.x-radio--checked {
+  border-bottom-color: var(--color-info);
+}
+
+.x-radio-group--tab-button {
+  background-color: var(--color-bg-hover-1);
+  width: fit-content;
+  gap: 5px;
+  padding: 0.2rem;
+  height: var(--height-2);
+  border: 1px solid var(--color-border);
+}
+
+.x-radio-group--tab-button .x-radio__input {
+  display: none;
+}
+
+.x-radio--tab-button {
+  line-height: 100%;
+  /* height: var(--height-2); */
+  display: flex;
+  padding: var(--padding-1);
+  align-items: center;
+  justify-content: center;
+}
+
+.x-radio--tab-button .x-radio__label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--font-size);
+  color: var(--color-text-2);
+}
+
+.x-radio--tab-button.x-radio--checked {
+  background-color: var(--color-background);
+}
+
+.x-radio--tab-button.x-radio--default.x-radio--checked {
+  .x-radio__label {
+    color: var(--color-default);
+  }
+}
+
+.x-radio--tab-button.x-radio--primary.x-radio--checked {
+  .x-radio__label {
+    color: var(--color-primary);
+  }
+}
+
+.x-radio--tab-button.x-radio--success.x-radio--checked {
+  .x-radio__label {
+    color: var(--color-success);
+  }
+}
+
+.x-radio--tab-button.x-radio--warning.x-radio--checked {
+  .x-radio__label {
+    color: var(--color-warning);
+  }
+}
+
+.x-radio--tab-button.x-radio--danger.x-radio--checked {
+  .x-radio__label {
+    color: var(--color-danger);
+  }
+}
+
+.x-radio--tab-button.x-radio--info.x-radio--checked {
+  .x-radio__label {
+    color: var(--color-info);
+  }
 }
 
 .x-radio__input:disabled {

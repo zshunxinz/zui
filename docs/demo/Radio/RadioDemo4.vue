@@ -29,14 +29,14 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import Radio from "../../../src/components/Radio/Radio.vue";
+import { ref } from 'vue';
+import Radio from '../../../src/components/Radio/Radio.vue';
 
-const selectedValueCard = ref("option1");
+const selectedValueCard = ref('option1');
 const radioOptionsCard = [
-  { label: "HTML", value: "option1", text: "html是超文本标记语言" },
-  { label: "CSS", value: "option2", text: "css是层叠样式表" },
-  { label: "JavaScript", value: "option3", text: "JavaScript是脚本语言" },
+  { label: 'HTML', value: 'option1', text: 'html是超文本标记语言' },
+  { label: 'CSS', value: 'option2', text: 'css是层叠样式表' },
+  { label: 'JavaScript', value: 'option3', text: 'JavaScript是脚本语言' },
 ];
 </script>
 
