@@ -61,7 +61,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed } from 'vue';
 
 interface RadioOption {
   label: string;
@@ -75,21 +75,21 @@ const props = withDefaults(
     options: RadioOption[];
     name?: string;
     disabled?: boolean;
-    shape?: "circle" | "square" | "button" | "card" | "tab";
+    shape?: 'circle' | 'square' | 'button' | 'card' | 'tab';
     checkedClass?: any;
-    size?: "small" | "medium" | "large";
-    type?: "default" | "primary" | "success" | "warning" | "danger" | "info";
+    size?: 'small' | 'medium' | 'large';
+    type?: 'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info';
   }>(),
   {
-    type: "default",
-    size: "medium",
-    shape: "circle",
+    type: 'default',
+    size: 'medium',
+    shape: 'circle',
   }
 );
 
 const emit = defineEmits<{
-  (e: "update:modelValue", value: any): void;
-  (e: "change", value: any): void;
+  (e: 'update:modelValue', value: any): void;
+  (e: 'change', value: any): void;
 }>();
 
 // 显式类型化选项数组以帮助模板推断
@@ -98,11 +98,11 @@ const typedOptions = computed<RadioOption[]>(() => props.options);
 const handleChange = (e: Event) => {
   const inputValue = (e.target as HTMLInputElement).value;
   const selectedOption = props.options.find(
-    (option) => String(option.value) === inputValue
+    option => String(option.value) === inputValue
   );
   if (selectedOption) {
-    emit("update:modelValue", selectedOption.value);
-    emit("change", selectedOption.value);
+    emit('update:modelValue', selectedOption.value);
+    emit('change', selectedOption.value);
   }
 };
 </script>
@@ -116,7 +116,7 @@ const handleChange = (e: Event) => {
   display: flex;
   flex-wrap: wrap;
   /* justify-content: center; */
-  align-items: center;
+  /* align-items: center; */
 }
 
 .x-radio {
@@ -124,8 +124,8 @@ const handleChange = (e: Event) => {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  height: var(--height-1);
-  line-height: var(--height-1);
+  /* height: var(--height-1); */
+  /* line-height: var(--height-1); */
 }
 
 .x-radio__input {
@@ -191,44 +191,44 @@ const handleChange = (e: Event) => {
 }
 
 .x-radio__input:checked::after {
-  content: "";
+  content: '';
   /* width: 7px;
   height: 7px; */
   border-radius: 50%;
 }
 
 .x-radio--small--square .x-radio__input:checked::after {
-  content: "";
+  content: '';
   width: 7px;
   height: 7px;
 }
 
 .x-radio--medium--square .x-radio__input:checked::after {
-  content: "";
+  content: '';
   width: 8px;
   height: 8px;
 }
 
 .x-radio--large--square .x-radio__input:checked::after {
-  content: "";
+  content: '';
   width: 9px;
   height: 9px;
 }
 
 .x-radio--small--circle .x-radio__input:checked::after {
-  content: "";
+  content: '';
   padding: 2.9px;
   border-radius: 100%;
 }
 
 .x-radio--medium--circle .x-radio__input:checked::after {
-  content: "";
+  content: '';
   padding: 3.9px;
   border-radius: 100%;
 }
 
 .x-radio--large--circle .x-radio__input:checked::after {
-  content: "";
+  content: '';
   padding: 4.9px;
   border-radius: 100%;
 }

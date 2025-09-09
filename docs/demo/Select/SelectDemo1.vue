@@ -1,6 +1,6 @@
 <template>
-  <Select v-model="value" placeholder="请选择" style="width: 500px">
-    <Option value="数据12356789">数据12356789</Option>
+  <Select v-model="value" placeholder="请选择">
+    <Option value="0">数据0</Option>
     <Option label="选项1" value="1" />
     <Option label="选项2" value="2" />
     <Option label="选项3" value="3" />
