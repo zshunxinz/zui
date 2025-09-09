@@ -16,7 +16,7 @@ Popover 组件用于显示一个可以通过元素触发的、包含丰富内容
 
 最简单的 Popover 组件使用方式，点击按钮显示弹出内容。
 
-<Demo>
+<Demo center>
   <PopoverDemo1/>
 </Demo>
 
