@@ -6,6 +6,7 @@
       labelPosition ? `x-input--label-${labelPosition}` : '',
       $attrs.class,
     ]"
+    :style="[{ width }, { height }, $attrs.style, { 'min-width': width }]"
   >
     <label
       v-if="label"
@@ -61,7 +62,7 @@
         class="x-input__suffix x-input__password"
         @click="showPassword = !showPassword"
       >
-        {{ showPassword ? "Hide" : "Show" }}
+        {{ showPassword ? 'Hide' : 'Show' }}
       </button>
       <button
         v-if="clearable && modelValue && !disabled"
@@ -78,13 +79,13 @@
 </template>
 
 <script setup>
-import { ref, watch, computed, onMounted, onUnmounted } from "vue";
+import { ref, watch, computed, onMounted, onUnmounted } from 'vue';
 
 const props = defineProps({
   prefixIcon: String,
   suffixIcon: String,
-  autocomplete: { type: String, default: "off" },
-  "auto-complete": { type: String, default: "off" },
+  autocomplete: { type: String, default: 'off' },
+  'auto-complete': { type: String, default: 'off' },
   name: String,
   readonly: { type: Boolean, default: false },
   max: [String, Number],
@@ -93,25 +94,25 @@ const props = defineProps({
   autofocus: { type: Boolean, default: false },
   form: String,
   tabindex: String,
-  "validate-event": { type: Boolean, default: true },
+  'validate-event': { type: Boolean, default: true },
   type: {
     type: String,
-    default: "text",
-    validator: (value) =>
-      ["text", "password", "number", "email", "tel", "url"].includes(value),
+    default: 'text',
+    validator: value =>
+      ['text', 'password', 'number', 'email', 'tel', 'url'].includes(value),
   },
   modelValue: {
     type: [String, Number],
-    default: "",
+    default: '',
   },
   label: {
     type: String,
-    default: "",
+    default: '',
   },
   labelPosition: {
     type: String,
-    default: "top",
-    validator: (value) => ["top", "left", "center", "right"].includes(value),
+    default: 'top',
+    validator: value => ['top', 'left', 'center', 'right'].includes(value),
   },
   maxlength: Number,
   minlength: Number,
@@ -134,8 +135,8 @@ const props = defineProps({
   },
   size: {
     type: String,
-    default: "medium",
-    validator: (value) => ["small", "medium", "large"].includes(value),
+    default: 'medium',
+    validator: value => ['small', 'medium', 'large'].includes(value),
   },
   width: {
     type: String,
@@ -143,7 +144,7 @@ const props = defineProps({
   },
   height: {
     type: String,
-    default: "100%",
+    default: '100%',
   },
   debounce: {
     type: Number,
@@ -152,23 +153,23 @@ const props = defineProps({
 });
 
 const emit = defineEmits([
-  "update:modelValue",
-  "input",
-  "clear",
-  "mouse-enter",
-  "mouse-leave",
-  "click",
-  "enter",
-  "debounce-input",
-  "focus",
-  "blur",
+  'update:modelValue',
+  'input',
+  'clear',
+  'mouse-enter',
+  'mouse-leave',
+  'click',
+  'enter',
+  'debounce-input',
+  'focus',
+  'blur',
 ]);
 
 let debounceTimer = null;
-const debounceInput = (value) => {
+const debounceInput = value => {
   if (debounceTimer) clearTimeout(debounceTimer);
   debounceTimer = setTimeout(() => {
-    emit("debounce-input", value);
+    emit('debounce-input', value);
   }, props.debounce);
 };
 const showPassword = ref(props.showPassword);
@@ -177,25 +178,25 @@ const inputValue = ref(props.modelValue);
 
 watch(
   () => props.showPassword,
-  (val) => {
+  val => {
     showPassword.value = val;
   }
 );
 
 watch(
   () => props.modelValue,
-  (val) => {
+  val => {
     inputValue.value = val;
   },
   { immediate: true }
 );
 
-const handleInput = (e) => {
+const handleInput = e => {
   inputValue.value = e.target.value;
-  emit("update:modelValue", e.target.value);
-  emit("input", e.target.value);
-  if (props["validate-event"]) {
-    emit("validate-event", e.target.value);
+  emit('update:modelValue', e.target.value);
+  emit('input', e.target.value);
+  if (props['validate-event']) {
+    emit('validate-event', e.target.value);
   }
   if (props.debounce > 0) {
     debounceInput(e.target.value);
@@ -214,32 +215,32 @@ onUnmounted(() => {
 });
 
 const clear = () => {
-  emit("update:modelValue", "");
-  emit("clear");
+  emit('update:modelValue', '');
+  emit('clear');
 };
 
 const handleMouseEnter = () => {
-  emit("mouse-enter");
+  emit('mouse-enter');
 };
 
 const handleMouseLeave = () => {
-  emit("mouse-leave");
+  emit('mouse-leave');
 };
 
 const handleClick = () => {
-  emit("click");
+  emit('click');
 };
 
 const handleEnter = () => {
-  emit("enter", inputValue.value);
+  emit('enter', inputValue.value);
 };
 
-const handleFocus = (e) => {
-  emit("focus", e);
+const handleFocus = e => {
+  emit('focus', e);
 };
 
-const handleBlur = (e) => {
-  emit("blur", e);
+const handleBlur = e => {
+  emit('blur', e);
 };
 </script>
 

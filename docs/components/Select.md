@@ -25,6 +25,8 @@ import SelectDemo14 from '../demo/Select/SelectDemo14.vue'
 import SelectDemo15 from '../demo/Select/SelectDemo15.vue'
 import SelectDemo16 from '../demo/Select/SelectDemo16.vue'
 import SelectDemo17 from '../demo/Select/SelectDemo17.vue'
+import SelectDemo18 from '../demo/Select/SelectDemo18.vue'
+
 </script>
 
 <Demo>
@@ -258,6 +260,20 @@ import SelectDemo17 from '../demo/Select/SelectDemo17.vue'
 <CollapsibleCode>
 
 <<< ../demo/Select/SelectDemo17.vue
+
+</CollapsibleCode>
+
+## 自定义尾部
+
+可以通过 `#footer` 插槽自定义下拉列表的尾部内容
+
+<Demo>
+<SelectDemo18/>
+</Demo>
+
+<CollapsibleCode>
+
+<<< ../demo/Select/SelectDemo18.vue
 
 </CollapsibleCode>
 

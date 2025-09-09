@@ -131,7 +131,10 @@
         v-show="visible"
         class="x-select-dropdown"
         :class="[popperClass, `x-select-dropdown--${effect}`]"
-        :style="dropdownStyle"
+        :style="{
+          ...dropdownStyle,
+          width: $attrs.style && $attrs.style.width,
+        }"
         ref="dropdownRef"
       >
         <div class="x-select-dropdown__content">
@@ -1276,6 +1279,7 @@ let selectedLabel = computed(() => {
 
   // 对于单选模式，从有效选项中查找对应的label
   const currentValue = selectedOptions.value[0];
+  console.log(currentValue, selectData.value);
 
   // 远程搜索模式下优先使用缓存的选项信息
   if (props.remote && remoteSelectedOptionsCache.value.has(currentValue)) {
@@ -1284,7 +1288,11 @@ let selectedLabel = computed(() => {
   }
 
   // 优先检查selectData是否有值（这是用户点击选项时直接传递的完整选项对象）
-  if (selectData.value && selectData.value.label) {
+  if (
+    selectData.value &&
+    selectData.value.label &&
+    selectData.value.value == currentValue
+  ) {
     return selectData.value.label;
   }
 
