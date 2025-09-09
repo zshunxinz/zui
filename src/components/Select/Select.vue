@@ -21,6 +21,13 @@
       ref="selectWrapper"
       :style="[{ width }, { height }, $attrs.style]"
     >
+      <div
+        v-if="multiple && displayTags.length == 0"
+        class="x-select__selected"
+        :class="{ 'is-placeholder': !selectedLabel }"
+      >
+        {{ selectedLabel || placeholder }}
+      </div>
       <div class="x-select__tags" v-if="multiple && displayTags.length > 0">
         <div
           v-for="(tag, index) in displayTags"
@@ -48,13 +55,7 @@
             </svg>
           </span>
         </div>
-        <div
-          v-if="multiple && displayTags.length == 0"
-          class="x-select__selected"
-          :class="{ 'is-placeholder': !selectedLabel }"
-        >
-          {{ selectedLabel || placeholder }}
-        </div>
+
         <span
           v-if="collapseTags && selectedOptions.length > maxCollapseTags"
           class="x-select__tag x-tag--info"
@@ -946,10 +947,6 @@ const filteredOptions = computed(() => {
 
   if (props.filterMethod) {
     return props.filterMethod(searchQuery.value, effectiveOptions.value);
-  }
-
-  if (props.remote) {
-    return effectiveOptions.value;
   }
 
   // 搜索选项，支持分组内的选项
