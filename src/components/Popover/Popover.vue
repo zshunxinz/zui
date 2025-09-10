@@ -32,7 +32,7 @@
         role="tooltip"
         :aria-labelledby="`${id}-trigger`"
       >
-        <div class="x-popover__arrow" :class="arrowClass"></div>
+        <div v-if="arrow" class="x-popover__arrow" :class="arrowClass"></div>
         <slot name="content"></slot>
       </div>
     </Teleport>
@@ -56,7 +56,7 @@
         role="tooltip"
         :aria-labelledby="`${id}-trigger`"
       >
-        <div class="x-popover__arrow" :class="arrowClass"></div>
+        <div v-if="arrow" class="x-popover__arrow" :class="arrowClass"></div>
         <slot name="content"></slot>
       </div>
     </div>
@@ -106,7 +106,7 @@ const props = withDefaults(defineProps<Props>(), {
   arrow: true,
   flip: true,
   shift: true,
-  offset: 8,
+  offset: 10,
   width: undefined,
   height: undefined,
   padding: undefined,
@@ -180,89 +180,53 @@ const handlePosition = async () => {
       positionX =
         triggerRect.left + triggerRect.width / 2 - contentRect.width / 2;
       positionY = triggerRect.top - contentRect.height - props.offset;
-      if (arrowElement) {
-        arrowElement.style.left = `${triggerRect.width / 2 - 8}px`;
-      }
       break;
     case 'bottom':
       positionX =
         triggerRect.left + triggerRect.width / 2 - contentRect.width / 2;
       positionY = triggerRect.bottom + props.offset;
-      if (arrowElement) {
-        arrowElement.style.left = `${triggerRect.width / 2 - 8}px`;
-      }
       break;
     case 'left':
       positionX = triggerRect.left - contentRect.width - props.offset;
       positionY =
         triggerRect.top + triggerRect.height / 2 - contentRect.height / 2;
-      if (arrowElement) {
-        arrowElement.style.top = `${triggerRect.height / 2 - 8}px`;
-      }
       break;
     case 'right':
       positionX = triggerRect.right + props.offset;
       positionY =
         triggerRect.top + triggerRect.height / 2 - contentRect.height / 2;
-      if (arrowElement) {
-        arrowElement.style.top = `${triggerRect.height / 2 - 8}px`;
-      }
       break;
     case 'top-start':
       positionX = triggerRect.left;
       positionY = triggerRect.top - contentRect.height - props.offset;
-      if (arrowElement) {
-        arrowElement.style.left = '24px';
-      }
       break;
     case 'top-end':
       positionX = triggerRect.right - contentRect.width;
       positionY = triggerRect.top - contentRect.height - props.offset;
-      if (arrowElement) {
-        arrowElement.style.right = '24px';
-      }
       break;
     case 'bottom-start':
       positionX = triggerRect.left;
       positionY = triggerRect.bottom + props.offset;
-      if (arrowElement) {
-        arrowElement.style.left = '24px';
-      }
       break;
     case 'bottom-end':
       positionX = triggerRect.right - contentRect.width;
       positionY = triggerRect.bottom + props.offset;
-      if (arrowElement) {
-        arrowElement.style.right = '24px';
-      }
       break;
     case 'left-start':
       positionX = triggerRect.left - contentRect.width - props.offset;
       positionY = triggerRect.top;
-      if (arrowElement) {
-        arrowElement.style.top = '24px';
-      }
       break;
     case 'left-end':
       positionX = triggerRect.left - contentRect.width - props.offset;
       positionY = triggerRect.bottom - contentRect.height;
-      if (arrowElement) {
-        arrowElement.style.bottom = '24px';
-      }
       break;
     case 'right-start':
       positionX = triggerRect.right + props.offset;
       positionY = triggerRect.top;
-      if (arrowElement) {
-        arrowElement.style.top = '24px';
-      }
       break;
     case 'right-end':
       positionX = triggerRect.right + props.offset;
       positionY = triggerRect.bottom - contentRect.height;
-      if (arrowElement) {
-        arrowElement.style.bottom = '24px';
-      }
       break;
   }
 
@@ -355,8 +319,10 @@ const togglePopover = () => {
     setTimeout(() => {
       handlePosition();
     }, 0);
-    // 添加点击外部关闭的监听器
-    document.addEventListener('click', handleDocumentClick);
+    // 添加点击外部关闭的监听器，只在overlay=true时添加
+    if (props.overlay) {
+      document.addEventListener('click', handleDocumentClick);
+    }
   } else {
     emit('close', false);
     document.removeEventListener('click', handleDocumentClick);
@@ -426,14 +392,14 @@ onUnmounted(() => {
 }
 
 .x-popover__overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: transparent;
-  z-index: var(--z-index-popover-overlay);
-}
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: transparent;
+      z-index: var(--z-index-popover-overlay);
+    }
 
 .x-popover__content {
   position: absolute;
@@ -467,6 +433,32 @@ onUnmounted(() => {
 
 .x-popover__arrow--top {
   bottom: -8px;
+  left: 50%;
+  margin-left: -8px;
+  border-left: none;
+  border-top: none;
+}
+
+/* 顶部起始位置 */
+.x-popover__content--top-start {
+  transform-origin: bottom left;
+}
+
+.x-popover__arrow--top-start {
+  bottom: -8px;
+  left: 24px;
+  border-left: none;
+  border-top: none;
+}
+
+/* 顶部结束位置 */
+.x-popover__content--top-end {
+  transform-origin: bottom right;
+}
+
+.x-popover__arrow--top-end {
+  bottom: -8px;
+  right: 24px;
   border-left: none;
   border-top: none;
 }
@@ -478,6 +470,32 @@ onUnmounted(() => {
 
 .x-popover__arrow--bottom {
   top: -8px;
+  left: 50%;
+  margin-left: -8px;
+  border-bottom: none;
+  border-right: none;
+}
+
+/* 底部起始位置 */
+.x-popover__content--bottom-start {
+  transform-origin: top left;
+}
+
+.x-popover__arrow--bottom-start {
+  top: -8px;
+  left: 24px;
+  border-bottom: none;
+  border-right: none;
+}
+
+/* 底部结束位置 */
+.x-popover__content--bottom-end {
+  transform-origin: top right;
+}
+
+.x-popover__arrow--bottom-end {
+  top: -8px;
+  right: 24px;
   border-bottom: none;
   border-right: none;
 }
@@ -489,7 +507,32 @@ onUnmounted(() => {
 
 .x-popover__arrow--left {
   right: -8px;
-  /* border-top: none; */
+  top: 50%;
+  margin-top: -8px;
+  border-left: none;
+  border-bottom: none;
+}
+
+/* 左侧起始位置 */
+.x-popover__content--left-start {
+  transform-origin: right top;
+}
+
+.x-popover__arrow--left-start {
+  right: -8px;
+  top: 24px;
+  border-left: none;
+  border-bottom: none;
+}
+
+/* 左侧结束位置 */
+.x-popover__content--left-end {
+  transform-origin: right bottom;
+}
+
+.x-popover__arrow--left-end {
+  right: -8px;
+  bottom: 24px;
   border-left: none;
   border-bottom: none;
 }
@@ -501,6 +544,32 @@ onUnmounted(() => {
 
 .x-popover__arrow--right {
   left: -8px;
+  top: 50%;
+  margin-top: -8px;
+  border-top: none;
+  border-right: none;
+}
+
+/* 右侧起始位置 */
+.x-popover__content--right-start {
+  transform-origin: left top;
+}
+
+.x-popover__arrow--right-start {
+  left: -8px;
+  top: 24px;
+  border-top: none;
+  border-right: none;
+}
+
+/* 右侧结束位置 */
+.x-popover__content--right-end {
+  transform-origin: left bottom;
+}
+
+.x-popover__arrow--right-end {
+  left: -8px;
+  bottom: 24px;
   border-top: none;
   border-right: none;
 }
