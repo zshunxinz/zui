@@ -112,6 +112,7 @@ const toggleItem = (itemValue: string) => {
   }
 
   // 触发更新事件
+  emit("update:modelValue", value.value);
   emit("change", value.value);
 };
 
