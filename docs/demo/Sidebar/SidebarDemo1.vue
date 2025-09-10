@@ -7,7 +7,7 @@ import { ref } from 'vue';
 //   name: 'LogOutIcon',
 //   template: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>`,
 // };
-
+const active = ref(true);
 // 映射图标名称到组件
 // 定义菜单项
 const mainMenuItems = [
@@ -38,7 +38,7 @@ const activeItem = ref('home');
           <SidebarContent>
             <SidebarMenu>
               <SidebarGroup>
-                <SidebarGroupLabel>主导航</SidebarGroupLabel>
+                <SidebarGroupLabel v-if="active">主导航</SidebarGroupLabel>
                 <SidebarGroupContent>
                   <SidebarMenuItem v-for="item in mainMenuItems" :key="item.id">
                     <SidebarMenuButton
@@ -46,14 +46,14 @@ const activeItem = ref('home');
                       @click="activeItem = item.id"
                     >
                       <component :is="item.icon" size="16" />
-                      <span>{{ item.label }}</span>
+                      <span v-if="active">{{ item.label }}</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 </SidebarGroupContent>
               </SidebarGroup>
 
               <SidebarGroup>
-                <SidebarGroupLabel>设置</SidebarGroupLabel>
+                <SidebarGroupLabel v-if="active">设置</SidebarGroupLabel>
                 <SidebarGroupContent>
                   <SidebarMenuItem
                     v-for="item in settingsMenuItems"
@@ -64,7 +64,7 @@ const activeItem = ref('home');
                       @click="activeItem = item.id"
                     >
                       <component :is="item.icon" size="16" />
-                      <span>{{ item.label }}</span>
+                      <span v-if="active">{{ item.label }}</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 </SidebarGroupContent>
@@ -89,8 +89,8 @@ const activeItem = ref('home');
                 </svg>
               </div>
               <div class="user-details">
-                <div class="user-name">用户名称</div>
-                <div class="user-role">管理员</div>
+                <div class="user-name" v-if="active">用户名称</div>
+                <div class="user-role" v-if="active">管理员</div>
               </div>
             </div>
           </SidebarFooter>
@@ -98,7 +98,7 @@ const activeItem = ref('home');
 
         <main class="main-content">
           <div class="main-header">
-            <SidebarTrigger asChild>
+            <SidebarTrigger asChild @click="active = !active">
               <Button text size="small">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -123,6 +123,7 @@ const activeItem = ref('home');
           <div class="main-body">
             <p>点击侧边栏菜单项切换当前激活状态。</p>
             <p>
+              {{ active }}
               当前选中:
               {{
                 mainMenuItems.find(item => item.id === activeItem)?.label ||
