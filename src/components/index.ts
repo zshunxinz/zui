@@ -25,6 +25,20 @@ import {
   AccordionContent,
 } from './Accordion';
 import { Divider } from './Divider';
+import {
+  SidebarProvider,
+  Sidebar,
+  SidebarTrigger,
+  SidebarHeader,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarGroupContent,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton
+} from './Sidebar';
 
 const install = (app: any) => {
   app.component('Row', Row);
@@ -53,6 +67,18 @@ const install = (app: any) => {
   app.component('Space', Space);
   app.component('Divider', Divider);
   app.component('Popover', Popover);
+  app.component('SidebarProvider', SidebarProvider);
+  app.component('Sidebar', Sidebar);
+  app.component('SidebarTrigger', SidebarTrigger);
+  app.component('SidebarHeader', SidebarHeader);
+  app.component('SidebarContent', SidebarContent);
+  app.component('SidebarFooter', SidebarFooter);
+  app.component('SidebarGroup', SidebarGroup);
+  app.component('SidebarGroupLabel', SidebarGroupLabel);
+  app.component('SidebarGroupContent', SidebarGroupContent);
+  app.component('SidebarMenu', SidebarMenu);
+  app.component('SidebarMenuItem', SidebarMenuItem);
+  app.component('SidebarMenuButton', SidebarMenuButton);
 };
 
 // 支持 use 方式安装
@@ -87,4 +113,16 @@ export {
   Space,
   Divider,
   Popover,
+  SidebarProvider,
+  Sidebar,
+  SidebarTrigger,
+  SidebarHeader,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarGroupContent,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
 };
