@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineProps, withDefaults } from 'vue';
 import { vk } from '@vueuse/core';
 
 interface SidebarMenuItemProps {
@@ -7,7 +6,7 @@ interface SidebarMenuItemProps {
 }
 
 const props = withDefaults(defineProps<SidebarMenuItemProps>(), {
-  active: false
+  active: false,
 });
 </script>
 
@@ -15,7 +14,7 @@ const props = withDefaults(defineProps<SidebarMenuItemProps>(), {
   <li
     class="SidebarMenuItem"
     :class="{
-      'SidebarMenuItem--active': props.active
+      'SidebarMenuItem--active': props.active,
     }"
   >
     <slot />

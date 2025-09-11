@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, inject, defineProps, withDefaults } from 'vue';
+import { ref, computed, inject } from 'vue';
 import { vk } from '@vueuse/core';
 
 interface SidebarProps {
@@ -9,7 +9,7 @@ interface SidebarProps {
 
 const props = withDefaults(defineProps<SidebarProps>(), {
   collapsedWidth: 72,
-  width: 240
+  width: 240,
 });
 
 const sidebar = inject('sidebar');
@@ -26,7 +26,7 @@ const isCollapsed = computed(() => !open.value);
   <aside
     class="Sidebar"
     :class="{
-      'Sidebar--closed': !open
+      'Sidebar--closed': !open,
     }"
     :style="{ width: `${computedWidth}px` }"
   >

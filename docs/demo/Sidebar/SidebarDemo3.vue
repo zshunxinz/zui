@@ -327,7 +327,6 @@ const handleItemClick = (itemId: string) => {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f5f5f5;
 }
 
 .demo-content {
@@ -335,7 +334,6 @@ const handleItemClick = (itemId: string) => {
   width: 100%;
   max-width: 1200px;
   height: 600px;
-  background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;

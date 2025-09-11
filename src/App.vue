@@ -8,7 +8,14 @@ import SelectDemo from '@/view/SelectDemo.vue';
 import GroupTest from '@/view/GroupTest.vue';
 import GroupFixTest from '@/view/GroupFixTest.vue';
 import CollapsibleGroupTest from '@/view/CollapsibleGroupTest.vue';
-
+import IconDemo from '@/view/IconDemo.vue';
+import IconSizeTest from '@/view/IconSizeTest.vue';
+import IconSizeFixTest from '@/view/IconSizeFixTest.vue';
+import IconTest from '@/view/IconTest.vue';
+import IconNoFillTest from '@/view/IconNoFillTest.vue';
+import IconDebugTest from '@/view/IconDebugTest.vue';
+import IconNoFillFixTest from '@/view/IconNoFillFixTest.vue';
+import AllIconsDemo from './view/AllIconsDemo.vue';
 const value1 = ref('');
 const value2 = ref('');
 const value3 = ref('');
@@ -158,6 +165,14 @@ const resetForm = () => {
     <div class="app-header">
       <ThemeToggle />
     </div>
+    <AllIconsDemo></AllIconsDemo>
+    <IconNoFillFixTest></IconNoFillFixTest>
+    <IconDebugTest></IconDebugTest>
+    <IconNoFillTest></IconNoFillTest>
+    <IconTest></IconTest>
+    <IconSizeFixTest></IconSizeFixTest>
+    <IconSizeTest></IconSizeTest>
+    <IconDemo></IconDemo>
     <CollapsibleGroupTest></CollapsibleGroupTest>
     <GroupFixTest></GroupFixTest>
     <GroupTest></GroupTest>

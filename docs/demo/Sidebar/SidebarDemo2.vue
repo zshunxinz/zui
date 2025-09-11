@@ -81,7 +81,7 @@ const sidebar = inject('sidebar');
 if (sidebar?.open) {
   watch(
     () => sidebar.open.value,
-    (newValue) => {
+    newValue => {
       if (!isMobile.value) {
         isCollapsed.value = !newValue;
       }
@@ -268,7 +268,6 @@ const toggleSidebar = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f5f5f5;
 }
 
 .demo-content {
@@ -276,7 +275,6 @@ const toggleSidebar = () => {
   width: 100%;
   max-width: 1200px;
   height: 80vh;
-  background-color: white;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);

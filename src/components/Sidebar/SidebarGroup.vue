@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, defineProps, withDefaults, provide } from 'vue';
+import { ref, provide } from 'vue';
 import { vk } from '@vueuse/core';
 
 interface SidebarGroupProps {
@@ -9,7 +9,7 @@ interface SidebarGroupProps {
 
 const props = withDefaults(defineProps<SidebarGroupProps>(), {
   defaultOpen: true,
-  collapsible: true
+  collapsible: true,
 });
 
 const open = ref(props.defaultOpen);
@@ -23,7 +23,7 @@ const toggle = () => {
 const context = {
   open,
   toggle,
-  collapsible: props.collapsible
+  collapsible: props.collapsible,
 };
 
 provide('sidebar-group', context);

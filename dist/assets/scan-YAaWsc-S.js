@@ -1,0 +1,13 @@
+const n=`<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/>
+  <path d="M7 3v4"/>
+  <path d="M3 7h4"/>
+  <path d="M17 3v4"/>
+  <path d="M21 7h-4"/>
+  <path d="M7 21v-4"/>
+  <path d="M3 17h4"/>
+  <path d="M17 21v-4"/>
+  <path d="M21 17h-4"/>
+  <line x1="12" x2="12" y1="8" y2="16"/>
+  <line x1="8" x2="16" y1="12" y2="12"/>
+</svg>`;export{n as default};

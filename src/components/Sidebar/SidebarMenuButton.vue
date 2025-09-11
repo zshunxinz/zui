@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineProps, withDefaults } from 'vue';
 import { vk } from '@vueuse/core';
 
 interface SidebarMenuButtonProps {
@@ -9,13 +8,15 @@ interface SidebarMenuButtonProps {
 
 const props = withDefaults(defineProps<SidebarMenuButtonProps>(), {
   asChild: false,
-  active: false
+  active: false,
 });
 
 const Comp = props.asChild ? 'span' : 'button';
-const buttonProps = props.asChild ? {} : {
-  type: 'button'
-};
+const buttonProps = props.asChild
+  ? {}
+  : {
+      type: 'button',
+    };
 </script>
 
 <template>
@@ -24,7 +25,7 @@ const buttonProps = props.asChild ? {} : {
     v-bind="buttonProps"
     class="SidebarMenuButton"
     :class="{
-      'SidebarMenuButton--active': props.active
+      'SidebarMenuButton--active': props.active,
     }"
   >
     <slot />

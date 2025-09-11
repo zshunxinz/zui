@@ -1,33 +1,34 @@
-import "./styles/theme.css";
-import "./styles/variables.css";
-import { Button } from "./components/Button";
-import { ButtonGroup } from "./components/ButtonGroup";
-import { Col } from "./components/Col";
-import { Input } from "./components/Input";
-import { Row } from "./components/Row";
-import { Radio } from "./components/Radio";
-import { Checkbox } from "./components/Checkbox";
-import { CheckboxGroup } from "./components/Checkbox";
-import { CheckboxButton } from "./components/Checkbox";
-import { Switch } from "./components/Switch";
-import { Tabs } from "./components/Tabs";
-import { Card } from "./components/Card";
-import { Select, Option, OptionGroup } from "./components/Select";
-import { Textarea } from "./components/Textarea";
-import { Form, FormItem } from "./components/Form";
+import './styles/theme.css';
+import './styles/variables.css';
+import { Button } from './components/Button';
+import { ButtonGroup } from './components/ButtonGroup';
+import { Col } from './components/Col';
+import { Input } from './components/Input';
+import { Row } from './components/Row';
+import { Radio } from './components/Radio';
+import { Checkbox } from './components/Checkbox';
+import { CheckboxGroup } from './components/Checkbox';
+import { CheckboxButton } from './components/Checkbox';
+import { Switch } from './components/Switch';
+import { Tabs } from './components/Tabs';
+import { Card } from './components/Card';
+import { Select, Option, OptionGroup } from './components/Select';
+import { Textarea } from './components/Textarea';
+import { Form, FormItem } from './components/Form';
 import {
   Accordion,
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
-} from "./components/Accordion";
-import { Tooltip } from "./components/Tooltip";
+} from './components/Accordion';
+import { Tooltip } from './components/Tooltip';
 
-import type { App } from "vue";
+import type { App } from 'vue';
 
-import * as components from "./components";
-import { Space } from "./components/Space";
-import { Divider } from "./components/Divider";
+import * as components from './components';
+import { Space } from './components/Space';
+import { Divider } from './components/Divider';
+import { Icon } from './components/Icon';
 
 export default {
   install(app: App) {
@@ -49,12 +50,12 @@ export {
   CheckboxGroup,
   CheckboxButton,
   Switch,
+  Tabs,
+  Card,
   Select,
   Option,
   OptionGroup,
   Textarea,
-  Tabs,
-  Card,
   Form,
   FormItem,
   Accordion,
@@ -64,4 +65,5 @@ export {
   Tooltip,
   Space,
   Divider,
+  Icon,
 };
