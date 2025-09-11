@@ -212,11 +212,10 @@ const icons = [
 
 <template>
   <div class="all-icons-demo">
-    <h2>所有图标演示</h2>
-
     <div class="icons-grid">
       <div v-for="icon in icons" :key="icon" class="icon-item">
-        <Icon :name="icon" :size="32" />
+        <span class="icon-name-tooltip">{{ icon }}</span>
+        <Icon :name="icon" :size="36" />
         <span class="icon-name">{{ icon }}</span>
       </div>
     </div>
@@ -239,12 +238,12 @@ const icons = Object.keys(iconModules).map(path => {
 
 <style scoped>
 .all-icons-demo {
-  padding: 20px;
+  padding: 0px;
 }
 
 .icons-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(108px, 1fr));
   gap: 20px;
   margin-top: 20px;
 }
@@ -254,20 +253,49 @@ const icons = Object.keys(iconModules).map(path => {
   flex-direction: column;
   align-items: center;
   padding: 10px;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid var(--color-border-1);
+  border-radius: var(--border-radius-0);
   transition: all 0.2s ease;
+}
+
+.icon-name-tooltip {
+  display: none;
+  position: absolute;
+  top: 110%;
+  /* left: 50%; */
+  width: max-content;
+  z-index: 10;
+  /* transform: translateX(-50%); */
+  background-color: var(--color-default);
+  color: var(--color-default-text-1);
+  padding: var(--padding-1);
+  border-radius: var(--border-radius-0);
+  font-size: 12px;
+  text-align: center;
+}
+
+.icon-item:hover .icon-name-tooltip {
+  display: block;
 }
 
 .icon-item:hover {
   transform: translateY(-2px);
+  /* background-color: var(--color-default-hover-text); */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .icon-name {
-  margin-top: 8px;
+  margin-top: 6px;
   font-size: 12px;
   color: #666;
   text-align: center;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
 }
 </style>
