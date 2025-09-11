@@ -234,7 +234,7 @@ const icons = Object.keys(iconModules).map(path => {
   // 提取文件名并去掉 .svg 扩展名
   const fileName = path.split('/').pop()
   return fileName.replace('.svg', '')
-})
+}).slice(0, 500)
 </script>
 
 <style scoped>
