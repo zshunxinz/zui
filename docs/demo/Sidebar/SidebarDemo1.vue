@@ -11,16 +11,16 @@ const active = ref(true);
 // 映射图标名称到组件
 // 定义菜单项
 const mainMenuItems = [
-  { id: 'home', label: '首页', icon: 'HomeIcon' },
-  { id: 'dashboard', label: '仪表盘', icon: 'LayoutDashboardIcon' },
-  { id: 'users', label: '用户管理', icon: 'UsersIcon' },
-  { id: 'search', label: '搜索', icon: 'SearchIcon' },
+  { id: 'home', label: '首页', icon: 'house' },
+  { id: 'dashboard', label: '仪表盘', icon: 'chart-area' },
+  { id: 'users', label: '用户管理', icon: 'users' },
+  { id: 'search', label: '搜索', icon: 'search' },
 ];
 
 const settingsMenuItems = [
-  { id: 'settings', label: '设置', icon: 'SettingsIcon' },
-  { id: 'help', label: '帮助中心', icon: 'HelpCircleIcon' },
-  { id: 'logout', label: '退出登录', icon: 'LogOutIcon' },
+  { id: 'settings', label: '设置', icon: 'settings' },
+  { id: 'help', label: '帮助中心', icon: 'hand-helping' },
+  { id: 'logout', label: '退出登录', icon: 'log-out' },
 ];
 
 // 当前激活的菜单项
@@ -45,7 +45,7 @@ const activeItem = ref('home');
                       :active="activeItem === item.id"
                       @click="activeItem = item.id"
                     >
-                      <component :is="item.icon" size="16" />
+                      <Icon :name="item.icon" size="16" />
                       <span v-if="active">{{ item.label }}</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -63,7 +63,7 @@ const activeItem = ref('home');
                       :active="activeItem === item.id"
                       @click="activeItem = item.id"
                     >
-                      <component :is="item.icon" size="16" />
+                      <Icon :name="item.icon" size="16" />
                       <span v-if="active">{{ item.label }}</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>

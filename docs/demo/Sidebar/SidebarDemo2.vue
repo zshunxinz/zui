@@ -56,16 +56,16 @@ const iconMap = {
 
 // 菜单项
 const mainMenuItems = [
-  { id: 'home', label: '首页', icon: 'home' },
-  { id: 'dashboard', label: '仪表盘', icon: 'dashboard' },
+  { id: 'home', label: '首页', icon: 'house' },
+  { id: 'dashboard', label: '仪表盘', icon: 'chart-area' },
   { id: 'users', label: '用户管理', icon: 'users' },
   { id: 'search', label: '搜索', icon: 'search' },
 ];
 
 const settingsMenuItems = [
   { id: 'settings', label: '设置', icon: 'settings' },
-  { id: 'help', label: '帮助中心', icon: 'help' },
-  { id: 'logout', label: '退出登录', icon: 'logout' },
+  { id: 'help', label: '帮助中心', icon: 'hand-helping' },
+  { id: 'logout', label: '退出登录', icon: 'log-out' },
 ];
 
 // 状态
@@ -143,10 +143,8 @@ const toggleSidebar = () => {
                       @click="activeItem = item.id"
                       class="menu-button"
                     >
-                      <component
-                        :is="iconMap[item.icon as keyof typeof iconMap]"
-                        style="width: 18px; height: 18px"
-                      />
+                      <Icon :name="item.icon" size="16" />
+
                       <span v-if="!isCollapsed">{{ item.label }}</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -165,10 +163,7 @@ const toggleSidebar = () => {
                       @click="activeItem = item.id"
                       class="menu-button"
                     >
-                      <component
-                        :is="iconMap[item.icon as keyof typeof iconMap]"
-                        style="width: 18px; height: 18px"
-                      />
+                      <Icon :name="item.icon" size="16" />
                       <span v-if="!isCollapsed">{{ item.label }}</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -364,7 +359,7 @@ const toggleSidebar = () => {
 .menu-button {
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
 }
 
 .feature-demo {
