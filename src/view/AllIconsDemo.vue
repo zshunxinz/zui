@@ -195,7 +195,7 @@ function handleSearch() {
 // 组件挂载时初始化
 onMounted(() => {
   // 预加载前12个图标，提升首屏加载速度
-  preloadIcons(icons, 200);
+  preloadIcons(icons, 100);
 
   // 等待DOM渲染完成
   nextTick(() => {

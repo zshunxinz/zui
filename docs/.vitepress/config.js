@@ -49,23 +49,24 @@ export default defineConfig({
       ],
       '/components/': [
         {
-          text: '布局',
-          link: '/components/grid',
-          collapsed: false,
-          items: [
-            { text: 'Grid 网格布局', link: '/components/grid' },
-            { text: 'Space 间距', link: '/components/Space' },
-            { text: 'Divider 分割线', link: '/components/Divider' },
-          ],
-        },
-        {
           text: '基础组件',
           collapsed: false,
           items: [
             { text: 'Button 按钮', link: '/components/Button' },
             { text: 'ButtonGroup 组合按钮', link: '/components/ButtonGroup' },
             { text: 'Icon 图标', link: '/components/Icon' },
+          ],
+        },
+        {
+          text: '布局组件',
+          collapsed: false,
+          items: [
+            { text: 'Grid 网格布局', link: '/components/grid' },
+            { text: 'Space 间距', link: '/components/Space' },
             { text: 'Accordion 手风琴', link: '/components/Accordion' },
+            { text: 'Card 卡片', link: '/components/Card' },
+            { text: 'Divider 分割线', link: '/components/Divider' },
+            { text: 'Tabs 选项卡', link: '/components/Tabs' },
           ],
         },
         {
@@ -78,13 +79,11 @@ export default defineConfig({
             { text: 'Checkbox 多选框', link: '/components/Checkbox' },
             { text: 'Switch 开关', link: '/components/Switch' },
             { text: 'Select 选择器', link: '/components/Select' },
-            { text: 'Tabs 选项卡', link: '/components/Tabs' },
-            { text: 'Card 卡片', link: '/components/Card' },
             { text: 'Form 表单', link: '/components/Form' },
           ],
         },
         {
-          text: '反馈组件',
+          text: '交互反馈',
           collapsed: false,
           items: [
             { text: 'Tooltip 提示', link: '/components/Tooltip' },
@@ -92,7 +91,7 @@ export default defineConfig({
           ],
         },
         {
-          text: '导航',
+          text: '导航组件',
           collapsed: false,
           items: [{ text: 'Sidebar 侧边栏', link: '/components/Sidebar' }],
         },
