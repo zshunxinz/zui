@@ -40,6 +40,7 @@ import {
   SidebarMenuButton,
 } from './Sidebar';
 import { Icon } from './Icon';
+import { Slider } from './Slider';
 
 const install = (app: any) => {
   app.component('Row', Row);
@@ -81,6 +82,7 @@ const install = (app: any) => {
   app.component('SidebarMenuItem', SidebarMenuItem);
   app.component('SidebarMenuButton', SidebarMenuButton);
   app.component('Icon', Icon);
+  app.component('Slider', Slider);
 };
 
 // 支持 use 方式安装
@@ -128,4 +130,5 @@ export {
   SidebarMenuItem,
   SidebarMenuButton,
   Icon,
+  Slider,
 };

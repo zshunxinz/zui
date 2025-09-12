@@ -79,6 +79,7 @@ export default defineConfig({
             { text: 'Checkbox 多选框', link: '/components/Checkbox' },
             { text: 'Switch 开关', link: '/components/Switch' },
             { text: 'Select 选择器', link: '/components/Select' },
+            { text: 'Slider 滑动条', link: '/components/Slider' },
             { text: 'Form 表单', link: '/components/Form' },
           ],
         },

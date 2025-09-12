@@ -29,6 +29,7 @@
 - <a href="./Checkbox">Checkbox 多选框</a> - 用于多选操作
 - <a href="./Switch">Switch 开关</a> - 用于开关状态切换
 - <a href="./Select">Select 选择器</a> - 用于从选项列表中选择
+- <a href="./Slider">Slider 滑动条</a> - 用于通过拖拽滑块来输入数值
 - <a href="./Form">Form 表单</a> - 表单容器，支持数据收集和验证
 </details>
 
