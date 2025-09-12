@@ -182,20 +182,60 @@ function handleSearch() {
     iconsD.value = icons.filter(icon =>
       icon.toLowerCase().includes(searchTerm)
     );
-    visibleIcons.value = icons.filter(icon =>
-      icon.toLowerCase().includes(searchTerm)
-    );
+    // 重置可见图标列表，让懒加载重新开始工作
+    visibleIcons.value = [];
+    // 预加载搜索结果中的前几个图标
+    preloadIcons(iconsD.value, 20);
   } else {
     // 如果搜索词为空，显示所有图标
     iconsD.value = [...icons];
-    visibleIcons.value = [...icons];
+    // 重置可见图标列表，让懒加载重新开始工作
+    visibleIcons.value = [];
+    // 预加载前几个图标
+    preloadIcons(icons, 20);
   }
+  
+  // 重新设置观察器
+  nextTick(() => {
+    if (observer) {
+      observer.disconnect();
+      observer = null;
+    }
+    setupIntersectionObserver();
+    
+    // 重新开始观察所有图标项
+    if (iconsGrid.value) {
+      const items = iconsGrid.value.querySelectorAll('.icon-item');
+      // 使用requestAnimationFrame分批观察，避免阻塞主线程
+      let index = visibleIcons.value.length; // 跳过已预加载的图标
+      const observeBatch = () => {
+        // 每次观察10个元素
+        const batchSize = 10;
+        const endIndex = Math.min(index + batchSize, items.length);
+
+        for (let i = index; i < endIndex; i++) {
+          if (!observedElements.has(items[i])) {
+            observer.observe(items[i]);
+            observedElements.add(items[i]);
+          }
+        }
+
+        index = endIndex;
+        if (index < items.length) {
+          // 继续观察下一批
+          requestAnimationFrame(observeBatch);
+        }
+      };
+
+      observeBatch();
+    }
+  });
 }
 
 // 组件挂载时初始化
 onMounted(() => {
-  // 预加载前12个图标，提升首屏加载速度
-  preloadIcons(icons, 100);
+  // 预加载前20个图标，提升首屏加载速度
+  preloadIcons(icons, 20);
 
   // 等待DOM渲染完成
   nextTick(() => {
@@ -206,7 +246,7 @@ onMounted(() => {
     if (iconsGrid.value) {
       const items = iconsGrid.value.querySelectorAll('.icon-item');
       // 使用requestAnimationFrame分批观察，避免阻塞主线程
-      let index = 12; // 跳过已预加载的图标
+      let index = 20; // 跳过已预加载的图标
       const observeBatch = () => {
         // 每次观察10个元素
         const batchSize = 10;
@@ -238,6 +278,9 @@ onUnmounted(() => {
   }
   // 清空观察记录
   observedElements.clear();
+  // 清空批量处理队列
+  pendingIcons = [];
+  updateScheduled = false;
 });
 </script>
 
