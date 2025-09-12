@@ -1,314 +1,317 @@
 <template>
-  <div
-    class="x-select"
-    :class="[
-      `x-select--${type}`,
-      size ? `x-select--${size}` : '',
-      {
-        'is-disabled': disabled,
-        'is-multiple': multiple,
-        'is-clearable': clearable,
-        'is-filterable': filterable,
-        'is-loading': loading,
-      },
-      $attrs.class,
-    ]"
-    :style="$attrs.style"
-  >
+  <div>
     <div
-      class="x-select__wrapper"
-      @click="toggleDropdown"
-      ref="selectWrapper"
-      :style="[{ width }, { height }, $attrs.style]"
+      class="x-select"
+      :class="[
+        `x-select--${type}`,
+        size ? `x-select--${size}` : '',
+        {
+          'is-disabled': disabled,
+          'is-multiple': multiple,
+          'is-clearable': clearable,
+          'is-filterable': filterable,
+          'is-loading': loading,
+        },
+        $attrs.class,
+      ]"
+      :style="$attrs.style"
     >
       <div
-        v-if="multiple && displayTags.length == 0"
-        class="x-select__selected"
-        :class="{ 'is-placeholder': !selectedLabel }"
+        class="x-select__wrapper"
+        @click="toggleDropdown"
+        ref="selectWrapper"
+        :style="[{ width }, { height }, $attrs.style]"
       >
-        {{ selectedLabel || placeholder }}
-      </div>
-      <div class="x-select__tags" v-if="multiple && displayTags.length > 0">
         <div
-          v-for="(tag, index) in displayTags"
-          :key="index"
-          :class="['x-select__tag', 'x-tag--info']"
+          v-if="multiple && displayTags.length == 0"
+          class="x-select__selected"
+          :class="{ 'is-placeholder': !selectedLabel }"
         >
-          <div class="x-select__tag-text">
-            {{ getLabel(tag) }}
+          {{ selectedLabel || placeholder }}
+        </div>
+        <div class="x-select__tags" v-if="multiple && displayTags.length > 0">
+          <div
+            v-for="(tag, index) in displayTags"
+            :key="index"
+            :class="['x-select__tag', 'x-tag--info']"
+          >
+            <div class="x-select__tag-text">
+              {{ getLabel(tag) }}
+            </div>
+            <span class="x-select__tag-close" @click.stop="removeTag(tag)">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                :stroke="`var(--color-${type}-text-1)`"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-x-icon lucide-x"
+              >
+                <path d="M18 6 6 18" />
+                <path d="m6 6 12 12" />
+              </svg>
+            </span>
           </div>
-          <span class="x-select__tag-close" @click.stop="removeTag(tag)">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="12"
-              height="12"
-              viewBox="0 0 24 24"
-              fill="none"
-              :stroke="`var(--color-${type}-text-1)`"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-x-icon lucide-x"
+
+          <span
+            v-if="collapseTags && selectedOptions.length > maxCollapseTags"
+            class="x-select__tag x-tag--info"
+          >
+            <span class="x-select__tag-text"
+              >+{{ selectedOptions.length - maxCollapseTags }}</span
             >
-              <path d="M18 6 6 18" />
-              <path d="m6 6 12 12" />
-            </svg>
           </span>
         </div>
+        <div
+          v-if="!multiple && !filterable"
+          class="x-select__selected"
+          :class="{ 'is-placeholder': !selectedLabel }"
+        >
+          {{ selectedLabel || placeholder }}
+        </div>
+        <input
+          v-if="filterable"
+          type="text"
+          class="x-select__input"
+          :placeholder="inputPlaceholder"
+          v-model="inputValue"
+          @input="handleFilter"
+          @focus="handleFocus"
+          @blur="handleBlur"
+          :disabled="disabled"
+          :readonly="!filterable"
+          ref="inputRef"
+        />
 
         <span
-          v-if="collapseTags && selectedOptions.length > maxCollapseTags"
-          class="x-select__tag x-tag--info"
+          v-if="clearable && selectedOptions.length > 0"
+          class="x-select__clear"
+          @click.stop="clear"
         >
-          <span class="x-select__tag-text"
-            >+{{ selectedOptions.length - maxCollapseTags }}</span
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            :stroke="`var(--color-${type})`"
+            stroke-width="1"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-x-icon lucide-x"
           >
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
         </span>
-      </div>
-      <div
-        v-if="!multiple && !filterable"
-        class="x-select__selected"
-        :class="{ 'is-placeholder': !selectedLabel }"
-      >
-        {{ selectedLabel || placeholder }}
-      </div>
-      <input
-        v-if="filterable"
-        type="text"
-        class="x-select__input"
-        :placeholder="inputPlaceholder"
-        v-model="inputValue"
-        @input="handleFilter"
-        @focus="handleFocus"
-        @blur="handleBlur"
-        :disabled="disabled"
-        :readonly="!filterable"
-        ref="inputRef"
-      />
-
-      <span
-        v-if="clearable && selectedOptions.length > 0"
-        class="x-select__clear"
-        @click.stop="clear"
-      >
         <svg
+          v-else
           xmlns="http://www.w3.org/2000/svg"
           width="14"
           height="14"
           viewBox="0 0 24 24"
           fill="none"
           :stroke="`var(--color-${type})`"
-          stroke-width="1"
+          stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
-          class="lucide lucide-x-icon lucide-x"
+          class="lucide lucide-chevron-down-icon lucide-chevron-down w-4 h-4 opacity-50 shrink-0"
+          aria-hidden="true"
         >
-          <path d="M18 6 6 18" />
-          <path d="m6 6 12 12" />
+          <path d="m6 9 6 6 6-6"></path>
         </svg>
-      </span>
-      <svg
-        v-else
-        xmlns="http://www.w3.org/2000/svg"
-        width="14"
-        height="14"
-        viewBox="0 0 24 24"
-        fill="none"
-        :stroke="`var(--color-${type})`"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="lucide lucide-chevron-down-icon lucide-chevron-down w-4 h-4 opacity-50 shrink-0"
-        aria-hidden="true"
-      >
-        <path d="m6 9 6 6 6-6"></path>
-      </svg>
-    </div>
+      </div>
 
-    <!-- <teleport to="body" v-if="teleported"> -->
-    <transition name="x-select-dropdown">
-      <div
-        v-show="visible"
-        class="x-select-dropdown"
-        :class="[popperClass, `x-select-dropdown--${effect}`]"
-        :style="{
-          ...dropdownStyle,
-          width: $attrs.style && $attrs.style.width,
-        }"
-        ref="dropdownRef"
-      >
-        <div class="x-select-dropdown__content">
-          <slot name="header" />
+      <!-- <teleport to="body" v-if="teleported"> -->
+      <transition name="x-select-dropdown">
+        <div
+          v-show="visible"
+          class="x-select-dropdown"
+          :class="[popperClass, `x-select-dropdown--${effect}`]"
+          :style="{
+            ...dropdownStyle,
+            width: $attrs.style && $attrs.style.width,
+          }"
+          ref="dropdownRef"
+        >
+          <div class="x-select-dropdown__content">
+            <slot name="header" />
 
-          <div v-if="loading" class="x-select-dropdown__loading">
-            <slot name="loading">{{ loadingText }}</slot>
-          </div>
+            <div v-if="loading" class="x-select-dropdown__loading">
+              <slot name="loading">{{ loadingText }}</slot>
+            </div>
 
-          <div
-            v-else-if="filteredOptions.length > 0"
-            class="x-select-dropdown__list"
-          >
-            <template v-if="$slots.default">
-              <!-- 当有搜索查询时，使用过滤后的选项渲染 -->
-              <template v-if="searchQuery">
-                <template
-                  v-for="(option, index) in filteredOptions"
-                  :key="option.value"
-                >
-                  <!-- 显示嵌套分组标签，支持折叠功能 -->
+            <div
+              v-else-if="filteredOptions.length > 0"
+              class="x-select-dropdown__list"
+            >
+              <template v-if="$slots.default">
+                <!-- 当有搜索查询时，使用过滤后的选项渲染 -->
+                <template v-if="searchQuery">
                   <template
-                    v-if="option.groupInfo && option.groupInfo.length > 0"
+                    v-for="(option, index) in filteredOptions"
+                    :key="option.value"
                   >
-                    <!-- 检查是否需要显示分组标签（避免重复） -->
+                    <!-- 显示嵌套分组标签，支持折叠功能 -->
                     <template
-                      v-for="(groupInfo, pathIndex) in option.groupInfo"
-                      :key="`group-${pathIndex}-${groupInfo.label}`"
+                      v-if="option.groupInfo && option.groupInfo.length > 0"
                     >
-                      <div
-                        v-if="
-                          shouldShowGroupLabel(
-                            option,
-                            pathIndex,
-                            index,
-                            filteredOptions
-                          )
-                        "
-                        class="x-option-group__label"
-                        :class="[
-                          {
-                            'is-collapsible': groupInfo.collapsible,
-                            'is-collapsed': groupInfo.collapsed,
-                            [`icon-position--${
-                              groupInfo.iconPosition || 'left'
-                            }`]: groupInfo.collapsible,
-                          },
-                        ]"
-                        :style="getGroupLabelStyle(groupInfo)"
-                        @click="
-                          groupInfo.collapsible &&
-                            toggleGroupCollapse(groupInfo)
-                        "
+                      <!-- 检查是否需要显示分组标签（避免重复） -->
+                      <template
+                        v-for="(groupInfo, pathIndex) in option.groupInfo"
+                        :key="`group-${pathIndex}-${groupInfo.label}`"
                       >
-                        <!-- 左侧图标 -->
-                        <span
-                          class="x-option-group__icon"
+                        <div
                           v-if="
-                            groupInfo.collapsible &&
-                            (groupInfo.iconPosition || 'left') === 'left'
+                            shouldShowGroupLabel(
+                              option,
+                              pathIndex,
+                              index,
+                              filteredOptions
+                            )
                           "
-                          :class="{ 'is-expanded': !groupInfo.collapsed }"
-                        >
-                          <svg
-                            width="12"
-                            height="12"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path d="m9 18 6-6-6-6" />
-                          </svg>
-                        </span>
-
-                        <span class="x-option-group__text">{{
-                          groupInfo.label
-                        }}</span>
-
-                        <!-- 文字后图标 -->
-                        <span
-                          class="x-option-group__icon"
-                          v-if="
+                          class="x-option-group__label"
+                          :class="[
+                            {
+                              'is-collapsible': groupInfo.collapsible,
+                              'is-collapsed': groupInfo.collapsed,
+                              [`icon-position--${
+                                groupInfo.iconPosition || 'left'
+                              }`]: groupInfo.collapsible,
+                            },
+                          ]"
+                          :style="getGroupLabelStyle(groupInfo)"
+                          @click="
                             groupInfo.collapsible &&
-                            (groupInfo.iconPosition || 'left') === 'after-text'
+                              toggleGroupCollapse(groupInfo)
                           "
-                          :class="{ 'is-expanded': !groupInfo.collapsed }"
                         >
-                          <svg
-                            width="12"
-                            height="12"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                          <!-- 左侧图标 -->
+                          <span
+                            class="x-option-group__icon"
+                            v-if="
+                              groupInfo.collapsible &&
+                              (groupInfo.iconPosition || 'left') === 'left'
+                            "
+                            :class="{ 'is-expanded': !groupInfo.collapsed }"
                           >
-                            <path d="m9 18 6-6-6-6" />
-                          </svg>
-                        </span>
+                            <svg
+                              width="12"
+                              height="12"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path d="m9 18 6-6-6-6" />
+                            </svg>
+                          </span>
 
-                        <!-- 右侧图标 -->
-                        <span
-                          class="x-option-group__icon"
-                          v-if="
-                            groupInfo.collapsible &&
-                            (groupInfo.iconPosition || 'left') === 'right'
-                          "
-                          :class="{ 'is-expanded': !groupInfo.collapsed }"
-                        >
-                          <svg
-                            width="12"
-                            height="12"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                          <span class="x-option-group__text">{{
+                            groupInfo.label
+                          }}</span>
+
+                          <!-- 文字后图标 -->
+                          <span
+                            class="x-option-group__icon"
+                            v-if="
+                              groupInfo.collapsible &&
+                              (groupInfo.iconPosition || 'left') ===
+                                'after-text'
+                            "
+                            :class="{ 'is-expanded': !groupInfo.collapsed }"
                           >
-                            <path d="m9 18 6-6-6-6" />
-                          </svg>
-                        </span>
-                      </div>
+                            <svg
+                              width="12"
+                              height="12"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path d="m9 18 6-6-6-6" />
+                            </svg>
+                          </span>
+
+                          <!-- 右侧图标 -->
+                          <span
+                            class="x-option-group__icon"
+                            v-if="
+                              groupInfo.collapsible &&
+                              (groupInfo.iconPosition || 'left') === 'right'
+                            "
+                            :class="{ 'is-expanded': !groupInfo.collapsed }"
+                          >
+                            <svg
+                              width="12"
+                              height="12"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path d="m9 18 6-6-6-6" />
+                            </svg>
+                          </span>
+                        </div>
+                      </template>
                     </template>
+                    <Option
+                      :label="option.label"
+                      :value="option.value"
+                      :disabled="option.disabled"
+                      :icon-position="iconPosition"
+                      :style="getOptionStyle(option)"
+                    />
                   </template>
-                  <Option
-                    :label="option.label"
-                    :value="option.value"
-                    :disabled="option.disabled"
-                    :icon-position="iconPosition"
-                    :style="getOptionStyle(option)"
-                  />
+                </template>
+                <!-- 没有搜索时，使用原始 slot 内容 -->
+                <template v-else>
+                  <slot></slot>
                 </template>
               </template>
-              <!-- 没有搜索时，使用原始 slot 内容 -->
               <template v-else>
-                <slot></slot>
+                <Option
+                  v-for="option in filteredOptions"
+                  :key="option.value"
+                  :label="option.label"
+                  :value="option.value"
+                  :disabled="option.disabled"
+                  :icon-position="iconPosition"
+                ></Option>
               </template>
-            </template>
-            <template v-else>
-              <Option
-                v-for="option in filteredOptions"
-                :key="option.value"
-                :label="option.label"
-                :value="option.value"
-                :disabled="option.disabled"
-                :icon-position="iconPosition"
-              ></Option>
-            </template>
+            </div>
+            <div
+              v-else-if="filteredOptions.length === 0"
+              class="x-select-dropdown__empty"
+            >
+              <slot name="empty">
+                <!-- 远程搜索模式下显示无匹配结果 -->
+                <template v-if="props.remote && searchQuery">
+                  {{ noMatchText }}
+                </template>
+                <!-- 非远程模式或无搜索查询时显示无数据 -->
+                <template v-else>
+                  {{ noDataText }}
+                </template>
+              </slot>
+            </div>
+            <slot name="footer" />
           </div>
-          <div
-            v-else-if="filteredOptions.length === 0"
-            class="x-select-dropdown__empty"
-          >
-            <slot name="empty">
-              <!-- 远程搜索模式下显示无匹配结果 -->
-              <template v-if="props.remote && searchQuery">
-                {{ noMatchText }}
-              </template>
-              <!-- 非远程模式或无搜索查询时显示无数据 -->
-              <template v-else>
-                {{ noDataText }}
-              </template>
-            </slot>
-          </div>
-          <slot name="footer" />
         </div>
-      </div>
-    </transition>
-    <!-- </teleport> -->
+      </transition>
+      <!-- </teleport> -->
+    </div>
   </div>
 </template>
 
@@ -548,7 +551,7 @@ const props = defineProps({
   },
   iconPosition: {
     type: String,
-    default: 'left',
+    default: 'right',
     validator: val => ['left', 'right', 'after-text'].includes(val),
   },
 });
@@ -773,10 +776,10 @@ const slotOptions = computed(() => {
 
       // 在开发环境下才输出调试日志
       if (process.env.NODE_ENV === 'development') {
-        console.log(
-          `📁 处理分组: ${currentGroupLabel}，完整路径:`,
-          newGroupPath
-        );
+        // console.log(
+        //   `📁 处理分组: ${currentGroupLabel}，完整路径:`,
+        //   newGroupPath
+        // );
       }
 
       // 如果当前分组折叠或父级折叠，则跳过子元素处理
@@ -910,11 +913,11 @@ const toggleGroupCollapse = groupInfo => {
   groupInfo.collapsed = !groupInfo.collapsed;
   // 在开发环境下才输出调试日志
   if (process.env.NODE_ENV === 'development') {
-    console.log(
-      `🔄 切换分组折叠状态: ${groupInfo.label} -> ${
-        groupInfo.collapsed ? '折叠' : '展开'
-      }`
-    );
+    // console.log(
+    //   `🔄 切换分组折叠状态: ${groupInfo.label} -> ${
+    //     groupInfo.collapsed ? '折叠' : '展开'
+    //   }`
+    // );
   }
 
   // 触发重新计算
@@ -1279,7 +1282,7 @@ let selectedLabel = computed(() => {
 
   // 对于单选模式，从有效选项中查找对应的label
   const currentValue = selectedOptions.value[0];
-  console.log(currentValue, selectData.value);
+  // console.log(currentValue, selectData.value);
 
   // 远程搜索模式下优先使用缓存的选项信息
   if (props.remote && remoteSelectedOptionsCache.value.has(currentValue)) {

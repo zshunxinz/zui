@@ -1,0 +1,1 @@
+const o="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='currentColor'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%20%3e%3cpolygon%20points='12%202%2019%2021%2012%2017%205%2021%2012%202'%20/%3e%3c/svg%3e";export{o as default};

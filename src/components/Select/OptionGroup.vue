@@ -207,14 +207,14 @@ if (selectContext) {
 // 添加调试日志（只在开发环境下）
 if (process.env.NODE_ENV === 'development') {
   onMounted(() => {
-    console.log(`🔍 OptionGroup "${props.label}" - 初始化:`, {
-      propsLevel: props.level,
-      calculatedLevel: currentLevel.value,
-      hasParent: !!parentOptionGroup,
-      parentLevel: parentOptionGroup?.level?.value,
-      labelStyle: labelStyle.value,
-      optionsStyle: optionsStyle.value,
-    });
+    // console.log(`🔍 OptionGroup "${props.label}" - 初始化:`, {
+    //   propsLevel: props.level,
+    //   calculatedLevel: currentLevel.value,
+    //   hasParent: !!parentOptionGroup,
+    //   parentLevel: parentOptionGroup?.level?.value,
+    //   labelStyle: labelStyle.value,
+    //   optionsStyle: optionsStyle.value,
+    // });
   });
 }
 </script>

@@ -618,9 +618,11 @@ const handleChange = (e: Event) => {
   background-color: var(--color-bg-hover-1);
   width: fit-content;
   gap: 5px;
-  padding: 0.2rem;
+  /* padding: 0.2rem; */
   height: var(--height-2);
-  border: 1px solid var(--color-border);
+  box-sizing: border-box;
+  padding: 0.2rem;
+  /* border: 1px solid var(--color-border-1); */
 }
 
 .x-radio-group--tab-button .x-radio__input {

@@ -64,6 +64,14 @@ export default defineConfig({
           items: [
             { text: 'Button 按钮', link: '/components/Button' },
             { text: 'ButtonGroup 组合按钮', link: '/components/ButtonGroup' },
+            { text: 'Icon 图标', link: '/components/Icon' },
+            { text: 'Accordion 手风琴', link: '/components/Accordion' },
+          ],
+        },
+        {
+          text: '表单组件',
+          collapsed: false,
+          items: [
             { text: 'Input 输入框', link: '/components/input' },
             { text: 'Textarea 文本域', link: '/components/Textarea' },
             { text: 'Radio 单选框', link: '/components/Radio' },
@@ -73,10 +81,14 @@ export default defineConfig({
             { text: 'Tabs 选项卡', link: '/components/Tabs' },
             { text: 'Card 卡片', link: '/components/Card' },
             { text: 'Form 表单', link: '/components/Form' },
-            { text: 'Accordion 手风琴', link: '/components/Accordion' },
+          ],
+        },
+        {
+          text: '反馈组件',
+          collapsed: false,
+          items: [
             { text: 'Tooltip 提示', link: '/components/Tooltip' },
             { text: 'Popover 弹出层', link: '/components/Popover' },
-            { text: 'Icon 图标', link: '/components/Icon' },
           ],
         },
         {
