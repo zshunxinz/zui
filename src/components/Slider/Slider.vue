@@ -4,9 +4,9 @@
       'x-slider',
       size ? `x-slider--${size}` : '',
       disabled ? 'is-disabled' : '',
-      $attrs.class,
+      ...($attrs.class || []),
     ]"
-    :style="[{ width }, { height }, $attrs.style]"
+    :style="{ ...($attrs.style as object), width, height }"
   >
     <div v-if="label" class="x-slider__label">{{ label }}</div>
     <div class="x-slider__wrapper">
@@ -94,7 +94,7 @@ const props = defineProps({
   size: {
     type: String,
     default: 'medium',
-    validator: value => ['small', 'medium', 'large'].includes(value),
+    validator: value => ['small', 'medium', 'large'].includes(value as string),
   },
   width: {
     type: String,
@@ -126,11 +126,11 @@ const percentage = computed(() => {
   return ((value.value - min) / (max - min)) * 100;
 });
 const isActive = ref(false);
-const handleRef = ref(null);
+const handleRef = ref<HTMLButtonElement>();
 let startX = 0;
-let trackRect = null;
+let trackRect: DOMRect | null = null;
 
-const updateValue = newValue => {
+const updateValue = (newValue: number) => {
   const min = Number(props.min);
   const max = Number(props.max);
   const step = Number(props.step);
@@ -156,7 +156,7 @@ const updateValue = newValue => {
   }
 };
 
-const getValueByPosition = clientX => {
+const getValueByPosition = (clientX: number) => {
   if (!trackRect) return value.value;
 
   const min = Number(props.min);
@@ -169,7 +169,7 @@ const getValueByPosition = clientX => {
   return min + (max - min) * ratio;
 };
 
-const startDrag = e => {
+const startDrag = (e: MouseEvent | TouchEvent) => {
   if (props.disabled) return;
 
   e.preventDefault();
@@ -189,7 +189,7 @@ const startDrag = e => {
   document.addEventListener('touchend', handleMouseUp);
 };
 
-const handleMouseMove = e => {
+const handleMouseMove = (e: MouseEvent | TouchEvent) => {
   if (!isActive.value) return;
 
   const clientX = e.type.startsWith('mouse') ? e.clientX : e.touches[0].clientX;
@@ -223,7 +223,7 @@ onMounted(() => {
   nextTick(() => {
     const wrapperEl = handleRef.value?.parentElement;
     if (wrapperEl) {
-      wrapperEl.addEventListener('click', e => {
+      wrapperEl.addEventListener('click', (e: MouseEvent) => {
         if (props.disabled || isActive.value || e.target === handleRef.value)
           return;
 
