@@ -4,7 +4,11 @@
       'x-slider',
       size ? `x-slider--${size}` : '',
       disabled ? 'is-disabled' : '',
-      ...($attrs.class || []),
+      ...(Array.isArray($attrs.class)
+        ? $attrs.class
+        : $attrs.class
+        ? [$attrs.class]
+        : []),
     ]"
     :style="{ ...($attrs.style as object), width, height }"
   >
@@ -192,7 +196,9 @@ const startDrag = (e: MouseEvent | TouchEvent) => {
 const handleMouseMove = (e: MouseEvent | TouchEvent) => {
   if (!isActive.value) return;
 
-  const clientX = e.type.startsWith('mouse') ? e.clientX : e.touches[0].clientX;
+  const clientX = e.type.startsWith('mouse')
+    ? (e as MouseEvent).clientX
+    : (e as TouchEvent).touches[0].clientX;
   updateValue(getValueByPosition(clientX));
 };
 
