@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { inject, computed } from 'vue';
-import { vk } from '@vueuse/core';
 
 interface SidebarTriggerProps {
   asChild?: boolean;

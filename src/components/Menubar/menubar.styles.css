@@ -1,0 +1,226 @@
+/**
+ * Menubar 组件可选样式
+ * 提供不同主题色、尺寸和变体的样式选项
+ */
+
+/* 主题色样式 */
+.x-menubar--primary {
+  background-color: var(--color-primary);
+  color: var(--color-primary-text-1);
+  border-bottom-color: var(--color-primary-hover);
+}
+
+.x-menubar--primary .x-menubar-trigger {
+  color: var(--color-primary-text-1);
+}
+
+.x-menubar--primary .x-menubar-trigger:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.x-menubar--primary .x-menubar-content {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary-hover);
+}
+
+.x-menubar--primary .x-menubar-item {
+  color: var(--color-primary-text-1);
+}
+
+.x-menubar--primary .x-menubar-item:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.x-menubar--success {
+  background-color: var(--color-success);
+  color: var(--color-success-text-1);
+  border-bottom-color: var(--color-success-hover);
+}
+
+.x-menubar--success .x-menubar-trigger {
+  color: var(--color-success-text-1);
+}
+
+.x-menubar--success .x-menubar-trigger:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.x-menubar--success .x-menubar-content {
+  background-color: var(--color-success);
+  border-color: var(--color-success-hover);
+}
+
+.x-menubar--success .x-menubar-item {
+  color: var(--color-success-text-1);
+}
+
+.x-menubar--success .x-menubar-item:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.x-menubar--warning {
+  background-color: var(--color-warning);
+  color: var(--color-warning-text-1);
+  border-bottom-color: var(--color-warning-hover);
+}
+
+.x-menubar--warning .x-menubar-trigger {
+  color: var(--color-warning-text-1);
+}
+
+.x-menubar--warning .x-menubar-trigger:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.x-menubar--warning .x-menubar-content {
+  background-color: var(--color-warning);
+  border-color: var(--color-warning-hover);
+}
+
+.x-menubar--warning .x-menubar-item {
+  color: var(--color-warning-text-1);
+}
+
+.x-menubar--warning .x-menubar-item:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.x-menubar--danger {
+  background-color: var(--color-danger);
+  color: var(--color-danger-text-1);
+  border-bottom-color: var(--color-danger-hover);
+}
+
+.x-menubar--danger .x-menubar-trigger {
+  color: var(--color-danger-text-1);
+}
+
+.x-menubar--danger .x-menubar-trigger:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.x-menubar--danger .x-menubar-content {
+  background-color: var(--color-danger);
+  border-color: var(--color-danger-hover);
+}
+
+.x-menubar--danger .x-menubar-item {
+  color: var(--color-danger-text-1);
+}
+
+.x-menubar--danger .x-menubar-item:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.x-menubar--info {
+  background-color: var(--color-info);
+  color: var(--color-info-text-1);
+  border-bottom-color: var(--color-info-hover);
+}
+
+.x-menubar--info .x-menubar-trigger {
+  color: var(--color-info-text-1);
+}
+
+.x-menubar--info .x-menubar-trigger:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.x-menubar--info .x-menubar-content {
+  background-color: var(--color-info);
+  border-color: var(--color-info-hover);
+}
+
+.x-menubar--info .x-menubar-item {
+  color: var(--color-info-text-1);
+}
+
+.x-menubar--info .x-menubar-item:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 尺寸样式 */
+.x-menubar--small {
+  padding: var(--padding-1);
+}
+
+.x-menubar--small .x-menubar-trigger {
+  padding: var(--padding-1) var(--padding-2);
+  font-size: var(--font-size-0);
+}
+
+.x-menubar--small .x-menubar-item {
+  padding: var(--padding-1) var(--padding-2);
+  font-size: var(--font-size-0);
+}
+
+.x-menubar--large {
+  padding: var(--padding-3);
+}
+
+.x-menubar--large .x-menubar-trigger {
+  padding: var(--padding-3) var(--padding-4);
+  font-size: var(--font-size-2);
+}
+
+.x-menubar--large .x-menubar-item {
+  padding: var(--padding-3) var(--padding-4);
+  font-size: var(--font-size-2);
+}
+
+/* 圆角变体 */
+.x-menubar--rounded {
+  border-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+}
+
+.x-menubar--rounded .x-menubar-content {
+  border-radius: var(--border-radius-large);
+}
+
+.x-menubar--rounded .x-menubar-trigger {
+  border-radius: var(--border-radius-medium);
+}
+
+.x-menubar--rounded .x-menubar-item {
+  border-radius: var(--border-radius-medium);
+}
+
+/* 阴影变体 */
+.x-menubar--shadow {
+  box-shadow: var(--box-shadow-1);
+}
+
+.x-menubar--shadow-lg {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* 自定义背景 */
+.x-menubar--transparent {
+  background-color: transparent;
+  border-bottom: none;
+}
+
+.x-menubar--transparent .x-menubar-content {
+  background-color: var(--color-background);
+  backdrop-filter: blur(8px);
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.dark .x-menubar--transparent .x-menubar-content {
+  background-color: rgba(26, 26, 26, 0.9);
+}
+
+/* 紧凑模式 */
+.x-menubar--dense {
+  padding: 0;
+}
+
+.x-menubar--dense .x-menubar-trigger {
+  padding: var(--padding-1) var(--padding-2);
+}
+
+.x-menubar--dense .x-menubar-item {
+  padding: var(--padding-1) var(--padding-2);
+}

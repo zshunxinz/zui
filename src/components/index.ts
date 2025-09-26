@@ -41,6 +41,15 @@ import {
 } from './Sidebar';
 import { Icon } from './Icon';
 import { Slider } from './Slider';
+import {
+  Menubar,
+  MenubarMenu,
+  MenubarTrigger,
+  MenubarContent,
+  MenubarItem,
+  MenubarSeparator,
+  MenubarShortcut
+} from './Menubar';
 
 const install = (app: any) => {
   app.component('Row', Row);
@@ -83,6 +92,13 @@ const install = (app: any) => {
   app.component('SidebarMenuButton', SidebarMenuButton);
   app.component('Icon', Icon);
   app.component('Slider', Slider);
+  app.component('Menubar', Menubar);
+  app.component('MenubarMenu', MenubarMenu);
+  app.component('MenubarTrigger', MenubarTrigger);
+  app.component('MenubarContent', MenubarContent);
+  app.component('MenubarItem', MenubarItem);
+  app.component('MenubarSeparator', MenubarSeparator);
+  app.component('MenubarShortcut', MenubarShortcut);
 };
 
 // 支持 use 方式安装
@@ -131,4 +147,11 @@ export {
   SidebarMenuButton,
   Icon,
   Slider,
+  Menubar,
+  MenubarMenu,
+  MenubarTrigger,
+  MenubarContent,
+  MenubarItem,
+  MenubarSeparator,
+  MenubarShortcut,
 };

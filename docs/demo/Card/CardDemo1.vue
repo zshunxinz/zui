@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref } from 'vue';
 const formData = ref({
-  name: "",
-  framework: "",
+  name: '',
+  framework: '',
 });
 </script>
 <template>

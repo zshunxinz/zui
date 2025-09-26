@@ -1,6 +1,4 @@
-<script setup lang="ts">
-import { vk } from '@vueuse/core';
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <header class="SidebarHeader">

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { vk } from '@vueuse/core';
-
 interface SidebarMenuButtonProps {
   asChild?: boolean;
   active?: boolean;

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { inject } from 'vue';
-import { vk } from '@vueuse/core';
 
 const group = inject('sidebar-group');
 const open = group?.open;

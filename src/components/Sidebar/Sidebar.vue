@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, computed, inject } from 'vue';
-import { vk } from '@vueuse/core';
 
 interface SidebarProps {
   collapsedWidth?: number;

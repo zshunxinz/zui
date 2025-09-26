@@ -16,6 +16,7 @@ import IconNoFillTest from '@/view/IconNoFillTest.vue';
 import IconDebugTest from '@/view/IconDebugTest.vue';
 import IconNoFillFixTest from '@/view/IconNoFillFixTest.vue';
 import AllIconsDemo from './view/AllIconsDemo.vue';
+import MenubarDemo from './view/MenubarDemo.vue';
 const value1 = ref('');
 const value2 = ref('');
 const value3 = ref('');
@@ -180,6 +181,7 @@ const resetForm = () => {
     <TabsDemo></TabsDemo>
     <FormDemo></FormDemo>
     <TooltipDemo></TooltipDemo>
+    <MenubarDemo></MenubarDemo>
   </div>
 </template>
 

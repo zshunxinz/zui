@@ -42,6 +42,7 @@
 <details open>
 <summary><strong>导航组件</strong></summary>
 - <a href="./Sidebar">Sidebar 侧边栏</a> - 提供导航菜单的侧边栏组件
+- <a href="./Menubar">Menubar 菜单栏</a> - 提供顶部导航菜单的组件
 </details>
 
 ## 使用指南

@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { provide, ref, watch, defineProps, withDefaults } from 'vue';
-import { vk } from '@vueuse/core';
 
 interface SidebarProviderProps {
   defaultOpen?: boolean;
 }
 
 const props = withDefaults(defineProps<SidebarProviderProps>(), {
-  defaultOpen: true
+  defaultOpen: true,
 });
 
 const open = ref(props.defaultOpen);
@@ -19,7 +18,7 @@ const toggle = () => {
 // 监听defaultOpen属性变化，同步更新open状态
 watch(
   () => props.defaultOpen,
-  (newValue) => {
+  newValue => {
     if (newValue !== undefined) {
       open.value = newValue;
     }
@@ -29,7 +28,7 @@ watch(
 
 const context = {
   open,
-  toggle
+  toggle,
 };
 
 provide('sidebar', context);

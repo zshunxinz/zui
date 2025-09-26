@@ -94,7 +94,10 @@ export default defineConfig({
         {
           text: '导航组件',
           collapsed: false,
-          items: [{ text: 'Sidebar 侧边栏', link: '/components/Sidebar' }],
+          items: [
+            { text: 'Sidebar 侧边栏', link: '/components/Sidebar' },
+            { text: 'Menubar 菜单栏', link: '/components/Menubar' },
+          ],
         },
       ],
     },
