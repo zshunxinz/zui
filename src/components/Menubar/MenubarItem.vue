@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { inject } from 'vue'
+import { inject } from 'vue';
 import type { MenubarMenuType } from './types';
 
 interface Props {
@@ -31,14 +31,14 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   disabled: false,
-  onClick: undefined
+  onClick: undefined,
 });
 
 // 注入父组件提供的数据
-const menubarMenu = inject<MenubarMenuType>('menubarMenu')
+const menubarMenu = inject<MenubarMenuType>('menubarMenu');
 
 if (!menubarMenu) {
-  throw new Error('MenubarItem must be used within MenubarMenu component')
+  throw new Error('MenubarItem must be used within MenubarMenu component');
 }
 
 // 点击处理函数
@@ -60,7 +60,7 @@ const handleClick = () => {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: var(--padding-2) var(--padding-3);
+  padding: var(--padding-1);
   background: none;
   border: none;
   color: var(--color-text);

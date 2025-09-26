@@ -1,8 +1,5 @@
 <template>
   <div class="menubar-styles-demo">
-    <h2>Menubar 样式演示</h2>
-    <p>以下是 Menubar 组件支持的各种可选样式：</p>
-
     <div class="demo-section">
       <h3>主题色样式</h3>
       <div class="demo-row">
@@ -47,68 +44,6 @@
               <MenubarContent>
                 <MenubarItem>复制</MenubarItem>
                 <MenubarItem>粘贴</MenubarItem>
-              </MenubarContent>
-            </MenubarMenu>
-          </Menubar>
-        </div>
-
-        <div class="demo-item">
-          <h4>成功主题</h4>
-          <Menubar theme="success">
-            <MenubarMenu>
-              <MenubarTrigger>文件</MenubarTrigger>
-              <MenubarContent>
-                <MenubarItem>新建</MenubarItem>
-                <MenubarItem>打开</MenubarItem>
-                <MenubarSeparator />
-                <MenubarItem>保存</MenubarItem>
-              </MenubarContent>
-            </MenubarMenu>
-          </Menubar>
-        </div>
-      </div>
-
-      <div class="demo-row">
-        <div class="demo-item">
-          <h4>警告主题</h4>
-          <Menubar theme="warning">
-            <MenubarMenu>
-              <MenubarTrigger>文件</MenubarTrigger>
-              <MenubarContent>
-                <MenubarItem>新建</MenubarItem>
-                <MenubarItem>打开</MenubarItem>
-                <MenubarSeparator />
-                <MenubarItem>保存</MenubarItem>
-              </MenubarContent>
-            </MenubarMenu>
-          </Menubar>
-        </div>
-
-        <div class="demo-item">
-          <h4>危险主题</h4>
-          <Menubar theme="danger">
-            <MenubarMenu>
-              <MenubarTrigger>文件</MenubarTrigger>
-              <MenubarContent>
-                <MenubarItem>新建</MenubarItem>
-                <MenubarItem>打开</MenubarItem>
-                <MenubarSeparator />
-                <MenubarItem>保存</MenubarItem>
-              </MenubarContent>
-            </MenubarMenu>
-          </Menubar>
-        </div>
-
-        <div class="demo-item">
-          <h4>信息主题</h4>
-          <Menubar theme="info">
-            <MenubarMenu>
-              <MenubarTrigger>文件</MenubarTrigger>
-              <MenubarContent>
-                <MenubarItem>新建</MenubarItem>
-                <MenubarItem>打开</MenubarItem>
-                <MenubarSeparator />
-                <MenubarItem>保存</MenubarItem>
               </MenubarContent>
             </MenubarMenu>
           </Menubar>
@@ -308,9 +243,9 @@
 }
 
 .demo-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+  /* display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr)); */
+  /* gap: 1rem; */
   margin-top: 1rem;
 }
 

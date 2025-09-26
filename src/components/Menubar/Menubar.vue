@@ -73,6 +73,7 @@ provide('menubar', {
   align-items: center;
   /* background-color: var(--color-background-2); */
   border-bottom: 1px solid var(--color-border-1);
+  /* border: 1px solid var(--color-border-1); */
   padding: var(--padding-1);
   user-select: none;
 }

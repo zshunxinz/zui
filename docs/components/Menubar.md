@@ -12,7 +12,15 @@ import MenubarDemoStyles from "/demo/Menubar/MenubarDemoStyles.vue";
 
 </script>
 
-<MenubarDemoStyles/>
+<Demo>
+  <MenubarDemoStyles/>
+</Demo>
+
+<CollapsibleCode>
+
+<<< ../demo/Menubar/MenubarDemoStyles.vue
+
+</CollapsibleCode>
 
 <Demo>
 <MenubarDemo1/>

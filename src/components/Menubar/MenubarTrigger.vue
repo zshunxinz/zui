@@ -1,7 +1,9 @@
 <template>
   <button
     class="x-menubar-trigger"
-    :class="{ 'x-menubar-trigger--disabled': disabled || menubarMenu.menubar.disabled }"
+    :class="{
+      'x-menubar-trigger--disabled': disabled || menubarMenu.menubar.disabled,
+    }"
     type="button"
     @click="handleClick"
     :aria-expanded="isOpen"
@@ -11,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { inject, computed } from 'vue'
+import { inject, computed } from 'vue';
 import type { MenubarMenuType } from './types';
 
 interface Props {
@@ -22,14 +24,14 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  disabled: false
+  disabled: false,
 });
 
 // 注入父组件提供的数据
-const menubarMenu = inject<MenubarMenuType>('menubarMenu')
+const menubarMenu = inject<MenubarMenuType>('menubarMenu');
 
 if (!menubarMenu) {
-  throw new Error('MenubarTrigger must be used within MenubarMenu component')
+  throw new Error('MenubarTrigger must be used within MenubarMenu component');
 }
 
 // 计算当前菜单是否打开
@@ -51,7 +53,7 @@ const handleClick = () => {
 
 <style scoped>
 .x-menubar-trigger {
-  padding: var(--padding-2) var(--padding-3);
+  padding: var(--padding-1);
   background: none;
   border: none;
   color: var(--color-text);
