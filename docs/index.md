@@ -3,8 +3,8 @@
 layout: home
 
 hero:
-  name: "zui"
-  text: "一个自己的组件库"
+  name: 'zui'
+  text: '一个自己的组件库'
   tagline: 简单、好用的组件库
   actions:
     - theme: brand
@@ -64,13 +64,13 @@ features:
   }
 </style> -->
 
-## 核心特性
+<!-- ## 核心特性
 
 ### 🚀 高效开发体验
 
 - **TypeScript 原生支持**：完善的类型定义，提供精准的代码提示和类型检查
 - **按需引入**：支持组件和样式的按需加载，减小打包体积
-- **友好的 API 设计**：简洁直观的 API，降低学习成本
+- **友好的 API 设计**：简洁直观的 API，降低学习成本 -->
 
 ### 🎨 视觉设计
 
@@ -104,21 +104,21 @@ npm install zui --save
 #### 全局引入
 
 ```javascript
-import { createApp } from "vue";
-import Zui from "zui";
-import "zui/dist/style.css";
-import App from "./App.vue";
+import { createApp } from 'vue';
+import Zui from 'zui';
+import 'zui/dist/style.css';
+import App from './App.vue';
 
 const app = createApp(App);
 app.use(Zui);
-app.mount("#app");
+app.mount('#app');
 ```
 
 #### 按需引入
 
 ```javascript
-import { Input } from "zui";
-import "zui/dist/input.css";
+import { Input } from 'zui';
+import 'zui/dist/input.css';
 
 export default {
   components: {
