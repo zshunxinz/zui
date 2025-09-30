@@ -25,17 +25,16 @@ import { Tooltip } from './components/Tooltip';
 
 import type { App } from 'vue';
 
-import * as components from './components';
+// 导入组件库的默认install方法（包含ToastPlugin的安装）
+import ComponentsInstall from './components';
 import { Space } from './components/Space';
 import { Divider } from './components/Divider';
 import { Icon } from './components/Icon';
 
 export default {
   install(app: App) {
-    for (const key in components) {
-      const comp = components[key as keyof typeof components];
-      app.component(key, comp);
-    }
+    // 使用components/index.ts中导出的install方法，确保ToastPlugin被正确安装
+    ComponentsInstall.install(app);
   },
 };
 

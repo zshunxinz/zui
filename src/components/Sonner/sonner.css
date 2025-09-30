@@ -1,0 +1,192 @@
+/* Sonner 组件样式 */
+
+/* 不同类型的 Toast 样式 */
+.x-sonner-toast--success {
+  background-color: var(--color-success);
+  color: var(--color-success-text-1);
+  border-color: var(--color-success-hover);
+}
+
+.x-sonner-toast--success .x-sonner-toast-title,
+.x-sonner-toast--success .x-sonner-toast-description {
+  color: var(--color-success-text-1);
+}
+
+.x-sonner-toast--success .x-sonner-toast-close {
+  color: var(--color-success-text-1);
+  opacity: 0.8;
+}
+
+.x-sonner-toast--success .x-sonner-toast-close:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  opacity: 1;
+}
+
+.x-sonner-toast--error {
+  background-color: var(--color-danger);
+  color: var(--color-danger-text-1);
+  border-color: var(--color-danger-hover);
+}
+
+.x-sonner-toast--error .x-sonner-toast-title,
+.x-sonner-toast--error .x-sonner-toast-description {
+  color: var(--color-danger-text-1);
+}
+
+.x-sonner-toast--error .x-sonner-toast-close {
+  color: var(--color-danger-text-1);
+  opacity: 0.8;
+}
+
+.x-sonner-toast--error .x-sonner-toast-close:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  opacity: 1;
+}
+
+.x-sonner-toast--warning {
+  background-color: var(--color-warning);
+  color: var(--color-warning-text-1);
+  border-color: var(--color-warning-hover);
+}
+
+.x-sonner-toast--warning .x-sonner-toast-title,
+.x-sonner-toast--warning .x-sonner-toast-description {
+  color: var(--color-warning-text-1);
+}
+
+.x-sonner-toast--warning .x-sonner-toast-close {
+  color: var(--color-warning-text-1);
+  opacity: 0.8;
+}
+
+.x-sonner-toast--warning .x-sonner-toast-close:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  opacity: 1;
+}
+
+.x-sonner-toast--info {
+  background-color: var(--color-info);
+  color: var(--color-info-text-1);
+  border-color: var(--color-info-hover);
+}
+
+.x-sonner-toast--info .x-sonner-toast-title,
+.x-sonner-toast--info .x-sonner-toast-description {
+  color: var(--color-info-text-1);
+}
+
+.x-sonner-toast--info .x-sonner-toast-close {
+  color: var(--color-info-text-1);
+  opacity: 0.8;
+}
+
+.x-sonner-toast--info .x-sonner-toast-close:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  opacity: 1;
+}
+
+/* 尺寸变体 */
+.x-sonner-toast--small {
+  min-height: 52px;
+  padding: var(--padding-1);
+  font-size: var(--font-size-0);
+}
+
+.x-sonner-toast--small .x-sonner-toast-title {
+  font-size: var(--font-size-0);
+}
+
+.x-sonner-toast--small .x-sonner-toast-description {
+  font-size: var(--font-size-0);
+}
+
+.x-sonner-toast--large {
+  min-height: 76px;
+  padding: var(--padding-3);
+  font-size: var(--font-size-2);
+}
+
+.x-sonner-toast--large .x-sonner-toast-title {
+  font-size: var(--font-size-2);
+}
+
+.x-sonner-toast--large .x-sonner-toast-description {
+  font-size: var(--font-size-1);
+}
+
+/* 圆角变体 */
+.x-sonner-toast--rounded {
+  border-radius: var(--border-radius);
+}
+
+/* 阴影变体 */
+.x-sonner-toast--shadow {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.x-sonner-toast--shadow:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* 暗色模式适配 */
+:root.dark .x-sonner-toast {
+  background-color: var(--color-background);
+  border-color: var(--color-border);
+}
+
+:root.dark .x-sonner-toast--success {
+  background-color: var(--color-success);
+  border-color: var(--color-success-hover);
+}
+
+:root.dark .x-sonner-toast--error {
+  background-color: var(--color-danger);
+  border-color: var(--color-danger-hover);
+}
+
+:root.dark .x-sonner-toast--warning {
+  background-color: var(--color-warning);
+  border-color: var(--color-warning-hover);
+}
+
+:root.dark .x-sonner-toast--info {
+  background-color: var(--color-info);
+  border-color: var(--color-info-hover);
+}
+
+/* RTL 支持 */
+.x-sonner--rtl {
+  direction: rtl;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .x-sonner {
+    max-width: calc(100% - 32px);
+    width: calc(100% - 32px);
+  }
+  
+  .x-sonner-container {
+    max-width: 100%;
+  }
+  
+  .x-sonner--top-center,
+  .x-sonner--bottom-center {
+    left: 0;
+    right: 0;
+    transform: none;
+    align-items: center;
+  }
+  
+  .x-sonner--top-right,
+  .x-sonner--bottom-right {
+    right: 0;
+    align-items: flex-end;
+  }
+  
+  .x-sonner--top-left,
+  .x-sonner--bottom-left {
+    left: 0;
+    align-items: flex-start;
+  }
+}

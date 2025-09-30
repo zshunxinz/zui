@@ -1,8 +1,10 @@
 <script setup>
 import { ref } from 'vue';
 import { Textarea } from './components/Textarea';
+import { Sonner } from './components/Sonner';
 import FormDemo from '@/view/FormDemo.vue';
 import TabsDemo from '@/view/TabsDemo.vue';
+import SonnerDemo from './view/SonnerDemo.vue';
 import TooltipDemo from '@/view/TooltipDemo.vue';
 import SelectDemo from '@/view/SelectDemo.vue';
 import GroupTest from '@/view/GroupTest.vue';
@@ -163,10 +165,12 @@ const resetForm = () => {
 
 <template>
   <div class="app-container">
+    <Sonner />
     <div class="app-header">
       <ThemeToggle />
     </div>
     <AllIconsDemo></AllIconsDemo>
+    <SonnerDemo />
     <IconNoFillFixTest></IconNoFillFixTest>
     <IconDebugTest></IconDebugTest>
     <IconNoFillTest></IconNoFillTest>

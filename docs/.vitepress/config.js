@@ -89,6 +89,7 @@ export default defineConfig({
           items: [
             { text: 'Tooltip 提示', link: '/components/Tooltip' },
             { text: 'Popover 弹出层', link: '/components/Popover' },
+            { text: 'Sonner 消息提示', link: '/components/Sonner' },
           ],
         },
         {

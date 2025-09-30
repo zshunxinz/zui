@@ -50,6 +50,8 @@ import {
   MenubarSeparator,
   MenubarShortcut
 } from './Menubar';
+import Sonner from './Sonner/Sonner.vue';
+import ToastPlugin from './Sonner/ToastPlugin';
 
 const install = (app: any) => {
   app.component('Row', Row);
@@ -98,6 +100,14 @@ const install = (app: any) => {
   app.component('MenubarContent', MenubarContent);
   app.component('MenubarItem', MenubarItem);
   app.component('MenubarSeparator', MenubarSeparator);
+  
+  // 注册Sonner组件
+  app.component('Sonner', Sonner);
+  
+  // 注册ToastPlugin
+  if (ToastPlugin && ToastPlugin.install) {
+    ToastPlugin.install(app);
+  }
   app.component('MenubarShortcut', MenubarShortcut);
 };
 
