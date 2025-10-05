@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { provide, ref, watch, defineProps, withDefaults } from 'vue';
+import { provide, ref, watch } from 'vue';
 
 interface SidebarProviderProps {
   defaultOpen?: boolean;
