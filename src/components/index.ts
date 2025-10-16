@@ -52,6 +52,7 @@ import {
 } from './Menubar';
 import Sonner from './Sonner/Sonner.vue';
 import ToastPlugin from './Sonner/ToastPlugin';
+import { Modal } from './Modal';
 
 const install = (app: any) => {
   app.component('Row', Row);
@@ -103,6 +104,9 @@ const install = (app: any) => {
   
   // 注册Sonner组件
   app.component('Sonner', Sonner);
+  
+  // 注册Modal组件
+  app.component('Modal', Modal);
   
   // 注册ToastPlugin
   if (ToastPlugin && ToastPlugin.install) {
@@ -164,4 +168,5 @@ export {
   MenubarItem,
   MenubarSeparator,
   MenubarShortcut,
+  Modal,
 };
