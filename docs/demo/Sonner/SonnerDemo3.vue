@@ -98,14 +98,15 @@ import { Button } from '../../../src/components/Button';
 import { Select, Option } from '../../../src/components/Select';
 import { Input } from '../../../src/components/Input';
 import { Sonner } from '../../../src/components/Sonner';
+import type { ToastPluginInstance } from '../../../src/components/Sonner/types';
 
 // 引用不同位置的 Sonner 组件实例
-const topRightSonner = ref<InstanceType<typeof Sonner>>();
-const topLeftSonner = ref<InstanceType<typeof Sonner>>();
-const topCenterSonner = ref<InstanceType<typeof Sonner>>();
-const bottomRightSonner = ref<InstanceType<typeof Sonner>>();
-const bottomLeftSonner = ref<InstanceType<typeof Sonner>>();
-const bottomCenterSonner = ref<InstanceType<typeof Sonner>>();
+const topRightSonner = ref<ToastPluginInstance>();
+const topLeftSonner = ref<ToastPluginInstance>();
+const topCenterSonner = ref<ToastPluginInstance>();
+const bottomRightSonner = ref<ToastPluginInstance>();
+const bottomLeftSonner = ref<ToastPluginInstance>();
+const bottomCenterSonner = ref<ToastPluginInstance>();
 
 // 选中的位置
 const selectedPosition = ref('top-right');
