@@ -1,11 +1,5 @@
 <template>
   <div class="sonner-demo">
-    <h2 class="demo-title">Sonner 消息提示 - 基本用法</h2>
-    
-    <p class="demo-intro">
-      Sonner 是一个轻量级、可定制的消息提示组件，支持多种类型的消息展示和丰富的配置选项。
-    </p>
-    
     <div class="demo-section">
       <h3 class="section-title">通过插件方法调用</h3>
       <div class="demo-content">
@@ -17,7 +11,7 @@
         <Button type="info" @click="showInfoToast">信息消息</Button>
       </div>
     </div>
-    
+
     <div class="demo-section">
       <h3 class="section-title">自定义配置</h3>
       <div class="demo-content">
@@ -26,7 +20,7 @@
         <Button @click="showWithCustomIcon">自定义图标</Button>
       </div>
     </div>
-    
+
     <div class="demo-section">
       <h3 class="section-title">操作方法</h3>
       <div class="demo-content">
@@ -34,7 +28,7 @@
         <Button @click="dismissAllToasts">关闭所有消息</Button>
       </div>
     </div>
-    
+
     <div class="demo-section">
       <h3 class="section-title">实际应用场景</h3>
       <div class="demo-content">
@@ -158,7 +152,7 @@ const dismissAllToasts = () => {
 // 表单提交反馈演示 - 模拟表单提交过程的消息反馈
 const showFormSubmitDemo = () => {
   if (!safeToast()) return;
-  
+
   // 显示提交中消息
   const loadingToastId = toast.addToast({
     title: '提交中',
@@ -166,12 +160,12 @@ const showFormSubmitDemo = () => {
     type: 'info',
     duration: Infinity,
   });
-  
+
   // 模拟网络请求延迟
   setTimeout(() => {
     // 关闭加载消息
     toast.dismissToast(loadingToastId);
-    
+
     // 显示成功消息
     toast.success('表单已成功提交', '提交成功');
   }, 2000);
@@ -180,7 +174,7 @@ const showFormSubmitDemo = () => {
 // 加载状态提示演示 - 模拟长时间加载过程的状态更新
 const showLoadingDemo = () => {
   if (!safeToast()) return;
-  
+
   // 显示初始加载消息
   let progress = 0;
   const progressToastId = toast.addToast({
@@ -189,11 +183,11 @@ const showLoadingDemo = () => {
     type: 'info',
     duration: Infinity,
   });
-  
+
   // 模拟进度更新
   const interval = setInterval(() => {
     progress += 10;
-    
+
     if (progress >= 100) {
       // 完成加载
       clearInterval(interval);
@@ -215,13 +209,13 @@ const showLoadingDemo = () => {
 // 系统通知演示 - 模拟不同时间点收到的系统通知
 const showNotificationDemo = () => {
   if (!safeToast()) return;
-  
+
   toast.info('您有一封新邮件', '新消息');
-  
+
   setTimeout(() => {
     toast.warning('服务器将在30分钟后进行维护', '系统通知');
   }, 1000);
-  
+
   setTimeout(() => {
     toast.success('数据已自动备份', '备份完成');
   }, 2000);

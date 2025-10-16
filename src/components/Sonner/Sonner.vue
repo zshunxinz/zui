@@ -1,5 +1,5 @@
 <template>
-  <div 
+  <div
     :id="`sonner-container-${id}`"
     class="sonner-toaster"
     :class="`sonner-toaster-${position}`"
@@ -27,11 +27,11 @@
             'sonner-toast-has-title': toast.title,
             'sonner-toast-has-description': toast.description,
             'sonner-toast-has-icon': toast.icon,
-            'sonner-toast-dismissible': toast.dismissible !== false
-          }
+            'sonner-toast-dismissible': toast.dismissible !== false,
+          },
         ]"
         :style="{
-          '--offset': `${getOffset(toast)}px`
+          '--offset': `${getOffset(toast)}px`,
         }"
         @click.stop="dismissToast(toast.id)"
         @mouseenter="toggleTimer(toast.id, false)"
@@ -41,13 +41,17 @@
         <div v-if="toast.icon" class="sonner-toast-icon">
           <Icon :name="toast.icon" />
         </div>
-        
+
         <!-- 内容 -->
         <div class="sonner-toast-content">
-          <h4 v-if="toast.title" class="sonner-toast-title">{{ toast.title }}</h4>
-          <p v-if="toast.description" class="sonner-toast-description">{{ toast.description }}</p>
+          <h4 v-if="toast.title" class="sonner-toast-title">
+            {{ toast.title }}
+          </h4>
+          <p v-if="toast.description" class="sonner-toast-description">
+            {{ toast.description }}
+          </p>
         </div>
-        
+
         <!-- 关闭按钮 -->
         <button
           v-if="toast.dismissible !== false"
@@ -63,9 +67,11 @@
 </template>
 
 <script lang="ts" setup>
-import { defineComponent, ref, computed, onMounted, onUnmounted, provide } from 'vue';
-import Icon from '../Icon/Icon.vue';
+import { ref, computed, onMounted, onUnmounted, provide } from 'vue';
 import type { Toast, ToastPosition, ToastSize, ToastType } from './types';
+
+// 默认弹出位置（右上）
+const DEFAULT_POSITION: ToastPosition = 'top-right';
 
 // Props定义
 interface Props {
@@ -81,7 +87,7 @@ interface Props {
 
 // 默认Props
 const props = withDefaults(defineProps<Props>(), {
-  position: 'top-right',
+  position: DEFAULT_POSITION,
   offset: 16,
   limit: 3,
   richColors: false,
@@ -114,7 +120,7 @@ const visibleToasts = computed(() => {
 // 容器样式
 const containerStyle = computed(() => {
   const baseStyle: Record<string, string> = {};
-  
+
   // 基于位置设置不同的样式
   switch (props.position) {
     case 'top-right':
@@ -144,7 +150,7 @@ const containerStyle = computed(() => {
       baseStyle.transform = 'translateX(-50%)';
       break;
   }
-  
+
   return baseStyle;
 });
 
@@ -152,7 +158,7 @@ const containerStyle = computed(() => {
 const getOffset = (toast: Toast): number => {
   const index = toasts.value.indexOf(toast);
   if (index === -1) return 0;
-  
+
   // 计算相对于顶部或底部的偏移量
   return index * 88; // 假设每个toast大约88px高
 };
@@ -175,15 +181,16 @@ const addToast = (options: Omit<Toast, 'id'>): number => {
     type: options.type ?? 'default',
     size: options.size ?? 'normal',
   };
-  
+
   // 添加到列表
   toasts.value.unshift(newToast);
-  
+
   // 设置定时器
-  if (newToast.duration !== Infinity) {
-    startTimer(newToast.id, newToast.duration);
+  const durationValue = newToast.duration ?? 0;
+  if (durationValue !== Infinity) {
+    startTimer(newToast.id, durationValue);
   }
-  
+
   return newToast.id;
 };
 
@@ -193,30 +200,33 @@ const startTimer = (id: number, duration: number) => {
   if (timers.has(id)) {
     window.clearTimeout(timers.get(id)!);
   }
-  
+
   // 设置新的定时器
   const timer = window.setTimeout(() => {
     if (!pausedToasts.has(id)) {
       dismissToast(id);
     }
   }, duration);
-  
+
   timers.set(id, timer);
 };
 
 // 切换定时器状态
 const toggleTimer = (id: number, isRunning: boolean) => {
   if (!props.pauseOnHover) return;
-  
+
   if (isRunning) {
     pausedToasts.delete(id);
     // 找到对应toast并重新启动定时器
     const toast = toasts.value.find(t => t.id === id);
-    if (toast && toast.duration !== Infinity) {
-      // 计算剩余时间
-      const elapsed = Date.now() - toast.createdAt;
-      const remaining = Math.max(0, toast.duration - elapsed);
-      startTimer(id, remaining);
+    if (toast) {
+      const toastDuration = toast.duration ?? Infinity;
+      if (toastDuration !== Infinity) {
+        // 计算剩余时间
+        const elapsed = Date.now() - toast.createdAt;
+        const remaining = Math.max(0, toastDuration - elapsed);
+        startTimer(id, remaining);
+      }
     }
   } else {
     pausedToasts.add(id);
@@ -235,10 +245,10 @@ const dismissToast = (id: number) => {
     window.clearTimeout(timers.get(id)!);
     timers.delete(id);
   }
-  
+
   // 移除暂停状态
   pausedToasts.delete(id);
-  
+
   // 从列表中移除toast
   toasts.value = toasts.value.filter(toast => toast.id !== id);
 };
@@ -248,10 +258,10 @@ const dismissAll = () => {
   // 清除所有定时器
   timers.forEach(timer => window.clearTimeout(timer));
   timers.clear();
-  
+
   // 清除所有暂停状态
   pausedToasts.clear();
-  
+
   // 清空列表
   toasts.value = [];
 };
@@ -273,34 +283,42 @@ const toastMethods = {
   dismissToast,
   dismissAll,
   updateToast,
-  success: (message: string, title?: string) => addToast({
-    type: 'success',
-    title,
-    description: message,
-    icon: 'check-check',
-    duration: 3000,
-  }),
-  error: (message: string, title?: string) => addToast({
-    type: 'error',
-    title,
-    description: message,
-    icon: 'circle-alert',
-    duration: 5000,
-  }),
-  warning: (message: string, title?: string) => addToast({
-    type: 'warning',
-    title,
-    description: message,
-    icon: 'triangle-alert',
-    duration: 4000,
-  }),
-  info: (message: string, title?: string) => addToast({
-    type: 'info',
-    title,
-    description: message,
-    icon: 'bell',
-    duration: 3000,
-  }),
+  success: (message: string, title?: string) =>
+    addToast({
+      type: 'success',
+      title,
+      description: message,
+      icon: 'check-check',
+      duration: 3000,
+      createdAt: Date.now(),
+    }),
+  error: (message: string, title?: string) =>
+    addToast({
+      type: 'error',
+      title,
+      description: message,
+      icon: 'circle-alert',
+      duration: 5000,
+      createdAt: Date.now(),
+    }),
+  warning: (message: string, title?: string) =>
+    addToast({
+      type: 'warning',
+      title,
+      description: message,
+      icon: 'triangle-alert',
+      duration: 4000,
+      createdAt: Date.now(),
+    }),
+  info: (message: string, title?: string) =>
+    addToast({
+      type: 'info',
+      title,
+      description: message,
+      icon: 'bell',
+      duration: 3000,
+      createdAt: Date.now(),
+    }),
 };
 
 // 提供给子组件
@@ -321,7 +339,7 @@ onMounted(() => {
 onUnmounted(() => {
   // 清除所有定时器
   timers.forEach(timer => window.clearTimeout(timer));
-  
+
   // 从window对象中移除
   if (typeof window !== 'undefined') {
     delete (window as any).__sonner__;
@@ -355,7 +373,8 @@ onUnmounted(() => {
   padding: 16px;
   background-color: #ffffff;
   border-radius: 8px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -2px rgba(0, 0, 0, 0.1);
   border: 1px solid #e5e7eb;
   min-width: 320px;
   max-width: 400px;

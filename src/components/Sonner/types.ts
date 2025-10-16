@@ -2,7 +2,7 @@
 
 export type ToastType = 'default' | 'success' | 'error' | 'warning' | 'info';
 export type ToastSize = 'small' | 'default' | 'large';
-export type ToastPosition = 
+export type ToastPosition =
   | 'top-right'
   | 'top-left'
   | 'bottom-right'
