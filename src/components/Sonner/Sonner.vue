@@ -22,7 +22,7 @@
         :class="[
           `sonner-toast-${toast.type}`,
           `sonner-toast-${toast.size}`,
-          toast.className,
+          $attrs.class || '',
           {
             'sonner-toast-has-title': toast.title,
             'sonner-toast-has-description': toast.description,
@@ -32,6 +32,7 @@
         ]"
         :style="{
           '--offset': `${getOffset(toast)}px`,
+          ...toast.style,
         }"
         @click.stop="dismissToast(toast.id)"
         @mouseenter="toggleTimer(toast.id, false)"
@@ -68,12 +69,20 @@
 
 <script lang="ts" setup>
 import { ref, computed, onMounted, onUnmounted, provide } from 'vue';
-import type { Toast, ToastPosition, ToastSize, ToastType } from './types';
+import { Icon } from '../Icon';
+import type {
+  Toast,
+  ToastPosition,
+  ToastSize,
+  ToastType,
+  ToastPluginInstance,
+} from './types';
 
-// 默认弹出位置（右上）
+// 组件默认配置
 const DEFAULT_POSITION: ToastPosition = 'top-right';
+const TOAST_HEIGHT = 88;
 
-// Props定义
+// 组件Props定义
 interface Props {
   position?: ToastPosition;
   offset?: number;
@@ -85,7 +94,7 @@ interface Props {
   toastOptions?: Partial<Toast>;
 }
 
-// 默认Props
+// Props默认值
 const props = withDefaults(defineProps<Props>(), {
   position: DEFAULT_POSITION,
   offset: 16,
@@ -97,55 +106,48 @@ const props = withDefaults(defineProps<Props>(), {
   toastOptions: () => ({}),
 });
 
-// 组件唯一标识
+// 组件唯一标识，用于DOM ID和调试
 const id = Math.floor(Math.random() * 10000);
 
-// 存储所有toast
+// Toast状态管理
 const toasts = ref<Toast[]>([]);
-
-// 跟踪toast ID
 const toastId = ref(0);
-
-// 存储暂停的toast
 const pausedToasts = new Set<number>();
-
-// 存储定时器
 const timers = new Map<number, number>();
 
-// 显示的toast
-const visibleToasts = computed(() => {
-  return toasts.value.slice(0, props.limit);
-});
+// 计算可见的toast（根据limit限制数量）
+const visibleToasts = computed(() => toasts.value.slice(0, props.limit));
 
-// 容器样式
+// 计算容器位置样式
 const containerStyle = computed(() => {
   const baseStyle: Record<string, string> = {};
+  const offset = `${props.offset}px`;
 
-  // 基于位置设置不同的样式
+  // 根据位置设置样式
   switch (props.position) {
     case 'top-right':
-      baseStyle.top = `${props.offset}px`;
-      baseStyle.right = `${props.offset}px`;
+      baseStyle.top = offset;
+      baseStyle.right = offset;
       break;
     case 'top-left':
-      baseStyle.top = `${props.offset}px`;
-      baseStyle.left = `${props.offset}px`;
+      baseStyle.top = offset;
+      baseStyle.left = offset;
       break;
     case 'top-center':
-      baseStyle.top = `${props.offset}px`;
+      baseStyle.top = offset;
       baseStyle.left = '50%';
       baseStyle.transform = 'translateX(-50%)';
       break;
     case 'bottom-right':
-      baseStyle.bottom = `${props.offset}px`;
-      baseStyle.right = `${props.offset}px`;
+      baseStyle.bottom = offset;
+      baseStyle.right = offset;
       break;
     case 'bottom-left':
-      baseStyle.bottom = `${props.offset}px`;
-      baseStyle.left = `${props.offset}px`;
+      baseStyle.bottom = offset;
+      baseStyle.left = offset;
       break;
     case 'bottom-center':
-      baseStyle.bottom = `${props.offset}px`;
+      baseStyle.bottom = offset;
       baseStyle.left = '50%';
       baseStyle.transform = 'translateX(-50%)';
       break;
@@ -154,23 +156,18 @@ const containerStyle = computed(() => {
   return baseStyle;
 });
 
-// 获取toast的偏移量
+// 计算单个toast的偏移量
 const getOffset = (toast: Toast): number => {
   const index = toasts.value.indexOf(toast);
-  if (index === -1) return 0;
-
-  // 计算相对于顶部或底部的偏移量
-  return index * 88; // 假设每个toast大约88px高
+  return index === -1 ? 0 : index * TOAST_HEIGHT;
 };
 
-// 更新偏移量
-const updateOffsets = () => {
-  // 可以在这里添加额外的逻辑来更新偏移量
-};
+// 过渡动画结束后更新偏移量（保留用于未来扩展）
+const updateOffsets = () => {};
 
-// 添加toast
+// 添加新的toast消息
 const addToast = (options: Omit<Toast, 'id'>): number => {
-  // 合并默认选项
+  // 创建新toast对象，合并默认值和传入选项
   const newToast: Toast = {
     ...props.toastOptions,
     ...options,
@@ -182,27 +179,27 @@ const addToast = (options: Omit<Toast, 'id'>): number => {
     size: options.size ?? 'normal',
   };
 
-  // 添加到列表
+  // 添加到列表开头（新消息优先显示）
   toasts.value.unshift(newToast);
 
-  // 设置定时器
-  const durationValue = newToast.duration ?? 0;
-  if (durationValue !== Infinity) {
-    startTimer(newToast.id, durationValue);
+  // 如果有持续时间，则设置自动关闭定时器
+  if (newToast.duration !== Infinity) {
+    startTimer(newToast.id, newToast.duration);
   }
 
   return newToast.id;
 };
 
-// 开始定时器
+// 设置定时器用于自动关闭toast
 const startTimer = (id: number, duration: number) => {
-  // 清除已存在的定时器
+  // 清理可能存在的旧定时器，避免重复
   if (timers.has(id)) {
     window.clearTimeout(timers.get(id)!);
   }
 
-  // 设置新的定时器
+  // 创建新定时器
   const timer = window.setTimeout(() => {
+    // 只有当toast未被暂停时才自动关闭
     if (!pausedToasts.has(id)) {
       dismissToast(id);
     }
@@ -211,26 +208,24 @@ const startTimer = (id: number, duration: number) => {
   timers.set(id, timer);
 };
 
-// 切换定时器状态
+// 切换定时器状态（用于鼠标悬停暂停/继续）
 const toggleTimer = (id: number, isRunning: boolean) => {
+  // 如果未启用悬停暂停功能，则直接返回
   if (!props.pauseOnHover) return;
 
   if (isRunning) {
+    // 继续计时：移除暂停状态并重新计算剩余时间
     pausedToasts.delete(id);
-    // 找到对应toast并重新启动定时器
     const toast = toasts.value.find(t => t.id === id);
-    if (toast) {
-      const toastDuration = toast.duration ?? Infinity;
-      if (toastDuration !== Infinity) {
-        // 计算剩余时间
-        const elapsed = Date.now() - toast.createdAt;
-        const remaining = Math.max(0, toastDuration - elapsed);
-        startTimer(id, remaining);
-      }
+
+    if (toast && toast.duration !== Infinity) {
+      const elapsed = Date.now() - toast.createdAt;
+      const remaining = Math.max(0, toast.duration - elapsed);
+      startTimer(id, remaining);
     }
   } else {
+    // 暂停计时：添加到暂停集合并清除定时器
     pausedToasts.add(id);
-    // 暂停时清除定时器
     if (timers.has(id)) {
       window.clearTimeout(timers.get(id)!);
       timers.delete(id);
@@ -238,35 +233,29 @@ const toggleTimer = (id: number, isRunning: boolean) => {
   }
 };
 
-// 关闭指定toast
+// 关闭单个toast消息
 const dismissToast = (id: number) => {
-  // 清除定时器
+  // 清理相关资源
   if (timers.has(id)) {
     window.clearTimeout(timers.get(id)!);
     timers.delete(id);
   }
-
-  // 移除暂停状态
   pausedToasts.delete(id);
 
-  // 从列表中移除toast
+  // 从列表中移除（触发过渡动画）
   toasts.value = toasts.value.filter(toast => toast.id !== id);
 };
 
-// 关闭所有toast
+// 关闭所有toast消息
 const dismissAll = () => {
-  // 清除所有定时器
+  // 清理所有资源
   timers.forEach(timer => window.clearTimeout(timer));
   timers.clear();
-
-  // 清除所有暂停状态
   pausedToasts.clear();
-
-  // 清空列表
   toasts.value = [];
 };
 
-// 更新指定toast
+// 更新现有toast消息
 const updateToast = (id: number, updates: Partial<Toast>) => {
   const index = toasts.value.findIndex(toast => toast.id === id);
   if (index !== -1) {
@@ -277,12 +266,13 @@ const updateToast = (id: number, updates: Partial<Toast>) => {
   }
 };
 
-// 提供toast方法
-const toastMethods = {
+// 定义toast方法集合（用于提供和暴露）
+const toastMethods: ToastPluginInstance = {
   addToast,
   dismissToast,
   dismissAll,
   updateToast,
+  // 快捷方法：成功消息
   success: (message: string, title?: string) =>
     addToast({
       type: 'success',
@@ -290,8 +280,8 @@ const toastMethods = {
       description: message,
       icon: 'check-check',
       duration: 3000,
-      createdAt: Date.now(),
     }),
+  // 快捷方法：错误消息
   error: (message: string, title?: string) =>
     addToast({
       type: 'error',
@@ -299,8 +289,8 @@ const toastMethods = {
       description: message,
       icon: 'circle-alert',
       duration: 5000,
-      createdAt: Date.now(),
     }),
+  // 快捷方法：警告消息
   warning: (message: string, title?: string) =>
     addToast({
       type: 'warning',
@@ -308,8 +298,8 @@ const toastMethods = {
       description: message,
       icon: 'triangle-alert',
       duration: 4000,
-      createdAt: Date.now(),
     }),
+  // 快捷方法：信息消息
   info: (message: string, title?: string) =>
     addToast({
       type: 'info',
@@ -317,37 +307,37 @@ const toastMethods = {
       description: message,
       icon: 'bell',
       duration: 3000,
-      createdAt: Date.now(),
     }),
 };
 
-// 提供给子组件
+// 提供toast方法给子组件
 provide('toast', toastMethods);
 
-// 暴露方法给父组件
+// 暴露方法给父组件（通过模板引用访问）
 defineExpose(toastMethods);
 
-// 挂载时的处理
+// 生命周期钩子：组件挂载时
 onMounted(() => {
-  // 存储到window对象，作为最后后备方案
-  if (typeof window !== 'undefined') {
+  // 开发环境：将方法挂载到window对象作为调试辅助
+  if (typeof window !== 'undefined' && import.meta.env.DEV) {
     (window as any).__sonner__ = toastMethods;
   }
 });
 
-// 卸载时的清理
+// 生命周期钩子：组件卸载时清理资源
 onUnmounted(() => {
-  // 清除所有定时器
+  // 清理所有定时器，防止内存泄漏
   timers.forEach(timer => window.clearTimeout(timer));
 
-  // 从window对象中移除
-  if (typeof window !== 'undefined') {
+  // 移除开发环境的全局引用
+  if (typeof window !== 'undefined' && import.meta.env.DEV) {
     delete (window as any).__sonner__;
   }
 });
 </script>
 
 <style scoped>
+/* 容器基础样式 */
 .sonner-toaster {
   position: fixed;
   z-index: 9999;
@@ -365,6 +355,7 @@ onUnmounted(() => {
   pointer-events: none;
 }
 
+/* 单个Toast样式 */
 .sonner-toast {
   position: relative;
   display: flex;
@@ -383,6 +374,7 @@ onUnmounted(() => {
   cursor: pointer;
 }
 
+/* Toast内部元素 */
 .sonner-toast-icon {
   display: flex;
   align-items: center;
@@ -433,7 +425,7 @@ onUnmounted(() => {
   background-color: #f3f4f6;
 }
 
-/* 类型样式 - 简化为普通CSS，移除SCSS变量和条件 */
+/* Toast类型样式 */
 .sonner-toast-success .sonner-toast-icon {
   color: #10b981;
 }
@@ -450,7 +442,7 @@ onUnmounted(() => {
   color: #3b82f6;
 }
 
-/* 尺寸样式 */
+/* Toast尺寸变体 */
 .sonner-toast-small {
   min-width: 240px;
   padding: 12px 16px;
@@ -479,7 +471,7 @@ onUnmounted(() => {
   transition: transform 0.3s ease;
 }
 
-/* 位置变体 */
+/* 位置变体样式 */
 .sonner-toaster-top-right {
   top: var(--offset, 16px);
   right: var(--offset, 16px);
@@ -516,5 +508,13 @@ onUnmounted(() => {
   left: 50%;
   transform: translateX(-50%);
   align-items: center;
+}
+
+/* 响应式调整 */
+@media (max-width: 640px) {
+  .sonner-toast {
+    min-width: auto;
+    width: calc(100vw - 48px);
+  }
 }
 </style>

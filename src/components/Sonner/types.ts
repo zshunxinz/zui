@@ -19,7 +19,7 @@ export interface Toast {
   dismissible?: boolean;
   icon?: string;
   style?: Record<string, string>;
-  size?: ToastSize;
+  size?: ToastSize | string;
   rounded?: boolean;
   shadow?: boolean;
   slot?: string;

@@ -4,12 +4,13 @@ Sonner 组件是一个轻量级的消息提示组件，支持多种类型的提�
 
 ## 基础用法
 
-Sonner 组件提供了多种使用方式，既可以通过组件实例方法调用，也可以通过全局 `$toast` 方法调用。
+Sonner 组件提供了多种使用方式，包括组件实例方法调用、全局 `$toast` 方法调用、组合式 API `useToast()` 以及直接导入的全局 `toast` 对象。
 
 <script setup>
 import SonnerDemo1 from "/demo/Sonner/SonnerDemo1.vue";
 import SonnerDemo2 from "/demo/Sonner/SonnerDemo2.vue";
 import SonnerDemo3 from "/demo/Sonner/SonnerDemo3.vue";
+import SonnerDemo4 from "/demo/Sonner/SonnerDemo4.vue";
 </script>
 
 <Demo>
@@ -129,7 +130,54 @@ app.mount('#app');
 
 1. 通过 `this.$toast`（在选项 API 中）
 2. 通过 `inject('toast')`（在组合 API 中）
-3. 通过直接导入 `ToastPlugin`
+3. 通过直接导入的 `useToast()` 组合式 API
+4. 通过直接导入的全局 `toast` 对象
+
+### 使用组合式 API
+
+```vue
+<template>
+  <Button @click="showSuccessToast">显示成功消息</Button>
+</template>
+
+<script setup>
+import { useToast } from '../src/components/Sonner';
+
+const toast = useToast();
+
+const showSuccessToast = () => {
+  toast.success('操作成功', '提示');
+};
+</script>
+```
+
+### 使用全局 toast 对象
+
+```vue
+<template>
+  <Button @click="showErrorToast">显示错误消息</Button>
+</template>
+
+<script setup>
+import { toast } from '../src/components/Sonner';
+
+const showErrorToast = () => {
+  toast.error('操作失败', '错误');
+};
+</script>
+```
+
+### 简单调用方式演示
+
+<Demo>
+<SonnerDemo4/>
+</Demo>
+
+<CollapsibleCode>
+
+<<< ../demo/Sonner/SonnerDemo4.vue
+
+</CollapsibleCode>
 
 ## 响应式设计
 
