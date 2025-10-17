@@ -23,7 +23,7 @@ export interface Toast {
   rounded?: boolean;
   shadow?: boolean;
   slot?: string;
-  createdAt: number;
+  createdAt?: number;
 }
 
 export interface ToastMethods {
