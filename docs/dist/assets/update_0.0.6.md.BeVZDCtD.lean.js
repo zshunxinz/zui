@@ -1,1 +1,0 @@
-import{_ as i,c as a,o as n,a8 as l}from"./chunks/framework.CAhgN5QM.js";const d=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"update/0.0.6.md","filePath":"update/0.0.6.md"}'),t={name:"update/0.0.6.md"};function h(k,s,p,e,E,r){return n(),a("div",null,s[0]||(s[0]=[l("",36)]))}const o=i(t,[["render",h]]);export{d as __pageData,o as default};

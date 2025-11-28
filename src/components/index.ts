@@ -52,7 +52,8 @@ import {
 } from './Menubar';
 import Sonner from './Sonner/Sonner.vue';
 import ToastPlugin from './Sonner/ToastPlugin';
-import { Modal } from './Modal';
+import { Modal, showModal } from './Modal';
+import { Drawer, showDrawer } from './Drawer';
 
 const install = (app: any) => {
   app.component('Row', Row);
@@ -101,13 +102,15 @@ const install = (app: any) => {
   app.component('MenubarContent', MenubarContent);
   app.component('MenubarItem', MenubarItem);
   app.component('MenubarSeparator', MenubarSeparator);
-  
+
   // 注册Sonner组件
   app.component('Sonner', Sonner);
-  
+
   // 注册Modal组件
   app.component('Modal', Modal);
-  
+  // 注册Drawer组件
+  app.component('Drawer', Drawer);
+
   // 注册ToastPlugin
   if (ToastPlugin && ToastPlugin.install) {
     ToastPlugin.install(app);
@@ -116,7 +119,7 @@ const install = (app: any) => {
 };
 
 // 支持 use 方式安装
-export default { install };
+export default { install, showModal, showDrawer };
 
 export {
   Input,
@@ -169,4 +172,7 @@ export {
   MenubarSeparator,
   MenubarShortcut,
   Modal,
+  showModal,
+  Drawer,
+  showDrawer,
 };

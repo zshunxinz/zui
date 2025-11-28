@@ -131,13 +131,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, useSlots } from "vue";
+import { ref, computed, useSlots } from 'vue';
 
 interface Props {
   title?: string;
-  type?: "default" | "primary" | "success" | "warning" | "danger" | "info";
-  size?: "small" | "medium" | "large";
-  layout?: "default" | "flexible" | "tight";
+  type?: 'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info';
+  size?: 'small' | 'medium' | 'large';
+  layout?: 'default' | 'flexible' | 'tight';
   collapsible?: boolean;
   defaultOpen?: boolean;
   shadow?: boolean;
@@ -158,14 +158,14 @@ interface Props {
 }
 
 interface Emits {
-  (e: "toggle", value: boolean): void;
+  (e: 'toggle', value: boolean): void;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  title: "",
-  type: "default",
-  size: "medium",
-  layout: "default",
+  title: '',
+  type: 'default',
+  size: 'medium',
+  layout: 'default',
   collapsible: false,
   defaultOpen: true,
   shadow: false, // 将默认阴影效果改为false
@@ -204,7 +204,7 @@ const showFooter = computed(() => {
 const toggleCollapse = () => {
   if (props.disabled) return;
   isExpanded.value = !isExpanded.value;
-  emit("toggle", isExpanded.value);
+  emit('toggle', isExpanded.value);
   // 可以在这里添加额外的逻辑，比如日志记录
   console.log(`Card expanded state changed to: ${isExpanded.value}`);
 };
@@ -305,7 +305,7 @@ const toggleCollapse = () => {
 
 .x-card__skeleton-actions::before,
 .x-card__skeleton-actions::after {
-  content: "";
+  content: '';
   height: 32px;
   /* background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); */
   background: var(--skeleton-1);

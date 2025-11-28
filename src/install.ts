@@ -30,11 +30,17 @@ import ComponentsInstall from './components';
 import { Space } from './components/Space';
 import { Divider } from './components/Divider';
 import { Icon } from './components/Icon';
+import { Modal, showModal } from './components/Modal';
+import { Drawer, showDrawer } from './components/Drawer';
 
 export default {
   install(app: App) {
     // 使用components/index.ts中导出的install方法，确保ToastPlugin被正确安装
     ComponentsInstall.install(app);
+    // 将showModal和showDrawer函数挂载到Vue全局属性上
+    app.config.globalProperties.$showModal = showModal;
+    app.config.globalProperties.$showDrawer = showDrawer;
+
   },
 };
 
@@ -65,4 +71,8 @@ export {
   Space,
   Divider,
   Icon,
+  Modal,
+  showModal,
+  Drawer,
+  showDrawer,
 };

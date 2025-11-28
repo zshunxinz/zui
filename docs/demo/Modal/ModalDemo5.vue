@@ -1,12 +1,5 @@
 <template>
   <div class="modal-demo">
-    <div class="demo-header">
-      <h2>API 调用方式</h2>
-      <p>
-        除了组件方式，Modal 还提供了函数式 API，可以直接通过
-        JavaScript/TypeScript 调用
-      </p>
-    </div>
 
     <div class="demo-content">
       <div class="button-group">
@@ -32,7 +25,6 @@
 </template>
 
 <script setup>
-// import { showModal } from '@/components/Modal';
 
 // 基础弹窗示例
 const showBasicModal = () => {
@@ -52,7 +44,7 @@ const showBasicModal = () => {
 
 // 自定义按钮示例
 const showCustomizedModal = () => {
-  showModal({
+  const modal = showModal({
     title: '自定义按钮',
     content: '这个弹窗使用了自定义的底部按钮。',
     size: 'sm',
@@ -63,7 +55,7 @@ const showCustomizedModal = () => {
       footer.style.display = 'flex';
       footer.style.justifyContent = 'flex-end';
       footer.style.gap = '8px';
-      footer.style.width = '100%';
+      footer.style.width = '100px';
 
       // 创建删除按钮
       const deleteBtn = document.createElement('button');
@@ -71,6 +63,8 @@ const showCustomizedModal = () => {
       deleteBtn.className = 'Button Button--default';
       deleteBtn.style.backgroundColor = 'var(--color-danger)';
       deleteBtn.style.color = 'white';
+      deleteBtn.style.padding = '4px 8px';
+      deleteBtn.style.borderRadius = '4px';
       deleteBtn.onclick = () => {
         alert('删除操作执行');
         modal.close();
@@ -124,7 +118,7 @@ const showAsyncModal = () => {
 
 // 多弹窗嵌套示例
 const showMultipleModal = () => {
-  showModal({
+  const outerModal = showModal({
     title: '外层弹窗',
     content: '这是一个外层弹窗，点击按钮可以打开内层弹窗。',
     size: 'lg',
@@ -138,10 +132,11 @@ const showMultipleModal = () => {
       // 创建打开内层弹窗按钮
       const openInnerBtn = document.createElement('button');
       openInnerBtn.textContent = '打开内层弹窗';
-      openInnerBtn.className = 'Button Button--primary';
+      openInnerBtn.className = 'x-button x-button--primary';
       openInnerBtn.onclick = () => {
+        console.log('点击了打开内层弹窗按钮');
         // 打开内层弹窗
-        showModal({
+        const innerModal = showModal({
           title: '内层弹窗',
           content: '这是一个嵌套在内层的弹窗。',
           size: 'md',
@@ -152,12 +147,13 @@ const showMultipleModal = () => {
             console.log('内层弹窗取消');
           },
         });
+        console.log('内层弹窗已创建:', innerModal);
       };
 
       // 创建关闭按钮
       const closeBtn = document.createElement('button');
       closeBtn.textContent = '关闭';
-      closeBtn.className = 'Button Button--default';
+      closeBtn.className = 'x-button x-button--default';
       closeBtn.onclick = () => {
         outerModal.close();
       };

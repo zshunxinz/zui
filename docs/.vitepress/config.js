@@ -91,6 +91,7 @@ export default defineConfig({
             { text: 'Popover 弹出层', link: '/components/Popover' },
             { text: 'Sonner 消息提示', link: '/components/Sonner' },
             { text: 'Modal 对话框', link: '/components/Modal' },
+            {text: "Drawer 抽屉",link:"/components/Drawer"},
           ],
         },
         {
