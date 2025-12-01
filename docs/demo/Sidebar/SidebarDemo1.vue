@@ -180,6 +180,7 @@ const activeItem = ref('home');
 <style scoped>
 .demo-container {
   width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -188,8 +189,7 @@ const activeItem = ref('home');
 .demo-content {
   display: flex;
   width: 100%;
-  /* max-width: 1200px; */
-  height: 100vh;
+  min-height: 800px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }

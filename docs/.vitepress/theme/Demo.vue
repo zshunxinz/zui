@@ -1,5 +1,5 @@
 <template>
-  <div class="demo" :class="{ 'demo-center': props.center }">
+  <div class="demo"  :class="{ 'demo-center': props.center }">
     <div style="position: absolute;right: 16px;top: 16px;">
       <slot name="top-right"></slot>
       <!-- 全屏按钮 -->
