@@ -1,14 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-// 创建一些基本的SVG图标组件
-
-// const LogOutIcon = {
-//   name: 'LogOutIcon',
-//   template: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>`,
-// };
 const active = ref(true);
-// 映射图标名称到组件
+
 // 定义菜单项
 const mainMenuItems = [
   { id: 'home', label: '首页', icon: 'house' },
@@ -33,7 +27,7 @@ const activeItem = ref('home');
   <div class="demo-container">
     <SidebarProvider>
       <div class="demo-content">
-        <Sidebar>
+        <Sidebar :collapsedWidth="49" :width="236" >
           <SidebarHeader>
             <div class="sidebar-title" v-if="active">Zui</div>
             <div class="sidebar-title" v-else>zui</div>
@@ -45,7 +39,7 @@ const activeItem = ref('home');
                   <div style="display: flex; align-items: center;">
                     <div style="flex: 1;">
                     主导航
-                  </div>
+                    </div>
                   <div class="rotate-icon" :class="{'rotate-180': mainMenuActive}">
                     <Icon name="chevron-down" ></Icon>
                   </div>
@@ -126,7 +120,7 @@ const activeItem = ref('home');
                   <circle cx="12" cy="7" r="4" />
                 </svg>
               </div>
-              <div class="user-details" >
+              <div class="user-details">
                 <div class="user-name" >用户名称</div>
                 <div class="user-role" >管理员</div>
               </div>
@@ -236,7 +230,7 @@ const activeItem = ref('home');
   justify-content: center;
   padding: 8px 0px;
   width: 100%;
-  /* padding: 12px; */
+  transition: opacity 0.9s ease;
 }
 
 .user-avatar {
@@ -246,22 +240,23 @@ const activeItem = ref('home');
   background-color: var(--color-primary);
   border-radius: 50%;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  /* align-items: center; */
+  /* justify-content: center; */
   color: white;
 }
 
 .user-details {
+  transition: opacity 0.9s ease;
 }
 
 .user-name {
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 900;
 }
 
 .user-role {
   font-size: 12px;
-  color: var(--color-text-secondary);
+  color: var(--color-text-muted);
 }
 
 .rotate-icon {
