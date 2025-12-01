@@ -10,7 +10,7 @@
 .SidebarContent {
   flex: 1;
   overflow-y: auto;
-  padding: var(--padding-3);
+  padding: 6px;
 }
 
 /* 自定义滚动条样式 */

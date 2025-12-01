@@ -16,12 +16,14 @@ const mainMenuItems = [
   { id: 'users', label: '用户管理', icon: 'users' },
   { id: 'search', label: '搜索', icon: 'search' },
 ];
+const mainMenuActive = ref(true);
 
 const settingsMenuItems = [
   { id: 'settings', label: '设置', icon: 'settings' },
   { id: 'help', label: '帮助中心', icon: 'hand-helping' },
   { id: 'logout', label: '退出登录', icon: 'log-out' },
 ];
+const settingsMenuActive = ref(false);
 
 // 当前激活的菜单项
 const activeItem = ref('home');
@@ -33,27 +35,54 @@ const activeItem = ref('home');
       <div class="demo-content">
         <Sidebar>
           <SidebarHeader>
-            <div class="sidebar-title">ZUI</div>
+            <div class="sidebar-title" v-if="active">Zui</div>
+            <div class="sidebar-title" v-else>zui</div>
           </SidebarHeader>
           <SidebarContent>
             <SidebarMenu>
-              <SidebarGroup>
-                <SidebarGroupLabel v-if="active">主导航</SidebarGroupLabel>
+              <SidebarGroup v-model:defaultOpen="mainMenuActive">
+                <SidebarGroupLabel v-if="active" >
+                  <div style="display: flex; align-items: center;">
+                    <div style="flex: 1;">
+                    主导航
+                  </div>
+                  <div class="rotate-icon" :class="{'rotate-180': mainMenuActive}">
+                    <Icon name="chevron-down" ></Icon>
+                  </div>
+                </div>
+                </SidebarGroupLabel>
                 <SidebarGroupContent>
                   <SidebarMenuItem v-for="item in mainMenuItems" :key="item.id">
                     <SidebarMenuButton
                       :active="activeItem === item.id"
                       @click="activeItem = item.id"
+                      v-if="active"
                     >
-                      <Icon :name="item.icon" size="16" />
-                      <span v-if="active">{{ item.label }}</span>
+                      <Icon style="height: 22px;font-size: 16px;" :name="item.icon"  />
+                      <span>{{ item.label }}</span>
+                    </SidebarMenuButton>
+                    <SidebarMenuButton
+                      :active="activeItem === item.id"
+                      @click="activeItem = item.id"
+                      v-else
+                    >
+                      <Icon style="width: 100%;height: 22px;font-size: 18px;" :name="item.icon"  />
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 </SidebarGroupContent>
               </SidebarGroup>
+              <SidebarGroup v-model:defaultOpen="settingsMenuActive">
 
-              <SidebarGroup>
-                <SidebarGroupLabel v-if="active">设置</SidebarGroupLabel>
+                <SidebarGroupLabel v-if="active" >
+                  <div style="display: flex; align-items: center;">
+                    <div style="flex: 1;">
+                    设置
+                  </div>
+                  <div class="rotate-icon" :class="{'rotate-180': settingsMenuActive}">
+                    <Icon name="chevron-down" ></Icon>
+                  </div>
+                </div>
+                </SidebarGroupLabel>
                 <SidebarGroupContent>
                   <SidebarMenuItem
                     v-for="item in settingsMenuItems"
@@ -62,9 +91,17 @@ const activeItem = ref('home');
                     <SidebarMenuButton
                       :active="activeItem === item.id"
                       @click="activeItem = item.id"
+                      v-if="active"
                     >
-                      <Icon :name="item.icon" size="16" />
-                      <span v-if="active">{{ item.label }}</span>
+                      <Icon style="height: 22px;font-size: 16px;" :name="item.icon" size="16" />
+                      <span >{{ item.label }}</span>
+                    </SidebarMenuButton>
+                    <SidebarMenuButton
+                      :active="activeItem === item.id"
+                      @click="activeItem = item.id"
+                      v-else
+                    >
+                      <Icon style="width: 100%; height: 100%;font-size: 18px;" :name="item.icon" size="16" />
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 </SidebarGroupContent>
@@ -72,11 +109,12 @@ const activeItem = ref('home');
             </SidebarMenu>
           </SidebarContent>
           <SidebarFooter>
-            <div class="user-info">
+
+            <div class="user-info" v-if="active">
               <div class="user-avatar">
                 <svg
-                  width="32"
-                  height="32"
+                  width="24"
+                  height="24"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -88,9 +126,26 @@ const activeItem = ref('home');
                   <circle cx="12" cy="7" r="4" />
                 </svg>
               </div>
-              <div class="user-details">
-                <div class="user-name" v-if="active">用户名称</div>
-                <div class="user-role" v-if="active">管理员</div>
+              <div class="user-details" >
+                <div class="user-name" >用户名称</div>
+                <div class="user-role" >管理员</div>
+              </div>
+            </div>
+            <div class="user-info" v-else>
+              <div class="user-avatar">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
               </div>
             </div>
           </SidebarFooter>
@@ -99,25 +154,10 @@ const activeItem = ref('home');
         <main class="main-content">
           <div class="main-header">
             <SidebarTrigger asChild @click="active = !active">
-              <Button text size="small">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="lucide lucide-panel-left-icon lucide-panel-left"
-                >
-                  <rect width="18" height="18" x="3" y="3" rx="2"></rect>
-                  <path d="M9 3v18"></path>
-                </svg>
-              </Button>
+               <Icon name="panel-right" :size="20" v-if="active" />
+               <Icon name="panel-left" :size="20" v-else />
             </SidebarTrigger>
-            <h1>内容区域</h1>
+            <div>内容</div>
           </div>
 
           <div class="main-body">
@@ -140,7 +180,6 @@ const activeItem = ref('home');
 <style scoped>
 .demo-container {
   width: 100%;
-  /* height: 100vh; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -149,9 +188,8 @@ const activeItem = ref('home');
 .demo-content {
   display: flex;
   width: 100%;
-  max-width: 1200px;
-  height: 80vh;
-  border-radius: 8px;
+  /* max-width: 1200px; */
+  height: 100vh;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -159,7 +197,7 @@ const activeItem = ref('home');
 .sidebar-title {
   font-size: 18px;
   font-weight: 600;
-  color: var(--color-primary);
+  color: var(--color-default);
 }
 
 .main-content {
@@ -193,12 +231,18 @@ const activeItem = ref('home');
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 0px;
+  width: 100%;
+  /* padding: 12px; */
 }
 
 .user-avatar {
-  width: 32px;
-  height: 32px;
+
+  /* width: 32px; */
+  /* height: 32px; */
   background-color: var(--color-primary);
   border-radius: 50%;
   display: flex;
@@ -208,7 +252,6 @@ const activeItem = ref('home');
 }
 
 .user-details {
-  flex: 1;
 }
 
 .user-name {
@@ -219,5 +262,13 @@ const activeItem = ref('home');
 .user-role {
   font-size: 12px;
   color: var(--color-text-secondary);
+}
+
+.rotate-icon {
+  transition: transform 0.3s ease;
+}
+
+.rotate-180 {
+  transform: rotate(180deg);
 }
 </style>

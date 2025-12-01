@@ -360,6 +360,66 @@
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
 
+/* Sidebar specific variables */
+:root {
+  /* Width variables */
+  --sidebar-width: 256px;
+  --sidebar-collapsed-width: 80px;
+  --sidebar-ultra-collapsed-width: 56px;
+  
+  /* Transition variables */
+  --sidebar-transition-duration: 250ms;
+  --sidebar-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+  --sidebar-transition-delay: 0ms;
+  
+  /* Spacing variables */
+  --sidebar-padding: var(--padding-3);
+  --sidebar-item-padding: var(--padding-2) var(--padding-3);
+  --sidebar-group-gap: var(--space-2);
+  --sidebar-menu-gap: var(--space-1);
+  
+  /* Border radius variables */
+  --sidebar-radius: var(--radius);
+  --sidebar-item-radius: calc(var(--radius) - 4px);
+  
+  /* Background hover/active variables */
+  --sidebar-hover-background: var(--sidebar-accent);
+  --sidebar-active-background: var(--sidebar-primary);
+  --sidebar-active-foreground: var(--sidebar-primary-foreground);
+  
+  /* Icon size variables */
+  --sidebar-icon-size-sm: 16px;
+  --sidebar-icon-size-md: 20px;
+  --sidebar-icon-size-lg: 24px;
+  
+  /* Responsive breakpoints */
+  --sidebar-breakpoint-sm: 640px;
+  --sidebar-breakpoint-md: 768px;
+  --sidebar-breakpoint-lg: 1024px;
+  --sidebar-breakpoint-xl: 1280px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --sidebar-transition-duration: 0ms !important;
+    --sidebar-transition-delay: 0ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --sidebar-border: oklch(1 0 0 / 30%);
+    --sidebar-ring: var(--primary);
+  }
+}
+
+/* Dark theme specific overrides if needed */
+.dark {
+  /* These variables can be overridden in dark mode if needed */
+}
+
 /* Slate */
 :root {
   --radius: 0.625rem;

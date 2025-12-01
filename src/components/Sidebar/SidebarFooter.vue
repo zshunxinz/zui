@@ -8,9 +8,7 @@
 
 <style scoped>
 .SidebarFooter {
-  display: flex;
-  align-items: center;
-  padding: var(--padding-3);
+  width: 100%;
   border-top: 1px solid var(--sidebar-border);
 }
 </style>

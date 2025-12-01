@@ -7,11 +7,11 @@ interface SidebarProps {
 }
 
 const props = withDefaults(defineProps<SidebarProps>(), {
-  collapsedWidth: 72,
+  collapsedWidth: 49,
   width: 240,
 });
 
-const sidebar = inject('sidebar');
+const sidebar:any = inject('sidebar');
 const open = sidebar?.open || ref(true);
 
 const computedWidth = computed(() => {

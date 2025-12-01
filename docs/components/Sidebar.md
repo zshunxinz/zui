@@ -11,7 +11,7 @@ import SidebarDemo3 from "../demo/Sidebar/SidebarDemo3.vue";
 import SidebarDemo4 from "../demo/Sidebar/SidebarDemo4.vue";
 </script>
 
-<Demo center>
+<Demo center style="padding:0px;" fullscreen>
   <SidebarDemo1  />
 </Demo>
 

@@ -78,16 +78,6 @@ const isOpenOnMobile = ref(false);
 const sidebar = inject('sidebar');
 
 // 监听侧边栏open状态变化，同步更新isCollapsed
-if (sidebar?.open) {
-  watch(
-    () => sidebar.open.value,
-    newValue => {
-      if (!isMobile.value) {
-        isCollapsed.value = !newValue;
-      }
-    }
-  );
-}
 
 // 响应式布局检测
 const checkMobile = () => {

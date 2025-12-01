@@ -42,21 +42,17 @@
 
         <!-- 抽屉内容 -->
         <div class="x-drawer__body" v-if="$slots.default || content">
-          <slot v-if="$slots.default"></slot>
-          <template v-else-if="content">
-            <div v-if="typeof content === 'string'">{{ content }}</div>
-            <div
-              v-else-if="typeof content === 'object' && content !== null && ('outerHTML' in content)"
-              v-html="content.outerHTML"
-            ></div>
-            <div
-              v-else-if="typeof content === 'function'"
-              v-html="(() => {
-                const result = content();
-                return result && typeof result === 'object' && ('outerHTML' in result) ? result.outerHTML : '';
-              })()"
-            ></div>
-          </template>
+            <slot v-if="$slots.default"></slot>
+            <template v-else-if="content">
+              <div v-if="typeof content === 'string'">
+                {{ content }}
+              </div>
+              <!-- 对于HTMLElement使用ref和生命周期钩子 -->
+              <div
+                v-else-if="typeof content === 'function' || (typeof content === 'object' && content !== null && content.nodeType === 1)"
+                ref="contentContainer"
+              ></div>
+            </template>
         </div>
 
         <!-- 抽屉底部 -->
@@ -79,16 +75,10 @@
               </button>
             </div>
             <template v-else-if="footer">
+              <!-- 对于HTMLElement使用ref和生命周期钩子 -->
               <div
-                v-if="typeof footer === 'object' && footer !== null && ('outerHTML' in content)"
-                v-html="footer.outerHTML"
-              ></div>
-              <div
-                v-else-if="typeof footer === 'function'"
-                v-html="(() => {
-                  const result = footer();
-                  return result && typeof result === 'object' && ('outerHTML' in result) ? result.outerHTML : '';
-                })()"
+                v-if="typeof footer === 'function' || (typeof footer === 'object' && footer !== null && footer.nodeType === 1)"
+                ref="footerContainer"
               ></div>
             </template>
           </slot>
@@ -173,6 +163,60 @@ const emit = defineEmits<Emits>();
 
 // 控制抽屉显示状态
 const isOpen = ref(false);
+
+// 内容容器引用
+const contentContainer = ref<HTMLElement>();
+const footerContainer = ref<HTMLElement>();
+
+// 渲染HTML内容的函数
+const renderContentElement = () => {
+  if (!contentContainer.value) return;
+
+  // 清空容器
+  contentContainer.value.innerHTML = '';
+
+  let element: HTMLElement | null = null;
+
+  if (props.content instanceof HTMLElement) {
+    element = props.content;
+  } else if (typeof props.content === 'function') {
+    const result = props.content();
+    if (result instanceof HTMLElement) {
+      element = result;
+    }
+  }
+
+  // 如果存在有效的HTML元素，则克隆并添加到容器中
+  if (element) {
+    const clonedElement = element.cloneNode(true) as HTMLElement;
+    contentContainer.value.appendChild(clonedElement);
+  }
+}
+
+// 渲染HTML底部内容的函数
+const renderFooterElement = () => {
+  if (!footerContainer.value) return;
+
+  // 清空容器
+  footerContainer.value.innerHTML = '';
+
+  let element: HTMLElement | null = null;
+
+  if (props.footer instanceof HTMLElement) {
+    element = props.footer;
+  } else if (typeof props.footer === 'function') {
+    const result = props.footer();
+    if (result instanceof HTMLElement) {
+      element = result;
+    }
+  }
+
+  // 如果存在有效的HTML元素，则克隆并添加到容器中
+  if (element) {
+    const clonedElement = element.cloneNode(true) as HTMLElement;
+    footerContainer.value.appendChild(clonedElement);
+  }
+}
 
 const titleId = computed(
   () => props.id || `x-drawer-${Math.random().toString(36).slice(2, 9)}-title`
@@ -295,6 +339,28 @@ watch(
   { immediate: false }
 );
 
+// 监听content变化，重新渲染内容
+watch(
+  () => props.content,
+  () => {
+    nextTick(() => {
+      renderContentElement();
+    });
+  },
+  { deep: true }
+);
+
+// 监听footer变化，重新渲染底部内容
+watch(
+  () => props.footer,
+  () => {
+    nextTick(() => {
+      renderFooterElement();
+    });
+  },
+  { deep: true }
+);
+
 // 监听内部状态变化
 watch(isOpen, newVal => {
   if (props.open === undefined) {
@@ -308,14 +374,18 @@ watch(isOpen, newVal => {
 
 // 生命周期
 onMounted(() => {
-  // 初始化时如果需要打开抽屉，延迟触发动画
-  if (props.open ?? props.defaultOpen) {
-    setTimeout(() => {
-      isOpen.value = true;
-    }, 10);
-  }
-  document.addEventListener('keydown', handleEsc);
-});
+    // 初始化时如果需要打开抽屉，延迟触发动画
+    if (props.open ?? props.defaultOpen) {
+      setTimeout(() => {
+        isOpen.value = true;
+      }, 10);
+    }
+    document.addEventListener('keydown', handleEsc);
+
+    // 组件挂载时渲染内容
+    renderContentElement();
+    renderFooterElement();
+  });
 
 onUnmounted(() => {
   document.removeEventListener('keydown', handleEsc);

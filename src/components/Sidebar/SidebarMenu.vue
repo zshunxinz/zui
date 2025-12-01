@@ -10,6 +10,7 @@
 .SidebarMenu {
   display: flex;
   flex-direction: column;
-  gap: var(--space-1);
+
+  /* gap: var(--space-0); */
 }
 </style>

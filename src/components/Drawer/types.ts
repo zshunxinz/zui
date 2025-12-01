@@ -22,6 +22,7 @@ export interface DrawerOptions {
   width?: string | number;
   height?: string | number;
   animated?: boolean;
+  mask?: boolean;
   /**
    * 动画类型
    * @default 'slide'
@@ -29,5 +30,4 @@ export interface DrawerOptions {
   animationType?: 'slide' | 'scale' | 'zoom';
   onOk?: () => void;
   onCancel?: () => void;
-  onClose?: () => void;
 }

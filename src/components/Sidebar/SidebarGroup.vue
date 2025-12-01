@@ -6,6 +6,8 @@ interface SidebarGroupProps {
   collapsible?: boolean;
 }
 
+const emit = defineEmits(['update:defaultOpen']);
+
 const props = withDefaults(defineProps<SidebarGroupProps>(), {
   defaultOpen: true,
   collapsible: true,
@@ -16,6 +18,7 @@ const open = ref(props.defaultOpen);
 const toggle = () => {
   if (props.collapsible) {
     open.value = !open.value;
+    emit('update:defaultOpen', open.value);
   }
 };
 
@@ -36,6 +39,6 @@ provide('sidebar-group', context);
 
 <style scoped>
 .SidebarGroup {
-  margin-bottom: var(--space-3);
+  margin-bottom: var(--space-1);
 }
 </style>

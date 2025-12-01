@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { inject } from 'vue';
 
-const group = inject('sidebar-group');
+const group:any = inject('sidebar-group');
 const open = group?.open;
 const collapsible = group?.collapsible;
 </script>

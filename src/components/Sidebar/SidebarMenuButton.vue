@@ -36,12 +36,13 @@ const buttonProps = props.asChild
   align-items: center;
   gap: var(--space-2);
   width: 100%;
-  padding: var(--padding-2);
+  padding: var(--padding-1);
+  margin-top: var(--space-1);
+  margin-bottom: var(--space-1);
   border-radius: var(--border-radius);
   background-color: transparent;
   border: none;
   cursor: pointer;
-  font-size: var(--font-size);
   color: var(--color-text);
   transition: all 0.2s ease;
   text-decoration: none;
