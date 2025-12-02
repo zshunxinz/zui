@@ -1,17 +1,27 @@
-<script setup lang="ts"></script>
+<script setup lang="ts" >
+defineProps({
+  title: {
+    type: String,
+    default: '',
+  },
+  border: {
+    type: Boolean,
+    default: true,
+  }
+})
+</script>
 
 <template>
-  <header class="SidebarHeader">
+  <header class="SidebarHeader" :class="{'border-bottom': border}">
     <slot />
   </header>
 </template>
 
 <style scoped>
 .SidebarHeader {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--padding-3);
-  /* border-bottom: 1px solid var(--sidebar-border); */
+}
+
+.border-bottom {
+  border-bottom: 1px solid var(--sidebar-border);
 }
 </style>

@@ -1,77 +1,75 @@
 <template>
-  <Demo>
     <Card title="表单联动示例" :border="false" style="padding: 20px;">
       <Form v-model="formData" :rules="rules" @submit="handleSubmit" labelWidth="120px">
         <!-- 选择国家后自动填充相关选项 -->
         <FormItem label="Country" prop="country" required>
           <Select v-model="formData.country" :options="countryOptions" placeholder="Select a country" @change="handleCountryChange" />
         </FormItem>
-        
+
         <!-- 基于国家选择的省份/州 -->
         <FormItem v-if="formData.country" label="Province/State" prop="state" required>
           <Select v-model="formData.state" :options="getStateOptions" placeholder="Select a province/state" @change="handleStateChange" />
         </FormItem>
-        
+
         <!-- 基于省份/州选择的城市 -->
         <FormItem v-if="formData.state" label="City" prop="city" required>
           <Select v-model="formData.city" :options="getCityOptions" placeholder="Select a city" />
         </FormItem>
-        
+
         <!-- 选择用户类型后显示不同的表单内容 -->
         <FormItem label="User Type" prop="userType" required>
           <Radio v-model="formData.userType" :options="userTypeOptions" @change="handleUserTypeChange" />
         </FormItem>
-        
+
         <!-- 公司用户表单 -->
         <div v-if="formData.userType === 'company'">
           <FormItem label="Company Name" prop="companyName" required>
             <Input v-model="formData.companyName" placeholder="Enter company name" />
           </FormItem>
-          
+
           <FormItem label="Industry" prop="industry" required>
             <Select v-model="formData.industry" :options="industryOptions" placeholder="Select industry" />
           </FormItem>
-          
+
           <FormItem label="Employee Count" prop="employeeCount" required>
             <Select v-model="formData.employeeCount" :options="employeeCountOptions" placeholder="Select employee count" />
           </FormItem>
         </div>
-        
+
         <!-- 个人用户表单 -->
         <div v-else>
           <FormItem label="Full Name" prop="fullName" required>
             <Input v-model="formData.fullName" placeholder="Enter your full name" />
           </FormItem>
-          
+
           <FormItem label="Gender" prop="gender" required>
             <Radio v-model="formData.gender" :options="genderOptions" />
           </FormItem>
-          
+
           <FormItem label="Date of Birth" prop="dateOfBirth" required>
             <Input v-model="formData.dateOfBirth" type="date" placeholder="Select your date of birth" />
           </FormItem>
         </div>
-        
+
         <!-- 选择订阅服务 -->
         <FormItem label="Subscription" prop="subscription" required>
           <CheckboxGroup v-model="formData.subscription" :options="subscriptionOptions" />
         </FormItem>
-        
+
         <!-- 根据订阅服务显示不同的详细选项 -->
         <FormItem v-if="formData.subscription.includes('newsletter')" label="Newsletter Frequency">
           <Radio v-model="formData.newsletterFrequency" :options="newsletterFrequencyOptions" />
         </FormItem>
-        
+
         <FormItem v-if="formData.subscription.includes('promotions')" label="Promotion Channels">
           <CheckboxGroup v-model="formData.promotionChannels" :options="promotionChannelOptions" />
         </FormItem>
-        
+
         <FormItem>
           <Button type="default" class="x-button x-button--primary">Submit</Button>
         </FormItem>
       </Form>
     </Card>
-  </Demo>
 </template>
 
 <script setup lang="ts">
@@ -296,7 +294,7 @@ const rules = {
   dateOfBirth: {
     required: computed(() => formData.value.userType === 'individual'),
     message: 'Date of Birth is required',
-    validator: (value) => {
+    validator: (value: any) => {
       if (!value) return true; // 已经有required验证了
       const birthDate = new Date(value);
       const today = new Date();
@@ -310,7 +308,7 @@ const rules = {
   subscription: {
     required: true,
     message: 'Please select at least one subscription option',
-    validator: (value) => {
+    validator: (value: any) => {
       if (!value || value.length === 0) {
         return 'Please select at least one subscription option';
       }
@@ -320,7 +318,7 @@ const rules = {
 };
 
 // 提交处理
-const handleSubmit = (data) => {
+const handleSubmit = (data: any) => {
   console.log('Form submitted successfully:', data);
   alert('Form submitted successfully!');
 };

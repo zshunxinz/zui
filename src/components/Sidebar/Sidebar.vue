@@ -6,6 +6,7 @@ interface SidebarProps {
   width?: number;
   overlay?: boolean; // 是否在移动设备上显示覆盖层
   enableResponsive?: boolean; // 是否启用响应式功能
+  style?: Record<string, any>; // 自定义样式
 }
 
 const props = withDefaults(defineProps<SidebarProps>(), {
@@ -13,6 +14,7 @@ const props = withDefaults(defineProps<SidebarProps>(), {
   width: 240,
   overlay: true, // 默认在移动设备上显示覆盖层
   enableResponsive: false, // 默认不启用响应式
+  style: () => ({}),
 });
 
 const sidebar: any = inject('sidebar');
@@ -43,7 +45,7 @@ const showOverlay = computed(() => {
       'Sidebar--mobile': props.enableResponsive && isMobile,
       'Sidebar--overlay': props.overlay && props.enableResponsive && isMobile,
     }"
-    :style="{ width: typeof computedWidth === 'string' ? computedWidth : `${computedWidth}px` }"
+    :style="{ width: typeof computedWidth === 'string' ? computedWidth : `${computedWidth}px`, ...props.style }"
   >
     <slot />
   </aside>

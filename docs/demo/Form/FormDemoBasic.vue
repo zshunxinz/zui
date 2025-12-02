@@ -182,7 +182,7 @@ const rules = {
   email: {
     required: true,
     message: "Email is required",
-    validator: (value) => {
+    validator: (value: any) => {
       if (!value) return "Email is required";
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
         return "Please enter a valid email";
@@ -216,7 +216,7 @@ const countryOptions = [
 ];
 
 // 提交处理
-const handleSubmit = (data) => {
+const handleSubmit = (data: any) => {
   console.log("Form submitted successfully:", data);
   alert("Form submitted successfully!");
 };

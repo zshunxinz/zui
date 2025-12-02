@@ -1,10 +1,12 @@
 <script setup lang="ts">
 interface SidebarMenuItemProps {
   active?: boolean;
+  style?: string;
 }
 
 const props = withDefaults(defineProps<SidebarMenuItemProps>(), {
   active: false,
+  style: "",
 });
 </script>
 
@@ -14,6 +16,7 @@ const props = withDefaults(defineProps<SidebarMenuItemProps>(), {
     :class="{
       'SidebarMenuItem--active': props.active,
     }"
+    :style="props.style"
   >
     <slot />
   </li>

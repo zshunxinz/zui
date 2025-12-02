@@ -11,7 +11,7 @@ const props = withDefaults(defineProps<SidebarTriggerProps>(), {
   showIcon: true, // 默认显示图标
 });
 
-const sidebar = inject('sidebar');
+const sidebar:any = inject('sidebar');
 const toggle = sidebar?.toggle || (() => {});
 const open = computed(() => sidebar?.open?.value || true);
 const isMobile = computed(() => sidebar?.isMobile?.value || false);
@@ -64,7 +64,7 @@ const buttonText = computed(() => {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: var(--padding-2);
+  /* padding: var(--padding-2); */
   border-radius: var(--border-radius);
   background-color: transparent;
   border: none;

@@ -1,6 +1,6 @@
 <template>
-  <div class="demo"  :class="{ 'demo-center': props.center }">
-    <div style="position: absolute;right: 16px;top: 16px;">
+  <div class="demo" :style="props.style"  :class="{ 'demo-center': props.center }">
+    <div style="position: absolute;right: 36px;top:-36px;z-index: 10;" v-if="!isFullscreen">
       <slot name="top-right"></slot>
       <!-- 全屏按钮 -->
       <button
@@ -58,6 +58,10 @@ const props = defineProps({
   fullscreen: {
     type: Boolean,
     default: false,
+  },
+  style: {
+    type: String,
+    default: '',
   }
 })
 
@@ -100,7 +104,6 @@ watch(isFullscreen, (newVal) => {
   /* align-items: center; */
   padding: 60px 50px;
   border: 1px solid var(--color-border-1);
-  /* box-shadow: 1px 4px 3px rgba(0, 0, 0, 0.1); */
 }
 
 .demo-center {
@@ -110,9 +113,9 @@ watch(isFullscreen, (newVal) => {
 }
 
 .demo-fullscreen-btn {
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--color-background);
   border: 1px solid var(--color-border-1);
-  border-radius: 4px;
+  border-radius: var(--border-radius-0);
   padding: 4px;
   cursor: pointer;
   display: flex;
@@ -120,7 +123,8 @@ watch(isFullscreen, (newVal) => {
   justify-content: center;
   transition: all 0.2s ease;
   color: var(--color-text-1);
-  margin-left: 8px;
+  position: absolute;
+  /* margin-left: 8px; */
 }
 
 .demo-fullscreen-btn:hover {
@@ -139,7 +143,7 @@ watch(isFullscreen, (newVal) => {
   right: 0;
   bottom: 0;
   background: #ffffffe1;
-  z-index: 9999;
+  z-index: 100;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -167,7 +171,7 @@ watch(isFullscreen, (newVal) => {
   position: absolute;
   top: 16px;
   right: 16px;
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--color-background);
   border: 1px solid var(--color-border-1);
   /* border-radius: 50%; */
   width: 26px;

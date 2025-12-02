@@ -45,7 +45,7 @@ const advancedRules = {
     message: "Username is required",
     minLength: 3,
     maxLength: 20,
-    validator: (value) => {
+    validator: (value: any) => {
       if (!/^[a-zA-Z0-9_]+$/.test(value)) {
         return "Username can only contain letters, numbers and underscores";
       }
@@ -56,7 +56,7 @@ const advancedRules = {
     required: true,
     message: "Password is required",
     minLength: 8,
-    validator: (value) => {
+    validator: (value: any) => {
       if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(value)) {
         return "Password must contain at least one uppercase letter, one lowercase letter and one number";
       }
@@ -66,7 +66,7 @@ const advancedRules = {
   confirmPassword: {
     required: true,
     message: "Please confirm your password",
-    validator: (value) => {
+    validator: (value: any) => {
       if (value !== advancedFormData.value.password) {
         return "Passwords do not match";
       }
@@ -76,7 +76,7 @@ const advancedRules = {
   age: {
     required: true,
     message: "Age is required",
-    validator: (value) => {
+    validator: (value: any) => {
       if (value === null || value === '') return "Age is required";
       if (!Number.isInteger(value)) return "Age must be an integer";
       if (value < 18 || value > 120) return "Age must be between 18 and 120";
@@ -86,7 +86,7 @@ const advancedRules = {
   phone: {
     required: true,
     message: "Phone number is required",
-    validator: (value) => {
+    validator: (value: any) => {
       if (!/^\d{11}$/.test(value)) {
         return "Please enter a valid 11-digit phone number";
       }
@@ -94,7 +94,7 @@ const advancedRules = {
     }
   },
   website: {
-    validator: (value) => {
+    validator: (value: any) => {
       if (value && !/^https?:\/\/.+/.test(value)) {
         return "Please enter a valid URL starting with http:// or https://";
       }
@@ -104,7 +104,7 @@ const advancedRules = {
 };
 
 // 高级表单提交处理
-const handleAdvancedSubmit = (data) => {
+const handleAdvancedSubmit = (data: any) => {
   console.log("Advanced form submitted successfully:", data);
   alert("Advanced form submitted successfully!");
 };

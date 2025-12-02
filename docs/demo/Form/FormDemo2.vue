@@ -1,82 +1,80 @@
 <template>
-  <Demo>
-    <Card title="表单布局切换" :border="false" style="padding: 20px;">
-      <div style="margin-bottom: 20px;">
-        <span style="margin-right: 10px;">Layout:</span>
-        <Radio v-model="layout" :options="layoutOptions" />
-      </div>
-      
-      <div style="margin-bottom: 20px;">
-        <span style="margin-right: 10px;">Size:</span>
-        <Radio v-model="size" :options="sizeOptions" />
-      </div>
-      
-      <Form 
-        v-model="formData" 
-        :rules="rules" 
-        @submit="handleSubmit" 
-        :labelPosition="layout" 
-        :size="size" 
-        :labelWidth="layout === 'left' ? '100px' : ''"
-      >
-        <div v-if="layout === 'left' || layout === 'right'" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
-          <FormItem label="Username" prop="username" required>
-            <Input v-model="formData.username" placeholder="Enter username" />
-          </FormItem>
-          
-          <FormItem label="Password" prop="password" required>
-            <Input v-model="formData.password" type="password" placeholder="Enter password" />
-          </FormItem>
-          
-          <FormItem label="Email" prop="email" required>
-            <Input v-model="formData.email" type="email" placeholder="Enter email" />
-          </FormItem>
-          
-          <FormItem label="Phone" prop="phone">
-            <Input v-model="formData.phone" placeholder="Enter phone number" />
-          </FormItem>
-          
-          <FormItem label="Country" prop="country">
-            <Select v-model="formData.country" :options="countryOptions" placeholder="Select country" />
-          </FormItem>
-          
-          <FormItem label="Language" prop="language">
-            <Select v-model="formData.language" :options="languageOptions" placeholder="Select language" />
-          </FormItem>
-        </div>
-        
-        <div v-else style="max-width: 500px;">
-          <FormItem label="Username" prop="username" required>
-            <Input v-model="formData.username" placeholder="Enter username" />
-          </FormItem>
-          
-          <FormItem label="Password" prop="password" required>
-            <Input v-model="formData.password" type="password" placeholder="Enter password" />
-          </FormItem>
-          
-          <FormItem label="Email" prop="email" required>
-            <Input v-model="formData.email" type="email" placeholder="Enter email" />
-          </FormItem>
-          
-          <FormItem label="Phone" prop="phone">
-            <Input v-model="formData.phone" placeholder="Enter phone number" />
-          </FormItem>
-          
-          <FormItem label="Country" prop="country">
-            <Select v-model="formData.country" :options="countryOptions" placeholder="Select country" />
-          </FormItem>
-          
-          <FormItem label="Language" prop="language">
-            <Select v-model="formData.language" :options="languageOptions" placeholder="Select language" />
-          </FormItem>
-        </div>
-        
-        <FormItem>
-          <Button type="default" class="x-button x-button--primary">Submit</Button>
+  <Card title="表单布局切换" :border="false">
+    <div style="margin-bottom: 20px;">
+      <span style="margin-right: 10px;">Layout:</span>
+      <Radio v-model="layout" :options="layoutOptions" />
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <span style="margin-right: 10px;">Size:</span>
+      <Radio v-model="size" :options="sizeOptions" />
+    </div>
+
+    <Form
+      v-model="formData"
+      :rules="rules"
+      @submit="handleSubmit"
+      :labelPosition="layout"
+      :size="size"
+      :labelWidth="layout === 'left' ? '100px' : ''"
+    >
+      <div v-if="layout === 'left' || layout === 'right'" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+        <FormItem label="Username" prop="username" required>
+          <Input v-model="formData.username" placeholder="Enter username" />
         </FormItem>
-      </Form>
-    </Card>
-  </Demo>
+
+        <FormItem label="Password" prop="password" required>
+          <Input v-model="formData.password" type="password" placeholder="Enter password" />
+        </FormItem>
+
+        <FormItem label="Email" prop="email" required>
+          <Input v-model="formData.email" type="email" placeholder="Enter email" />
+        </FormItem>
+
+        <FormItem label="Phone" prop="phone">
+          <Input v-model="formData.phone" placeholder="Enter phone number" />
+        </FormItem>
+
+        <FormItem label="Country" prop="country">
+          <Select v-model="formData.country" :options="countryOptions" placeholder="Select country" />
+        </FormItem>
+
+        <FormItem label="Language" prop="language">
+          <Select v-model="formData.language" :options="languageOptions" placeholder="Select language" />
+        </FormItem>
+      </div>
+
+      <div v-else style="max-width: 500px;">
+        <FormItem label="Username" prop="username" required>
+          <Input v-model="formData.username" placeholder="Enter username" />
+        </FormItem>
+
+        <FormItem label="Password" prop="password" required>
+          <Input v-model="formData.password" type="password" placeholder="Enter password" />
+        </FormItem>
+
+        <FormItem label="Email" prop="email" required>
+          <Input v-model="formData.email" type="email" placeholder="Enter email" />
+        </FormItem>
+
+        <FormItem label="Phone" prop="phone">
+          <Input v-model="formData.phone" placeholder="Enter phone number" />
+        </FormItem>
+
+        <FormItem label="Country" prop="country">
+          <Select v-model="formData.country" :options="countryOptions" placeholder="Select country" />
+        </FormItem>
+
+        <FormItem label="Language" prop="language">
+          <Select v-model="formData.language" :options="languageOptions" placeholder="Select language" />
+        </FormItem>
+      </div>
+
+      <FormItem>
+        <Button type="default" class="x-button x-button--primary">Submit</Button>
+      </FormItem>
+    </Form>
+  </Card>
 </template>
 
 <script setup lang="ts">
@@ -131,7 +129,7 @@ const rules = {
   username: {
     required: true,
     message: 'Username is required',
-    validator: (value) => {
+    validator: (value: any) => {
       if (!value) return 'Username is required';
       if (value.length < 3) {
         return 'Username must be at least 3 characters long';
@@ -142,7 +140,7 @@ const rules = {
   password: {
     required: true,
     message: 'Password is required',
-    validator: (value) => {
+    validator: (value: any) => {
       if (!value) return 'Password is required';
       if (value.length < 6) {
         return 'Password must be at least 6 characters long';
@@ -153,7 +151,7 @@ const rules = {
   email: {
     required: true,
     message: 'Email is required',
-    validator: (value) => {
+    validator: (value: any) => {
       if (!value) return 'Email is required';
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
         return 'Please enter a valid email address';
@@ -164,7 +162,7 @@ const rules = {
 };
 
 // 提交处理
-const handleSubmit = (data) => {
+const handleSubmit = (data: any) => {
   console.log('Form submitted successfully:', data);
   alert('Form submitted successfully!');
 };
