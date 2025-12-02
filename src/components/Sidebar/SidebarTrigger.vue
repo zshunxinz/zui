@@ -93,11 +93,4 @@ const buttonText = computed(() => {
   transform: rotate(90deg);
 }
 
-/* 移动端优化 */
-@media (max-width: 768px) {
-  .SidebarTrigger {
-    padding: var(--padding-3);
-    font-size: var(--font-size-sm);
-  }
-}
 </style>

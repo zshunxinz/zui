@@ -84,32 +84,32 @@ const buttonProps = props.asChild
 }
 
 /* 文字内容在悬停前保持可见但稍透明 */
-/* :slotted(.menu-text),
+:slotted(.menu-text),
 :slotted(.text),
 :slotted(span:not([class*="icon"]):not([class*="Icon"]):not([class*="svg"]):not([data-icon])) {
   opacity: 0.8;
   transform: translateX(0);
   transition: opacity 0.3s ease-in-out 0.05s, transform 0.3s ease-in-out 0.05s;
-} */
+}
 
 /* 悬停时文字完全显示并有轻微滑入效果 */
-/* .SidebarMenuButton:hover :slotted(.menu-text),
+.SidebarMenuButton:hover :slotted(.menu-text),
 .SidebarMenuButton:hover :slotted(.text),
 .SidebarMenuButton:hover :slotted(span:not([class*="icon"]):not([class*="Icon"]):not([class*="svg"]):not([data-icon])) {
   opacity: 1;
   transform: translateX(4px);
-} */
+}
 
 /* 激活状态文字立即完全显示 */
-/* .SidebarMenuButton--active :slotted(.menu-text),
+.SidebarMenuButton--active :slotted(.menu-text),
 .SidebarMenuButton--active :slotted(.text),
 .SidebarMenuButton--active :slotted(span:not([class*="icon"]):not([class*="Icon"]):not([class*="svg"]):not([data-icon])) {
   opacity: 1;
   transform: translateX(4px);
-} */
+}
 
 /* 确保图标、SVG等元素始终清晰可见 */
-/* :slotted([class*="icon"]),
+:slotted([class*="icon"]),
 :slotted([class*="Icon"]),
 :slotted(svg),
 :slotted([class*="svg"]),
@@ -117,7 +117,7 @@ const buttonProps = props.asChild
   opacity: 1 !important;
   transform: translateX(0) !important;
   transition: transform 0.2s ease-in-out;
-} */
+}
 
 /* 悬停时图标有轻微移动 */
 .SidebarMenuButton:hover :slotted([class*="icon"]),

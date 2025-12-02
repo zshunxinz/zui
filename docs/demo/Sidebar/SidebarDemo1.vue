@@ -119,6 +119,7 @@ const setActiveItem = (itemId: string) => {
                       v-if="active"
                       :active="activeItem === item.id"
                       @click="setActiveItem(item.id)"
+                      style="margin-bottom: 8px;"
                     >
                       <Icon
                         class="menu-icon"
