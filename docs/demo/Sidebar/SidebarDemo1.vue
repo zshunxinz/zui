@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
-import CardDemo1 from '../Card/CardDemo1.vue';
-import TabsDemo1 from '../Tabs/TabsDemo1.vue';
-import GridDemo1 from '../Grid/GridDemo1.vue';
-import FormDemo1 from '../Form/FormDemo1.vue';
-import FormDemo2 from '../Form/FormDemo2.vue';
-import ModalDemo1 from '../Modal/ModalDemo1.vue';
-import DrawerDemo1 from '../Drawer/DrawerDemo.vue';
+import { ref, computed, defineAsyncComponent } from 'vue';
+const CardDemo1 = defineAsyncComponent(() => import('../Card/CardDemo1.vue'))
+const TabsDemo1 = defineAsyncComponent(() => import('../Tabs/TabsDemo1.vue'))
+const GridDemo1 = defineAsyncComponent(() => import('../Grid/GridDemo1.vue'))
+const FormDemo1 = defineAsyncComponent(() => import('../Form/FormDemo1.vue'))
+const FormDemo2 = defineAsyncComponent(() => import('../Form/FormDemo2.vue'))
+const ModalDemo1 = defineAsyncComponent(() => import('../Modal/ModalDemo1.vue'))
+const DrawerDemo1 = defineAsyncComponent(() => import('../Drawer/DrawerDemo.vue'))
 /**
  * 侧边栏组件演示
  * 包含侧边栏展开/收起、多级菜单、动态组件加载等功能
