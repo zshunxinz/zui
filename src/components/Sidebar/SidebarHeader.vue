@@ -22,6 +22,5 @@ defineProps({
 }
 
 .border-bottom {
-  border-bottom: 1px solid var(--sidebar-border);
 }
 </style>

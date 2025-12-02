@@ -24,8 +24,8 @@ import SidebarDemo4 from "../demo/Sidebar/SidebarDemo4.vue";
 ## 响应式侧边栏
 
 通过响应式设计，侧边栏可以根据屏幕尺寸自动调整其行为，支持折叠和展开功能。
-<Demo center>
-<SidebarDemo2 />
+<Demo :style="{ padding: '0px' }" center fullscreen>
+  <SidebarDemo2 />
 </Demo>
 
 <CollapsibleCode>

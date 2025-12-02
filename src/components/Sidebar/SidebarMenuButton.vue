@@ -40,8 +40,8 @@ const buttonProps = props.asChild
   gap: var(--space-2);
   width: 100%;
   padding: var(--padding-1);
-  margin-top: var(--space-1);
-  margin-bottom: var(--space-1);
+  /* margin-top: var(--space-1); */
+  /* margin-bottom: var(--space-1); */
   border-radius: var(--border-radius);
   background-color: transparent;
   border: none;
@@ -153,10 +153,10 @@ const buttonProps = props.asChild
 
 /* 悬停状态下的整体增强效果 */
 .SidebarMenuButton:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); */
 }
 
 .SidebarMenuButton--active {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
 }
 </style>

@@ -114,7 +114,7 @@
   --box-shadow-1: rgba(0, 0, 0, 0) 0px 0px 0px 0px,
     rgba(0, 0, 0, 0) 0px 0px 0px 0px,
     rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
-  
+
   /* sidebar 相关变量 */
   --sidebar-background: var(--color-background);
   --sidebar-foreground: var(--color-text);
@@ -126,6 +126,7 @@
   --sidebar-ring: var(--color-primary);
   --sidebar-width: 240px;
   --sidebar-collapsed-width: 72px;
+  --sidebar-header-height: 49px;
 }
 
 /* 暗色模式变量 */
@@ -228,7 +229,7 @@
       var(--color-neutral-800) 25%,
       var(--color-neutral-900) 50%,
       var(--color-neutral-800) 75%);
-  
+
   /* sidebar 相关变量 - 暗色模式 */
   --sidebar-background: var(--color-background);
   --sidebar-foreground: var(--color-text);
