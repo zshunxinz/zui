@@ -1,7 +1,14 @@
 <template>
   <div class="drawer-demo">
     <div class="demo-content">
-      <Button @click="showCustomFooterDrawer">自定义按钮</Button>
+      <Row >
+        <Col :span="4">
+          <Button @click="showCustomFooterDrawer">自定义按钮</Button>
+        </Col>
+        <Col :span="4">
+          <Button @click="showCustomNoFooterDrawer">无默认按钮</Button>
+        </Col>
+      </Row>
     </div>
   </div>
 </template>
@@ -43,6 +50,15 @@ const showCustomFooterDrawer = () => {
       footer.appendChild(deleteBtn);
       return footer;
     }
+  });
+};
+
+const showCustomNoFooterDrawer = () => {
+  let drawer;
+  drawer = showDrawer({
+    closable: true,
+    footer: false,
+    content: '没有默认的头部和底部按钮',
   });
 };
 </script>

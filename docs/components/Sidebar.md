@@ -9,6 +9,7 @@ import SidebarDemo1 from "../demo/Sidebar/SidebarDemo1.vue";
 import SidebarDemo2 from "../demo/Sidebar/SidebarDemo2.vue";
 import SidebarDemo3 from "../demo/Sidebar/SidebarDemo3.vue";
 import SidebarDemo4 from "../demo/Sidebar/SidebarDemo4.vue";
+
 </script>
 
 <Demo :style="{ padding: '0px' }" center fullscreen>
@@ -23,7 +24,13 @@ import SidebarDemo4 from "../demo/Sidebar/SidebarDemo4.vue";
 
 ## 响应式侧边栏
 
-通过响应式设计，侧边栏可以根据屏幕尺寸自动调整其行为，支持折叠和展开功能。
+通过响应式设计，侧边栏可以根据屏幕尺寸自动调整其行为，支持折叠和展开功能。<br>
+设置 `enableResponsive` 属性为 `true` 即可启用响应式侧边栏。<br>
+v-model:defaultOpen="active" 绑定侧边栏展开/收起状态，当屏幕宽度小于 `breakpoint` 时，侧边栏会自动折叠，active 值会自动设置为 `false`。<br>
+v-model:isMobile="isMobile" 判定是为移动设备，当屏幕宽度小于 `breakpoint-mobile` 时，isMobile 值会自动设置为 `true`。<br>
+设置 `breakpoint` 属性为屏幕宽度阈值，当屏幕宽度小于该值时，active 值会自动设置为 `false`。<br>
+设置 `breakpoint-mobile` 属性为移动设备屏幕宽度阈值，当屏幕宽度小于该值时，isMobile 值会自动设置为 `true`。
+
 <Demo :style="{ padding: '0px' }" center fullscreen>
   <SidebarDemo2 />
 </Demo>
@@ -37,8 +44,8 @@ import SidebarDemo4 from "../demo/Sidebar/SidebarDemo4.vue";
 ## 嵌套导航侧边栏
 
 通过侧边栏的分组功能，可以创建带有层级结构的嵌套导航菜单，适用于复杂的应用导航场景。
-<Demo center>
-  <SidebarDemo3 />
+<Demo :style="{ padding: '0px' }" center fullscreen>
+<SidebarDemo3 />
 </Demo>
 
 <CollapsibleCode>
@@ -50,8 +57,8 @@ import SidebarDemo4 from "../demo/Sidebar/SidebarDemo4.vue";
 ## 自定义样式侧边栏
 
 侧边栏支持丰富的样式自定义选项，可以根据品牌需求定制不同的主题风格和视觉效果。
-<Demo center>
-  <SidebarDemo4 />
+<Demo :style="{ padding: '0px' }" center fullscreen>
+<SidebarDemo4 />
 </Demo>
 
 <CollapsibleCode>

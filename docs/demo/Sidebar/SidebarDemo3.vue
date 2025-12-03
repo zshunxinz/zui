@@ -1,268 +1,221 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, defineAsyncComponent } from 'vue';
+const CardDemo1 = defineAsyncComponent(() => import('../Card/CardDemo1.vue'));
+const TabsDemo1 = defineAsyncComponent(() => import('../Tabs/TabsDemo1.vue'));
+const GridDemo1 = defineAsyncComponent(() => import('../Grid/GridDemo1.vue'));
+const FormDemo1 = defineAsyncComponent(() => import('../Form/FormDemo1.vue'));
+const FormDemo2 = defineAsyncComponent(() => import('../Form/FormDemo2.vue'));
+const ModalDemo1 = defineAsyncComponent(
+  () => import('../Modal/ModalDemo1.vue')
+);
+const DrawerDemo1 = defineAsyncComponent(
+  () => import('../Drawer/DrawerDemo.vue')
+);
+/**
+ * 侧边栏组件演示
+ * 包含侧边栏展开/收起、多级菜单、动态组件加载等功能
+ */
 
-// SVG图标组件
-const HomeIcon = {
-  name: 'HomeIcon',
-  template: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
-};
+// ==================== 状态管理 ====================
+const active = ref(false); // 侧边栏展开/收起状态
+const mainMenuActive = ref(true); // 主导航组展开状态
+const settingsMenuActive = ref(false); // 设置导航组展开状态
+const activeItem = ref('home'); // 当前激活的菜单项
+const isMobile = ref(false); // 是否为移动设备
 
-const SearchIcon = {
-  name: 'SearchIcon',
-  template: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>`,
-};
-
-const SettingsIcon = {
-  name: 'SettingsIcon',
-  template: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>`,
-};
-
-const UsersIcon = {
-  name: 'UsersIcon',
-  template: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
-};
-
-const LayoutDashboardIcon = {
-  name: 'LayoutDashboardIcon',
-  template: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>`,
-};
-
-const LayersIcon = {
-  name: 'LayersIcon',
-  template: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>`,
-};
-
-const DatabaseIcon = {
-  name: 'DatabaseIcon',
-  template: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>`,
-};
-
-const BarChartIcon = {
-  name: 'BarChartIcon',
-  template: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>`,
-};
-
-const PieChartIcon = {
-  name: 'PieChartIcon',
-  template: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>`,
-};
-
-const HelpCircleIcon = {
-  name: 'HelpCircleIcon',
-  template: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>`,
-};
-
-const LogOutIcon = {
-  name: 'LogOutIcon',
-  template: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>`,
-};
-
-// 图标映射
-const iconMap = {
-  home: HomeIcon,
-  search: SearchIcon,
-  settings: SettingsIcon,
-  users: UsersIcon,
-  dashboard: LayoutDashboardIcon,
-  layers: LayersIcon,
-  database: DatabaseIcon,
-  barChart: BarChartIcon,
-  pieChart: PieChartIcon,
-  help: HelpCircleIcon,
-  logout: LogOutIcon,
-};
-
-// 定义菜单项（包含子菜单）
-const menuItems = [
-  {
-    id: 'home',
-    label: '首页',
-    icon: 'home',
-    children: [],
-  },
+// ==================== 菜单配置数据 ====================
+/**
+ * 主导航菜单项配置
+ */
+const mainMenuItems = [
+  { id: 'home', label: '首页', icon: 'house', component: CardDemo1 },
   {
     id: 'dashboard',
     label: '仪表盘',
-    icon: 'dashboard',
-    children: [
-      {
-        id: 'dashboard-overview',
-        label: '概览',
-        icon: 'barChart',
-      },
-      {
-        id: 'dashboard-analytics',
-        label: '数据分析',
-        icon: 'pieChart',
-      },
-    ],
+    icon: 'chart-area',
+    component: TabsDemo1,
   },
-  {
-    id: 'content',
-    label: '内容管理',
-    icon: 'layers',
-    children: [
-      {
-        id: 'content-pages',
-        label: '页面管理',
-      },
-      {
-        id: 'content-posts',
-        label: '文章管理',
-      },
-      {
-        id: 'content-media',
-        label: '媒体库',
-      },
-    ],
-  },
-  {
-    id: 'users',
-    label: '用户管理',
-    icon: 'users',
-    children: [],
-  },
-  {
-    id: 'data',
-    label: '数据中心',
-    icon: 'database',
-    children: [
-      {
-        id: 'data-backup',
-        label: '备份管理',
-      },
-      {
-        id: 'data-export',
-        label: '数据导出',
-      },
-    ],
-  },
-  {
-    id: 'settings',
-    label: '系统设置',
-    icon: 'settings',
-    children: [
-      {
-        id: 'settings-basic',
-        label: '基本设置',
-      },
-      {
-        id: 'settings-security',
-        label: '安全设置',
-      },
-      {
-        id: 'settings-advanced',
-        label: '高级设置',
-      },
-    ],
-  },
+  { id: 'users', label: '用户管理', icon: 'users', component: GridDemo1 },
+  { id: 'search', label: '搜索', icon: 'search', component: FormDemo1 },
+];
+
+/**
+ * 设置导航菜单项配置
+ */
+const settingsMenuItems = [
+  { id: 'settings', label: '设置', icon: 'settings', component: FormDemo2 },
   {
     id: 'help',
     label: '帮助中心',
-    icon: 'help',
-    children: [],
+    icon: 'hand-helping',
+    component: ModalDemo1,
   },
-  {
-    id: 'logout',
-    label: '退出登录',
-    icon: 'logout',
-    children: [],
-  },
+  { id: 'logout', label: '退出登录', icon: 'log-out', component: DrawerDemo1 },
 ];
 
-// 状态
-const activeItem = ref('home');
-const collapsed = ref(false);
+// ==================== 计算属性 ====================
+/**
+ * 获取当前激活菜单项的显示标签
+ */
+const currentActiveLabel = computed(() => {
+  return (
+    mainMenuItems.find(item => item.id === activeItem.value)?.label ||
+    settingsMenuItems.find(item => item.id === activeItem.value)?.label
+  );
+});
 
-// 处理菜单项点击
-const handleItemClick = (itemId: string) => {
+/**
+ * 获取当前激活菜单项对应的组件
+ */
+const currentActiveComponent = computed(() => {
+  return (
+    mainMenuItems.find(item => item.id === activeItem.value)?.component ||
+    settingsMenuItems.find(item => item.id === activeItem.value)?.component
+  );
+});
+
+// ==================== 事件处理函数 ====================
+/**
+ * 切换侧边栏展开/收起状态,默认组件内已更新active值
+ */
+const toggleSidebar = () => {
+  console.log('toggleSidebar', active.value);
+};
+const BREAKPOINT = 1024;
+const BREAKPOINT_MOBILE = 768;
+/**
+ * 设置当前激活的菜单项
+ * @param itemId - 菜单项ID
+ */
+const setActiveItem = (itemId: string) => {
   activeItem.value = itemId;
 };
 </script>
 
 <template>
   <div class="demo-container">
-    <SidebarProvider>
+    <SidebarProvider
+      v-model:defaultOpen="active"
+      v-model:isMobile="isMobile"
+      :breakpoint="BREAKPOINT"
+      :breakpoint-mobile="BREAKPOINT_MOBILE"
+      enableResponsive="true"
+    >
       <div class="demo-content">
-        <Sidebar>
+        <!-- 侧边栏 -->
+        <Sidebar :collapsed-width="49" :width="236" v-if="!isMobile">
+          <!-- 侧边栏头部 -->
           <SidebarHeader>
-            <div class="sidebar-title">ZUI</div>
-            <SidebarTrigger asChild>
-              <svg
-                @click="collapsed = !collapsed"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <polyline points="15 18 9 12 15 6"></polyline>
-              </svg>
-            </SidebarTrigger>
+            <div class="sidebar-title">{{ active ? 'Zui' : 'zui' }}</div>
           </SidebarHeader>
 
+          <!-- 侧边栏内容 -->
           <SidebarContent>
             <SidebarMenu>
-              <SidebarGroup v-for="item in menuItems" :key="item.id">
-                <template v-if="item.children && item.children.length > 0">
-                  <SidebarGroupLabel v-if="!collapsed">
-                    <!-- <component
-                      :is="iconMap[item.icon as keyof typeof iconMap]"
-                      style="width: 16px; height: 16px; margin-right: 28px"
-                    /> -->
-                    <div style="display: flex; align-items: center; gap: 5px">
-                      <span>{{ item.label }}</span>
-                      <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        style="transition: transform 0.2s"
-                      >
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                      </svg>
+              <!-- 主导航组 -->
+              <SidebarGroup v-model:default-open="mainMenuActive">
+                <SidebarGroupLabel v-if="active">
+                  <div class="group-label">
+                    <div style="display: flex; align-items: center; gap: 8px">
+                      <Icon name="layout-grid" :size="18" />
+                      <span>主导航</span>
                     </div>
-                  </SidebarGroupLabel>
-                  <SidebarGroupContent v-if="!collapsed">
-                    <SidebarMenuItem
-                      v-for="child in item.children"
-                      :key="child.id"
+                    <div
+                      class="rotate-icon"
+                      :class="{ 'rotate-180': mainMenuActive }"
                     >
-                      <SidebarMenuButton
-                        :active="activeItem === child.id"
-                        @click="handleItemClick(child.id)"
-                        class="nested-menu-item"
+                      <Icon name="chevron-down" />
+                    </div>
+                  </div>
+                </SidebarGroupLabel>
+                <SidebarGroupLabel v-if="!active">
+                  <Popover placement="right-start" :offset="20" :arrow="false">
+                    <div class="group-label">
+                      <Icon name="layout-grid" :size="18" />
+                    </div>
+                    <template #content placement="right">
+                      <SidebarMenuItem
+                        v-for="item in mainMenuItems"
+                        :key="item.id"
                       >
-                        <component
-                          v-if="child.icon"
-                          :is="iconMap[child.icon as keyof typeof iconMap]"
-                          style="width: 14px; height: 14px; margin-right: 8px"
-                        />
-                        <span>{{ child.label }}</span>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  </SidebarGroupContent>
-                </template>
-
-                <!-- 没有子菜单的直接项 -->
-                <SidebarGroupContent v-else>
-                  <SidebarMenuItem>
+                        <SidebarMenuButton
+                          :active="activeItem === item.id"
+                          @click="setActiveItem(item.id)"
+                          style="margin: 6px 0px"
+                        >
+                          <Icon class="menu-icon" :name="item.icon" size="16" />
+                          <span>{{ item.label }}</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    </template>
+                  </Popover>
+                </SidebarGroupLabel>
+                <SidebarGroupContent>
+                  <SidebarMenuItem v-for="item in mainMenuItems" :key="item.id">
+                    <!-- 展开状态下的菜单按钮 -->
                     <SidebarMenuButton
+                      v-if="active"
                       :active="activeItem === item.id"
-                      @click="handleItemClick(item.id)"
+                      @click="setActiveItem(item.id)"
                     >
-                      <component
-                        :is="iconMap[item.icon as keyof typeof iconMap]"
-                        style="width: 18px; height: 18px"
-                      />
-                      <span v-if="!collapsed">{{ item.label }}</span>
+                      <Icon class="menu-icon" :name="item.icon" size="16" />
+                      <span>{{ item.label }}</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarGroupContent>
+              </SidebarGroup>
+
+              <!-- 设置导航组 -->
+              <SidebarGroup v-model:default-open="settingsMenuActive">
+                <SidebarGroupLabel v-if="active">
+                  <div class="group-label">
+                    <div style="display: flex; align-items: center; gap: 8px">
+                      <Icon name="codepen" :size="18" />
+                      <span>系统</span>
+                    </div>
+                    <div
+                      class="rotate-icon"
+                      :class="{ 'rotate-180': settingsMenuActive }"
+                    >
+                      <Icon name="chevron-down" />
+                    </div>
+                  </div>
+                </SidebarGroupLabel>
+                <SidebarGroupLabel v-if="!active">
+                  <Popover placement="right-start" :offset="20" :arrow="false">
+                    <div class="group-label">
+                      <Icon name="codepen" :size="18" />
+                    </div>
+                    <template #content placement="right">
+                      <SidebarMenuItem
+                        v-for="item in settingsMenuItems"
+                        :key="item.id"
+                      >
+                        <SidebarMenuButton
+                          :active="activeItem === item.id"
+                          @click="setActiveItem(item.id)"
+                          style="margin: 6px 0px"
+                        >
+                          <Icon class="menu-icon" :name="item.icon" size="16" />
+                          <span>{{ item.label }}</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    </template>
+                  </Popover>
+                </SidebarGroupLabel>
+                <SidebarGroupContent>
+                  <SidebarMenuItem
+                    v-for="item in settingsMenuItems"
+                    :key="item.id"
+                  >
+                    <!-- 展开状态下的菜单按钮 -->
+                    <SidebarMenuButton
+                      v-if="active"
+                      :active="activeItem === item.id"
+                      @click="setActiveItem(item.id)"
+                    >
+                      <Icon class="menu-icon" :name="item.icon" size="16" />
+                      <span>{{ item.label }}</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 </SidebarGroupContent>
@@ -270,49 +223,170 @@ const handleItemClick = (itemId: string) => {
             </SidebarMenu>
           </SidebarContent>
 
-          <SidebarFooter v-if="!collapsed">
-            <div class="user-info">
+          <!-- 侧边栏底部 -->
+          <SidebarFooter>
+            <div class="user-info" :class="{ collapsed: !active }">
               <div class="user-avatar">
-                <svg
-                  width="32"
-                  height="32"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-                  <circle cx="12" cy="7" r="4" />
-                </svg>
+                <Icon name="user" :size="24" />
               </div>
-              <div class="user-details">
+              <div v-if="active" class="user-details">
                 <div class="user-name">用户名称</div>
                 <div class="user-role">管理员</div>
               </div>
             </div>
           </SidebarFooter>
         </Sidebar>
+        <Sidebar
+          :collapsed-width="49"
+          :width="236"
+          v-else-if="isMobile && active"
+        >
+          <!-- 侧边栏头部 -->
+          <SidebarHeader>
+            <div class="sidebar-title">{{ active ? 'Zui' : 'zui' }}</div>
+          </SidebarHeader>
 
+          <!-- 侧边栏内容 -->
+          <SidebarContent v-if="active">
+            <SidebarMenu>
+              <!-- 主导航组 -->
+              <SidebarGroup v-model:default-open="mainMenuActive">
+                <SidebarGroupLabel v-if="active">
+                  <div class="group-label">
+                    <div style="display: flex; align-items: center; gap: 8px">
+                      <Icon name="layout-grid" :size="18" />
+                      <span>主导航</span>
+                    </div>
+                    <div
+                      class="rotate-icon"
+                      :class="{ 'rotate-180': mainMenuActive }"
+                    >
+                      <Icon name="chevron-down" />
+                    </div>
+                  </div>
+                </SidebarGroupLabel>
+                <SidebarGroupLabel v-if="!active">
+                  <Popover placement="right-start" :offset="20" :arrow="false">
+                    <div class="group-label">
+                      <Icon name="layout-grid" :size="18" />
+                    </div>
+                    <template #content placement="right">
+                      <SidebarMenuItem
+                        v-for="item in mainMenuItems"
+                        :key="item.id"
+                      >
+                        <SidebarMenuButton
+                          :active="activeItem === item.id"
+                          @click="setActiveItem(item.id)"
+                          style="margin: 6px 0px"
+                        >
+                          <Icon class="menu-icon" :name="item.icon" size="16" />
+                          <span>{{ item.label }}</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    </template>
+                  </Popover>
+                </SidebarGroupLabel>
+                <SidebarGroupContent>
+                  <SidebarMenuItem v-for="item in mainMenuItems" :key="item.id">
+                    <!-- 展开状态下的菜单按钮 -->
+                    <SidebarMenuButton
+                      v-if="active"
+                      :active="activeItem === item.id"
+                      @click="setActiveItem(item.id)"
+                    >
+                      <Icon class="menu-icon" :name="item.icon" size="16" />
+                      <span>{{ item.label }}</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarGroupContent>
+              </SidebarGroup>
+
+              <!-- 设置导航组 -->
+              <SidebarGroup v-model:default-open="settingsMenuActive">
+                <SidebarGroupLabel v-if="active">
+                  <div class="group-label">
+                    <div style="display: flex; align-items: center; gap: 8px">
+                      <Icon name="codepen" :size="18" />
+                      <span>系统</span>
+                    </div>
+                    <div
+                      class="rotate-icon"
+                      :class="{ 'rotate-180': settingsMenuActive }"
+                    >
+                      <Icon name="chevron-down" />
+                    </div>
+                  </div>
+                </SidebarGroupLabel>
+                <SidebarGroupLabel v-if="!active">
+                  <Popover placement="right-start" :offset="20" :arrow="false">
+                    <div class="group-label">
+                      <Icon name="codepen" :size="18" />
+                    </div>
+                    <template #content placement="right">
+                      <SidebarMenuItem
+                        v-for="item in settingsMenuItems"
+                        :key="item.id"
+                      >
+                        <SidebarMenuButton
+                          :active="activeItem === item.id"
+                          @click="setActiveItem(item.id)"
+                          style="margin: 6px 0px"
+                        >
+                          <Icon class="menu-icon" :name="item.icon" size="16" />
+                          <span>{{ item.label }}</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    </template>
+                  </Popover>
+                </SidebarGroupLabel>
+                <SidebarGroupContent>
+                  <SidebarMenuItem
+                    v-for="item in settingsMenuItems"
+                    :key="item.id"
+                  >
+                    <!-- 展开状态下的菜单按钮 -->
+                    <SidebarMenuButton
+                      v-if="active"
+                      :active="activeItem === item.id"
+                      @click="setActiveItem(item.id)"
+                    >
+                      <Icon class="menu-icon" :name="item.icon" size="16" />
+                      <span>{{ item.label }}</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarGroupContent>
+              </SidebarGroup>
+            </SidebarMenu>
+          </SidebarContent>
+
+          <!-- 侧边栏底部 -->
+          <SidebarFooter v-if="active">
+            <div class="user-info" :class="{ collapsed: !active }">
+              <div class="user-avatar">
+                <Icon name="user" :size="24" />
+              </div>
+              <div v-if="active" class="user-details">
+                <div class="user-name">用户名称</div>
+                <div class="user-role">管理员</div>
+              </div>
+            </div>
+          </SidebarFooter>
+        </Sidebar>
+        <!-- 主内容区域 -->
         <main class="main-content">
           <div class="main-header">
-            <h1>嵌套导航侧边栏示例</h1>
+            <SidebarTrigger asChild @click="toggleSidebar">
+              <Icon :name="active ? 'panel-right' : 'panel-left'" :size="20" />
+            </SidebarTrigger>
+            <span>{{ currentActiveLabel }}</span>
           </div>
 
           <div class="main-body">
-            <p>这个示例展示了如何创建带有分组和嵌套子菜单的侧边栏。</p>
-            <p>点击侧边栏顶部的折叠按钮可以切换侧边栏的显示模式。</p>
-            <p>点击带有箭头的分组标签可以展开或折叠子菜单。</p>
-            <p>
-              当前选中:
-              {{
-                menuItems.find(item => item.id === activeItem)?.label ||
-                menuItems
-                  .flatMap(item => item.children)
-                  .find(child => child.id === activeItem)?.label
-              }}
-            </p>
+            <component
+              v-if="currentActiveComponent"
+              :is="currentActiveComponent"
+            />
           </div>
         </main>
       </div>
@@ -321,9 +395,10 @@ const handleItemClick = (itemId: string) => {
 </template>
 
 <style scoped>
+/* ==================== 布局样式 ==================== */
 .demo-container {
   width: 100%;
-  /* height: 100vh; */
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -332,76 +407,113 @@ const handleItemClick = (itemId: string) => {
 .demo-content {
   display: flex;
   width: 100%;
-  max-width: 1200px;
-  height: 600px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  min-height: 600px;
   overflow: hidden;
 }
 
+/* ==================== 侧边栏样式 ==================== */
+.sidebar-title {
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  padding: var(--space-3) 0px;
+  color: var(--color-default);
+}
+
+/* ==================== 主内容区域样式 ==================== */
 .main-content {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 24px;
   overflow: hidden;
+  /* display: flex;
+  flex-direction: column; */
 }
 
 .main-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 24px;
+  padding: var(--padding-3);
+  border-bottom: 1px solid var(--color-border-1);
+  gap: var(--space-2);
+  width: 100%;
 }
 
 .main-body {
   flex: 1;
+  padding: var(--padding-3);
+  height: calc(100% - var(--sidebar-header-height));
   overflow: auto;
 }
 
+/* ==================== 菜单相关样式 ==================== */
+.menu-icon {
+  height: 22px;
+  font-size: 16px;
+}
+
+.menu-icon-collapsed {
+  /* width: 100%; */
+  /* padding: var(--padding-1); */
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* height: 22px; */
+  /* font-size: 18px; */
+}
+
+.group-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* ==================== 用户信息样式 ==================== */
 .user-info {
   display: flex;
   align-items: center;
-  padding: 16px;
+  gap: 12px;
+  justify-content: center;
+  padding: 8px 0;
+  width: 100%;
+  transition: opacity 0.9s ease;
+}
+
+.user-info.collapsed {
+  justify-content: center;
 }
 
 .user-avatar {
-  margin-right: 12px;
+  border: 1px solid var(--color-border-1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  width: 32px;
+  height: 32px;
 }
 
 .user-details {
-  display: flex;
-  flex-direction: column;
+  transition: opacity 0.9s ease;
 }
 
 .user-name {
-  font-weight: 500;
   font-size: 14px;
+  font-weight: 900;
 }
 
 .user-role {
   font-size: 12px;
-  color: #6b7280;
+  color: var(--color-text-muted);
 }
 
-.sidebar-title {
-  font-size: 18px;
-  font-weight: 600;
-  margin: 0;
-  display: flex;
-  align-items: center;
+/* ==================== 动画样式 ==================== */
+.rotate-icon {
+  transition: transform 0.3s ease;
 }
 
-.nested-menu-item {
-  padding-left: 28px !important;
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-  .demo-content {
-    height: 100vh;
-    max-width: 100%;
-    border-radius: 0;
-  }
+.rotate-180 {
+  transform: rotate(180deg);
 }
 </style>

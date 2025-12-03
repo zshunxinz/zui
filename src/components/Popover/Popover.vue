@@ -4,7 +4,6 @@
       class="x-popover__trigger"
       @click="togglePopover"
       @keydown.esc="closePopover"
-      @blur="handleBlur"
       :aria-expanded="isOpen"
       aria-haspopup="true"
       :id="`${id}-trigger`"
@@ -19,12 +18,14 @@
         v-if="overlay"
         :class="overlayClass"
         @click="closePopover"
+        @blur="handleBlur"
       />
       <div
         v-show="isOpen"
         class="x-popover__content"
         :class="contentClass"
         :style="contentStyle"
+        @blur="handleBlur"
         ref="contentRef"
         @click.stop
         @keydown.esc="closePopover"
@@ -43,6 +44,7 @@
         v-if="overlay"
         :class="overlayClass"
         @click="closePopover"
+        @blur="handleBlur"
       />
       <div
         v-show="isOpen"
@@ -52,6 +54,7 @@
         ref="contentRef"
         @click.stop
         @keydown.esc="closePopover"
+        @blur="handleBlur"
         :id="`${id}-content`"
         role="tooltip"
         :aria-labelledby="`${id}-trigger`"
@@ -352,16 +355,12 @@ const handleDocumentClick = (event: MouseEvent) => {
 
 // 处理失焦事件
 const handleBlur = (event: FocusEvent) => {
-  setTimeout(() => {
-    if (!document.activeElement?.closest(`#${id.value}`)) {
-      closePopover();
-    }
-  }, 0);
+  console.log('失焦事件触发');
+  closePopover();
 };
 
 // 监听props.open变化
 const openWatcher = computed(() => props.open);
-openWatcher.value = isOpen.value;
 
 // 处理窗口大小变化
 const handleResize = () => {
@@ -392,14 +391,14 @@ onUnmounted(() => {
 }
 
 .x-popover__overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: transparent;
-      z-index: var(--z-index-popover-overlay);
-    }
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  z-index: var(--z-index-popover-overlay);
+}
 
 .x-popover__content {
   position: absolute;
@@ -408,7 +407,8 @@ onUnmounted(() => {
   border-radius: var(--border-radius-0);
   box-shadow: var(--box-shadow-1);
   z-index: var(--z-index-popover);
-  transition: opacity var(--transition-duration),
+  transition:
+    opacity var(--transition-duration),
     transform var(--transition-duration);
   max-width: 360px;
   max-height: 60vh;

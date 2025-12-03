@@ -7,6 +7,7 @@ interface SidebarProps {
   overlay?: boolean; // 是否在移动设备上显示覆盖层
   enableResponsive?: boolean; // 是否启用响应式功能
   style?: Record<string, any>; // 自定义样式
+  defaultOpen?: boolean; // 默认是否展开侧边栏
 }
 
 const props = withDefaults(defineProps<SidebarProps>(), {
@@ -15,10 +16,11 @@ const props = withDefaults(defineProps<SidebarProps>(), {
   overlay: true, // 默认在移动设备上显示覆盖层
   enableResponsive: false, // 默认不启用响应式
   style: () => ({}),
+  defaultOpen: false, // 默认展开侧边栏
 });
 
 const sidebar: any = inject('sidebar');
-const open = sidebar?.open || ref(true);
+const open = sidebar?.open || ref(props.defaultOpen);
 const isMobile = sidebar?.isMobile || ref(false);
 
 const computedWidth = computed(() => {
@@ -33,7 +35,9 @@ const isCollapsed = computed(() => !open.value);
 
 // 在移动设备上添加遮罩层类名
 const showOverlay = computed(() => {
-  return props.enableResponsive && isMobile.value && props.overlay && open.value;
+  return (
+    props.enableResponsive && isMobile.value && props.overlay && open.value
+  );
 });
 </script>
 
@@ -45,17 +49,19 @@ const showOverlay = computed(() => {
       'Sidebar--mobile': props.enableResponsive && isMobile,
       'Sidebar--overlay': props.overlay && props.enableResponsive && isMobile,
     }"
-    :style="{ width: typeof computedWidth === 'string' ? computedWidth : `${computedWidth}px`, ...props.style }"
+    :style="{
+      width:
+        typeof computedWidth === 'string'
+          ? computedWidth
+          : `${computedWidth}px`,
+      ...props.style,
+    }"
   >
     <slot />
   </aside>
 
   <!-- 移动端遮罩层 -->
-  <div
-    v-if="showOverlay"
-    class="SidebarOverlay"
-    @click="sidebar?.toggle?.()"
-  />
+  <div v-if="showOverlay" class="SidebarOverlay" @click="sidebar?.toggle?.()" />
 </template>
 
 <style scoped>
@@ -67,7 +73,7 @@ const showOverlay = computed(() => {
   background-color: var(--sidebar-background);
   border-right: 1px solid var(--sidebar-border);
   transition: all 0.3s ease;
-  z-index: 50;
+  /* z-index: 10; */
   min-width: 0;
 }
 

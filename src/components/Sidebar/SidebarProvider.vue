@@ -4,57 +4,86 @@ import { provide, ref, watch, onMounted, onUnmounted } from 'vue';
 interface SidebarProviderProps {
   defaultOpen?: boolean;
   breakpoint?: number; // 响应式断点，单位为像素
+  breakpointMobile?: number; // 移动设备响应式断点，单位为像素
   enableResponsive?: boolean; // 是否启用响应式功能
+  isMobile?: boolean; // 是否为移动设备
 }
 
 const props = withDefaults(defineProps<SidebarProviderProps>(), {
   defaultOpen: true,
-  breakpoint: 768, // 默认 768px
+  breakpoint: 1024, // 默认 1024px
+  breakpointMobile: 768, // 默认 768px
   enableResponsive: false, // 默认不启用响应式
+  isMobile: false, // 默认不是移动设备
 });
 
+const emit = defineEmits(['update:defaultOpen', 'update:isMobile']);
+
 const open = ref(props.defaultOpen);
-const isMobile = ref(false);
-let mediaQuery: MediaQueryList | null = null;
+const isMobile = ref(props.isMobile);
+const mediaQueries: MediaQueryList[] = []; // 存储所有媒体查询实例
 
-// 检查是否为移动设备
-const checkScreenSize = () => {
-  if (typeof window !== 'undefined' && props.enableResponsive) {
-    isMobile.value = window.innerWidth < props.breakpoint;
+// 根据窗口宽度更新状态
+const updateSidebarState = () => {
+  if (typeof window === 'undefined' || !props.enableResponsive) return;
 
-    // 在移动设备上默认收起
-    if (isMobile.value && props.defaultOpen) {
-      open.value = false;
-    }
+  const width = window.innerWidth;
+
+  if (width > props.breakpoint) {
+    // 大屏幕：桌面视图，侧边栏默认展开
+    isMobile.value = false;
+    open.value = true;
+  } else if (width > props.breakpointMobile) {
+    // 中屏幕：平板视图，侧边栏默认收起
+    isMobile.value = false;
+    open.value = false;
+  } else {
+    // 小屏幕：移动视图，侧边栏默认收起
+    isMobile.value = true;
+    open.value = false;
   }
+
+  emit('update:isMobile', isMobile.value);
+  emit('update:defaultOpen', open.value);
 };
 
 // 设置媒体查询监听
 const setupMediaQueryListener = () => {
-  if (typeof window !== 'undefined' && props.enableResponsive) {
-    const query = `(max-width: ${props.breakpoint}px)`;
-    mediaQuery = window.matchMedia(query);
+  if (typeof window === 'undefined' || !props.enableResponsive) return;
 
-    const handleChange = (e: MediaQueryListEvent) => {
-      isMobile.value = e.matches;
+  // 确保断点值的有效性
+  const effectiveBreakpoint = Math.max(
+    props.breakpoint,
+    props.breakpointMobile
+  );
+  const effectiveBreakpointMobile = Math.min(
+    props.breakpoint,
+    props.breakpointMobile
+  );
 
-      // 当进入移动视图时自动收起
-      if (e.matches) {
-        open.value = false;
-      }
-      // 当离开移动视图时，如果用户没有手动收起，保持默认状态
-      else if (props.defaultOpen) {
-        open.value = true;
-      }
+  // 为两个断点都设置媒体查询
+  const breakpoints = [effectiveBreakpoint, effectiveBreakpointMobile];
+
+  breakpoints.forEach(breakpoint => {
+    const query = `(max-width: ${breakpoint}px)`;
+    const mediaQuery = window.matchMedia(query);
+
+    // 媒体查询变化时更新状态
+    const handleChange = () => {
+      updateSidebarState();
     };
 
     mediaQuery.addEventListener('change', handleChange);
-    checkScreenSize(); // 初始化检查
-  }
+    mediaQueries.push(mediaQuery);
+  });
+
+  // 初始化状态
+  updateSidebarState();
 };
 
 const toggle = () => {
   open.value = !open.value;
+  emit('update:defaultOpen', open.value);
 };
 
 // 监听defaultOpen属性变化，同步更新open状态
@@ -63,6 +92,16 @@ watch(
   newValue => {
     if (newValue !== undefined && !props.enableResponsive) {
       open.value = newValue;
+      emit('update:defaultOpen', open.value);
+    }
+  }
+);
+watch(
+  () => props.isMobile,
+  newValue => {
+    if (newValue !== undefined && !props.enableResponsive) {
+      isMobile.value = newValue;
+      emit('update:isMobile', isMobile.value);
     }
   }
 );
@@ -72,10 +111,10 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  if (mediaQuery) {
-    // 正确清理媒体查询监听器
-    mediaQuery.removeEventListener('change', () => {});
-  }
+  // 清理所有媒体查询监听器
+  mediaQueries.forEach(mq => {
+    mq.removeEventListener('change', updateSidebarState);
+  });
 });
 
 const context = {
@@ -88,7 +127,7 @@ provide('sidebar', context);
 </script>
 
 <template>
-  <div :data-sidebar="true">
+  <div :data-sidebar="open">
     <slot />
   </div>
 </template>

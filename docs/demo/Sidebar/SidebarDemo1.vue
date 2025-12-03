@@ -57,12 +57,11 @@ const currentActiveComponent = computed(() => {
 
 // ==================== 事件处理函数 ====================
 /**
- * 切换侧边栏展开/收起状态
+ * 切换侧边栏展开/收起状态,默认组件内已更新active值
  */
 const toggleSidebar = () => {
-  active.value = !active.value;
+  console.log('toggleSidebar', active.value);
 };
-
 /**
  * 设置当前激活的菜单项
  * @param itemId - 菜单项ID
@@ -74,17 +73,18 @@ const setActiveItem = (itemId: string) => {
 
 <template>
   <div class="demo-container">
-    <SidebarProvider>
-      <div class="demo-content">
+    <SidebarProvider v-model:defaultOpen="active">
+
+      <div class="demo-content" >
         <!-- 侧边栏 -->
         <Sidebar :collapsed-width="49" :width="236">
           <!-- 侧边栏头部 -->
-          <SidebarHeader>
+          <SidebarHeader >
             <div class="sidebar-title">{{ active ? 'Zui' : 'zui' }}</div>
           </SidebarHeader>
 
           <!-- 侧边栏内容 -->
-          <SidebarContent>
+          <SidebarContent >
             <SidebarMenu>
               <!-- 主导航组 -->
               <SidebarGroup v-model:default-open="mainMenuActive">
@@ -119,7 +119,7 @@ const setActiveItem = (itemId: string) => {
                       v-if="active"
                       :active="activeItem === item.id"
                       @click="setActiveItem(item.id)"
-                      style="margin-bottom: 8px;"
+
                     >
                       <Icon
                         class="menu-icon"
@@ -151,7 +151,7 @@ const setActiveItem = (itemId: string) => {
               <SidebarGroup v-model:default-open="settingsMenuActive">
                 <SidebarGroupLabel v-if="active">
                   <div class="group-label">
-                    <div style="display: flex; align-items: center;gap: 8px;">
+                    <div style="display: flex; align-items: center;gap: 8px;margin-top: var(--space-1);">
                       <Icon name="codepen" :size="18" />
                       <span>系统</span>
                     </div>
@@ -211,7 +211,7 @@ const setActiveItem = (itemId: string) => {
           </SidebarContent>
 
           <!-- 侧边栏底部 -->
-          <SidebarFooter>
+          <SidebarFooter >
             <div class="user-info" :class="{ 'collapsed': !active }">
               <div class="user-avatar">
                 <Icon name="user" :size="24" />
@@ -279,6 +279,7 @@ const setActiveItem = (itemId: string) => {
 /* ==================== 主内容区域样式 ==================== */
 .main-content {
   flex: 1;
+  overflow: hidden;
   /* display: flex;
   flex-direction: column; */
 }
@@ -295,6 +296,8 @@ const setActiveItem = (itemId: string) => {
 .main-body {
   flex: 1;
   padding: var(--padding-3);
+  height: calc(100% - var(--sidebar-header-height));
+  overflow: auto;
 }
 
 /* ==================== 菜单相关样式 ==================== */
@@ -333,16 +336,16 @@ const setActiveItem = (itemId: string) => {
 }
 
 .user-info.collapsed {
-  justify-content: center;
+  justify-content:center;
 }
 
 .user-avatar {
-  background-color: var(--color-primary);
+  border: 1px solid var(--color-border-1);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: var(--color-primary);
   width: 32px;
   height: 32px;
 }

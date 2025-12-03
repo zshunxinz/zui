@@ -1,19 +1,21 @@
 <script setup lang="ts">
-import { inject, computed } from 'vue';
+import { log } from 'console';
+import { inject, computed, watch,onMounted,ref } from 'vue';
 
 interface SidebarTriggerProps {
   asChild?: boolean;
   showIcon?: boolean; // 是否显示图标
+  defaultOpen?: boolean; // 默认是否展开侧边栏
 }
 
 const props = withDefaults(defineProps<SidebarTriggerProps>(), {
   asChild: false,
   showIcon: true, // 默认显示图标
+  defaultOpen: false, // 默认展开侧边栏
 });
 
-const sidebar:any = inject('sidebar');
+const sidebar:any =  inject('sidebar');
 const toggle = sidebar?.toggle || (() => {});
-const open = computed(() => sidebar?.open?.value || true);
 const isMobile = computed(() => sidebar?.isMobile?.value || false);
 
 const Comp = props.asChild ? 'span' : 'button';
@@ -29,10 +31,15 @@ const triggerProps = props.asChild
 // 根据移动端状态显示不同的文本
 const buttonText = computed(() => {
   if (isMobile.value) {
-    return open.value ? '关闭菜单' : '打开菜单';
+    return sidebar?.open?.value ? '关闭菜单' : '打开菜单';
   }
-  return open.value ? '收起侧边栏' : '展开侧边栏';
+  return sidebar?.open?.value ? '收起侧边栏' : '展开侧边栏';
 });
+
+onMounted(() => {
+  console.log(sidebar);
+});
+
 </script>
 
 <template>
@@ -44,7 +51,7 @@ const buttonText = computed(() => {
       <svg
         v-if="props.showIcon"
         class="SidebarTriggerIcon"
-        :class="{ 'SidebarTriggerIcon--rotated': open }"
+        :class="{ 'SidebarTriggerIcon--rotated': sidebar?.open }"
         width="16"
         height="16"
         viewBox="0 0 24 24"
