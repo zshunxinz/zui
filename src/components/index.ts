@@ -38,6 +38,7 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
+  SidebarLayout
 } from './Sidebar';
 import { Icon } from './Icon';
 import { Slider } from './Slider';
@@ -94,6 +95,7 @@ const install = (app: any) => {
   app.component('SidebarMenu', SidebarMenu);
   app.component('SidebarMenuItem', SidebarMenuItem);
   app.component('SidebarMenuButton', SidebarMenuButton);
+  app.component('SidebarLayout', SidebarLayout)
   app.component('Icon', Icon);
   app.component('Slider', Slider);
   app.component('Menubar', Menubar);
@@ -162,6 +164,7 @@ export {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
+  SidebarLayout,
   Icon,
   Slider,
   Menubar,

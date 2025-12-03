@@ -10,7 +10,7 @@ import SidebarGroupContent from './SidebarGroupContent.vue';
 import SidebarMenu from './SidebarMenu.vue';
 import SidebarMenuItem from './SidebarMenuItem.vue';
 import SidebarMenuButton from './SidebarMenuButton.vue';
-
+import SidebarLayout from './SidebarLayout.vue';
 export {
   SidebarProvider,
   Sidebar,
@@ -23,5 +23,6 @@ export {
   SidebarGroupContent,
   SidebarMenu,
   SidebarMenuItem,
-  SidebarMenuButton
+  SidebarMenuButton,
+  SidebarLayout
 };

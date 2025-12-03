@@ -9,6 +9,7 @@ import SidebarDemo1 from "../demo/Sidebar/SidebarDemo1.vue";
 import SidebarDemo2 from "../demo/Sidebar/SidebarDemo2.vue";
 import SidebarDemo3 from "../demo/Sidebar/SidebarDemo3.vue";
 import SidebarDemo4 from "../demo/Sidebar/SidebarDemo4.vue";
+import SidebarDemo5 from "../demo/Sidebar/SidebarDemo5.vue";
 
 </script>
 
@@ -64,6 +65,18 @@ v-model:isMobile="isMobile" 判定是为移动设备，当屏幕宽度小于 `br
 <CollapsibleCode>
 
 <<< @/demo/Sidebar/SidebarDemo4.vue
+
+</CollapsibleCode>
+
+侧边栏提供简单模式，只需配置。
+
+<Demo :style="{ padding: '0px' }" center fullscreen>
+<SidebarDemo5 />
+</Demo>
+
+<CollapsibleCode>
+
+<<< @/demo/Sidebar/SidebarDemo5.vue
 
 </CollapsibleCode>
 

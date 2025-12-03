@@ -20,6 +20,7 @@ import IconNoFillFixTest from '@/view/IconNoFillFixTest.vue';
 import AllIconsDemo from './view/AllIconsDemo.vue';
 import MenubarDemo from './view/MenubarDemo.vue';
 import ModalDemo from './view/ModalDemo.vue';
+import Sidebar from './components/Sidebar/Sidebar.vue';
 const value1 = ref('');
 const value2 = ref('');
 const value3 = ref('');
@@ -280,13 +281,10 @@ const resetForm = () => {
 
 :deep(.custom-checked-class) {
   border: 1px solid rgb(0, 123, 255);
-  box-shadow: 1px 1px 5px 2px
-    linear-gradient(to right, rgb(0, 123, 255), rgb(181, 181, 181)) 1;
-  background-image: linear-gradient(
-    to right,
-    rgba(0, 123, 255, 0.05),
-    rgba(255, 115, 1, 0.05)
-  );
+  box-shadow: 1px 1px 5px 2px linear-gradient(to right, rgb(0, 123, 255), rgb(181, 181, 181)) 1;
+  background-image: linear-gradient(to right,
+      rgba(0, 123, 255, 0.05),
+      rgba(255, 115, 1, 0.05));
   border-radius: 4px !important;
 }
 
