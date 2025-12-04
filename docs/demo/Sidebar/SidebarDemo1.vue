@@ -1,22 +1,26 @@
 <script setup lang="ts">
 import { ref, computed, defineAsyncComponent } from 'vue';
-const CardDemo1 = defineAsyncComponent(() => import('../Card/CardDemo1.vue'))
-const TabsDemo1 = defineAsyncComponent(() => import('../Tabs/TabsDemo1.vue'))
-const GridDemo1 = defineAsyncComponent(() => import('../Grid/GridDemo1.vue'))
-const FormDemo1 = defineAsyncComponent(() => import('../Form/FormDemo1.vue'))
-const FormDemo2 = defineAsyncComponent(() => import('../Form/FormDemo2.vue'))
-const ModalDemo1 = defineAsyncComponent(() => import('../Modal/ModalDemo1.vue'))
-const DrawerDemo1 = defineAsyncComponent(() => import('../Drawer/DrawerDemo.vue'))
+const CardDemo1 = defineAsyncComponent(() => import('../Card/CardDemo1.vue'));
+const TabsDemo1 = defineAsyncComponent(() => import('../Tabs/TabsDemo1.vue'));
+const GridDemo1 = defineAsyncComponent(() => import('../Grid/GridDemo1.vue'));
+const FormDemo1 = defineAsyncComponent(() => import('../Form/FormDemo1.vue'));
+const FormDemo2 = defineAsyncComponent(() => import('../Form/FormDemo2.vue'));
+const ModalDemo1 = defineAsyncComponent(
+  () => import('../Modal/ModalDemo1.vue')
+);
+const DrawerDemo1 = defineAsyncComponent(
+  () => import('../Drawer/DrawerDemo.vue')
+);
 /**
  * 侧边栏组件演示
  * 包含侧边栏展开/收起、多级菜单、动态组件加载等功能
  */
 
 // ==================== 状态管理 ====================
-const active = ref(true);           // 侧边栏展开/收起状态
-const mainMenuActive = ref(true);   // 主导航组展开状态
+const active = ref(true); // 侧边栏展开/收起状态
+const mainMenuActive = ref(true); // 主导航组展开状态
 const settingsMenuActive = ref(false); // 设置导航组展开状态
-const activeItem = ref('home');     // 当前激活的菜单项
+const activeItem = ref('home'); // 当前激活的菜单项
 
 // ==================== 菜单配置数据 ====================
 /**
@@ -24,7 +28,12 @@ const activeItem = ref('home');     // 当前激活的菜单项
  */
 const mainMenuItems = [
   { id: 'home', label: '首页', icon: 'house', component: CardDemo1 },
-  { id: 'dashboard', label: '仪表盘', icon: 'chart-area', component: TabsDemo1 },
+  {
+    id: 'dashboard',
+    label: '仪表盘',
+    icon: 'chart-area',
+    component: TabsDemo1,
+  },
   { id: 'users', label: '用户管理', icon: 'users', component: GridDemo1 },
   { id: 'search', label: '搜索', icon: 'search', component: FormDemo1 },
 ];
@@ -34,7 +43,12 @@ const mainMenuItems = [
  */
 const settingsMenuItems = [
   { id: 'settings', label: '设置', icon: 'settings', component: FormDemo2 },
-  { id: 'help', label: '帮助中心', icon: 'hand-helping', component: ModalDemo1 },
+  {
+    id: 'help',
+    label: '帮助中心',
+    icon: 'hand-helping',
+    component: ModalDemo1,
+  },
   { id: 'logout', label: '退出登录', icon: 'log-out', component: DrawerDemo1 },
 ];
 
@@ -43,16 +57,20 @@ const settingsMenuItems = [
  * 获取当前激活菜单项的显示标签
  */
 const currentActiveLabel = computed(() => {
-  return mainMenuItems.find(item => item.id === activeItem.value)?.label ||
-         settingsMenuItems.find(item => item.id === activeItem.value)?.label;
+  return (
+    mainMenuItems.find(item => item.id === activeItem.value)?.label ||
+    settingsMenuItems.find(item => item.id === activeItem.value)?.label
+  );
 });
 
 /**
  * 获取当前激活菜单项对应的组件
  */
 const currentActiveComponent = computed(() => {
-  return mainMenuItems.find(item => item.id === activeItem.value)?.component ||
-         settingsMenuItems.find(item => item.id === activeItem.value)?.component;
+  return (
+    mainMenuItems.find(item => item.id === activeItem.value)?.component ||
+    settingsMenuItems.find(item => item.id === activeItem.value)?.component
+  );
 });
 
 // ==================== 事件处理函数 ====================
@@ -74,23 +92,22 @@ const setActiveItem = (itemId: string) => {
 <template>
   <div class="demo-container">
     <SidebarProvider v-model:defaultOpen="active">
-
-      <div class="demo-content" >
+      <div class="demo-content">
         <!-- 侧边栏 -->
         <Sidebar :collapsed-width="49" :width="236">
           <!-- 侧边栏头部 -->
-          <SidebarHeader >
+          <SidebarHeader>
             <div class="sidebar-title">{{ active ? 'Zui' : 'zui' }}</div>
           </SidebarHeader>
 
           <!-- 侧边栏内容 -->
-          <SidebarContent >
+          <SidebarContent>
             <SidebarMenu>
               <!-- 主导航组 -->
               <SidebarGroup v-model:default-open="mainMenuActive">
                 <SidebarGroupLabel v-if="active">
                   <div class="group-label">
-                    <div style="display: flex; align-items: center;gap: 8px;">
+                    <div style="display: flex; align-items: center; gap: 8px">
                       <Icon name="layout-grid" :size="18" />
                       <span>主导航</span>
                     </div>
@@ -105,27 +122,19 @@ const setActiveItem = (itemId: string) => {
                 <SidebarGroupLabel v-if="!active">
                   <div class="group-label">
                     <!-- <div class="group-icon-no-active"> -->
-                      <Icon name="layout-grid" :size="18" />
+                    <Icon name="layout-grid" :size="18" />
                     <!-- </div> -->
                   </div>
                 </SidebarGroupLabel>
                 <SidebarGroupContent>
-                  <SidebarMenuItem
-                    v-for="item in mainMenuItems"
-                    :key="item.id"
-                  >
+                  <SidebarMenuItem v-for="item in mainMenuItems" :key="item.id">
                     <!-- 展开状态下的菜单按钮 -->
                     <SidebarMenuButton
                       v-if="active"
                       :active="activeItem === item.id"
                       @click="setActiveItem(item.id)"
-
                     >
-                      <Icon
-                        class="menu-icon"
-                        :name="item.icon"
-                        size="16"
-                      />
+                      <Icon class="menu-icon" :name="item.icon" size="16" />
                       <span>{{ item.label }}</span>
                     </SidebarMenuButton>
                     <SidebarMenuButton
@@ -134,7 +143,13 @@ const setActiveItem = (itemId: string) => {
                       center
                       :active="activeItem === item.id"
                       @click="setActiveItem(item.id)"
-                      style="width: 100%;height: 36px;display: flex;justify-content: center;align-items: center;"
+                      style="
+                        width: 100%;
+                        height: 36px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                      "
                     >
                       <Icon
                         class="menu-icon-collapsed"
@@ -142,7 +157,6 @@ const setActiveItem = (itemId: string) => {
                         size="16"
                       />
                     </SidebarMenuButton>
-
                   </SidebarMenuItem>
                 </SidebarGroupContent>
               </SidebarGroup>
@@ -151,7 +165,14 @@ const setActiveItem = (itemId: string) => {
               <SidebarGroup v-model:default-open="settingsMenuActive">
                 <SidebarGroupLabel v-if="active">
                   <div class="group-label">
-                    <div style="display: flex; align-items: center;gap: 8px;margin-top: var(--space-1);">
+                    <div
+                      style="
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+                        margin-top: var(--space-1);
+                      "
+                    >
                       <Icon name="codepen" :size="18" />
                       <span>系统</span>
                     </div>
@@ -163,9 +184,9 @@ const setActiveItem = (itemId: string) => {
                     </div>
                   </div>
                 </SidebarGroupLabel>
-              <SidebarGroupLabel v-if="!active">
+                <SidebarGroupLabel v-if="!active">
                   <div class="group-label">
-                    <div style="display: flex; align-items: center;gap: 8px;">
+                    <div style="display: flex; align-items: center; gap: 8px">
                       <Icon name="codepen" :size="18" />
                     </div>
                   </div>
@@ -181,11 +202,7 @@ const setActiveItem = (itemId: string) => {
                       :active="activeItem === item.id"
                       @click="setActiveItem(item.id)"
                     >
-                      <Icon
-                        class="menu-icon"
-                        :name="item.icon"
-                        size="16"
-                      />
+                      <Icon class="menu-icon" :name="item.icon" size="16" />
                       <span>{{ item.label }}</span>
                     </SidebarMenuButton>
 
@@ -196,7 +213,13 @@ const setActiveItem = (itemId: string) => {
                       center
                       :active="activeItem === item.id"
                       @click="setActiveItem(item.id)"
-                      style="width: 100%;height: 36px;display: flex;justify-content: center;align-items: center;"
+                      style="
+                        width: 100%;
+                        height: 36px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                      "
                     >
                       <Icon
                         class="menu-icon-collapsed"
@@ -211,8 +234,8 @@ const setActiveItem = (itemId: string) => {
           </SidebarContent>
 
           <!-- 侧边栏底部 -->
-          <SidebarFooter >
-            <div class="user-info" :class="{ 'collapsed': !active }">
+          <SidebarFooter>
+            <div class="user-info" :class="{ collapsed: !active }">
               <div class="user-avatar">
                 <Icon name="user" :size="24" />
               </div>
@@ -228,19 +251,16 @@ const setActiveItem = (itemId: string) => {
         <main class="main-content">
           <div class="main-header">
             <SidebarTrigger asChild @click="toggleSidebar">
-              <Icon
-                :name="active ? 'panel-right' : 'panel-left'"
-                :size="20"
-              />
+              <Icon :name="active ? 'panel-right' : 'panel-left'" :size="20" />
             </SidebarTrigger>
             <span>{{ currentActiveLabel }}</span>
           </div>
 
           <div class="main-body">
-              <component
-                v-if="currentActiveComponent"
-                :is="currentActiveComponent"
-              />
+            <component
+              v-if="currentActiveComponent"
+              :is="currentActiveComponent"
+            />
           </div>
         </main>
       </div>
@@ -273,8 +293,6 @@ const setActiveItem = (itemId: string) => {
   padding: var(--space-3) 0px;
   color: var(--color-default);
 }
-
-
 
 /* ==================== 主内容区域样式 ==================== */
 .main-content {
@@ -336,7 +354,7 @@ const setActiveItem = (itemId: string) => {
 }
 
 .user-info.collapsed {
-  justify-content:center;
+  justify-content: center;
 }
 
 .user-avatar {

@@ -68,8 +68,6 @@ v-model:isMobile="isMobile" 判定是为移动设备，当屏幕宽度小于 `br
 
 </CollapsibleCode>
 
-侧边栏提供简单模式，只需配置。
-
 <Demo :style="{ padding: '0px' }" center fullscreen>
 <SidebarDemo5 />
 </Demo>
@@ -77,6 +75,18 @@ v-model:isMobile="isMobile" 判定是为移动设备，当屏幕宽度小于 `br
 <CollapsibleCode>
 
 <<< @/demo/Sidebar/SidebarDemo5.vue
+
+</CollapsibleCode>
+
+侧边栏提供简单模式，只需配置。
+
+<Demo :style="{ padding: '0px' }" center fullscreen>
+<SidebarDemo6 />
+</Demo>
+
+<CollapsibleCode>
+
+<<< @/demo/Sidebar/SidebarDemo6.vue
 
 </CollapsibleCode>
 
