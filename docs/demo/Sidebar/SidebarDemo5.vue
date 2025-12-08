@@ -117,14 +117,24 @@ const setActiveItem = (itemId: string) => {
           >
             <SidebarHeader>
               <div class="sidebar-title">
-                <SidebarTrigger asChild @click="toggleSidebar">
-                  <Icon
-                    :name="active ? 'panel-right' : 'panel-left'"
-                    :size="20"
-                    color="var(--color-text-1)"
-                  />
-                </SidebarTrigger>
-                {{ active ? 'Zui' : 'zui' }}
+                <div
+                  style="
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 8px;
+                  "
+                >
+                  {{ active ? 'Zui' : 'zui' }}
+                  <SidebarTrigger asChild @click="toggleSidebar">
+                    <Icon
+                      :name="active ? 'panel-right' : 'panel-left'"
+                      :size="20"
+                      color="var(--color-text-1)"
+                    />
+                  </SidebarTrigger>
+                </div>
               </div>
             </SidebarHeader>
             <SidebarMenu>

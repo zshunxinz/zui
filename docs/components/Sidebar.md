@@ -10,6 +10,7 @@ import SidebarDemo2 from "../demo/Sidebar/SidebarDemo2.vue";
 import SidebarDemo3 from "../demo/Sidebar/SidebarDemo3.vue";
 import SidebarDemo4 from "../demo/Sidebar/SidebarDemo4.vue";
 import SidebarDemo5 from "../demo/Sidebar/SidebarDemo5.vue";
+import SidebarDemo6 from "../demo/Sidebar/SidebarDemo6.vue";
 
 </script>
 

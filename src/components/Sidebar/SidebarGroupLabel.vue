@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { inject } from 'vue';
 
-const group:any = inject('sidebar-group');
+const group: any = inject('sidebar-group');
 const toggle = group?.toggle || (() => {});
 const open = group?.open;
 const collapsible = group?.collapsible;
@@ -15,7 +15,7 @@ const active = group?.active;
 
 <template>
   <div>
-  <div class="SidebarGroupLabel" v-if="collapsible" @click="toggle">
+    <div class="SidebarGroupLabel" v-if="collapsible" @click="toggle">
       <slot />
     </div>
     <div v-else class="SidebarGroupLabel">
@@ -33,14 +33,12 @@ const active = group?.active;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--color-text-1);
-  margin: var(--space-0) 0 var(--space-0) 0;
-  padding: var(--padding-1);
   border-radius: var(--border-radius);
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
 
 .SidebarGroupLabel:hover {
-  background-color: var(--color-bg-hover-1);
+  /* background-color: var(--color-bg-hover-1); */
 }
 </style>
