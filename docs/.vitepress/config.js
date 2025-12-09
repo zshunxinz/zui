@@ -1,7 +1,15 @@
 // https://vitepress.dev/reference/site-config
 import { fileURLToPath } from 'url';
 import { defineConfig } from 'vitepress';
+import { resolve } from 'path';
 export default defineConfig({
+  vite: {
+    resolve: {
+      alias: {
+        '@': resolve(__dirname, '../../src'),
+      },
+    },
+  },
   outDir: './dist',
   title: 'zui',
   description: '一个自己的vue组件库',
@@ -91,13 +99,15 @@ export default defineConfig({
             { text: 'Popover 弹出层', link: '/components/Popover' },
             { text: 'Sonner 消息提示', link: '/components/Sonner' },
             { text: 'Modal 对话框', link: '/components/Modal' },
-            {text: "Drawer 抽屉",link:"/components/Drawer"},
+            { text: 'Drawer 抽屉', link: '/components/Drawer' },
           ],
         },
         {
           text: '导航组件',
           collapsed: false,
           items: [
+            { text: 'Breadcrumb 面包屑', link: '/components/Breadcrumb' },
+            { text: 'Dropdown 下拉菜单', link: '/components/Dropdown' },
             { text: 'Sidebar 侧边栏', link: '/components/Sidebar' },
             { text: 'Menubar 菜单栏', link: '/components/Menubar' },
           ],

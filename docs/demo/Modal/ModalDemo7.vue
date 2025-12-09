@@ -70,8 +70,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue';
-
+import { reactive } from 'vue';
 // 弹窗状态
 const modalStates = reactive({
   zoom: false,
