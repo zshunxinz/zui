@@ -37,6 +37,7 @@ export function showDrawer(options: DrawerOptions): { close: () => void } {
     position: options.position,
     closable: options.closable,
     mask: options.mask,
+    maskStyle: options.maskStyle,
     maskClosable: options.maskClosable,
     escClosable: options.escClosable,
     animated: options.animated,

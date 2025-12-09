@@ -5,7 +5,8 @@
       class="x-drawer__container"
       :class="{
         'x-drawer__container--open': isOpen,
-        'x-drawer__container--animated': props.animated
+        'x-drawer__container--animated': props.animated,
+        'x-drawer__container--no-mask': !props.mask,
       }"
     >
       <!-- 遮罩层 - 根据mask参数控制显示 -->
@@ -28,9 +29,13 @@
       >
         <!-- 抽屉头部 -->
         <div class="x-drawer__header" v-if="showHeader">
-          <h3 class="x-drawer__title" v-if="title" :id="titleId">{{ title }}</h3>
+          <slot name="header">
+            <h3 class="x-drawer__title" v-if="title" :id="titleId">
+              {{ title }}
+            </h3>
+          </slot>
           <button
-            v-if="closable"
+            v-if="props.closable !== false && props.closable !== 'false'"
             class="x-drawer__close-btn"
             @click="handleClose"
             aria-label="关闭"
@@ -41,18 +46,23 @@
         </div>
 
         <!-- 抽屉内容 -->
-        <div class="x-drawer__body" v-if="$slots.default || content">
-            <slot v-if="$slots.default"></slot>
-            <template v-else-if="content">
-              <div v-if="typeof content === 'string'">
-                {{ content }}
-              </div>
-              <!-- 对于HTMLElement使用ref和生命周期钩子 -->
-              <div
-                v-else-if="typeof content === 'function' || (typeof content === 'object' && content !== null && content.nodeType === 1)"
-                ref="contentContainer"
-              ></div>
-            </template>
+        <div class="x-drawer__body" v-if="hasDefaultSlot || content">
+          <slot v-if="hasDefaultSlot"></slot>
+          <template v-else-if="content">
+            <div v-if="typeof content === 'string'">
+              {{ content }}
+            </div>
+            <!-- 对于HTMLElement使用ref和生命周期钩子 -->
+            <div
+              v-else-if="
+                typeof content === 'function' ||
+                (typeof content === 'object' &&
+                  content !== null &&
+                  content.nodeType === 1)
+              "
+              ref="contentContainer"
+            ></div>
+          </template>
         </div>
 
         <!-- 抽屉底部 -->
@@ -66,18 +76,19 @@
               >
                 取消
               </button>
-              <button
-                class="btn btn--primary"
-                @click="handleOk"
-                type="button"
-              >
+              <button class="btn btn--primary" @click="handleOk" type="button">
                 确定
               </button>
             </div>
             <template v-else-if="footer">
               <!-- 对于HTMLElement使用ref和生命周期钩子 -->
               <div
-                v-if="typeof footer === 'function' || (typeof footer === 'object' && footer !== null && footer.nodeType === 1)"
+                v-if="
+                  typeof footer === 'function' ||
+                  (typeof footer === 'object' &&
+                    footer !== null &&
+                    footer.nodeType === 1)
+                "
                 ref="footerContainer"
               ></div>
             </template>
@@ -89,7 +100,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue';
+import {
+  ref,
+  computed,
+  onMounted,
+  onUnmounted,
+  watch,
+  nextTick,
+  useSlots,
+} from 'vue';
 import type { DrawerSize, DrawerPosition } from './types';
 import '../Button/index.css';
 
@@ -103,6 +122,11 @@ interface Props {
   size?: DrawerSize;
   position?: DrawerPosition;
   closable?: boolean;
+  /**
+   * 是否显示头部
+   * @default true
+   */
+  header?: boolean;
   mask?: boolean;
   maskClosable?: boolean;
   escClosable?: boolean;
@@ -129,6 +153,11 @@ interface Props {
    * @default 200
    */
   maskTransitionDuration?: number;
+  /**
+   * 自定义遮罩样式
+   * @default {}
+   */
+  maskStyle?: Record<string, string | number>;
 }
 
 interface Emits {
@@ -136,6 +165,7 @@ interface Emits {
   (e: 'close', value: boolean): void;
   (e: 'ok'): void;
   (e: 'cancel'): void;
+  (e: 'update:open', value: boolean): void;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -147,6 +177,7 @@ const props = withDefaults(defineProps<Props>(), {
   size: 'md',
   position: 'right',
   closable: true,
+  header: true, // 新增header属性，控制是否显示头部
   mask: true,
   maskClosable: true,
   escClosable: true,
@@ -157,12 +188,14 @@ const props = withDefaults(defineProps<Props>(), {
   animationType: 'slide',
   transitionDuration: 300,
   maskTransitionDuration: 200,
+  maskStyle: () => ({}),
 });
 
 const emit = defineEmits<Emits>();
+const slots = useSlots();
 
 // 控制抽屉显示状态
-const isOpen = ref(false);
+const isOpen = ref(props.open ?? props.defaultOpen);
 
 // 内容容器引用
 const contentContainer = ref<HTMLElement>();
@@ -191,7 +224,7 @@ const renderContentElement = () => {
     const clonedElement = element.cloneNode(true) as HTMLElement;
     contentContainer.value.appendChild(clonedElement);
   }
-}
+};
 
 // 渲染HTML底部内容的函数
 const renderFooterElement = () => {
@@ -216,24 +249,37 @@ const renderFooterElement = () => {
     const clonedElement = element.cloneNode(true) as HTMLElement;
     footerContainer.value.appendChild(clonedElement);
   }
-}
+};
 
 const titleId = computed(
   () => props.id || `x-drawer-${Math.random().toString(36).slice(2, 9)}-title`
 );
 
+// 计算是否有默认插槽
+const hasDefaultSlot = computed(() => {
+  return slots.default !== undefined;
+});
+
 // 计算是否显示头部
-const showHeader = computed(() => props.title || props.closable);
+const showHeader = computed(() => {
+  // 只有当明确需要标题、关闭按钮或头部插槽时才显示头部
+  // 如果closable为true但用户明确不想要头部，应该可以隐藏
+  // 处理字符串形式的布尔值，确保"false"被正确识别为false
+  const isClosable = props.closable !== false && props.closable !== 'false';
+  return (props.title || slots.header || isClosable) && props.header !== false;
+});
 
 // 计算是否显示底部
 const showFooter = computed(() => {
-  if (props.footer === false) return false;
-  return true;
+  // 处理字符串形式的布尔值，确保"false"被正确识别为false
+  if (props.footer === false || props.footer === 'false') return false;
+  return slots.footer || props.footer !== false;
 });
 
 // 计算是否为自定义底部
 const customFooter = computed(
-  () => props.footer !== true && props.footer !== false
+  () =>
+    props.footer !== true && props.footer !== false && props.footer !== 'false'
 );
 
 // 计算抽屉类名
@@ -252,9 +298,7 @@ const drawerClass = computed(() => {
 
 // 计算遮罩类名
 const overlayClass = computed(() => {
-  return [
-    'x-drawer__overlay',
-  ];
+  return ['x-drawer__overlay'];
 });
 
 // 计算抽屉样式
@@ -266,11 +310,13 @@ const drawerStyle = computed(() => {
 
   // 设置宽度或高度，根据位置而定
   if (props.width !== undefined) {
-    style.width = typeof props.width === 'number' ? `${props.width}px` : props.width;
+    style.width =
+      typeof props.width === 'number' ? `${props.width}px` : props.width;
   }
 
   if (props.height !== undefined) {
-    style.height = typeof props.height === 'number' ? `${props.height}px` : props.height;
+    style.height =
+      typeof props.height === 'number' ? `${props.height}px` : props.height;
   }
 
   // 设置动画时长 CSS 变量
@@ -284,6 +330,7 @@ const overlayStyle = computed(() => {
   return {
     transition: `opacity ${props.maskTransitionDuration}ms ease-out`,
     zIndex: props.zIndex ? props.zIndex - 1 : 999,
+    ...props.maskStyle,
   };
 });
 
@@ -323,7 +370,7 @@ const handleEsc = (event: KeyboardEvent) => {
 // 监听props.open变化
 watch(
   () => props.open,
-  (newVal) => {
+  newVal => {
     if (newVal !== undefined) {
       if (newVal === true) {
         // 打开抽屉时添加延迟，确保动画能够正常显示
@@ -363,6 +410,7 @@ watch(
 
 // 监听内部状态变化
 watch(isOpen, newVal => {
+  emit('update:open', newVal);
   if (props.open === undefined) {
     if (newVal) {
       emit('open', newVal);
@@ -374,18 +422,18 @@ watch(isOpen, newVal => {
 
 // 生命周期
 onMounted(() => {
-    // 初始化时如果需要打开抽屉，延迟触发动画
-    if (props.open ?? props.defaultOpen) {
-      setTimeout(() => {
-        isOpen.value = true;
-      }, 10);
-    }
-    document.addEventListener('keydown', handleEsc);
+  // 初始化时如果需要打开抽屉，延迟触发动画
+  if (props.open ?? props.defaultOpen) {
+    setTimeout(() => {
+      isOpen.value = true;
+    }, 10);
+  }
+  document.addEventListener('keydown', handleEsc);
 
-    // 组件挂载时渲染内容
-    renderContentElement();
-    renderFooterElement();
-  });
+  // 组件挂载时渲染内容
+  renderContentElement();
+  renderFooterElement();
+});
 
 onUnmounted(() => {
   document.removeEventListener('keydown', handleEsc);
@@ -409,6 +457,16 @@ onUnmounted(() => {
   pointer-events: auto;
 }
 
+/* 无遮罩时的容器样式 - 不拦截外部点击 */
+.x-drawer__container--open.x-drawer__container--no-mask {
+  pointer-events: none;
+}
+
+/* 无遮罩时的抽屉样式 - 仅抽屉内容区域接收点击 */
+.x-drawer__container--open.x-drawer__container--no-mask .x-drawer {
+  pointer-events: auto;
+}
+
 /* 遮罩层 */
 .x-drawer__overlay {
   position: absolute;
@@ -418,7 +476,8 @@ onUnmounted(() => {
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   opacity: 0;
-  transition: opacity var(--transition-duration, 200ms) cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity var(--transition-duration, 200ms)
+    cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* 容器打开时的遮罩层状态 */
@@ -428,7 +487,8 @@ onUnmounted(() => {
 
 /* 禁用动画时的遮罩层 */
 .x-drawer__container--animated .x-drawer__overlay {
-  transition: opacity var(--transition-duration, 200ms) cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity var(--transition-duration, 200ms)
+    cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .x-drawer__container:not(.x-drawer__container--animated) .x-drawer__overlay {
@@ -717,7 +777,7 @@ onUnmounted(() => {
 }
 
 .x-drawer--no-footer .x-drawer__body {
-  padding-bottom: var(--padding-2);
+  padding-bottom: 0;
 }
 
 /* 暗色模式适配 */

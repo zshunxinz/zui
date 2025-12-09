@@ -1,8 +1,8 @@
 <template>
   <div class="drawer-demo">
-
     <div class="demo-content">
       <div class="button-group">
+        <Button @click="drawerVisible = true">打开非函数式抽屉</Button>
         <Button @click="showBasicDrawer">右侧抽屉</Button>
         <Button @click="showLeftDrawer">左侧抽屉</Button>
         <Button @click="showTopDrawer">顶部抽屉</Button>
@@ -12,13 +12,40 @@
         <Button @click="showNoMaskDrawer">无边框遮罩</Button>
       </div>
 
+      <!-- 非函数式抽屉示例 -->
+      <Drawer v-model:open="drawerVisible" title="非函数式抽屉示例">
+        <template #header>
+          <div class="custom-header">
+            <h3>自定义头部</h3>
+            <p>这是使用非函数式调用的抽屉</p>
+          </div>
+        </template>
+
+        <div class="drawer-content">
+          <p>这是抽屉的主要内容区域</p>
+          <p>您可以在这里放置任何您需要的内容，包括表单、列表、图片等</p>
+          <p>使用非函数式调用方式可以更好地与Vue的组件体系集成</p>
+        </div>
+
+        <template #footer>
+          <div class="custom-footer">
+            <Button @click="drawerVisible = false">取消</Button>
+            <Button type="primary" @click="handleNonFuncOk">确定</Button>
+          </div>
+        </template>
+      </Drawer>
+
       <div class="demo-section">
         <h3>动画类型演示</h3>
-        <p>Drawer组件支持三种不同的动画类型：slide（默认）、scale（缩放）和zoom（缩放+透明度）</p>
+        <p>
+          Drawer组件支持三种不同的动画类型：slide（默认）、scale（缩放）和zoom（缩放+透明度）
+        </p>
         <div class="button-group">
           <Button @click="showSlideAnimationDrawer">滑动动画 (slide)</Button>
           <Button @click="showScaleAnimationDrawer">缩放动画 (scale)</Button>
-          <Button @click="showZoomAnimationDrawer">缩放+透明度动画 (zoom)</Button>
+          <Button @click="showZoomAnimationDrawer"
+            >缩放+透明度动画 (zoom)</Button
+          >
         </div>
       </div>
 
@@ -39,7 +66,17 @@
 
 <script setup>
 // 从全局 window 对象获取 showDrawer 函数
+import { ref } from 'vue';
 const showDrawer = window.showDrawer;
+
+// 非函数式抽屉示例
+const drawerVisible = ref(false);
+
+// 非函数式抽屉确定按钮处理函数
+const handleNonFuncOk = () => {
+  console.log('非函数式抽屉点击了确定按钮');
+  drawerVisible.value = false;
+};
 
 // 右侧抽屉示例
 const showBasicDrawer = () => {
@@ -49,7 +86,7 @@ const showBasicDrawer = () => {
     size: 'md',
     position: 'right',
     width: 900,
-    height:500,
+    height: 500,
     animated: true,
     onOk: () => {
       console.log('点击了确定按钮');
@@ -181,7 +218,7 @@ const showNoMaskDrawer = () => {
     title: '无边框遮罩',
     content: '这个抽屉没有显示遮罩层',
     position: 'right',
-    mask: false
+    mask: false,
   });
 };
 
@@ -225,7 +262,8 @@ const showScaleAnimationDrawer = () => {
 const showZoomAnimationDrawer = () => {
   showDrawer({
     title: '缩放+透明度动画 (zoom)',
-    content: '这是使用缩放+透明度动画效果的抽屉示例。抽屉会从指定方向缩放并淡入。',
+    content:
+      '这是使用缩放+透明度动画效果的抽屉示例。抽屉会从指定方向缩放并淡入。',
     size: 'md',
     position: 'right',
     animated: true,

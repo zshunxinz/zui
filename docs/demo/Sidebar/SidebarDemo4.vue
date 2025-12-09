@@ -9,7 +9,7 @@ const ModalDemo1 = defineAsyncComponent(
   () => import('../Modal/ModalDemo1.vue')
 );
 const DrawerDemo1 = defineAsyncComponent(
-  () => import('../Drawer/DrawerDemo.vue')
+  () => import('../Drawer/DrawerDemo1.vue')
 );
 /**
  * 侧边栏组件演示

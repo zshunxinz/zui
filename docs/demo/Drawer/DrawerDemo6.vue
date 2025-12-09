@@ -2,8 +2,8 @@
   <div class="drawer-demo">
     <div class="demo-content">
       <div class="button-group">
-        <Button @click="showAnimatedDrawer">带动画的抽屉</Button>
-        <Button @click="showNonAnimatedDrawer">无动画的抽屉</Button>
+        <Button @click="animatedDrawerVisible = true">带动画的抽屉</Button>
+        <Button @click="nonAnimatedDrawerVisible = true">无动画的抽屉</Button>
       </div>
 
       <div class="info-box">
@@ -16,33 +16,31 @@
           设置为 <code>false</code> 时，抽屉将直接显示和隐藏，没有过渡动画。
         </p>
       </div>
+      
+      <!-- 带动画的抽屉 -->
+      <Drawer v-model:open="animatedDrawerVisible" title="带动画的抽屉" animated="true">
+        <div class="drawer-content">
+          <p>这个抽屉使用了默认的动画效果</p>
+          <p>使用 animated="true" 属性控制（默认）</p>
+        </div>
+      </Drawer>
+      
+      <!-- 无动画的抽屉 -->
+      <Drawer v-model:open="nonAnimatedDrawerVisible" title="无动画的抽屉" animated="false">
+        <div class="drawer-content">
+          <p>这个抽屉禁用了动画效果，直接显示和隐藏</p>
+          <p>使用 animated="false" 属性控制</p>
+        </div>
+      </Drawer>
     </div>
   </div>
 </template>
 
 <script setup>
-// 从全局 window 对象获取 showDrawer 函数
-const showDrawer = window.showDrawer;
-
-// 带动画的抽屉
-const showAnimatedDrawer = () => {
-  showDrawer({
-    title: '带动画的抽屉',
-    content: '这个抽屉使用了默认的动画效果',
-    animated: true,
-    position: 'right'
-  });
-};
-
-// 无动画的抽屉
-const showNonAnimatedDrawer = () => {
-  showDrawer({
-    title: '无动画的抽屉',
-    content: '这个抽屉禁用了动画效果，直接显示和隐藏',
-    animated: false,
-    position: 'right'
-  });
-};
+import { ref } from 'vue';
+// 控制抽屉显示状态
+const animatedDrawerVisible = ref(false);
+const nonAnimatedDrawerVisible = ref(false);
 </script>
 
 <style scoped>
@@ -62,6 +60,10 @@ const showNonAnimatedDrawer = () => {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
+}
+
+.drawer-content {
+  padding: 20px 0;
 }
 
 .info-box {

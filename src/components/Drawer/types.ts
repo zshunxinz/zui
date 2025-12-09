@@ -24,10 +24,16 @@ export interface DrawerOptions {
   animated?: boolean;
   mask?: boolean;
   /**
+   * 自定义遮罩样式
+   * @default {}
+   */
+  maskStyle?: Record<string, string | number>;
+  /**
    * 动画类型
    * @default 'slide'
    */
   animationType?: 'slide' | 'scale' | 'zoom';
   onOk?: () => void;
   onCancel?: () => void;
+  onClose?: () => void;
 }
