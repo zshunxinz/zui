@@ -1,22 +1,21 @@
-export type ModalSize = 
-  | 'sm'
-  | 'md'
-  | 'lg'
-  | 'xl'
-  | 'fullscreen';
+export type ModalSize = 'sm' | 'md' | 'lg' | 'xl' | 'fullscreen';
 
-export type ModalPosition = 
+export type ModalPosition =
   | 'center'
   | 'top'
   | 'bottom'
   | 'left'
-  | 'right';
+  | 'right'
+  | 'absolute';
+
+export type ModalAnimation = 'zoom' | 'slide' | 'fade' | 'bounce';
 
 export interface ModalOptions {
   title?: string;
   content?: string | HTMLElement | (() => HTMLElement);
   size?: ModalSize;
   position?: ModalPosition;
+  animation?: ModalAnimation;
   closable?: boolean;
   maskClosable?: boolean;
   escClosable?: boolean;

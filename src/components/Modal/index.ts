@@ -11,6 +11,10 @@ export function showModal(options: ModalOptions): { close: () => void } {
   let isClosed = false;
   // 为当前弹窗生成唯一的z-index值
   const currentZIndex = zIndexCounter++;
+  // 确保zIndexCounter不会无限增长
+  if (zIndexCounter > 9999) {
+    zIndexCounter = 1000;
+  }
   
   // 先定义modal对象，确保footer函数中可以访问到
   const modal = {

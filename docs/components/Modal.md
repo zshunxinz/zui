@@ -6,12 +6,14 @@ Modal 组件是一个功能强大的弹窗组件，用于展示重要信息、�
 
 Modal 组件的基础用法非常简单，通过控制 `open` 属性来显示或隐藏弹窗。
 
-<script setup>
+<script setup lang="ts">
 import ModalDemo1 from "/demo/Modal/ModalDemo1.vue";
 import ModalDemo2 from "/demo/Modal/ModalDemo2.vue";
 import ModalDemo3 from "/demo/Modal/ModalDemo3.vue";
 import ModalDemo4 from "/demo/Modal/ModalDemo4.vue";
 import ModalDemo5 from "/demo/Modal/ModalDemo5.vue";
+import ModalDemo6 from "/demo/Modal/ModalDemo6.vue";
+import ModalDemo7 from "/demo/Modal/ModalDemo7.vue";
 </script>
 
 <Demo>
@@ -52,6 +54,34 @@ Modal 组件可以显示在屏幕的不同位置，包括居中、顶部、底�
 
 </CollapsibleCode>
 
+## 自定义位置
+
+Modal 组件支持通过设置 `position="absolute"` 并配合 `top`、`right`、`bottom`、`left` 属性来自定义弹窗位置，支持像素值和百分比值。
+
+<Demo>
+<ModalDemo6/>
+</Demo>
+
+<CollapsibleCode>
+
+<<< ../demo/Modal/ModalDemo6.vue
+
+</CollapsibleCode>
+
+## 动画效果
+
+Modal 组件提供了多种动画效果，可以通过 `animation` 属性进行选择。
+
+<Demo>
+<ModalDemo7/>
+</Demo>
+
+<CollapsibleCode>
+
+<<< ../demo/Modal/ModalDemo7.vue
+
+</CollapsibleCode>
+
 ## 自定义内容
 
 Modal 组件支持自定义头部、内容和底部，可以通过插槽来定制弹窗的各个部分。
@@ -82,40 +112,45 @@ Modal 组件支持自定义头部、内容和底部，可以通过插槽来定�
 
 ## Modal Props
 
-| 属性名 | 类型 | 默认值 | 说明 |
-| --- | --- | --- | --- |
-| id | `string` | - | 弹窗的唯一标识符 |
-| open | `boolean` | - | 控制弹窗的显示和隐藏 |
-| defaultOpen | `boolean` | `false` | 弹窗的默认显示状态 |
-| title | `string` | - | 弹窗标题 |
-| content | `string \| HTMLElement \| (() => HTMLElement)` | - | 弹窗内容（函数式API时使用） |
-| size | `'sm' \| 'md' \| 'lg' \| 'xl' \| 'fullscreen'` | `'md'` | 弹窗尺寸 |
-| position | `'center' \| 'top' \| 'bottom' \| 'left' \| 'right'` | `'center'` | 弹窗位置 |
-| closable | `boolean` | `true` | 是否显示关闭按钮 |
-| mask | `boolean` | `true` | 是否显示遮罩层 |
-| maskClosable | `boolean` | `true` | 点击遮罩层是否可以关闭弹窗 |
-| escClosable | `boolean` | `true` | 按 ESC 键是否可以关闭弹窗 |
-| footer | `boolean \| HTMLElement \| (() => HTMLElement)` | `true` | 底部按钮配置 |
-| width | `string \| number` | - | 自定义宽度 |
-| height | `string \| number` | - | 自定义高度 |
-| transitionDuration | `number` | `300` | 弹窗动画时长（毫秒） |
-| maskTransitionDuration | `number` | `200` | 遮罩层动画时长（毫秒） |
+| 属性名                 | 类型                                                               | 默认值     | 说明                                                                    |
+| ---------------------- | ------------------------------------------------------------------ | ---------- | ----------------------------------------------------------------------- |
+| id                     | `string`                                                           | -          | 弹窗的唯一标识符                                                        |
+| open                   | `boolean`                                                          | -          | 控制弹窗的显示和隐藏                                                    |
+| defaultOpen            | `boolean`                                                          | `false`    | 弹窗的默认显示状态                                                      |
+| title                  | `string`                                                           | -          | 弹窗标题                                                                |
+| content                | `string \| HTMLElement \| (() => HTMLElement)`                     | -          | 弹窗内容（函数式API时使用）                                             |
+| size                   | `'sm' \| 'md' \| 'lg' \| 'xl' \| 'fullscreen'`                     | `'md'`     | 弹窗尺寸                                                                |
+| position               | `'center' \| 'top' \| 'bottom' \| 'left' \| 'right' \| 'absolute'` | `'center'` | 弹窗位置，设置为 'absolute' 时启用自定义位置                            |
+| closable               | `boolean`                                                          | `true`     | 是否显示关闭按钮                                                        |
+| mask                   | `boolean`                                                          | `true`     | 是否显示遮罩层                                                          |
+| maskClosable           | `boolean`                                                          | `true`     | 点击遮罩层是否可以关闭弹窗                                              |
+| escClosable            | `boolean`                                                          | `true`     | 按 ESC 键是否可以关闭弹窗                                               |
+| footer                 | `boolean \| HTMLElement \| (() => HTMLElement)`                    | `true`     | 底部按钮配置                                                            |
+| width                  | `string \| number`                                                 | -          | 自定义宽度                                                              |
+| height                 | `string \| number`                                                 | -          | 自定义高度                                                              |
+| top                    | `string \| number`                                                 | -          | 自定义顶部定位（支持像素值和百分比值），需配合 position="absolute" 使用 |
+| right                  | `string \| number`                                                 | -          | 自定义右侧定位（支持像素值和百分比值），需配合 position="absolute" 使用 |
+| bottom                 | `string \| number`                                                 | -          | 自定义底部定位（支持像素值和百分比值），需配合 position="absolute" 使用 |
+| left                   | `string \| number`                                                 | -          | 自定义左侧定位（支持像素值和百分比值），需配合 position="absolute" 使用 |
+| transitionDuration     | `number`                                                           | `300`      | 弹窗动画时长（毫秒）                                                    |
+| maskTransitionDuration | `number`                                                           | `200`      | 遮罩层动画时长（毫秒）                                                  |
+| animation              | `'zoom' \| 'slide' \| 'fade' \| 'bounce'`                          | `'zoom'`   | 弹窗动画类型                                                            |
 
 ## 事件
 
-| 事件名 | 参数 | 说明 |
-| --- | --- | --- |
-| open | `value: boolean` | 弹窗打开时触发 |
-| close | `value: boolean` | 弹窗关闭时触发 |
-| ok | - | 点击确定按钮时触发 |
-| cancel | - | 点击取消按钮或关闭弹窗时触发 |
+| 事件名 | 参数             | 说明                         |
+| ------ | ---------------- | ---------------------------- |
+| open   | `value: boolean` | 弹窗打开时触发               |
+| close  | `value: boolean` | 弹窗关闭时触发               |
+| ok     | -                | 点击确定按钮时触发           |
+| cancel | -                | 点击取消按钮或关闭弹窗时触发 |
 
 ## 插槽
 
-| 插槽名 | 说明 |
-| --- | --- |
-| default | 弹窗内容 |
-| footer | 底部自定义内容 |
+| 插槽名  | 说明           |
+| ------- | -------------- |
+| default | 弹窗内容       |
+| footer  | 底部自定义内容 |
 
 ## 函数式 API
 
@@ -124,11 +159,13 @@ Modal 组件提供了 `showModal` 函数，可以通过编程方式打开弹窗�
 ### showModal(options)
 
 **参数**：
+
 - `options`: `ModalOptions` 类型，包含以下属性：
   - `title`: `string` - 弹窗标题
   - `content`: `string \| HTMLElement \| (() => HTMLElement)` - 弹窗内容
   - `size`: `ModalSize` - 弹窗尺寸
   - `position`: `ModalPosition` - 弹窗位置
+  - `animation`: `'zoom' \| 'slide' \| 'fade' \| 'bounce'` - 弹窗动画类型
   - `closable`: `boolean` - 是否显示关闭按钮
   - `maskClosable`: `boolean` - 点击遮罩是否可以关闭
   - `escClosable`: `boolean` - 按 ESC 键是否可以关闭
@@ -138,6 +175,7 @@ Modal 组件提供了 `showModal` 函数，可以通过编程方式打开弹窗�
   - `onClose`: `() => void` - 关闭回调
 
 **返回值**：
+
 - 包含 `close()` 方法的对象，用于手动关闭弹窗
 
 ### 使用示例
@@ -155,7 +193,7 @@ const modal = showModal({
   },
   onCancel: () => {
     console.log('用户取消操作');
-  }
+  },
 });
 
 // 手动关闭

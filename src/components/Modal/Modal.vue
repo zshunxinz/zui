@@ -1,9 +1,15 @@
 <template>
-  <Teleport to="body" v-if="isOpen">
+  <Teleport to="body" v-if="isOpen || isClosing">
     <!-- 遮罩层 -->
     <div
       class="x-modal__overlay"
-      :class="overlayClass"
+      :class="[
+        overlayClass,
+        {
+          'x-modal__overlay--entering': isOpen && !isClosing,
+          'x-modal__overlay--leaving': !isOpen && isClosing,
+        },
+      ]"
       @click="handleOverlayClick"
       :style="overlayStyle"
     />
@@ -11,7 +17,13 @@
     <!-- 弹窗容器 -->
     <div
       class="x-modal"
-      :class="modalClass"
+      :class="[
+        modalClass,
+        {
+          'x-modal--entering': isOpen && !isClosing,
+          'x-modal--leaving': !isOpen && isClosing,
+        },
+      ]"
       :style="modalStyle"
       @click.stop
       role="dialog"
@@ -20,7 +32,9 @@
     >
       <!-- 弹窗头部 -->
       <div class="x-modal__header" v-if="showHeader">
-        <h3 class="x-modal__title" v-if="title" :id="titleId">{{ title }}</h3>
+        <slot name="header">
+          <h3 class="x-modal__title" v-if="title" :id="titleId">{{ title }}</h3>
+        </slot>
         <Button
           v-if="closable"
           class="x-modal__close-btn"
@@ -33,20 +47,30 @@
       </div>
 
       <!-- 弹窗内容 -->
-      <div class="x-modal__body" v-if="$slots.default || content">
-        <slot v-if="$slots.default"></slot>
+      <div class="x-modal__body" v-if="hasDefaultSlot || content">
+        <slot v-if="hasDefaultSlot"></slot>
         <template v-else-if="content">
           <div v-if="typeof content === 'string'">{{ content }}</div>
           <div
-            v-else-if="typeof content === 'object' && content !== null && ('outerHTML' in content)"
+            v-else-if="
+              typeof content === 'object' &&
+              content !== null &&
+              'outerHTML' in content
+            "
             v-html="content.outerHTML"
           ></div>
           <div
             v-else-if="typeof content === 'function'"
-            v-html="(() => {
-              const result = content();
-              return result && typeof result === 'object' && ('outerHTML' in result) ? result.outerHTML : '';
-            })()"
+            v-html="
+              (() => {
+                const result = content();
+                return result &&
+                  typeof result === 'object' &&
+                  'outerHTML' in result
+                  ? result.outerHTML
+                  : '';
+              })()
+            "
           ></div>
         </template>
       </div>
@@ -62,25 +86,31 @@
             >
               取消
             </Button>
-            <Button
-              class="btn btn--primary"
-              @click="handleOk"
-              type="button"
-            >
+            <Button class="btn btn--primary" @click="handleOk" type="button">
               确定
             </Button>
           </div>
           <template v-else-if="footer">
             <div
-              v-if="typeof footer === 'object' && footer !== null && ('outerHTML' in footer)"
+              v-if="
+                typeof footer === 'object' &&
+                footer !== null &&
+                'outerHTML' in footer
+              "
               v-html="footer.outerHTML"
             ></div>
             <div
               v-else-if="typeof footer === 'function'"
-              v-html="(() => {
-                const result = footer();
-                return result && typeof result === 'object' && ('outerHTML' in result) ? result.outerHTML : '';
-              })()"
+              v-html="
+                (() => {
+                  const result = footer();
+                  return result &&
+                    typeof result === 'object' &&
+                    'outerHTML' in result
+                    ? result.outerHTML
+                    : '';
+                })()
+              "
             ></div>
           </template>
         </slot>
@@ -90,8 +120,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
-import type { ModalSize, ModalPosition } from './types';
+import { ref, computed, onMounted, onUnmounted, watch, useSlots } from 'vue';
+import type { ModalSize, ModalPosition, ModalAnimation } from './types';
 import '../Button/index.css';
 
 interface Props {
@@ -108,8 +138,33 @@ interface Props {
   maskClosable?: boolean;
   escClosable?: boolean;
   footer?: boolean | HTMLElement | (() => HTMLElement);
+  /**
+   * 是否显示头部
+   * @default true
+   */
+  header?: boolean;
   width?: string | number;
   height?: string | number;
+  /**
+   * 弹窗动画类型
+   */
+  animation?: ModalAnimation;
+  /**
+   * 自定义顶部定位 (支持百分比或像素值)
+   */
+  top?: string | number;
+  /**
+   * 自定义右侧定位 (支持百分比或像素值)
+   */
+  right?: string | number;
+  /**
+   * 自定义底部定位 (支持百分比或像素值)
+   */
+  bottom?: string | number;
+  /**
+   * 自定义左侧定位 (支持百分比或像素值)
+   */
+  left?: string | number;
   /**
    * 弹窗动画时长
    * @default 300
@@ -120,6 +175,10 @@ interface Props {
    * @default 200
    */
   maskTransitionDuration?: number;
+  /**
+   * 自定义弹窗样式
+   */
+  contentStyle?: Record<string, string | number>;
 }
 
 interface Emits {
@@ -127,6 +186,7 @@ interface Emits {
   (e: 'close', value: boolean): void;
   (e: 'ok'): void;
   (e: 'cancel'): void;
+  (e: 'update:open', value: boolean): void;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -142,26 +202,38 @@ const props = withDefaults(defineProps<Props>(), {
   maskClosable: true,
   escClosable: true,
   footer: true,
+  header: true,
   width: undefined,
   height: undefined,
+  animation: 'zoom',
   transitionDuration: 300,
   maskTransitionDuration: 200,
+  contentStyle: () => ({}),
 });
 
 const emit = defineEmits<Emits>();
 
 const isOpen = ref(props.open ?? props.defaultOpen);
+const isClosing = ref(false);
 const titleId = computed(
   () => props.id || `x-modal-${Math.random().toString(36).slice(2, 9)}-title`
 );
+const slots = useSlots();
 
 // 计算是否显示头部
-const showHeader = computed(() => props.title || props.closable);
+const showHeader = computed(
+  () => props.header && (props.title || props.closable || slots.header)
+);
 
 // 计算是否显示底部
 const showFooter = computed(() => {
   if (props.footer === false) return false;
-  return true; // 有默认按钮或自定义footer或有footer插槽
+  return slots.footer || props.footer !== false; // 有footer插槽或footer不为false
+});
+
+// 计算是否有默认内容插槽
+const hasDefaultSlot = computed(() => {
+  return slots.default !== undefined;
 });
 
 // 计算是否为自定义底部
@@ -174,6 +246,7 @@ const modalClass = computed(() => {
   return [
     `x-modal--${props.size}`,
     `x-modal--${props.position}`,
+    `animation--${props.animation}`,
     {
       'x-modal--no-header': !showHeader.value,
       'x-modal--no-footer': !showFooter.value,
@@ -188,7 +261,9 @@ const overlayClass = computed(() => {
 
 // 计算弹窗样式
 const modalStyle = computed(() => {
-  const style: Record<string, string | number | undefined> = {};
+  const style: Record<string, string | number | undefined> = {
+    ...props.contentStyle,
+  };
   if (props.zIndex) {
     style.zIndex = props.zIndex;
   }
@@ -205,8 +280,26 @@ const modalStyle = computed(() => {
       typeof props.height === 'number' ? `${props.height}px` : props.height;
   }
 
+  // 处理自定义位置
+  if (props.position === 'absolute') {
+    // 设置自定义定位
+    const positionProps = ['top', 'right', 'bottom', 'left'] as const;
+    positionProps.forEach(prop => {
+      const value = props[prop];
+      if (value !== undefined) {
+        style[prop] = typeof value === 'number' ? `${value}px` : value;
+      }
+    });
+
+    // 移除默认的居中定位
+    style.transform = 'translate(0, 0)';
+  }
+
   // 设置动画时长
-  style.transition = `transform ${props.transitionDuration}ms ease-out, opacity ${props.transitionDuration}ms ease-out`;
+  style.transition = `transform ${props.transitionDuration}ms ease-out, opacity ${props.transitionDuration}ms ease-out, top ${props.transitionDuration}ms ease-out, right ${props.transitionDuration}ms ease-out, bottom ${props.transitionDuration}ms ease-out, left ${props.transitionDuration}ms ease-out`;
+
+  // 设置动画属性（用于@keyframes动画）
+  style.animationDuration = `${props.transitionDuration}ms`;
 
   return style;
 });
@@ -229,9 +322,17 @@ const handleOverlayClick = () => {
 // 处理关闭
 const handleClose = () => {
   if (isOpen.value) {
+    isClosing.value = true;
     isOpen.value = false;
     emit('close', false);
-    emit('cancel');
+
+    // 动画完成后隐藏组件
+    setTimeout(
+      () => {
+        isClosing.value = false;
+      },
+      Math.max(props.transitionDuration, props.maskTransitionDuration)
+    );
   }
 };
 
@@ -257,13 +358,21 @@ watch(
   () => props.open,
   newVal => {
     if (newVal !== undefined) {
-      isOpen.value = newVal;
+      if (newVal) {
+        // 打开弹窗
+        isClosing.value = false;
+        isOpen.value = true;
+      } else {
+        // 关闭弹窗
+        handleClose();
+      }
     }
   }
 );
 
 // 监听内部状态变化
 watch(isOpen, newVal => {
+  emit('update:open', newVal);
   if (props.open === undefined) {
     if (newVal) {
       emit('open', newVal);
@@ -293,7 +402,23 @@ onUnmounted(() => {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999; /* 默认值，会被内联样式覆盖 */
   display: block;
+  /* 全屏模式下移除内边距 */
   padding: var(--padding-1);
+  opacity: 0;
+}
+
+/* 遮罩进入动画 */
+.x-modal__overlay--entering {
+  opacity: 1;
+}
+
+/* 遮罩离开动画 */
+.x-modal__overlay--leaving {
+  opacity: 0;
+}
+
+.x-modal--fullscreen + .x-modal__overlay {
+  padding: 0;
 }
 
 .x-modal {
@@ -314,6 +439,271 @@ onUnmounted(() => {
   max-height: calc(100vh - 32px);
   /* 确保内容不会溢出 */
   overflow: hidden;
+  /* 动画初始状态 */
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* 基础动画进入状态 */
+.x-modal--entering {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 基础动画离开状态 */
+.x-modal--leaving {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* 缩放动画 */
+.x-modal--entering {
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 缩放动画 */
+.x-modal--entering.animation--zoom {
+  animation-name: zoomIn;
+}
+
+.x-modal--leaving.animation--zoom {
+  animation-name: zoomOut;
+}
+
+/* 滑动动画 - 顶部位置 */
+.x-modal--top.x-modal--entering.animation--slide {
+  animation-name: slideDown;
+}
+
+.x-modal--top.x-modal--leaving.animation--slide {
+  animation-name: slideUp;
+}
+
+/* 滑动动画 - 底部位置 */
+.x-modal--bottom.x-modal--entering.animation--slide {
+  animation-name: slideUp;
+}
+
+.x-modal--bottom.x-modal--leaving.animation--slide {
+  animation-name: slideDown;
+}
+
+/* 滑动动画 - 左侧位置 */
+.x-modal--left.x-modal--entering.animation--slide {
+  animation-name: slideRight;
+}
+
+.x-modal--left.x-modal--leaving.animation--slide {
+  animation-name: slideLeft;
+}
+
+/* 滑动动画 - 右侧位置 */
+.x-modal--right.x-modal--entering.animation--slide {
+  animation-name: slideLeft;
+}
+
+.x-modal--right.x-modal--leaving.animation--slide {
+  animation-name: slideRight;
+}
+
+/* 滑动动画 - 中心位置 */
+.x-modal--center.x-modal--entering.animation--slide {
+  animation-name: slideUp;
+}
+
+.x-modal--center.x-modal--leaving.animation--slide {
+  animation-name: slideDown;
+}
+
+/* 弹跳动画 */
+.x-modal--entering.animation--bounce {
+  animation-name: bounceIn;
+}
+
+.x-modal--leaving.animation--bounce {
+  animation-name: bounceOut;
+}
+
+/* 淡入淡出动画 */
+.x-modal--entering.animation--fade {
+  animation-name: fadeIn;
+}
+
+.x-modal--leaving.animation--fade {
+  animation-name: fadeOut;
+}
+
+/* 自定义位置动画 */
+.x-modal--absolute.x-modal--entering {
+  animation-name: fadeInUp;
+}
+
+.x-modal--absolute.x-modal--leaving {
+  animation-name: fadeOutDown;
+}
+
+/* 动画关键帧 */
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes zoomOut {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.7);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+}
+
+@keyframes slideRight {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+}
+
+@keyframes bounceIn {
+  0%,
+  20%,
+  40%,
+  60%,
+  80%,
+  100% {
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale3d(0.3, 0.3, 0.3);
+  }
+  20% {
+    transform: translate(-50%, -50%) scale3d(1.1, 1.1, 1.1);
+  }
+  40% {
+    transform: translate(-50%, -50%) scale3d(0.9, 0.9, 0.9);
+  }
+  60% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale3d(1.03, 1.03, 1.03);
+  }
+  80% {
+    transform: translate(-50%, -50%) scale3d(0.97, 0.97, 0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale3d(1, 1, 1);
+  }
+}
+
+@keyframes bounceOut {
+  20% {
+    transform: translate(-50%, -50%) scale3d(0.9, 0.9, 0.9);
+  }
+  50%,
+  55% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale3d(1.1, 1.1, 1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale3d(0.3, 0.3, 0.3);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate(0, 30px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes fadeOutDown {
+  from {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  to {
+    opacity: 0;
+    transform: translate(0, 30px);
+  }
+}
+
+/* 自定义位置样式 */
+.x-modal--absolute {
+  /* 移除默认的居中定位，由内联样式控制 */
+  top: auto;
+  right: auto;
+  bottom: auto;
+  left: auto;
+  transform: translate(0, 0);
 }
 
 /* 头部样式 */
@@ -366,6 +756,7 @@ onUnmounted(() => {
   padding: var(--padding-2);
   background-color: var(--color-background);
   overflow-y: auto;
+  /* 默认最大高度，在全屏模式下会被覆盖 */
   max-height: calc(100vh - 200px);
 }
 
@@ -404,11 +795,19 @@ onUnmounted(() => {
 .x-modal--fullscreen {
   width: 100%;
   height: 100%;
-  max-height: 100vh;
+  max-width: none;
+  max-height: none;
   border-radius: 0;
   top: 0;
   left: 0;
   transform: none;
+}
+
+/* 全屏模式下内容区域样式优化 */
+.x-modal--fullscreen .x-modal__body {
+  max-height: none;
+  height: 100%;
+  flex: 1;
 }
 
 /* 位置变体 */
