@@ -14,6 +14,7 @@ import ModalDemo4 from "/demo/Modal/ModalDemo4.vue";
 import ModalDemo5 from "/demo/Modal/ModalDemo5.vue";
 import ModalDemo6 from "/demo/Modal/ModalDemo6.vue";
 import ModalDemo7 from "/demo/Modal/ModalDemo7.vue";
+import ModalMaskTest from "/demo/Modal/ModalMaskTest.vue";
 </script>
 
 <Demo>
@@ -82,6 +83,20 @@ Modal 组件提供了多种动画效果，可以通过 `animation` 属性进行�
 
 </CollapsibleCode>
 
+## 遮罩控制
+
+Modal 组件支持控制遮罩层的显示/隐藏，以及自定义遮罩样式。
+
+<Demo>
+<ModalMaskTest/>
+</Demo>
+
+<CollapsibleCode>
+
+<<< ../demo/Modal/ModalMaskTest.vue
+
+</CollapsibleCode>
+
 ## 自定义内容
 
 Modal 组件支持自定义头部、内容和底部，可以通过插槽来定制弹窗的各个部分。
@@ -135,6 +150,8 @@ Modal 组件支持自定义头部、内容和底部，可以通过插槽来定�
 | transitionDuration     | `number`                                                           | `300`      | 弹窗动画时长（毫秒）                                                    |
 | maskTransitionDuration | `number`                                                           | `200`      | 遮罩层动画时长（毫秒）                                                  |
 | animation              | `'zoom' \| 'slide' \| 'fade' \| 'bounce'`                          | `'zoom'`   | 弹窗动画类型                                                            |
+| contentStyle           | `Record<string, string \| number>`                                 | `{}`       | 自定义弹窗样式                                                          |
+| maskStyle              | `Record<string, string \| number>`                                 | `{}`       | 自定义遮罩样式                                                          |
 
 ## 事件
 
@@ -167,9 +184,12 @@ Modal 组件提供了 `showModal` 函数，可以通过编程方式打开弹窗�
   - `position`: `ModalPosition` - 弹窗位置
   - `animation`: `'zoom' \| 'slide' \| 'fade' \| 'bounce'` - 弹窗动画类型
   - `closable`: `boolean` - 是否显示关闭按钮
+  - `mask`: `boolean` - 是否显示遮罩层
   - `maskClosable`: `boolean` - 点击遮罩是否可以关闭
   - `escClosable`: `boolean` - 按 ESC 键是否可以关闭
   - `footer`: `boolean \| HTMLElement \| (() => HTMLElement)` - 底部配置
+  - `contentStyle`: `Record<string, string \| number>` - 自定义弹窗样式
+  - `maskStyle`: `Record<string, string \| number>` - 自定义遮罩样式
   - `onOk`: `() => void` - 确定按钮回调
   - `onCancel`: `() => void` - 取消按钮回调
   - `onClose`: `() => void` - 关闭回调
@@ -194,6 +214,24 @@ const modal = showModal({
   onCancel: () => {
     console.log('用户取消操作');
   },
+});
+
+// 自定义遮罩样式示例
+showModal({
+  title: '自定义遮罩',
+  content: '这个弹窗使用了自定义的遮罩样式',
+  mask: true,
+  maskStyle: {
+    backgroundColor: 'rgba(0, 255, 0, 0.3)',
+    backdropFilter: 'blur(5px)',
+  },
+});
+
+// 无遮罩示例
+showModal({
+  title: '无遮罩弹窗',
+  content: '这个弹窗没有遮罩层',
+  mask: false,
 });
 
 // 手动关闭

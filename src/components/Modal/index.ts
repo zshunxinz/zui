@@ -15,7 +15,7 @@ export function showModal(options: ModalOptions): { close: () => void } {
   if (zIndexCounter > 9999) {
     zIndexCounter = 1000;
   }
-  
+
   // 先定义modal对象，确保footer函数中可以访问到
   const modal = {
     close: () => {
@@ -31,9 +31,9 @@ export function showModal(options: ModalOptions): { close: () => void } {
         // 重置计数器（可选，根据需求调整）
         // zIndexCounter = 1000;
       }
-    }
+    },
   };
-  
+
   // 配置Modal组件的props
   const modalProps = {
     open: true,
@@ -44,9 +44,15 @@ export function showModal(options: ModalOptions): { close: () => void } {
     closable: options.closable,
     maskClosable: options.maskClosable,
     escClosable: options.escClosable,
+    mask: options.mask ?? true,
+    maskStyle: options.maskStyle ?? {},
     // 延迟调用footer函数，确保modal对象已创建
-    footer: typeof options.footer === 'function' ? () => options.footer() : options.footer,
+    footer:
+      typeof options.footer === 'function'
+        ? () => options.footer()
+        : options.footer,
     zIndex: currentZIndex,
+    contentStyle: options.contentStyle,
     onOk: () => {
       options.onOk?.();
       modal.close();
@@ -57,17 +63,17 @@ export function showModal(options: ModalOptions): { close: () => void } {
     },
     onClose: modal.close,
   };
-  
+
   // 使用更简洁的方式创建和挂载组件
   const modalApp = createApp({
     render() {
       return h(Modal, modalProps);
     },
   });
-  
+
   modalApp.mount(container);
   document.body.appendChild(container);
-  
+
   return modal;
 }
 

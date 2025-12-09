@@ -13,7 +13,7 @@
         title="基础弹窗"
         @ok="handleOk"
         @cancel="handleCancel"
-        :mask="false"
+        :mask="true"
       >
         <div class="modal-body-content">
           <p>这是一个基础的弹窗示例</p>

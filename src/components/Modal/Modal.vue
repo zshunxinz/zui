@@ -2,6 +2,7 @@
   <Teleport to="body" v-if="isOpen || isClosing">
     <!-- 遮罩层 -->
     <div
+      v-if="props.mask"
       class="x-modal__overlay"
       :class="[
         overlayClass,
@@ -179,6 +180,10 @@ interface Props {
    * 自定义弹窗样式
    */
   contentStyle?: Record<string, string | number>;
+  /**
+   * 自定义遮罩样式
+   */
+  maskStyle?: Record<string, string | number>;
 }
 
 interface Emits {
@@ -209,6 +214,7 @@ const props = withDefaults(defineProps<Props>(), {
   transitionDuration: 300,
   maskTransitionDuration: 200,
   contentStyle: () => ({}),
+  maskStyle: () => ({}),
 });
 
 const emit = defineEmits<Emits>();
@@ -309,6 +315,7 @@ const overlayStyle = computed(() => {
   return {
     transition: `opacity ${props.maskTransitionDuration}ms ease-out`,
     zIndex: props.zIndex ? props.zIndex - 1 : 999,
+    ...props.maskStyle,
   };
 });
 
@@ -481,29 +488,29 @@ onUnmounted(() => {
 
 /* 滑动动画 - 底部位置 */
 .x-modal--bottom.x-modal--entering.animation--slide {
-  animation-name: slideUp;
+  animation-name: slideUpFromBottom;
 }
 
 .x-modal--bottom.x-modal--leaving.animation--slide {
-  animation-name: slideDown;
+  animation-name: slideDownToBottom;
 }
 
 /* 滑动动画 - 左侧位置 */
 .x-modal--left.x-modal--entering.animation--slide {
-  animation-name: slideRight;
+  animation-name: slideRightFromLeft;
 }
 
 .x-modal--left.x-modal--leaving.animation--slide {
-  animation-name: slideLeft;
+  animation-name: slideLeftToLeft;
 }
 
 /* 滑动动画 - 右侧位置 */
 .x-modal--right.x-modal--entering.animation--slide {
-  animation-name: slideLeft;
+  animation-name: slideLeftFromRight;
 }
 
 .x-modal--right.x-modal--leaving.animation--slide {
-  animation-name: slideRight;
+  animation-name: slideRightToRight;
 }
 
 /* 滑动动画 - 中心位置 */
@@ -606,6 +613,78 @@ onUnmounted(() => {
   to {
     opacity: 1;
     transform: translateY(-50%) translateX(0);
+  }
+}
+
+/* 从底部滑入 */
+@keyframes slideUpFromBottom {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* 向底部滑出 */
+@keyframes slideDownToBottom {
+  from {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-50%) translateY(100%);
+  }
+}
+
+/* 从左侧滑入 */
+@keyframes slideRightFromLeft {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+}
+
+/* 向左侧滑出 */
+@keyframes slideLeftToLeft {
+  from {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-50%) translateX(-100%);
+  }
+}
+
+/* 从右侧滑入 */
+@keyframes slideLeftFromRight {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+}
+
+/* 向右侧滑出 */
+@keyframes slideRightToRight {
+  from {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-50%) translateX(100%);
   }
 }
 

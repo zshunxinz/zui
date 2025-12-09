@@ -1,12 +1,13 @@
 <template>
   <div class="modal-demo">
-
     <div class="demo-content">
       <div class="button-group">
         <Button @click="showBasicModal">基础弹窗</Button>
         <Button @click="showCustomizedModal">自定义按钮</Button>
         <Button @click="showAsyncModal">异步关闭</Button>
         <Button @click="showMultipleModal">多弹窗嵌套</Button>
+        <Button @click="showNoMaskModal">无遮罩弹窗</Button>
+        <Button @click="showCustomMaskModal">自定义遮罩</Button>
       </div>
 
       <div class="info-box">
@@ -25,7 +26,6 @@
 </template>
 
 <script setup>
-
 // 基础弹窗示例
 const showBasicModal = () => {
   showModal({
@@ -164,6 +164,36 @@ const showMultipleModal = () => {
     },
     onClose: () => {
       console.log('外层弹窗已关闭');
+    },
+  });
+};
+
+// 无遮罩弹窗示例
+const showNoMaskModal = () => {
+  showModal({
+    title: '无遮罩弹窗',
+    content: '这是一个没有遮罩层的弹窗，点击页面其他区域不会关闭。',
+    size: 'md',
+    mask: false,
+    onOk: () => {
+      console.log('点击了确定按钮');
+    },
+  });
+};
+
+// 自定义遮罩弹窗示例
+const showCustomMaskModal = () => {
+  showModal({
+    title: '自定义遮罩弹窗',
+    content: '这个弹窗使用了自定义的遮罩样式，背景为半透明绿色并带有模糊效果。',
+    size: 'md',
+    mask: true,
+    maskStyle: {
+      backgroundColor: 'rgba(0, 255, 0, 0.3)',
+      backdropFilter: 'blur(5px)',
+    },
+    onOk: () => {
+      console.log('点击了确定按钮');
     },
   });
 };
