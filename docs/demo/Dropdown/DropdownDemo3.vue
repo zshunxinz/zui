@@ -5,9 +5,7 @@
       <Dropdown>
         <DropdownMenu>
           <DropdownMenuTrigger as-child>
-            <Button variant="outline">
-              Open
-            </Button>
+            <Button variant="outline"> Open </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -32,8 +30,28 @@
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>Team</DropdownMenuItem>
-              <DropdownMenuSub>
-                <DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
+              <!-- <DropdownMenuSub> -->
+              <Popover placement="right" :offset="20" :arrow="false">
+                <Button
+                  text
+                  style="
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-between;
+                  "
+                  >Invite users
+                  <Icon name="chevron-right"></Icon>
+                </Button>
+                <template #content>
+                  <div>
+                    <DropdownMenuItem>Email</DropdownMenuItem>
+                    <DropdownMenuItem>Message</DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>More...</DropdownMenuItem>
+                  </div>
+                </template>
+              </Popover>
+              <!-- <DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
                 <DropdownMenuPortal>
                   <DropdownMenuSubContent>
                     <DropdownMenuItem>Email</DropdownMenuItem>
@@ -41,8 +59,8 @@
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>More...</DropdownMenuItem>
                   </DropdownMenuSubContent>
-                </DropdownMenuPortal>
-              </DropdownMenuSub>
+                </DropdownMenuPortal> -->
+              <!-- </DropdownMenuSub> -->
               <DropdownMenuItem>
                 New Team
                 <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
@@ -51,9 +69,7 @@
             <DropdownMenuSeparator />
             <DropdownMenuItem>GitHub</DropdownMenuItem>
             <DropdownMenuItem>Support</DropdownMenuItem>
-            <DropdownMenuItem disabled>
-              API
-            </DropdownMenuItem>
+            <DropdownMenuItem disabled> API </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
               Log out
@@ -82,13 +98,13 @@ import {
   DropdownMenuSub,
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
-  DropdownMenuPortal
+  DropdownMenuPortal,
 } from '@/components/Dropdown';
 
-const showStatusBar = ref(true)
-const showActivityBar = ref(false)
-const showPanel = ref(false)
-const position = ref('bottom')
+const showStatusBar = ref(true);
+const showActivityBar = ref(false);
+const showPanel = ref(false);
+const position = ref('bottom');
 </script>
 
 <style scoped>

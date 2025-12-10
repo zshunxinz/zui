@@ -386,7 +386,7 @@ onUnmounted(() => {
 }
 
 .x-popover__trigger {
-  display: inline-block;
+  /* display: inline-block; */
   cursor: pointer;
 }
 
