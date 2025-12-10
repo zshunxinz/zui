@@ -19,24 +19,26 @@ const emit = defineEmits(['click']);
 const triggerClass = ref('');
 
 // 从父组件获取状态管理
-const dropdownState = inject('dropdownState', null);
+const dropdownState = inject('dropdownState');
 
-const handleClick = (e) => {
+const handleClick = e => {
   emit('click', e);
+  e.stopPropagation(); // 阻止事件冒泡，避免触发 handleClickOutside
+  console.log('dropdownState', dropdownState.value);
   if (dropdownState) {
-    dropdownState.isOpen = !dropdownState.isOpen;
+    dropdownState.value.isOpen = !dropdownState.value.isOpen;
   }
 };
 
 const handleMouseEnter = () => {
-  if (dropdownState && dropdownState.hoverable) {
-    dropdownState.isOpen = true;
+  if (dropdownState && dropdownState.value.hoverable) {
+    dropdownState.value.isOpen = true;
   }
 };
 
 const handleMouseLeave = () => {
-  if (dropdownState && dropdownState.hoverable) {
-    dropdownState.isOpen = false;
+  if (dropdownState && dropdownState.value.hoverable) {
+    dropdownState.value.isOpen = false;
   }
 };
 </script>

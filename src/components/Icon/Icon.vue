@@ -48,6 +48,10 @@ const props = defineProps({
     type: String,
     default: 'none',
   },
+  rotate: {
+    type: [String, Number],
+    default: 0,
+  },
 });
 
 // SVG内容
@@ -77,6 +81,7 @@ const iconStyle = computed(() => {
     color: props.color,
     width: typeof props.size === 'number' ? `${props.size}px` : props.size,
     height: typeof props.size === 'number' ? `${props.size}px` : props.size,
+    transform: `rotate(${props.rotate}deg)`,
   };
 });
 

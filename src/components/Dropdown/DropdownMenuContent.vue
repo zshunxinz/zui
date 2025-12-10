@@ -22,54 +22,65 @@ const props = defineProps({
   align: {
     type: String,
     default: 'center',
-    validator: (val) => ['start', 'center', 'end'].includes(val)
+    validator: val => ['start', 'center', 'end'].includes(val),
   },
   side: {
     type: String,
     default: 'bottom',
-    validator: (val) => ['top', 'bottom'].includes(val)
-  }
+    validator: val => ['top', 'bottom'].includes(val),
+  },
 });
 
-const dropdownState = inject('dropdownState', null);
+const dropdownState = inject('dropdownState');
 const contentRef = ref(null);
 
+};
+
 const handleMouseEnter = () => {
-  if (dropdownState && dropdownState.hoverable) {
-    dropdownState.isOpen = true;
+  if (dropdownState && dropdownState.value.hoverable) {
+    dropdownState.value.isOpen = true;
   }
 };
 
 const handleMouseLeave = () => {
-  if (dropdownState && dropdownState.hoverable) {
-    dropdownState.isOpen = false;
+  if (dropdownState && dropdownState.value.hoverable) {
+    dropdownState.value.isOpen = false;
   }
 };
 
 // 点击外部关闭菜单
-const handleClickOutside = (e) => {
-  if (dropdownState?.isOpen && contentRef.value && !contentRef.value.contains(e.target)) {
-    dropdownState.isOpen = false;
+const handleClickOutside = e => {
+  // 确保 dropdownState 存在且已打开
+  if (!dropdownState || !dropdownState.value.isOpen || !contentRef.value) {
+    return;
   }
-};
 
-onMounted(() => {
-  document.addEventListener('click', handleClickOutside);
-});
+  // 检查点击目标是否在菜单内容内
+  if (!contentRef.value.contains(e.target)) {
+    dropdownState.value.isOpen = false;
+  }
+      contentRef.value?.style.setProperty('left', calculatePosition().left);
+    });
 
-onUnmounted(() => {
-  document.removeEventListener('click', handleClickOutside);
+  if (isPortalContent.value || props.usePortal) {
+    window.addEventListener('scroll', handleScroll, true);
+    window.addEventListener('resize', handleScroll);
+
+  if (isPortalContent.value || props.usePortal) {
+    window.removeEventListener('scroll', handleScroll);
+    window.removeEventListener('resize', handleScroll);
+  }
 });
 </script>
 
 <style scoped>
 .x-dropdown-menu-content {
   position: absolute;
-  background-color: var(--background-color);
+  background-color: var(--color-background);
   border: 1px solid var(--border-color);
   border-radius: 4px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  padding: 8px 0;
+  /* padding: 8px 0; */
   z-index: 1000;
   min-width: 120px;
   margin-top: 4px;

@@ -2,7 +2,7 @@
   <button
     class="x-dropdown-menu-item"
     :class="{
-      'x-dropdown-menu-item--disabled': disabled
+      'x-dropdown-menu-item--disabled': disabled,
     }"
     :disabled="disabled"
     @click="handleClick"
@@ -18,19 +18,20 @@ import { inject } from 'vue';
 const props = defineProps({
   disabled: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 });
 
 const emit = defineEmits(['click']);
 const dropdownState = inject('dropdownState', null);
 
-const handleClick = (e) => {
+const handleClick = e => {
   if (props.disabled) return;
   emit('click', e);
+  e.stopPropagation(); // 防止触发外部点击关闭逻辑
   // 点击菜单项后关闭菜单
   if (dropdownState) {
-    dropdownState.isOpen = false;
+    dropdownState.value.isOpen = false;
   }
 };
 </script>
@@ -50,7 +51,7 @@ const handleClick = (e) => {
 }
 
 .x-dropdown-menu-item:hover:not(.x-dropdown-menu-item--disabled) {
-  background-color: var(--hover-background-color);
+  background-color: var(--color-bg-hover-1);
 }
 
 .x-dropdown-menu-item--disabled {

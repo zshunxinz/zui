@@ -9,15 +9,13 @@
               <a href="/">Home</a>
             </BreadcrumbLink>
           </BreadcrumbItem>
-          <BreadcrumbSeparator>
-            <Icon name="Slash" size="16" />
-          </BreadcrumbSeparator>
+          <BreadcrumbSeparator> / </BreadcrumbSeparator>
           <BreadcrumbItem>
             <Dropdown>
               <DropdownMenu>
                 <DropdownMenuTrigger>
                   Components
-                  <Icon name="ChevronDown" size="16" />
+                  <Icon name="chevron-down" :size="16" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start">
                   <DropdownMenuItem>Documentation</DropdownMenuItem>
@@ -27,15 +25,13 @@
               </DropdownMenu>
             </Dropdown>
           </BreadcrumbItem>
-          <BreadcrumbSeparator>
-            <Icon name="Slash" size="16" />
-          </BreadcrumbSeparator>
+          <BreadcrumbSeparator> / </BreadcrumbSeparator>
           <BreadcrumbItem>
             <Dropdown>
               <DropdownMenu>
                 <DropdownMenuTrigger>
                   Navigation
-                  <Icon name="ChevronDown" size="16" />
+                  <Icon name="chevron-down" :size="16" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start">
                   <DropdownMenuItem>Menu</DropdownMenuItem>
@@ -46,9 +42,7 @@
               </DropdownMenu>
             </Dropdown>
           </BreadcrumbItem>
-          <BreadcrumbSeparator>
-            <Icon name="Slash" size="16" />
-          </BreadcrumbSeparator>
+          <BreadcrumbSeparator> / </BreadcrumbSeparator>
           <BreadcrumbItem>
             <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
           </BreadcrumbItem>
@@ -77,7 +71,7 @@
               <DropdownMenu>
                 <DropdownMenuTrigger>
                   用户管理
-                  <Icon name="ChevronDown" size="14" />
+                  <Icon name="chevron-down" :size="16" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start">
                   <DropdownMenuItem>用户列表</DropdownMenuItem>
@@ -138,6 +132,6 @@ h3 {
 .breadcrumb-multi-level {
   /* margin-bottom: 20px; */
   /* padding: 15px; */
-  border-radius: 8px;
+  /* border-radius: 8px; */
 }
 </style>

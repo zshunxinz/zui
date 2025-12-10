@@ -23,7 +23,7 @@ const emit = defineEmits(['click']);
 const subMenuState = inject('subMenuState', null);
 const dropdownState = inject('dropdownState', null);
 
-const handleClick = (e) => {
+const handleClick = e => {
   emit('click', e);
   e.stopPropagation(); // 防止触发父菜单关闭
   if (subMenuState) {
@@ -32,13 +32,13 @@ const handleClick = (e) => {
 };
 
 const handleMouseEnter = () => {
-  if (subMenuState && dropdownState?.hoverable) {
+  if (subMenuState && dropdownState?.value.hoverable) {
     subMenuState.isOpen = true;
   }
 };
 
 const handleMouseLeave = () => {
-  if (subMenuState && dropdownState?.hoverable) {
+  if (subMenuState && dropdownState?.value.hoverable) {
     subMenuState.isOpen = false;
   }
 };
