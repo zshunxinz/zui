@@ -34,8 +34,6 @@ const props = defineProps({
 const dropdownState = inject('dropdownState');
 const contentRef = ref(null);
 
-};
-
 const handleMouseEnter = () => {
   if (dropdownState && dropdownState.value.hoverable) {
     dropdownState.value.isOpen = true;
@@ -59,17 +57,17 @@ const handleClickOutside = e => {
   if (!contentRef.value.contains(e.target)) {
     dropdownState.value.isOpen = false;
   }
-      contentRef.value?.style.setProperty('left', calculatePosition().left);
-    });
+};
 
-  if (isPortalContent.value || props.usePortal) {
-    window.addEventListener('scroll', handleScroll, true);
-    window.addEventListener('resize', handleScroll);
+// 生命周期钩子
+onMounted(() => {
+  // 点击外部关闭菜单
+  document.addEventListener('click', handleClickOutside);
+});
 
-  if (isPortalContent.value || props.usePortal) {
-    window.removeEventListener('scroll', handleScroll);
-    window.removeEventListener('resize', handleScroll);
-  }
+onUnmounted(() => {
+  // 移除事件监听
+  document.removeEventListener('click', handleClickOutside);
 });
 </script>
 
