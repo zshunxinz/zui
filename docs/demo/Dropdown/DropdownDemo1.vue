@@ -2,15 +2,15 @@
   <div class="dropdown-demo">
     <h3>基础用法</h3>
     <div class="dropdown-group">
-      <Dropdown>
+      <Dropdown v-model="isOpen1">
         <DropdownMenu>
-          <DropdownMenuTrigger @click="handleClick">
-            <span>{{ data1 }}</span>
+          <DropdownMenuTrigger @click="handleClick1">
+            <span>{{ data1 }} {{ isOpen1 }}</span>
             <Icon
               name="chevron-right"
               :size="16"
               class="dropdown-icon"
-              :rotate="isOpen ? 90 : 0"
+              :rotate="isOpen1 ? 90 : 0"
             />
           </DropdownMenuTrigger>
           <DropdownMenuContent style="padding: 8px">
@@ -75,11 +75,11 @@
 
     <h3>悬停触发</h3>
     <div class="dropdown-group">
-      <Dropdown hoverable>
+      <Dropdown hoverable v-model="isOpen2">
         <DropdownMenu>
           <DropdownMenuTrigger
-            @mouseenter="handleClick"
-            @mouseleave="handleClick"
+            @mouseenter="handleClick2"
+            @mouseleave="handleClick2"
           >
             <Button outline
               >悬停展开
@@ -88,7 +88,7 @@
                 name="chevron-right"
                 :size="16"
                 style="transition: transform 0.3s ease"
-                :rotate="isOpen ? 90 : 0"
+                :rotate="isOpen2 ? 90 : 0"
               />
             </Button>
           </DropdownMenuTrigger>
@@ -114,10 +114,16 @@ import {
 } from '@/components/Dropdown';
 import { ref } from 'vue';
 
-let isOpen = ref(false);
-const handleClick = () => {
+let isOpen1 = ref(false);
+const handleClick1 = () => {
   console.log('点击展开');
-  isOpen.value = !isOpen.value;
+  // isOpen1.value = !isOpen1.value;
+};
+
+let isOpen2 = ref(false);
+const handleClick2 = () => {
+  console.log('点击展开');
+  isOpen2.value = !isOpen2.value;
 };
 
 const data1 = ref('选项 1');

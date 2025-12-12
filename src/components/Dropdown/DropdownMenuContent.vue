@@ -32,17 +32,21 @@ const props = defineProps({
 });
 
 const dropdownState = inject('dropdownState');
+const openDropdown = inject('openDropdown');
+const closeDropdown = inject('closeDropdown');
 const contentRef = ref(null);
 
+// 鼠标进入菜单内容时，保持菜单展开
 const handleMouseEnter = () => {
-  if (dropdownState && dropdownState.value.hoverable) {
-    dropdownState.value.isOpen = true;
+  if (openDropdown) {
+    openDropdown();
   }
 };
 
+// 鼠标离开菜单内容时，延迟关闭菜单
 const handleMouseLeave = () => {
-  if (dropdownState && dropdownState.value.hoverable) {
-    dropdownState.value.isOpen = false;
+  if (closeDropdown) {
+    closeDropdown();
   }
 };
 

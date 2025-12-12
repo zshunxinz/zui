@@ -46,22 +46,51 @@ const props = withDefaults(defineProps<Props>(), {
 // 跟踪当前打开的菜单
 const openMenu = ref<string | null>(null);
 
+// 延迟关闭定时器
+let closeTimer: NodeJS.Timeout | null = null;
+
 // 打开菜单
 const open = (menuId: string) => {
   if (!props.disabled) {
+    // 清除延迟关闭定时器
+    if (closeTimer) {
+      clearTimeout(closeTimer);
+      closeTimer = null;
+    }
     openMenu.value = menuId;
   }
 };
 
-// 关闭菜单
+// 立即关闭菜单
 const close = () => {
   openMenu.value = null;
+  // 清除延迟关闭定时器
+  if (closeTimer) {
+    clearTimeout(closeTimer);
+    closeTimer = null;
+  }
+};
+
+// 延迟关闭菜单，用于hover触发的场景
+const closeWithDelay = () => {
+  if (!props.disabled) {
+    // 清除之前的定时器
+    if (closeTimer) {
+      clearTimeout(closeTimer);
+    }
+    // 设置200ms延迟关闭
+    closeTimer = setTimeout(() => {
+      openMenu.value = null;
+      closeTimer = null;
+    }, 200);
+  }
 };
 
 // 提供给子组件的数据
 provide('menubar', {
   open,
   close,
+  closeWithDelay,
   openMenu,
   disabled: props.disabled,
 });
