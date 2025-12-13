@@ -9,7 +9,7 @@
 </script>
 
 <style scoped>
-.x-dropdown-menu-shortcut {
+.z-dropdown-menu-shortcut {
   margin-left: auto;
   font-size: 12px;
   color: var(--text-color-secondary);

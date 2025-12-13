@@ -1,5 +1,5 @@
 <template>
-  <nav class="x-breadcrumb" aria-label="Breadcrumb">
+  <nav class="z-breadcrumb" aria-label="Breadcrumb">
     <slot />
   </nav>
 </template>
@@ -9,7 +9,7 @@
 </script>
 
 <style scoped>
-.x-breadcrumb {
+.z-breadcrumb {
   display: inline-flex;
   align-items: center;
   font-size: 14px;

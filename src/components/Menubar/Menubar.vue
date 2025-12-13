@@ -97,7 +97,7 @@ provide('menubar', {
 </script>
 
 <style scoped>
-.x-menubar {
+.z-menubar {
   display: flex;
   align-items: center;
   /* background-color: var(--color-background-2); */
@@ -107,7 +107,7 @@ provide('menubar', {
   user-select: none;
 }
 
-.x-menubar--disabled {
+.z-menubar--disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }

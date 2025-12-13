@@ -55,7 +55,7 @@ const handleClick = () => {
 </script>
 
 <style scoped>
-.x-menubar-item {
+.z-menubar-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -72,20 +72,20 @@ const handleClick = () => {
   outline: none;
 }
 
-.x-menubar-item:hover:not(:disabled) {
+.z-menubar-item:hover:not(:disabled) {
   background-color: var(--color-background-hover);
 }
 
-.x-menubar-item:active:not(:disabled) {
+.z-menubar-item:active:not(:disabled) {
   background-color: var(--color-background-active);
 }
 
-.x-menubar-item--disabled {
+.z-menubar-item--disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-.x-menubar-item__content {
+.z-menubar-item__content {
   flex: 1;
 }
 </style>

@@ -555,7 +555,7 @@ const applyCustomStyles = () => {
 }
 
 /* 自定义样式弹窗 */
-:deep(.custom-style-modal .x-modal__content) {
+:deep(.custom-style-modal .z-modal__content) {
   /* 自定义样式将通过contentStyle属性直接应用 */
 }
 

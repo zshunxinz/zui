@@ -9,7 +9,7 @@
 </script>
 
 <style scoped>
-.x-dropdown-menu-group {
+.z-dropdown-menu-group {
   display: flex;
   flex-direction: column;
   gap: 0;

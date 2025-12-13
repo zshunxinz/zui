@@ -20,16 +20,16 @@
   </Tabs>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref } from 'vue';
 
 const activeTab = ref(0);
 const tabs = [
-  { label: "Tab 1", name: "tab1" },
-  { label: "Tab 2", name: "tab2" },
+  { label: 'Tab 1', name: 'tab1' },
+  { label: 'Tab 2', name: 'tab2' },
 ];
 </script>
 <style scoped>
-.x-tabs_nav_bg {
+.z-tabs_nav_bg {
   background-color: var(--color-bg-hover-1);
 }
 </style>

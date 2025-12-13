@@ -9,7 +9,7 @@
 </script>
 
 <style scoped>
-.x-dropdown-menu-label {
+.z-dropdown-menu-label {
   display: block;
   padding: 8px 16px;
   font-size: 12px;

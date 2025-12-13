@@ -4,7 +4,7 @@
     class="x-dropdown-menu-sub-content"
     :class="{
       'x-dropdown-menu-sub-content--left': position === 'left',
-      'x-dropdown-menu-sub-content--right': position === 'right'
+      'x-dropdown-menu-sub-content--right': position === 'right',
     }"
     @click.stop
     @mouseenter="handleMouseEnter"
@@ -22,8 +22,8 @@ const props = defineProps({
   position: {
     type: String,
     default: 'right',
-    validator: (val) => ['left', 'right'].includes(val)
-  }
+    validator: val => ['left', 'right'].includes(val),
+  },
 });
 
 // 从父组件获取状态
@@ -45,7 +45,7 @@ const handleMouseLeave = () => {
 </script>
 
 <style scoped>
-.x-dropdown-menu-sub-content {
+.z-dropdown-menu-sub-content {
   position: absolute;
   top: 0;
   background-color: var(--background-color);
@@ -58,13 +58,13 @@ const handleMouseLeave = () => {
   margin-left: 4px;
 }
 
-.x-dropdown-menu-sub-content--left {
+.z-dropdown-menu-sub-content--left {
   right: 100%;
   margin-left: 0;
   margin-right: 4px;
 }
 
-.x-dropdown-menu-sub-content--right {
+.z-dropdown-menu-sub-content--right {
   left: 100%;
 }
 </style>

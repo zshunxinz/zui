@@ -24,9 +24,9 @@ import GridDemo10 from '../demo/Grid/GridDemo10.vue';
     --bg-color-1:rgba(100, 100, 100, 0.05);
     --border-1:1px solid rgba(231, 231, 231, 0.125);
   }
-  
-    .x-col{
-        background:rgb(148, 148, 255); 
+
+    .z-col{
+        background:rgb(148, 148, 255);
     }
 
     .demo-box{

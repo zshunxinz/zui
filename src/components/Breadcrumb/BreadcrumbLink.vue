@@ -1,9 +1,9 @@
 <template>
   <component
     :is="asChild ? 'span' : 'a'"
-    class="x-breadcrumb-link"
+    class="z-breadcrumb-link"
     :class="{
-      'x-breadcrumb-link--disabled': disabled,
+      'z-breadcrumb-link--disabled': disabled,
     }"
     :disabled="disabled"
     v-bind="$attrs"
@@ -26,7 +26,7 @@ const props = defineProps({
 </script>
 
 <style scoped>
-.x-breadcrumb-link {
+.z-breadcrumb-link {
   color: var(--color-text);
   text-decoration: none;
   cursor: pointer;
@@ -39,7 +39,7 @@ const props = defineProps({
 }
 
 /* 确保asChild模式下内部元素也能正确对齐 */
-.x-breadcrumb-link > * {
+.z-breadcrumb-link > * {
   display: flex;
   align-items: center;
   text-decoration: none;
@@ -48,7 +48,7 @@ const props = defineProps({
 }
 
 /* 确保图标与文本垂直居中对齐 */
-.x-breadcrumb-link .x-icon {
+.z-breadcrumb-link .z-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -58,21 +58,21 @@ const props = defineProps({
   line-height: 1;
 }
 
-.x-breadcrumb-link:hover:not(.x-breadcrumb-link--disabled) {
+.z-breadcrumb-link:hover:not(.z-breadcrumb-link--disabled) {
   color: var(--color-primary-hover);
 }
 
-.x-breadcrumb-link:hover:not(.x-breadcrumb-link--disabled) > * {
+.z-breadcrumb-link:hover:not(.z-breadcrumb-link--disabled) > * {
   text-decoration: underline;
   color: inherit;
 }
 
-.x-breadcrumb-link--disabled {
+.z-breadcrumb-link--disabled {
   color: var(--color-text-muted);
   cursor: not-allowed;
 }
 
-.x-breadcrumb-link--disabled > * {
+.z-breadcrumb-link--disabled > * {
   cursor: not-allowed;
 }
 </style>

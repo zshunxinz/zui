@@ -24,8 +24,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from "vue";
-import { useModelWrapper } from "./useModelWrapper";
+import { computed, ref, watch } from 'vue';
+import { useModelWrapper } from './useModelWrapper';
 
 const props = defineProps<{
   modelValue?: boolean | string | number;
@@ -34,31 +34,31 @@ const props = defineProps<{
   falseLabel?: string | number;
   disabled?: boolean;
   border?: boolean;
-  size?: "large" | "medium" | "small" | "mini";
+  size?: 'large' | 'medium' | 'small' | 'mini';
   name?: string;
   checked?: boolean;
   indeterminate?: boolean;
 }>();
 
 const emit = defineEmits<{
-  (e: "update:modelValue", value: boolean | string | number): void;
-  (e: "change", value: boolean | string | number): void;
+  (e: 'update:modelValue', value: boolean | string | number): void;
+  (e: 'change', value: boolean | string | number): void;
 }>();
 
 const { modelValue, handleChange: emitChange } = useModelWrapper(
   props,
   emit,
-  "modelValue",
-  "change"
+  'modelValue',
+  'change'
 );
 
 const checkboxSize = computed(() =>
-  props.size ? `x-checkbox--${props.size}` : ""
+  props.size ? `x-checkbox--${props.size}` : ''
 );
 const borderStyle = computed(() =>
-  props.border || modelValue.value ? "x-checkbox--border" : ""
+  props.border || modelValue.value ? 'x-checkbox--border' : ''
 );
-const disabledClass = computed(() => (props.disabled ? "is-disabled" : ""));
+const disabledClass = computed(() => (props.disabled ? 'is-disabled' : ''));
 
 const handleChange = (e: Event) => {
   const checked = (e.target as HTMLInputElement).checked;
@@ -69,7 +69,7 @@ const handleChange = (e: Event) => {
 // Handle checked prop
 watch(
   () => props.checked,
-  (val) => {
+  val => {
     if (val !== undefined && val !== modelValue.value) {
       modelValue.value = val;
     }
@@ -79,7 +79,7 @@ watch(
 </script>
 
 <style scoped>
-.x-checkbox {
+.z-checkbox {
   display: inline-flex;
   align-items: center;
   cursor: pointer;
@@ -89,11 +89,11 @@ watch(
   border: 1px solid var(--color-border);
 }
 
-.x-checkbox.is-disabled {
+.z-checkbox.is-disabled {
   cursor: not-allowed;
 }
 
-.x-checkbox__input {
+.z-checkbox__input {
   position: absolute;
   width: 0;
   height: 0;
@@ -101,7 +101,7 @@ watch(
   margin: 0;
 }
 
-.x-checkbox__inner {
+.z-checkbox__inner {
   display: inline-block;
   position: relative;
   width: 16px;
@@ -114,15 +114,15 @@ watch(
   border-radius: var(--border-radius);
 }
 
-.x-checkbox__input:checked + .x-checkbox__inner {
+.z-checkbox__input:checked + .z-checkbox__inner {
   background-color: var(--color-default);
   border-color: var(--color-text-1);
   border-radius: var(--border-radius);
   /* box-shadow: 0 2px 4px rgba(205, 205, 205, 1); */
 }
 
-.x-checkbox__input:checked + .x-checkbox__inner::after {
-  content: "";
+.z-checkbox__input:checked + .z-checkbox__inner::after {
+  content: '';
   position: absolute;
   top: 5px;
   left: calc(50% - 7px);
@@ -133,13 +133,13 @@ watch(
   transform: rotate(45deg) translateY(-70%) translateX(10%);
 }
 
-.x-checkbox__input:indeterminate + .x-checkbox__inner {
+.z-checkbox__input:indeterminate + .z-checkbox__inner {
   background-color: var(--color-primary);
   border-color: var(--color-primary);
 }
 
-.x-checkbox__input:indeterminate + .x-checkbox__inner::after {
-  content: "";
+.z-checkbox__input:indeterminate + .z-checkbox__inner::after {
+  content: '';
   position: absolute;
   top: 50%;
   left: 50%;
@@ -149,47 +149,47 @@ watch(
   transform: translate(-50%, -50%);
 }
 
-.x-checkbox__input:disabled + .x-checkbox__inner {
+.z-checkbox__input:disabled + .z-checkbox__inner {
   border-color: var(--color-disabled);
   background-color: var(--color-disabled);
 }
 
-.x-checkbox__label {
+.z-checkbox__label {
   margin-left: 8px;
   color: var(--color-text);
 }
 
-.x-checkbox.is-disabled .x-checkbox__label {
+.z-checkbox.is-disabled .z-checkbox__label {
   color: var(--color-text-muted);
 }
 
-.x-checkbox--border {
+.z-checkbox--border {
   border-radius: var(--border-radius);
   border: 1px solid var(--color-border);
   transition: all 0.2s ease;
 }
 
-.x-checkbox--border.x-checkbox--checked {
+.z-checkbox--border.z-checkbox--checked {
   border: 1px solid var(--color-default);
   box-shadow: 0 0 5px 2px var(--color-border-1);
 }
 
-.x-checkbox--large .x-checkbox__inner {
+.z-checkbox--large .z-checkbox__inner {
   width: 20px;
   height: 20px;
 }
 
-.x-checkbox--medium .x-checkbox__inner {
+.z-checkbox--medium .z-checkbox__inner {
   width: 16px;
   height: 16px;
 }
 
-.x-checkbox--small .x-checkbox__inner {
+.z-checkbox--small .z-checkbox__inner {
   width: 14px;
   height: 14px;
 }
 
-.x-checkbox--mini .x-checkbox__inner {
+.z-checkbox--mini .z-checkbox__inner {
   width: 12px;
   height: 12px;
 }

@@ -29,16 +29,16 @@
   </div>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref } from 'vue';
 
 const activeTab = ref(0);
 const tabs = [
-  { label: "Tab 1", name: "tab1" },
-  { label: "Tab 2", name: "tab2" },
+  { label: 'Tab 1', name: 'tab1' },
+  { label: 'Tab 2', name: 'tab2' },
 ];
 </script>
 <style scoped>
-.x-tabs_nav_bg-1 {
+.z-tabs_nav_bg-1 {
   padding: 0.25rem;
   background-color: var(--color-bg-hover-1);
 }

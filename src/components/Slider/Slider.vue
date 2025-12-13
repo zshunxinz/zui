@@ -250,35 +250,35 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.x-slider {
+.z-slider {
   display: inline-flex;
   flex-direction: column;
   align-items: flex-start;
   width: var(--width-1);
 }
 
-.x-slider__label {
+.z-slider__label {
   margin-bottom: var(--space-2);
   font-size: var(--font-size);
   color: var(--color-text);
 }
 
-.x-slider__wrapper {
+.z-slider__wrapper {
   position: relative;
   width: 100%;
   height: 6px;
   cursor: pointer;
 }
 
-.x-slider--small .x-slider__wrapper {
+.z-slider--small .z-slider__wrapper {
   height: 4px;
 }
 
-.x-slider--large .x-slider__wrapper {
+.z-slider--large .z-slider__wrapper {
   height: 8px;
 }
 
-.x-slider__track {
+.z-slider__track {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -286,7 +286,7 @@ onUnmounted(() => {
   border-radius: 3px;
 }
 
-.x-slider__progress {
+.z-slider__progress {
   position: absolute;
   top: 50%;
   left: 0;
@@ -295,7 +295,7 @@ onUnmounted(() => {
   border-radius: 3px;
 }
 
-.x-slider__handle {
+.z-slider__handle {
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -310,35 +310,35 @@ onUnmounted(() => {
   margin-top: -2px;
 }
 
-.x-slider--small .x-slider__handle {
+.z-slider--small .z-slider__handle {
   width: 16px;
   height: 16px;
 }
 
-.x-slider--large .x-slider__handle {
+.z-slider--large .z-slider__handle {
   width: 24px;
   height: 24px;
 }
 
-.x-slider__handle:hover {
+.z-slider__handle:hover {
   transform: translate(-50%, -50%) scale(1.1);
 }
 
-.x-slider__handle.is-active {
+.z-slider__handle.is-active {
   transform: translate(-50%, -50%) scale(1.2);
   box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.2);
 }
 
-.x-slider.is-disabled .x-slider__wrapper {
+.z-slider.is-disabled .z-slider__wrapper {
   cursor: not-allowed;
 }
 
-.x-slider.is-disabled .x-slider__handle {
+.z-slider.is-disabled .z-slider__handle {
   cursor: not-allowed;
   border-color: var(--color-disabled);
 }
 
-.x-slider__value {
+.z-slider__value {
   position: absolute;
   top: -30px;
   left: 50%;
@@ -352,16 +352,16 @@ onUnmounted(() => {
 }
 
 /* 暗色模式适配 */
-:root.dark .x-slider__handle {
+:root.dark .z-slider__handle {
   background-color: var(--color-background);
   border-color: var(--color-default);
 }
 
-:root.dark .x-slider__handle.is-active {
+:root.dark .z-slider__handle.is-active {
   box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.2);
 }
 
-:root.dark .x-slider__value {
+:root.dark .z-slider__value {
   background-color: var(--color-text);
   color: var(--color-background);
 }

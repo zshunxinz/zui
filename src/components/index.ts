@@ -38,7 +38,7 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  SidebarLayout
+  SidebarLayout,
 } from './Sidebar';
 import { Icon } from './Icon';
 import { Slider } from './Slider';
@@ -49,7 +49,7 @@ import {
   MenubarContent,
   MenubarItem,
   MenubarSeparator,
-  MenubarShortcut
+  MenubarShortcut,
 } from './Menubar';
 import Sonner from './Sonner/Sonner.vue';
 import ToastPlugin from './Sonner/ToastPlugin';
@@ -95,7 +95,7 @@ const install = (app: any) => {
   app.component('SidebarMenu', SidebarMenu);
   app.component('SidebarMenuItem', SidebarMenuItem);
   app.component('SidebarMenuButton', SidebarMenuButton);
-  app.component('SidebarLayout', SidebarLayout)
+  app.component('SidebarLayout', SidebarLayout);
   app.component('Icon', Icon);
   app.component('Slider', Slider);
   app.component('Menubar', Menubar);
@@ -104,13 +104,8 @@ const install = (app: any) => {
   app.component('MenubarContent', MenubarContent);
   app.component('MenubarItem', MenubarItem);
   app.component('MenubarSeparator', MenubarSeparator);
-
-  // 注册Sonner组件
   app.component('Sonner', Sonner);
-
-  // 注册Modal组件
   app.component('Modal', Modal);
-  // 注册Drawer组件
   app.component('Drawer', Drawer);
 
   // 注册ToastPlugin
@@ -119,9 +114,9 @@ const install = (app: any) => {
   }
   app.component('MenubarShortcut', MenubarShortcut);
 };
-
+const ComponentsInstall = { install };
 // 支持 use 方式安装
-export default { install, showModal, showDrawer };
+export default { install, ComponentsInstall, showModal, showDrawer };
 
 export {
   Input,

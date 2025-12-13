@@ -16,10 +16,14 @@
         <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
       </BreadcrumbItem>
     </Breadcrumb>
-    
+
     <div class="debug-info">
       <h4>Debug Information</h4>
-      <div class="element-styles" v-for="(element, index) in debugElements" :key="index">
+      <div
+        class="element-styles"
+        v-for="(element, index) in debugElements"
+        :key="index"
+      >
         <h5>{{ element.name }}</h5>
         <pre>{{ JSON.stringify(element.styles, null, 2) }}</pre>
       </div>
@@ -41,18 +45,36 @@ const debugElements = ref([]);
 onMounted(() => {
   // 获取所有面包屑相关元素
   const elements = [
-    { name: 'Breadcrumb', selector: '.x-breadcrumb' },
-    { name: 'BreadcrumbItem (Home)', selector: '.x-breadcrumb-item:first-child' },
-    { name: 'BreadcrumbLink (Home)', selector: '.x-breadcrumb-item:first-child .x-breadcrumb-link' },
-    { name: 'Icon (Home)', selector: '.x-breadcrumb-item:first-child .x-icon' },
-    { name: 'BreadcrumbSeparator', selector: '.x-breadcrumb-separator' },
-    { name: 'BreadcrumbSeparatorIcon', selector: '.x-breadcrumb-separator-icon' },
-    { name: 'BreadcrumbItem (Components)', selector: '.x-breadcrumb-item:nth-child(3)' },
-    { name: 'BreadcrumbLink (Components)', selector: '.x-breadcrumb-item:nth-child(3) .x-breadcrumb-link' },
-    { name: 'BreadcrumbItem (Breadcrumb)', selector: '.x-breadcrumb-item:last-child' },
-    { name: 'BreadcrumbPage (Breadcrumb)', selector: '.x-breadcrumb-page' },
+    { name: 'Breadcrumb', selector: '.z-breadcrumb' },
+    {
+      name: 'BreadcrumbItem (Home)',
+      selector: '.z-breadcrumb-item:first-child',
+    },
+    {
+      name: 'BreadcrumbLink (Home)',
+      selector: '.z-breadcrumb-item:first-child .z-breadcrumb-link',
+    },
+    { name: 'Icon (Home)', selector: '.z-breadcrumb-item:first-child .z-icon' },
+    { name: 'BreadcrumbSeparator', selector: '.z-breadcrumb-separator' },
+    {
+      name: 'BreadcrumbSeparatorIcon',
+      selector: '.z-breadcrumb-separator-icon',
+    },
+    {
+      name: 'BreadcrumbItem (Components)',
+      selector: '.z-breadcrumb-item:nth-child(3)',
+    },
+    {
+      name: 'BreadcrumbLink (Components)',
+      selector: '.z-breadcrumb-item:nth-child(3) .z-breadcrumb-link',
+    },
+    {
+      name: 'BreadcrumbItem (Breadcrumb)',
+      selector: '.z-breadcrumb-item:last-child',
+    },
+    { name: 'BreadcrumbPage (Breadcrumb)', selector: '.z-breadcrumb-page' },
   ];
-  
+
   // 获取每个元素的计算样式
   debugElements.value = elements.map(element => {
     const el = document.querySelector(element.selector);
@@ -73,12 +95,12 @@ onMounted(() => {
           boxSizing: styles.boxSizing,
           verticalAlign: styles.verticalAlign,
           color: styles.color,
-        }
+        },
       };
     }
     return {
       name: element.name,
-      styles: 'Element not found'
+      styles: 'Element not found',
     };
   });
 });

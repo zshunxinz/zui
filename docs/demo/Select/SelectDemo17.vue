@@ -276,7 +276,7 @@ const testMultipleInput = async () => {
   }
 
   const inputElement =
-    multipleSelectRef.value.$el?.querySelector('.x-select__input');
+    multipleSelectRef.value.$el?.querySelector('.z-select__input');
 
   if (!inputElement) {
     console.error('❌ 找不到输入框元素');
@@ -361,7 +361,7 @@ const diagnoseMultipleTags = () => {
   }
 
   const selectEl = multipleSelectRef.value.$el;
-  const tagElements = selectEl?.querySelectorAll('.x-select__tag');
+  const tagElements = selectEl?.querySelectorAll('.z-select__tag');
 
   console.log('🔍 1. 基本信息:');
   console.log('  - 选中值:', multipleValue.value);
@@ -371,7 +371,7 @@ const diagnoseMultipleTags = () => {
   if (tagElements && tagElements.length > 0) {
     console.log('🔍 2. DOM 标签内容:');
     Array.from(tagElements).forEach((tag, index) => {
-      const textElement = tag.querySelector('.x-select__tag-text');
+      const textElement = tag.querySelector('.z-select__tag-text');
       const displayText = textElement ? textElement.textContent : '未知';
       console.log(`  ${index}: "${displayText}"`);
     });
@@ -382,7 +382,7 @@ const diagnoseMultipleTags = () => {
     const expectedLabel = getExpectedLabel(value);
     const tagElement = tagElements?.[index];
     const actualLabel = tagElement?.querySelector(
-      '.x-select__tag-text'
+      '.z-select__tag-text'
     )?.textContent;
     return actualLabel !== expectedLabel;
   });

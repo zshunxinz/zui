@@ -1,16 +1,16 @@
 <template>
   <div
-    class="x-card"
+    class="z-card"
     :class="[
       cardTypeClass,
       cardSizeClass,
       layoutClass,
       {
-        'x-card--shadow': shadow,
-        'x-card--border': border,
-        'x-card--no-radius': borderRadius === 0,
-        'x-card--disabled': disabled,
-        'x-card--hover': hoverable,
+        'z-card--shadow': shadow,
+        'z-card--border': border,
+        'z-card--no-radius': borderRadius === 0,
+        'z-card--disabled': disabled,
+        'z-card--hover': hoverable,
       },
     ]"
     :style="{
@@ -152,7 +152,7 @@ interface Props {
   height?: string | number;
   /**
    * 卡片内边距
-   * @default var(--x-card-padding)
+   * @default var(--z-card-padding)
    */
   padding?: string;
 }
@@ -186,9 +186,9 @@ const emit = defineEmits<Emits>();
 const slots = useSlots();
 const isExpanded = ref(props.defaultOpen);
 
-const cardTypeClass = computed(() => `x-card--${props.type}`);
-const cardSizeClass = computed(() => `x-card--${props.size}`);
-const layoutClass = computed(() => `x-card--${props.layout}`);
+const cardTypeClass = computed(() => `z-card--${props.type}`);
+const cardSizeClass = computed(() => `z-card--${props.size}`);
+const layoutClass = computed(() => `z-card--${props.layout}`);
 
 const showHeader = computed(() => {
   // console.log(slots.header!==undefined);
@@ -211,7 +211,7 @@ const toggleCollapse = () => {
 </script>
 
 <style scoped>
-.x-card {
+.z-card {
   background-color: var(--color-background);
   border: 1px solid var(--color-border-1);
   border-radius: var(--border-radius-0);
@@ -223,32 +223,32 @@ const toggleCollapse = () => {
 }
 
 /* 悬浮样式 */
-.x-card--hover:hover {
+.z-card--hover:hover {
   box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.12);
   transform: translateY(-2px);
 }
 
 /* 无边框样式 */
-.x-card:not(.x-card--border) {
+.z-card:not(.z-card--border) {
   border: none;
 }
 
 /* 布局变体 */
-.x-card--default {
+.z-card--default {
   /* 默认布局 */
 }
 
-.x-card--flexible {
+.z-card--flexible {
   flex: 1;
   min-height: 0;
 }
 
-.x-card--tight {
+.z-card--tight {
   padding: 0;
 }
 
 /* 右上角插槽样式 */
-.x-card__top-right {
+.z-card__top-right {
   position: absolute;
   top: 12px;
   right: 12px;
@@ -256,18 +256,18 @@ const toggleCollapse = () => {
 }
 
 /* 骨架屏样式 */
-.x-card__skeleton {
+.z-card__skeleton {
   padding: 0;
 }
 
-.x-card__skeleton-image {
+.z-card__skeleton-image {
   height: 160px;
   background: var(--skeleton-1);
   background-size: 200% 100%;
   animation: xCardSkeletonLoading 1.5s infinite;
 }
 
-.x-card__skeleton-title {
+.z-card__skeleton-title {
   height: 20px;
   margin: 16px 16px 8px;
   background: var(--skeleton-1);
@@ -277,7 +277,7 @@ const toggleCollapse = () => {
   width: 60%;
 }
 
-.x-card__skeleton-content {
+.z-card__skeleton-content {
   height: 16px;
   margin: 8px 16px;
   background: linear-gradient(
@@ -293,18 +293,18 @@ const toggleCollapse = () => {
   width: 80%;
 }
 
-.x-card__skeleton-content + .x-card__skeleton-content {
+.z-card__skeleton-content + .z-card__skeleton-content {
   width: 90%;
 }
 
-.x-card__skeleton-actions {
+.z-card__skeleton-actions {
   display: flex;
   gap: 8px;
   /* margin: 16px; */
 }
 
-.x-card__skeleton-actions::before,
-.x-card__skeleton-actions::after {
+.z-card__skeleton-actions::before,
+.z-card__skeleton-actions::after {
   content: '';
   height: 32px;
   /* background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); */
@@ -315,11 +315,11 @@ const toggleCollapse = () => {
   border-radius: var(--border-radius);
 }
 
-.x-card__skeleton-actions::before {
+.z-card__skeleton-actions::before {
   width: 80px;
 }
 
-.x-card__skeleton-actions::after {
+.z-card__skeleton-actions::after {
   width: 60px;
 }
 
@@ -334,61 +334,61 @@ const toggleCollapse = () => {
 }
 
 /* 类型变体 */
-.x-card--default {
+.z-card--default {
   border-color: var(--color-border);
 }
 
-.x-card--primary {
+.z-card--primary {
   border-color: var(--color-primary);
 }
 
-.x-card--success {
+.z-card--success {
   border-color: var(--color-success);
 }
 
-.x-card--warning {
+.z-card--warning {
   border-color: var(--color-warning);
 }
 
-.x-card--danger {
+.z-card--danger {
   border-color: var(--color-danger);
 }
 
-.x-card--info {
+.z-card--info {
   border-color: var(--color-info);
 }
 
 /* 尺寸变体 */
-.x-card--small {
+.z-card--small {
   font-size: var(--font-size-0);
 }
 
-.x-card--large {
+.z-card--large {
   font-size: var(--font-size-2);
 }
 
 /* 样式变体 */
-.x-card--shadow {
+.z-card--shadow {
   /* box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.08); */
   box-shadow: var(--box-shadow-1);
 }
 
-.x-card--border {
+.z-card--border {
   border: 1px solid var(--color-border-1);
 }
 
-.x-card--no-radius {
+.z-card--no-radius {
   border-radius: 0;
 }
 
-.x-card--disabled {
+.z-card--disabled {
   opacity: 0.6;
   cursor: not-allowed;
   pointer-events: none;
 }
 
 /* 头部样式 */
-.x-card__header {
+.z-card__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -397,25 +397,25 @@ const toggleCollapse = () => {
   box-sizing: border-box;
 }
 
-.x-card--small .x-card__header {
+.z-card--small .z-card__header {
   padding: var(--padding-1);
   height: var(--height-1);
 }
 
-.x-card--large .x-card__header {
+.z-card--large .z-card__header {
   padding: var(--padding-3);
   height: var(--height-3);
 }
 
-.x-card__header--with-border {
+.z-card__header--with-border {
   border-bottom: 1px solid var(--color-border-1);
 }
 
-.x-card__header-content {
+.z-card__header-content {
   flex: 1;
 }
 
-.x-card__title {
+.z-card__title {
   margin: 0;
   font-size: var(--font-size-1);
   font-weight: 500;
@@ -423,19 +423,19 @@ const toggleCollapse = () => {
   /* line-height: 1.5; */
 }
 
-.x-card--small .x-card__title {
+.z-card--small .z-card__title {
   font-size: var(--font-size-0);
 }
 
-.x-card--large .x-card__title {
+.z-card--large .z-card__title {
   font-size: var(--font-size-2);
 }
 
-.x-card__header-extra {
+.z-card__header-extra {
   margin-left: 16px;
 }
 
-.x-card__collapse-btn {
+.z-card__collapse-btn {
   background: none;
   border: none;
   color: var(--color-text-muted);
@@ -448,40 +448,40 @@ const toggleCollapse = () => {
   transition: all 0.3s ease;
 }
 
-.x-card__collapse-btn:hover {
+.z-card__collapse-btn:hover {
   background-color: var(--color-bg-hover);
   color: var(--color-text);
 }
 
-.x-card__collapse-icon {
+.z-card__collapse-icon {
   transition: transform 0.3s ease;
 }
 
 /* 内容样式 */
 :root {
-  --x-card-padding: var(--padding-1);
+  --z-card-padding: var(--padding-1);
 }
 
-.x-card__body {
+.z-card__body {
   font-size: var(--font-size-1);
-  padding: var(--x-card-padding, 0px);
+  padding: var(--z-card-padding, 0px);
   box-sizing: border-box;
 }
 
-.x-card--small .x-card__body {
+.z-card--small .z-card__body {
   padding: var(--padding-1);
 }
 
-.x-card--default .x-card__body {
+.z-card--default .z-card__body {
   padding: var(--padding-2);
 }
 
-.x-card--large .x-card__body {
+.z-card--large .z-card__body {
   padding: var(--padding-2);
 }
 
 /* 底部样式 */
-.x-card__footer {
+.z-card__footer {
   padding: 16px 20px;
   border-top: 1px solid var(--color-border-1);
   display: flex;
@@ -490,32 +490,32 @@ const toggleCollapse = () => {
   gap: 12px;
 }
 
-.x-card__footer-left {
+.z-card__footer-left {
   display: flex;
   align-items: center;
 }
 
-.x-card__footer-center {
+.z-card__footer-center {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.x-card__footer-right {
+.z-card__footer-right {
   display: flex;
   align-items: center;
 }
 
-.x-card--small .x-card__footer {
+.z-card--small .z-card__footer {
   padding: 12px 16px;
 }
 
-.x-card--large .x-card__footer {
+.z-card--large .z-card__footer {
   padding: 20px 24px;
 }
 
-.x-card__footer--with-border {
+.z-card__footer--with-border {
   border-top: 1px solid var(--color-border-1);
 }
 </style>

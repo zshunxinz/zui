@@ -334,12 +334,9 @@ const handleClose = () => {
     emit('close', false);
 
     // 动画完成后隐藏组件
-    setTimeout(
-      () => {
-        isClosing.value = false;
-      },
-      Math.max(props.transitionDuration, props.maskTransitionDuration)
-    );
+    setTimeout(() => {
+      isClosing.value = false;
+    }, Math.max(props.transitionDuration, props.maskTransitionDuration));
   }
 };
 
@@ -400,7 +397,7 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.x-modal__overlay {
+.z-modal__overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -415,20 +412,20 @@ onUnmounted(() => {
 }
 
 /* 遮罩进入动画 */
-.x-modal__overlay--entering {
+.z-modal__overlay--entering {
   opacity: 1;
 }
 
 /* 遮罩离开动画 */
-.x-modal__overlay--leaving {
+.z-modal__overlay--leaving {
   opacity: 0;
 }
 
-.x-modal--fullscreen + .x-modal__overlay {
+.z-modal--fullscreen + .z-modal__overlay {
   padding: 0;
 }
 
-.x-modal {
+.z-modal {
   background-color: var(--color-background);
   border: 1px solid var(--color-border-1);
   border-radius: var(--border-radius);
@@ -452,100 +449,100 @@ onUnmounted(() => {
 }
 
 /* 基础动画进入状态 */
-.x-modal--entering {
+.z-modal--entering {
   opacity: 1;
   visibility: visible;
 }
 
 /* 基础动画离开状态 */
-.x-modal--leaving {
+.z-modal--leaving {
   opacity: 0;
   visibility: hidden;
 }
 
 /* 缩放动画 */
-.x-modal--entering {
+.z-modal--entering {
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* 缩放动画 */
-.x-modal--entering.animation--zoom {
+.z-modal--entering.animation--zoom {
   animation-name: zoomIn;
 }
 
-.x-modal--leaving.animation--zoom {
+.z-modal--leaving.animation--zoom {
   animation-name: zoomOut;
 }
 
 /* 滑动动画 - 顶部位置 */
-.x-modal--top.x-modal--entering.animation--slide {
+.z-modal--top.z-modal--entering.animation--slide {
   animation-name: slideDown;
 }
 
-.x-modal--top.x-modal--leaving.animation--slide {
+.z-modal--top.z-modal--leaving.animation--slide {
   animation-name: slideUp;
 }
 
 /* 滑动动画 - 底部位置 */
-.x-modal--bottom.x-modal--entering.animation--slide {
+.z-modal--bottom.z-modal--entering.animation--slide {
   animation-name: slideUpFromBottom;
 }
 
-.x-modal--bottom.x-modal--leaving.animation--slide {
+.z-modal--bottom.z-modal--leaving.animation--slide {
   animation-name: slideDownToBottom;
 }
 
 /* 滑动动画 - 左侧位置 */
-.x-modal--left.x-modal--entering.animation--slide {
+.z-modal--left.z-modal--entering.animation--slide {
   animation-name: slideRightFromLeft;
 }
 
-.x-modal--left.x-modal--leaving.animation--slide {
+.z-modal--left.z-modal--leaving.animation--slide {
   animation-name: slideLeftToLeft;
 }
 
 /* 滑动动画 - 右侧位置 */
-.x-modal--right.x-modal--entering.animation--slide {
+.z-modal--right.z-modal--entering.animation--slide {
   animation-name: slideLeftFromRight;
 }
 
-.x-modal--right.x-modal--leaving.animation--slide {
+.z-modal--right.z-modal--leaving.animation--slide {
   animation-name: slideRightToRight;
 }
 
 /* 滑动动画 - 中心位置 */
-.x-modal--center.x-modal--entering.animation--slide {
+.z-modal--center.z-modal--entering.animation--slide {
   animation-name: slideUp;
 }
 
-.x-modal--center.x-modal--leaving.animation--slide {
+.z-modal--center.z-modal--leaving.animation--slide {
   animation-name: slideDown;
 }
 
 /* 弹跳动画 */
-.x-modal--entering.animation--bounce {
+.z-modal--entering.animation--bounce {
   animation-name: bounceIn;
 }
 
-.x-modal--leaving.animation--bounce {
+.z-modal--leaving.animation--bounce {
   animation-name: bounceOut;
 }
 
 /* 淡入淡出动画 */
-.x-modal--entering.animation--fade {
+.z-modal--entering.animation--fade {
   animation-name: fadeIn;
 }
 
-.x-modal--leaving.animation--fade {
+.z-modal--leaving.animation--fade {
   animation-name: fadeOut;
 }
 
 /* 自定义位置动画 */
-.x-modal--absolute.x-modal--entering {
+.z-modal--absolute.z-modal--entering {
   animation-name: fadeInUp;
 }
 
-.x-modal--absolute.x-modal--leaving {
+.z-modal--absolute.z-modal--leaving {
   animation-name: fadeOutDown;
 }
 
@@ -776,7 +773,7 @@ onUnmounted(() => {
 }
 
 /* 自定义位置样式 */
-.x-modal--absolute {
+.z-modal--absolute {
   /* 移除默认的居中定位，由内联样式控制 */
   top: auto;
   right: auto;
@@ -786,7 +783,7 @@ onUnmounted(() => {
 }
 
 /* 头部样式 */
-.x-modal__header {
+.z-modal__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -796,7 +793,7 @@ onUnmounted(() => {
   box-sizing: border-box;
 }
 
-.x-modal__title {
+.z-modal__title {
   margin: 0;
   font-size: var(--font-size-2);
   font-weight: var(--font-weight-2);
@@ -804,7 +801,7 @@ onUnmounted(() => {
   line-height: 1.5;
 }
 
-.x-modal__close-btn {
+.z-modal__close-btn {
   background: none;
   border: none;
   padding: var(--padding-1);
@@ -819,18 +816,18 @@ onUnmounted(() => {
   transition: all 0.2s ease;
 }
 
-.x-modal__close-btn:hover {
+.z-modal__close-btn:hover {
   background-color: var(--color-bg-hover);
   color: var(--color-text-1);
 }
 
-.x-modal__close-icon {
+.z-modal__close-icon {
   font-size: 20px;
   line-height: 1;
 }
 
 /* 内容样式 */
-.x-modal__body {
+.z-modal__body {
   flex: 1;
   padding: var(--padding-2);
   background-color: var(--color-background);
@@ -840,7 +837,7 @@ onUnmounted(() => {
 }
 
 /* 底部样式 */
-.x-modal__footer {
+.z-modal__footer {
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -849,29 +846,29 @@ onUnmounted(() => {
   gap: var(--space-2);
 }
 
-.x-modal__footer-buttons {
+.z-modal__footer-buttons {
   display: flex;
   gap: var(--space-2);
 }
 
 /* 尺寸变体 */
-.x-modal--sm {
+.z-modal--sm {
   width: 400px;
 }
 
-.x-modal--md {
+.z-modal--md {
   width: 600px;
 }
 
-.x-modal--lg {
+.z-modal--lg {
   width: 800px;
 }
 
-.x-modal--xl {
+.z-modal--xl {
   width: 1000px;
 }
 
-.x-modal--fullscreen {
+.z-modal--fullscreen {
   width: 100%;
   height: 100%;
   max-width: none;
@@ -883,29 +880,29 @@ onUnmounted(() => {
 }
 
 /* 全屏模式下内容区域样式优化 */
-.x-modal--fullscreen .x-modal__body {
+.z-modal--fullscreen .z-modal__body {
   max-height: none;
   height: 100%;
   flex: 1;
 }
 
 /* 位置变体 */
-.x-modal--center {
-  /* 已经在.x-modal类中设置了绝对居中 */
+.z-modal--center {
+  /* 已经在.z-modal类中设置了绝对居中 */
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-.x-modal--top {
+.z-modal--top {
   align-self: center;
   margin-top: var(--padding-1);
   top: 0;
   transform: translateX(-50%);
 }
 
-.x-modal--bottom {
+.z-modal--bottom {
   align-self: center;
   margin-bottom: var(--padding-1);
   top: auto;
@@ -913,7 +910,7 @@ onUnmounted(() => {
   transform: translateX(-50%);
 }
 
-.x-modal--left {
+.z-modal--left {
   align-self: flex-start;
   height: calc(100vh - var(--padding-1) * 2);
   max-height: calc(100vh - var(--padding-1) * 2);
@@ -921,7 +918,7 @@ onUnmounted(() => {
   transform: translateY(-50%);
 }
 
-.x-modal--right {
+.z-modal--right {
   align-self: flex-end;
   height: calc(100vh - var(--padding-1) * 2);
   max-height: calc(100vh - var(--padding-1) * 2);
@@ -931,27 +928,27 @@ onUnmounted(() => {
 }
 
 /* 特殊状态 */
-.x-modal--no-header .x-modal__body {
+.z-modal--no-header .z-modal__body {
   padding-top: var(--padding-1);
 }
 
-.x-modal--no-footer .x-modal__body {
+.z-modal--no-footer .z-modal__body {
   padding-bottom: var(--padding-1);
 }
 
 /* 暗色模式适配 */
-.dark .x-modal {
+.dark .z-modal {
   background-color: var(--color-background);
   border-color: var(--color-border-1);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
-.dark .x-modal__header,
-.dark .x-modal__footer {
+.dark .z-modal__header,
+.dark .z-modal__footer {
   border-color: var(--color-border-1);
 }
 
-.dark .x-modal__close-btn:hover {
+.dark .z-modal__close-btn:hover {
   background-color: var(--color-bg-hover);
 }
 </style>

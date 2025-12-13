@@ -1,5 +1,5 @@
 <template>
-  <span class="x-breadcrumb-page">
+  <span class="z-breadcrumb-page">
     <slot />
   </span>
 </template>
@@ -9,7 +9,7 @@
 </script>
 
 <style scoped>
-.x-breadcrumb-page {
+.z-breadcrumb-page {
   color: var(--color-text);
   font-weight: 500;
   pointer-events: none;

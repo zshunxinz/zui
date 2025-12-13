@@ -1,5 +1,5 @@
 <template>
-  <div class="x-breadcrumb-item">
+  <div class="z-breadcrumb-item">
     <slot />
   </div>
 </template>
@@ -9,7 +9,7 @@
 </script>
 
 <style scoped>
-.x-breadcrumb-item {
+.z-breadcrumb-item {
   /* display: flex; */
   /* align-items: center; */
   /* height: 20px; */

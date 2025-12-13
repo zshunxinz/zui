@@ -1,7 +1,7 @@
 import DefaultTheme from 'vitepress/theme';
-import zui, { showModal, showDrawer } from '../../../src/install';
+import zui, { showModal, showDrawer } from '../../../';
 import '../../../src/styles/variables.css';
-import '../../../src/style.css';
+import './style.css';
 import '../../../src/styles/theme.css';
 import './style.css';
 import Demo from './Demo.vue';

@@ -1,4 +1,4 @@
-.x-select {
+.z-select {
   position: relative;
   display: inline-block;
   /* width: var(--width-1); */
@@ -8,7 +8,7 @@
   cursor: pointer;
 }
 
-.x-select__wrapper {
+.z-select__wrapper {
   position: relative;
   display: flex;
   align-items: center;
@@ -27,92 +27,92 @@
 }
 
 /* 多选模式下确保箭头始终在右侧 */
-.x-select.is-multiple .x-select__wrapper {
+.z-select.is-multiple .z-select__wrapper {
   justify-content: end;
 }
 
-.x-select__wrapper:focus {
+.z-select__wrapper:focus {
   border: 1px solid;
 }
 
-.x-select__wrapper:focus {
+.z-select__wrapper:focus {
   border-color: var(--color-default-hover);
 }
 
 /* 主题颜色样式 */
-.x-select--default .x-select__wrapper {
+.z-select--default .z-select__wrapper {
   border-color: var(--color-border-1);
 }
 
-.x-select--default .x-select__wrapper:hover {
+.z-select--default .z-select__wrapper:hover {
   border-color: var(--color-default-hover);
 }
 
-.x-select--default .x-select__wrapper:focus {
+.z-select--default .z-select__wrapper:focus {
   border-color: var(--color-default-hover);
 }
 
-.x-select--primary .x-select__wrapper {
+.z-select--primary .z-select__wrapper {
   border-color: var(--color-primary);
 }
 
-.x-select--primary .x-select__wrapper:hover {
+.z-select--primary .z-select__wrapper:hover {
   border-color: var(--color-primary-hover);
 }
 
-.x-select--success .x-select__wrapper {
+.z-select--success .z-select__wrapper {
   border-color: var(--color-success);
 }
 
-.x-select--success .x-select__wrapper:hover {
+.z-select--success .z-select__wrapper:hover {
   border-color: var(--color-success-hover);
 }
 
-.x-select--warning .x-select__wrapper {
+.z-select--warning .z-select__wrapper {
   border-color: var(--color-warning);
 }
 
-.x-select--warning .x-select__wrapper:hover {
+.z-select--warning .z-select__wrapper:hover {
   border-color: var(--color-warning-hover);
 }
 
-.x-select--danger .x-select__wrapper {
+.z-select--danger .z-select__wrapper {
   border-color: var(--color-danger);
 }
 
-.x-select--danger .x-select__wrapper:hover {
+.z-select--danger .z-select__wrapper:hover {
   border-color: var(--color-danger-hover);
 }
 
-.x-select--info .x-select__wrapper {
+.z-select--info .z-select__wrapper {
   border-color: var(--color-info);
 }
 
-.x-select--info .x-select__wrapper:hover {
+.z-select--info .z-select__wrapper:hover {
   border-color: var(--color-info-hover);
 }
 
-.x-select--primary .x-select-dropdown__item.is-selected {
+.z-select--primary .z-select-dropdown__item.is-selected {
   background-color: var(--color-primary);
   color: var(--color-primary-text);
 }
 
-.x-select--success .x-select-dropdown__item.is-selected {
+.z-select--success .z-select-dropdown__item.is-selected {
   background-color: var(--color-success);
   color: var(--color-success-text);
 }
 
-.x-select--warning .x-select-dropdown__item.is-selected {
+.z-select--warning .z-select-dropdown__item.is-selected {
   background-color: var(--color-warning);
   color: var(--color-warning-text);
 }
 
-.x-select--danger .x-select-dropdown__item.is-selected {
+.z-select--danger .z-select-dropdown__item.is-selected {
   background-color: var(--color-danger);
   color: var(--color-danger-text);
 }
 
-.x-select--info .x-select-dropdown__item.is-selected {
+.z-select--info .z-select-dropdown__item.is-selected {
   background-color: var(--color-info);
   color: var(--color-info-text);
 }
@@ -125,7 +125,7 @@
   border-color: var(--color-border-1);
 }
 
-.x-select__tags {
+.z-select__tags {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
@@ -138,12 +138,12 @@
 }
 
 /* 确保在多选模式下内容区域占据剩余空间 */
-.x-select.is-multiple .x-select__tags {
+.z-select.is-multiple .z-select__tags {
   flex: 1;
   min-width: 0;
 }
 
-.x-select__tag {
+.z-select__tag {
   display: flex;
   align-items: center;
   /* justify-content: center; */
@@ -157,53 +157,53 @@
   /* outline: 0.1px solid var(--color-primary); */
 }
 
-.x-select__tag-text {
+.z-select__tag-text {
   height: 14px;
   font-size: var(--font-size-0);
 }
 
-.x-select--default .x-select__tag {
+.z-select--default .z-select__tag {
   background-color: var(--color-default);
   color: var(--color-default-text-1);
 }
 
-.x-select--primary .x-select__tag {
+.z-select--primary .z-select__tag {
   background-color: var(--color-primary);
   color: var(--color-primary-text-1);
 }
 
-.x-select--danger .x-select__tag {
+.z-select--danger .z-select__tag {
   background-color: var(--color-danger);
   color: var(--color-danger-text-1);
 }
 
-.x-select--info .x-select__tag {
+.z-select--info .z-select__tag {
   background-color: var(--color-info);
   color: var(--color-info-text-1);
 }
 
-.x-select--success .x-select__tag {
+.z-select--success .z-select__tag {
   background-color: var(--color-success);
   color: var(--color-success-text-1);
 }
 
-.x-select--warning .x-select__tag {
+.z-select--warning .z-select__tag {
   background-color: var(--color-warning);
   color: var(--color-warning-text-1);
 }
 
-.x-tag--info {
+.z-tag--info {
   /* background-color: var(--color-primary); */
   /* color: var(--color-primary-text-1); */
 }
 
-.x-select__tag-close {
+.z-select__tag-close {
   margin-left: 2px;
   cursor: pointer;
   font-size: 10px;
 }
 
-.x-select__input {
+.z-select__input {
   flex: 1;
   min-width: 50px;
   border: none;
@@ -213,17 +213,17 @@
   font-size: inherit;
 }
 
-.x-select__input::placeholder {
+.z-select__input::placeholder {
   color: var(--color-text-muted);
 }
 
-.x-select__input:disabled {
+.z-select__input:disabled {
   cursor: not-allowed;
   background: transparent;
   color: var(--color-disabled-text-1);
 }
 
-.x-select__selected {
+.z-select__selected {
   flex: 1;
   box-sizing: content-box;
   color: var(--color-text-primary);
@@ -234,16 +234,16 @@
   min-width: 0; /* 确保在空间不足时可以正确收缩 */
 }
 
-.x-select__selected.is-placeholder {
+.z-select__selected.is-placeholder {
   color: var(--color-text-muted);
 }
 
 /* 在可搜索模式下隐藏选中文本 */
-.x-select.is-filterable .x-select__selected {
+.z-select.is-filterable .z-select__selected {
   display: none;
 }
 
-.x-select__clear {
+.z-select__clear {
   /* margin-left: 8px; */
   cursor: pointer;
   /* color: var(--color-text-secondary); */
@@ -252,27 +252,27 @@
   /* line-height: 1; */
 }
 
-.x-select__clear:hover {
+.z-select__clear:hover {
   color: var(--color-text-primary);
 }
 
-.x-select__suffix {
+.z-select__suffix {
   /* margin-left: 8px; */
   /* color: var(--color-text-secondary); */
 }
 
-.x-select__arrow {
+.z-select__arrow {
   height: 50%;
   width: 50%;
 
   transition: transform 0.2s;
 }
 
-.x-select__arrow.is-reverse {
+.z-select__arrow.is-reverse {
   transform: rotate(180deg);
 }
 
-.x-select-dropdown {
+.z-select-dropdown {
   position: absolute;
   /* min-width: var(--width-0); */
   /* max-width: 100%; */
@@ -288,16 +288,16 @@
   background-color: var(--color-background);
 }
 
-.x-select-dropdown__content {
+.z-select-dropdown__content {
   max-height: 280px;
   overflow-y: auto;
 }
 
-.x-select-dropdown__list {
+.z-select-dropdown__list {
   padding: 1px;
 }
 
-.x-select-dropdown__item {
+.z-select-dropdown__item {
   padding: 8px 12px;
   cursor: pointer;
   /* font-size: var(--font-size-1); */
@@ -305,24 +305,24 @@
   transition: background-color 0.2s;
 }
 
-.x-select-dropdown__item:hover,
-.x-select-dropdown__item.is-hover {
+.z-select-dropdown__item:hover,
+.z-select-dropdown__item.is-hover {
   background-color: var(--color-hover-1);
 }
 
-/* .x-select-dropdown__item.is-selected { */
+/* .z-select-dropdown__item.is-selected { */
 /* background-color: var(--color-primary); */
 /* color: var(--color-primary-text); */
 /* } */
 
-.x-select-dropdown__item.is-disabled {
+.z-select-dropdown__item.is-disabled {
   color: #c0c4cc;
   cursor: not-allowed;
   background-color: transparent;
 }
 
-.x-select-dropdown__loading,
-.x-select-dropdown__empty {
+.z-select-dropdown__loading,
+.z-select-dropdown__empty {
   padding: 20px;
   text-align: center;
   color: var(--color-text-secondary);
@@ -330,7 +330,7 @@
 }
 
 /* OptionGroup 样式 */
-.x-option-group__label {
+.z-option-group__label {
   padding: 8px 12px;
   font-size: 12px;
   color: var(--color-text-secondary);
@@ -346,31 +346,31 @@
 }
 
 /* 可折叠分组样式 */
-.x-option-group__label.is-collapsible {
+.z-option-group__label.is-collapsible {
   cursor: pointer;
   user-select: none;
 }
 
-.x-option-group__label.is-collapsible:hover {
+.z-option-group__label.is-collapsible:hover {
   background-color: var(--color-bg-hover-1);
 }
 
 /* 图标位置布局 */
-.x-option-group__label.icon-position--left {
+.z-option-group__label.icon-position--left {
   flex-direction: row;
 }
 
-.x-option-group__label.icon-position--after-text {
+.z-option-group__label.icon-position--after-text {
   flex-direction: row;
   gap: 4px; /* 减小间距，让图标紧贴文字 */
 }
 
-.x-option-group__label.icon-position--right {
+.z-option-group__label.icon-position--right {
   flex-direction: row;
   justify-content: space-between;
 }
 
-.x-option-group__icon {
+.z-option-group__icon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -381,36 +381,36 @@
 }
 
 /* 展开状态的图标旋转 */
-.x-option-group__icon.is-expanded {
+.z-option-group__icon.is-expanded {
   transform: rotate(90deg);
 }
 
-.x-option-group__text {
+.z-option-group__text {
   flex: 1;
   min-width: 0;
 }
 
 /* after-text 位置时，文字不占满整个空间 */
-.x-option-group__label.icon-position--after-text .x-option-group__text {
+.z-option-group__label.icon-position--after-text .z-option-group__text {
   flex: 0 1 auto;
 }
 
 /* 右侧图标时文字不需要 flex: 1 */
-.x-option-group__label.icon-position--right .x-option-group__text {
+.z-option-group__label.icon-position--right .z-option-group__text {
   flex: 0 1 auto;
 }
 
 /* 分组内的选项样式 */
 /* 注释掉此样式，改由 Select 组件的 getOptionStyle 统一处理缩进 */
-/* .x-option-group + .x-select-option,
-.x-option-group__label + .x-select-option {
+/* .z-option-group + .z-select-option,
+.z-option-group__label + .z-select-option {
   margin-left: 12px;
 } */
 
 /* 嵌套选项的缩进 */
 /* 根据需要通过 JavaScript 动态计算 */
 
-.x-select--small .x-select__wrapper {
+.z-select--small .z-select__wrapper {
   min-height: var(--padding-1);
   /* min-height: var(--height-1); */
   /* height: var(--height-1); */
@@ -419,27 +419,27 @@
   height: var(--height-1);
 }
 
-.x-select--medium .x-select__wrapper {
+.z-select--medium .z-select__wrapper {
   min-height: var(--height-2);
   padding: var(--padding-2);
   font-size: var(--font-size-1);
   height: var(--height-2);
 }
 
-.x-select--large .x-select__wrapper {
+.z-select--large .z-select__wrapper {
   min-height: var(--height-3);
   padding: var(--padding-3);
   font-size: var(--font-size-2);
   height: var(--height-3);
 }
 
-.x-select-dropdown-enter-active,
-.x-select-dropdown-leave-active {
+.z-select-dropdown-enter-active,
+.z-select-dropdown-leave-active {
   transition: opacity 0.2s, transform 0.2s;
 }
 
-.x-select-dropdown-enter-from,
-.x-select-dropdown-leave-to {
+.z-select-dropdown-enter-from,
+.z-select-dropdown-leave-to {
   opacity: 0;
   transform: translateY(-10px);
 }

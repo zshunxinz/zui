@@ -47,7 +47,7 @@ const handleMouseLeave = () => {
 </script>
 
 <style scoped>
-.x-dropdown-menu-trigger {
+.z-dropdown-menu-trigger {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;

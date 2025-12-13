@@ -5,12 +5,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed, provide, ref, watch } from "vue";
-import { useModelWrapper } from "./useModelWrapper";
+import { computed, provide, ref, watch } from 'vue';
+import { useModelWrapper } from './useModelWrapper';
 
 const props = defineProps<{
   modelValue?: (string | number | boolean)[];
-  size?: "large" | "medium" | "small" | "mini";
+  size?: 'large' | 'medium' | 'small' | 'mini';
   disabled?: boolean;
   min?: number;
   max?: number;
@@ -19,36 +19,36 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (e: "update:modelValue", value: (string | number | boolean)[]): void;
-  (e: "change", value: (string | number | boolean)[]): void;
+  (e: 'update:modelValue', value: (string | number | boolean)[]): void;
+  (e: 'change', value: (string | number | boolean)[]): void;
 }>();
 
 const { modelValue, handleChange: emitChange } = useModelWrapper(
   props,
   emit,
-  "modelValue",
-  "change"
+  'modelValue',
+  'change'
 );
 
 const sizeClass = computed(() =>
-  props.size ? `x-checkbox-group--${props.size}` : ""
+  props.size ? `x-checkbox-group--${props.size}` : ''
 );
-const disabledClass = computed(() => (props.disabled ? "is-disabled" : ""));
+const disabledClass = computed(() => (props.disabled ? 'is-disabled' : ''));
 const checkboxes = ref<
   { props: any; updateModelValue: (value: any) => void }[]
 >([]);
 
-provide("CheckboxGroup", {
+provide('CheckboxGroup', {
   props,
   modelValue,
   registerCheckbox: (checkbox: any) => checkboxes.value.push(checkbox),
   unregisterCheckbox: (checkbox: any) => {
-    checkboxes.value = checkboxes.value.filter((cb) => cb !== checkbox);
+    checkboxes.value = checkboxes.value.filter(cb => cb !== checkbox);
   },
   handleChange: (value: string | number | boolean) => {
-    console.log("CheckboxGroup handleChange triggered with value:", value);
+    console.log('CheckboxGroup handleChange triggered with value:', value);
     const currentValue = modelValue.value || [];
-    console.log("Current value before change:", currentValue);
+    console.log('Current value before change:', currentValue);
     const isChecked = currentValue.includes(value);
     let newValue;
 
@@ -69,10 +69,10 @@ provide("CheckboxGroup", {
 
 watch(
   () => modelValue.value,
-  (newVal) => {
+  newVal => {
     checkboxes.value
-      .filter((checkbox) => checkbox?.props)
-      .forEach((checkbox) => {
+      .filter(checkbox => checkbox?.props)
+      .forEach(checkbox => {
         const isChecked = newVal?.includes(checkbox.props.label);
         if (checkbox.props.checked !== isChecked) {
           checkbox.updateModelValue(isChecked);
@@ -84,26 +84,26 @@ watch(
 </script>
 
 <style scoped>
-.x-checkbox-group {
+.z-checkbox-group {
   display: inline-flex;
   flex-wrap: wrap;
   gap: 10px;
 }
 
-.x-checkbox-group--medium {
+.z-checkbox-group--medium {
   gap: 10px;
 }
 
-.x-checkbox-group--large {
+.z-checkbox-group--large {
   gap: 12px;
 }
 
-.x-checkbox-group--small,
-.x-checkbox-group--mini {
+.z-checkbox-group--small,
+.z-checkbox-group--mini {
   gap: 6px;
 }
 
-.x-checkbox-group.is-disabled {
+.z-checkbox-group.is-disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }

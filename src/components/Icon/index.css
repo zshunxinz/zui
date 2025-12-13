@@ -1,11 +1,11 @@
-.x-icon {
+.z-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   vertical-align: middle;
 }
 
-.x-icon__svg {
+.z-icon__svg {
   width: 1em;
   height: 1em;
   fill: none;

@@ -442,7 +442,7 @@ onUnmounted(() => {
 
 <style scoped>
 /* 抽屉容器 */
-.x-drawer__container {
+.z-drawer__container {
   position: fixed;
   top: 0;
   left: 0;
@@ -453,22 +453,22 @@ onUnmounted(() => {
 }
 
 /* 容器打开状态 */
-.x-drawer__container--open {
+.z-drawer__container--open {
   pointer-events: auto;
 }
 
 /* 无遮罩时的容器样式 - 不拦截外部点击 */
-.x-drawer__container--open.x-drawer__container--no-mask {
+.z-drawer__container--open.z-drawer__container--no-mask {
   pointer-events: none;
 }
 
 /* 无遮罩时的抽屉样式 - 仅抽屉内容区域接收点击 */
-.x-drawer__container--open.x-drawer__container--no-mask .x-drawer {
+.z-drawer__container--open.z-drawer__container--no-mask .z-drawer {
   pointer-events: auto;
 }
 
 /* 遮罩层 */
-.x-drawer__overlay {
+.z-drawer__overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -481,22 +481,22 @@ onUnmounted(() => {
 }
 
 /* 容器打开时的遮罩层状态 */
-.x-drawer__container--open .x-drawer__overlay {
+.z-drawer__container--open .z-drawer__overlay {
   opacity: 1;
 }
 
 /* 禁用动画时的遮罩层 */
-.x-drawer__container--animated .x-drawer__overlay {
+.z-drawer__container--animated .z-drawer__overlay {
   transition: opacity var(--transition-duration, 200ms)
     cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.x-drawer__container:not(.x-drawer__container--animated) .x-drawer__overlay {
+.z-drawer__container:not(.z-drawer__container--animated) .z-drawer__overlay {
   transition: none;
 }
 
 /* 抽屉内容 */
-.x-drawer {
+.z-drawer {
   background-color: #ffffff;
   border: 1px solid var(--color-border-1);
   box-shadow: var(--box-shadow-1);
@@ -513,61 +513,61 @@ onUnmounted(() => {
 }
 
 /* 容器打开时的抽屉状态 */
-.x-drawer__container--open .x-drawer {
+.z-drawer__container--open .z-drawer {
   opacity: 1;
 }
 
 /* 打开状态下，重置所有位置的transform - 提高优先级 */
-.x-drawer__container--open .x-drawer--left,
-.x-drawer__container--open .x-drawer--right,
-.x-drawer__container--open .x-drawer--top,
-.x-drawer__container--open .x-drawer--bottom,
-.x-drawer__container--open .x-drawer.x-drawer--left,
-.x-drawer__container--open .x-drawer.x-drawer--right,
-.x-drawer__container--open .x-drawer.x-drawer--top,
-.x-drawer__container--open .x-drawer.x-drawer--bottom {
+.z-drawer__container--open .z-drawer--left,
+.z-drawer__container--open .z-drawer--right,
+.z-drawer__container--open .z-drawer--top,
+.z-drawer__container--open .z-drawer--bottom,
+.z-drawer__container--open .z-drawer.z-drawer--left,
+.z-drawer__container--open .z-drawer.z-drawer--right,
+.z-drawer__container--open .z-drawer.z-drawer--top,
+.z-drawer__container--open .z-drawer.z-drawer--bottom {
   transform: translate(0, 0) !important;
 }
 
 /* 打开状态下，重置所有动画类型的transform - 提高优先级 */
-.x-drawer__container--open .x-drawer--animation-scale,
-.x-drawer__container--open .x-drawer--animation-zoom,
-.x-drawer__container--open .x-drawer.x-drawer--animation-scale,
-.x-drawer__container--open .x-drawer.x-drawer--animation-zoom {
+.z-drawer__container--open .z-drawer--animation-scale,
+.z-drawer__container--open .z-drawer--animation-zoom,
+.z-drawer__container--open .z-drawer.z-drawer--animation-scale,
+.z-drawer__container--open .z-drawer.z-drawer--animation-zoom {
   transform: scale(1) !important;
 }
 
 /* 打开状态下，重置所有动画类型+位置组合的transform - 提高优先级 */
-.x-drawer__container--open .x-drawer--animation-scale.x-drawer--left,
-.x-drawer__container--open .x-drawer--animation-scale.x-drawer--right,
-.x-drawer__container--open .x-drawer--animation-scale.x-drawer--top,
-.x-drawer__container--open .x-drawer--animation-scale.x-drawer--bottom,
-.x-drawer__container--open .x-drawer--animation-zoom.x-drawer--left,
-.x-drawer__container--open .x-drawer--animation-zoom.x-drawer--right,
-.x-drawer__container--open .x-drawer--animation-zoom.x-drawer--top,
-.x-drawer__container--open .x-drawer--animation-zoom.x-drawer--bottom,
-.x-drawer__container--open .x-drawer.x-drawer--animation-scale.x-drawer--left,
-.x-drawer__container--open .x-drawer.x-drawer--animation-scale.x-drawer--right,
-.x-drawer__container--open .x-drawer.x-drawer--animation-scale.x-drawer--top,
-.x-drawer__container--open .x-drawer.x-drawer--animation-scale.x-drawer--bottom,
-.x-drawer__container--open .x-drawer.x-drawer--animation-zoom.x-drawer--left,
-.x-drawer__container--open .x-drawer.x-drawer--animation-zoom.x-drawer--right,
-.x-drawer__container--open .x-drawer.x-drawer--animation-zoom.x-drawer--top,
-.x-drawer__container--open .x-drawer.x-drawer--animation-zoom.x-drawer--bottom {
+.z-drawer__container--open .z-drawer--animation-scale.z-drawer--left,
+.z-drawer__container--open .z-drawer--animation-scale.z-drawer--right,
+.z-drawer__container--open .z-drawer--animation-scale.z-drawer--top,
+.z-drawer__container--open .z-drawer--animation-scale.z-drawer--bottom,
+.z-drawer__container--open .z-drawer--animation-zoom.z-drawer--left,
+.z-drawer__container--open .z-drawer--animation-zoom.z-drawer--right,
+.z-drawer__container--open .z-drawer--animation-zoom.z-drawer--top,
+.z-drawer__container--open .z-drawer--animation-zoom.z-drawer--bottom,
+.z-drawer__container--open .z-drawer.z-drawer--animation-scale.z-drawer--left,
+.z-drawer__container--open .z-drawer.z-drawer--animation-scale.z-drawer--right,
+.z-drawer__container--open .z-drawer.z-drawer--animation-scale.z-drawer--top,
+.z-drawer__container--open .z-drawer.z-drawer--animation-scale.z-drawer--bottom,
+.z-drawer__container--open .z-drawer.z-drawer--animation-zoom.z-drawer--left,
+.z-drawer__container--open .z-drawer.z-drawer--animation-zoom.z-drawer--right,
+.z-drawer__container--open .z-drawer.z-drawer--animation-zoom.z-drawer--top,
+.z-drawer__container--open .z-drawer.z-drawer--animation-zoom.z-drawer--bottom {
   transform: translate(0, 0) scale(1) !important;
 }
 
 /* 禁用动画时的抽屉 */
-.x-drawer__container--animated .x-drawer {
+.z-drawer__container--animated .z-drawer {
   transition: all var(--transition-duration, 300ms) cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.x-drawer__container:not(.x-drawer__container--animated) .x-drawer {
+.z-drawer__container:not(.z-drawer__container--animated) .z-drawer {
   transition: none;
 }
 
 /* 头部样式 */
-.x-drawer__header {
+.z-drawer__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -577,7 +577,7 @@ onUnmounted(() => {
   box-sizing: border-box;
 }
 
-.x-drawer__title {
+.z-drawer__title {
   margin: 0;
   font-size: var(--font-size-2);
   font-weight: var(--font-weight-2);
@@ -585,7 +585,7 @@ onUnmounted(() => {
   line-height: 1.5;
 }
 
-.x-drawer__close-btn {
+.z-drawer__close-btn {
   background: none;
   border: none;
   padding: var(--padding-1);
@@ -600,18 +600,18 @@ onUnmounted(() => {
   transition: all 0.2s ease;
 }
 
-.x-drawer__close-btn:hover {
+.z-drawer__close-btn:hover {
   background-color: var(--color-bg-hover);
   color: var(--color-text-1);
 }
 
-.x-drawer__close-icon {
+.z-drawer__close-icon {
   font-size: 20px;
   line-height: 1;
 }
 
 /* 内容样式 */
-.x-drawer__body {
+.z-drawer__body {
   flex: 1;
   padding: var(--padding-2);
   background-color: var(--color-background);
@@ -619,7 +619,7 @@ onUnmounted(() => {
 }
 
 /* 底部样式 */
-.x-drawer__footer {
+.z-drawer__footer {
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -628,66 +628,66 @@ onUnmounted(() => {
   gap: var(--space-2);
 }
 
-.x-drawer__footer-buttons {
+.z-drawer__footer-buttons {
   display: flex;
   gap: var(--space-2);
 }
 
 /* 尺寸变体 */
-.x-drawer--sm {
+.z-drawer--sm {
   width: 320px;
   height: 100%;
 }
 
-.x-drawer--md {
+.z-drawer--md {
   width: 480px;
   height: 100%;
 }
 
-.x-drawer--lg {
+.z-drawer--lg {
   width: 768px;
   height: 100%;
 }
 
 /* 顶部和底部抽屉的尺寸变体 */
-.x-drawer--top.x-drawer--sm,
-.x-drawer--bottom.x-drawer--sm {
+.z-drawer--top.z-drawer--sm,
+.z-drawer--bottom.z-drawer--sm {
   width: 100%;
   height: 256px;
 }
 
-.x-drawer--top.x-drawer--md,
-.x-drawer--bottom.x-drawer--md {
+.z-drawer--top.z-drawer--md,
+.z-drawer--bottom.z-drawer--md {
   width: 100%;
   height: 384px;
 }
 
-.x-drawer--top.x-drawer--lg,
-.x-drawer--bottom.x-drawer--lg {
+.z-drawer--top.z-drawer--lg,
+.z-drawer--bottom.z-drawer--lg {
   width: 100%;
   height: 512px;
 }
 
-.x-drawer--fullscreen {
+.z-drawer--fullscreen {
   width: 100%;
   height: 100%;
   border-radius: 0;
 }
 
 /* 位置变体 - 基础位置设置 */
-.x-drawer--left {
+.z-drawer--left {
   top: 0;
   left: 0;
   transform: translateX(-100%);
 }
 
-.x-drawer--right {
+.z-drawer--right {
   top: 0;
   right: 0;
   transform: translateX(100%);
 }
 
-.x-drawer--top {
+.z-drawer--top {
   top: 0;
   left: 0;
   width: 100%;
@@ -695,7 +695,7 @@ onUnmounted(() => {
   transform: translateY(-100%);
 }
 
-.x-drawer--bottom {
+.z-drawer--bottom {
   bottom: 0;
   left: 0;
   width: 100%;
@@ -704,95 +704,95 @@ onUnmounted(() => {
 }
 
 /* 动画类型 - 滑动动画 */
-.x-drawer--animation-slide.x-drawer--left {
+.z-drawer--animation-slide.z-drawer--left {
   transform: translateX(-100%);
 }
 
-.x-drawer--animation-slide.x-drawer--right {
+.z-drawer--animation-slide.z-drawer--right {
   transform: translateX(100%);
 }
 
-.x-drawer--animation-slide.x-drawer--top {
+.z-drawer--animation-slide.z-drawer--top {
   transform: translateY(-100%);
 }
 
-.x-drawer--animation-slide.x-drawer--bottom {
+.z-drawer--animation-slide.z-drawer--bottom {
   transform: translateY(100%);
 }
 
 /* 动画类型 - 缩放动画 */
-.x-drawer--animation-scale {
+.z-drawer--animation-scale {
   transform: scale(0.8);
 }
 
-.x-drawer--animation-scale.x-drawer--left {
+.z-drawer--animation-scale.z-drawer--left {
   transform: translateX(-100%) scale(0.8);
   transform-origin: left center;
 }
 
-.x-drawer--animation-scale.x-drawer--right {
+.z-drawer--animation-scale.z-drawer--right {
   transform: translateX(100%) scale(0.8);
   transform-origin: right center;
 }
 
-.x-drawer--animation-scale.x-drawer--top {
+.z-drawer--animation-scale.z-drawer--top {
   transform: translateY(-100%) scale(0.8);
   transform-origin: center top;
 }
 
-.x-drawer--animation-scale.x-drawer--bottom {
+.z-drawer--animation-scale.z-drawer--bottom {
   transform: translateY(100%) scale(0.8);
   transform-origin: center bottom;
 }
 
 /* 动画类型 - 缩放+透明度动画 */
-.x-drawer--animation-zoom {
+.z-drawer--animation-zoom {
   transform: scale(0.6);
   opacity: 0;
 }
 
-.x-drawer--animation-zoom.x-drawer--left {
+.z-drawer--animation-zoom.z-drawer--left {
   transform: translateX(-100%) scale(0.6);
   transform-origin: left center;
 }
 
-.x-drawer--animation-zoom.x-drawer--right {
+.z-drawer--animation-zoom.z-drawer--right {
   transform: translateX(100%) scale(0.6);
   transform-origin: right center;
 }
 
-.x-drawer--animation-zoom.x-drawer--top {
+.z-drawer--animation-zoom.z-drawer--top {
   transform: translateY(-100%) scale(0.6);
   transform-origin: center top;
 }
 
-.x-drawer--animation-zoom.x-drawer--bottom {
+.z-drawer--animation-zoom.z-drawer--bottom {
   transform: translateY(100%) scale(0.6);
   transform-origin: center bottom;
 }
 
 /* 特殊状态 */
-.x-drawer--no-header .x-drawer__body {
+.z-drawer--no-header .z-drawer__body {
   padding-top: var(--padding-2);
 }
 
-.x-drawer--no-footer .x-drawer__body {
+.z-drawer--no-footer .z-drawer__body {
   padding-bottom: 0;
 }
 
 /* 暗色模式适配 */
-:root.dark .x-drawer {
+:root.dark .z-drawer {
   background-color: var(--color-background);
   border-color: var(--color-border-1);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
-:root.dark .x-drawer__header,
-:root.dark .x-drawer__footer {
+:root.dark .z-drawer__header,
+:root.dark .z-drawer__footer {
   border-color: var(--color-border-1);
 }
 
-:root.dark .x-drawer__close-btn:hover {
+:root.dark .z-drawer__close-btn:hover {
   background-color: var(--color-bg-hover);
 }
 </style>

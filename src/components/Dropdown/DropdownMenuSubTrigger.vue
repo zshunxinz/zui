@@ -45,7 +45,7 @@ const handleMouseLeave = () => {
 </script>
 
 <style scoped>
-.x-dropdown-menu-sub-trigger {
+.z-dropdown-menu-sub-trigger {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -60,11 +60,11 @@ const handleMouseLeave = () => {
   transition: background-color 0.2s;
 }
 
-.x-dropdown-menu-sub-trigger:hover {
+.z-dropdown-menu-sub-trigger:hover {
   background-color: var(--hover-background-color);
 }
 
-.x-dropdown-menu-sub-trigger-arrow {
+.z-dropdown-menu-sub-trigger-arrow {
   font-size: 10px;
   color: var(--text-color-secondary);
   margin-left: 4px;

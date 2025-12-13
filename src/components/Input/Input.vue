@@ -245,7 +245,7 @@ const handleBlur = e => {
 </script>
 
 <style scoped>
-.x-input {
+.z-input {
   display: inline-flex;
   flex-direction: column;
   width: var(--width-1);
@@ -253,65 +253,65 @@ const handleBlur = e => {
   height: var(--height-2);
 }
 
-.x-input--small {
+.z-input--small {
   height: var(--height-1);
 }
 
-.x-input--medium {
+.z-input--medium {
   height: var(--height-2);
 }
 
-.x-input--large {
+.z-input--large {
   height: var(--height-3);
 }
 
-.x-input--label-left {
+.z-input--label-left {
   flex-direction: row;
   align-items: center;
 }
 
-.x-input--label-left .x-input__label {
+.z-input--label-left .z-input__label {
   margin-bottom: 0;
   margin-right: 8px;
   line-height: 100%;
   white-space: nowrap;
 }
 
-.x-input--label-center {
+.z-input--label-center {
   flex-direction: column;
   align-items: center;
 }
 
-.x-input--label-center .x-input__label {
+.z-input--label-center .z-input__label {
   text-align: center;
   margin-bottom: 4px;
 }
 
-.x-input--label-right {
+.z-input--label-right {
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
 }
 
-.x-input--label-right .x-input__label {
+.z-input--label-right .z-input__label {
   order: 1;
   margin-bottom: 0;
   margin-left: 12px;
   white-space: nowrap;
 }
 
-.x-input--label-right .x-input__wrapper {
+.z-input--label-right .z-input__wrapper {
   order: 0;
 }
 
-.x-input__label {
+.z-input__label {
   display: block;
   margin-bottom: 4px;
   font-size: 14px;
   color: var(--color-text-primary);
 }
 
-.x-input__wrapper {
+.z-input__wrapper {
   position: relative;
   display: inline-flex;
   /* width: 100%; */
@@ -320,7 +320,7 @@ const handleBlur = e => {
   align-items: flex-start;
 }
 
-.x-input__inner {
+.z-input__inner {
   flex: 1;
   /* min-width: 0; */
   /* padding: var(--padding-1); */
@@ -347,7 +347,7 @@ textarea {
   font-family: var(--font-family);
 }
 
-.x-input__prefix {
+.z-input__prefix {
   position: absolute;
   left: 12px;
   top: 50%;
@@ -355,23 +355,23 @@ textarea {
   color: var(--color-text-1);
 }
 
-.x-input__icon {
+.z-input__icon {
   font-size: 16px;
   width: 20px;
   text-align: center;
 }
 
-.x-input__inner:focus {
+.z-input__inner:focus {
   outline: none;
   outline: 1px solid var(--color-default);
 }
 
-.x-input__inner:disabled {
+.z-input__inner:disabled {
   background-color: var(--color-disabled-text);
   cursor: not-allowed;
 }
 
-.x-input__suffix {
+.z-input__suffix {
   position: absolute;
   right: 5px;
   top: 50%;
@@ -384,36 +384,36 @@ textarea {
   color: var(--color-text-1);
 }
 
-.x-input__suffix:hover {
+.z-input__suffix:hover {
   color: var(--color-text-primary);
 }
 
-.x-input__word-limit {
+.z-input__word-limit {
   margin-top: 0px;
   font-size: 12px;
   color: var(--color-text-1);
   text-align: right;
 }
 
-.x-input--small .x-input__inner {
+.z-input--small .z-input__inner {
   padding: var(--padding-1);
   font-size: var(--font-size-0);
   height: var(--height-1);
 }
 
-.x-input--medium .x-input__inner {
+.z-input--medium .z-input__inner {
   padding: var(--padding-2);
   font-size: var(--font-size-1);
   height: var(--height-2);
 }
 
-.x-input--large .x-input__inner {
+.z-input--large .z-input__inner {
   padding: var(--padding-3);
   font-size: var(--font-size-2);
   height: var(--height-3);
 }
 
-.is-disabled .x-input__inner {
+.is-disabled .z-input__inner {
   /* border-color: var(--color-border-1); */
   color: var(--color-text-disabled);
 }

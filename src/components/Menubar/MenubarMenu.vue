@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { provide, inject } from 'vue'
+import { provide, inject } from 'vue';
 import type { MenubarType, MenubarMenuType } from './types';
 
 interface Props {
@@ -16,14 +16,14 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  id: ''
+  id: '',
 });
 
 // 注入父组件提供的数据
-const menubar = inject<MenubarType>('menubar')
+const menubar = inject<MenubarType>('menubar');
 
 if (!menubar) {
-  throw new Error('MenubarMenu must be used within Menubar component')
+  throw new Error('MenubarMenu must be used within Menubar component');
 }
 
 // 使用传入的id或生成一个唯一的id
@@ -32,12 +32,12 @@ const menuId = props.id || `menu-${Math.random().toString(36).substr(2, 9)}`;
 // 提供给子组件的数据
 provide('menubarMenu', {
   menuId,
-  menubar
+  menubar,
 });
 </script>
 
 <style scoped>
-.x-menubar-menu {
+.z-menubar-menu {
   position: relative;
   display: inline-block;
 }

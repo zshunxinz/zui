@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onMounted, onBeforeUnmount } from "vue";
+import { computed, ref, onMounted, onBeforeUnmount } from 'vue';
 
 // 定义间距大小类型
 interface SpaceSize {
@@ -27,17 +27,17 @@ interface SpaceSize {
 
 type SizeType =
   | number
-  | "mini"
-  | "small"
-  | "medium"
-  | "large"
+  | 'mini'
+  | 'small'
+  | 'medium'
+  | 'large'
   | [SizeType, SizeType];
 
 interface Props {
   // 对齐方式
-  align?: "start" | "end" | "center" | "baseline";
+  align?: 'start' | 'end' | 'center' | 'baseline';
   // 间距方向
-  direction?: "vertical" | "horizontal";
+  direction?: 'vertical' | 'horizontal';
   // 间距大小
   size?: SizeType;
   // 环绕类型的间距
@@ -49,20 +49,20 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  direction: "horizontal",
-  size: "small",
+  direction: 'horizontal',
+  size: 'small',
   wrap: false,
   fill: false,
   items: () => [],
-  align: "start",
+  align: 'start',
 });
 
 // 计算间距类名
 const spaceClasses = computed(() => ({
   [`x-space--${props.direction}`]: true,
   [`x-space--align-${props.align}`]: true,
-  "x-space--wrap": props.wrap,
-  "x-space--fill": props.fill,
+  'x-space--wrap': props.wrap,
+  'x-space--fill': props.fill,
 }));
 
 // 计算间距样式
@@ -70,10 +70,10 @@ const spaceStyles = computed(() => {
   const styles: Record<string, string> = {};
   const size = getSizeValue(props.size);
 
-  if (props.direction === "horizontal") {
-    styles["gap"] = `${size}px`;
+  if (props.direction === 'horizontal') {
+    styles['gap'] = `${size}px`;
   } else {
-    styles["gap"] = `${size}px`;
+    styles['gap'] = `${size}px`;
   }
 
   return styles;
@@ -92,74 +92,74 @@ function getSizeValue(size: SizeType): number {
   // 如果是数组类型，根据方向选择对应的大小
   if (Array.isArray(size)) {
     const [horizontal, vertical = horizontal] = size;
-    return props.direction === "horizontal"
+    return props.direction === 'horizontal'
       ? getSizeValue(horizontal)
       : getSizeValue(vertical);
   }
 
   // 如果是字符串类型，从预设中获取
-  if (typeof size === "string") {
-    return sizeMap[size] || sizeMap["small"];
+  if (typeof size === 'string') {
+    return sizeMap[size] || sizeMap['small'];
   }
 
   // 如果是数字类型，直接返回
-  return typeof size === "number" ? size : sizeMap["small"];
+  return typeof size === 'number' ? size : sizeMap['small'];
 }
 </script>
 
 <style scoped>
-.x-space {
+.z-space {
   display: flex;
   box-sizing: border-box;
 }
 
 /* 水平方向 */
-.x-space--horizontal {
+.z-space--horizontal {
   flex-direction: row;
 }
 
 /* 垂直方向 */
-.x-space--vertical {
+.z-space--vertical {
   flex-direction: column;
 }
 
 /* 对齐方式 */
-.x-space--align-start {
+.z-space--align-start {
   align-items: flex-start;
 }
 
-.x-space--align-end {
+.z-space--align-end {
   align-items: flex-end;
 }
 
-.x-space--align-center {
+.z-space--align-center {
   align-items: center;
 }
 
-.x-space--align-baseline {
+.z-space--align-baseline {
   align-items: baseline;
 }
 
 /* 换行 */
-.x-space--wrap {
+.z-space--wrap {
   flex-wrap: wrap;
 }
 
 /* 充满整行 */
-.x-space--fill > .x-space__item {
+.z-space--fill > .z-space__item {
   flex: 1;
   min-width: 0;
 }
 
 /* 分隔符 */
-.x-space__split {
+.z-space__split {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 /* 子项 */
-.x-space__item {
+.z-space__item {
   box-sizing: border-box;
 }
 </style>

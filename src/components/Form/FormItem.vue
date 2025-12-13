@@ -38,12 +38,12 @@
 </template>
 
 <script setup>
-import { inject, computed, watch } from "vue";
+import { inject, computed, watch } from 'vue';
 
 const props = defineProps({
   label: {
     type: String,
-    default: "",
+    default: '',
   },
   prop: {
     type: String,
@@ -63,38 +63,38 @@ const props = defineProps({
   },
   labelWidth: {
     type: String,
-    default: "100px",
+    default: '100px',
   },
   LabelAlignItems: {
     type: String,
-    default: "center",
+    default: 'center',
   },
   LabelJustifyContent: {
     type: String,
-    default: "start",
+    default: 'start',
   },
 });
 
 // 从Form上下文注入数据
-const formContext = inject("formContext", {});
+const formContext = inject('formContext', {});
 
 // 计算属性
 const labelWidthD = computed(() => formContext?.labelWidth || props.labelWidth);
 const disabled = computed(() => formContext?.disabled || false);
 const hasError = computed(() => !!formContext?.errors[props.prop]);
-const errorMessage = computed(() => formContext?.errors[props.prop] || "");
+const errorMessage = computed(() => formContext?.errors[props.prop] || '');
 
 const labelPosition = computed(
-  () => props.labelPosition || formContext?.labelPosition || "left"
+  () => props.labelPosition || formContext?.labelPosition || 'left'
 );
 const labelTextAlign = computed(
-  () => props.labelTextAlign || formContext?.labelTextAlign || "left"
+  () => props.labelTextAlign || formContext?.labelTextAlign || 'left'
 );
 const labelAlignItems = computed(
-  () => props.labelAlignItems || formContext?.labelAlignItems || "center"
+  () => props.labelAlignItems || formContext?.labelAlignItems || 'center'
 );
 const labelJustifyContent = computed(
-  () => props.labelJustifyContent || formContext?.labelJustifyContent || "start"
+  () => props.labelJustifyContent || formContext?.labelJustifyContent || 'start'
 );
 
 // 监听表单字段变化，触发验证
@@ -108,7 +108,7 @@ watch(
 </script>
 
 <style scoped>
-.x-form-item {
+.z-form-item {
   display: flex;
   align-items: flex-start;
   margin-bottom: var(--space-3);
@@ -116,7 +116,7 @@ watch(
   width: 100%;
 }
 
-.x-form-item__label {
+.z-form-item__label {
   /* overflow: hidden; */
   /* padding: 8px 12px 8px 0; */
   /* font-size: var(--font-size-1);
@@ -132,64 +132,64 @@ watch(
   /* line-height: var(--height-1); */
 }
 
-.x-form-item__content {
+.z-form-item__content {
   flex: 1;
   margin: 0px;
 }
 
-.x-form-item--label-top-left,
-.x-form-item--label-top-right {
+.z-form-item--label-top-left,
+.z-form-item--label-top-right {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
 
-.x-form-item--label-right {
+.z-form-item--label-right {
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
   flex-direction: row-reverse;
 }
 
-.x-form-item--label-right .x-form-item__label {
+.z-form-item--label-right .z-form-item__label {
   padding: 8px 0 8px 12px;
 }
 
-.x-form-item--label-top-left .x-form-item__label,
-.x-form-item--label-top-right .x-form-item__label {
+.z-form-item--label-top-left .z-form-item__label,
+.z-form-item--label-top-right .z-form-item__label {
   padding: 8px 0;
   margin-bottom: var(--space-1);
   width: 100% !important;
 }
 
-.x-form-item--label-top-left .x-form-item__content,
-.x-form-item--label-top-right .x-form-item__content {
+.z-form-item--label-top-left .z-form-item__content,
+.z-form-item--label-top-right .z-form-item__content {
   flex: 1;
   width: 100%;
   margin: 0px;
 }
-.x-form-item--label-top-right .x-form-item__label {
+.z-form-item--label-top-right .z-form-item__label {
   text-align: right;
 }
 
-.x-form-item__content--label-right {
+.z-form-item__content--label-right {
   margin-left: 0 !important;
   margin-right: 12px;
 }
 
-.x-form-item__error {
+.z-form-item__error {
   margin-top: 4px;
   font-size: 12px;
   color: var(--color-danger);
 }
 
-.x-form-item--required .x-form-item__label::before {
-  content: "*";
+.z-form-item--required .z-form-item__label::before {
+  content: '*';
   color: var(--color-danger);
   margin-right: 4px;
 }
 
-.x-form-item--disabled .x-form-item__label {
+.z-form-item--disabled .z-form-item__label {
   color: var(--color-text-disabled);
 }
 </style>

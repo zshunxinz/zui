@@ -1,9 +1,9 @@
 <template>
   <button
-    class="x-accordion-trigger"
+    class="z-accordion-trigger"
     :class="{
-      'x-accordion-trigger--expanded': isExpanded,
-      'x-accordion-trigger--disabled': disabled
+      'z-accordion-trigger--expanded': isExpanded,
+      'z-accordion-trigger--disabled': disabled,
     }"
     type="button"
     @click="toggle"
@@ -11,18 +11,18 @@
     aria-controls="accordion-content-${value}"
   >
     <slot></slot>
-    <span class="x-accordion-trigger__icon">
-      <svg 
-        xmlns="http://www.w3.org/2000/svg" 
-        width="16" 
-        height="16" 
-        viewBox="0 0 24 24" 
-        fill="none" 
-        stroke="currentColor" 
-        stroke-width="2" 
-        stroke-linecap="round" 
+    <span class="z-accordion-trigger__icon">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
         stroke-linejoin="round"
-        class="x-accordion-trigger__svg"
+        class="z-accordion-trigger__svg"
       >
         <path d="M6 9l6 6 6-6" />
       </svg>
@@ -31,20 +31,22 @@
 </template>
 
 <script setup lang="ts">
-import { inject } from 'vue'
+import { inject } from 'vue';
 
 // 注入父组件提供的数据
-const accordionItem = inject('accordionItem')
+const accordionItem = inject('accordionItem');
 
 if (!accordionItem) {
-  throw new Error('AccordionTrigger must be used within AccordionItem component')
+  throw new Error(
+    'AccordionTrigger must be used within AccordionItem component'
+  );
 }
 
-const { value, disabled, isExpanded, toggle } = accordionItem
+const { value, disabled, isExpanded, toggle } = accordionItem;
 </script>
 
 <style scoped>
-.x-accordion-trigger {
+.z-accordion-trigger {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -59,20 +61,20 @@ const { value, disabled, isExpanded, toggle } = accordionItem
   transition: all 0.2s ease;
 }
 
-.x-accordion-trigger:hover:not(.x-accordion-trigger--disabled) {
+.z-accordion-trigger:hover:not(.z-accordion-trigger--disabled) {
   background-color: var(--color-bg-hover);
 }
 
-.x-accordion-trigger--expanded {
+.z-accordion-trigger--expanded {
   background-color: var(--color-bg-hover);
 }
 
-.x-accordion-trigger--disabled {
+.z-accordion-trigger--disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
-.x-accordion-trigger__icon {
+.z-accordion-trigger__icon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -80,12 +82,12 @@ const { value, disabled, isExpanded, toggle } = accordionItem
   color: var(--color-text-muted);
 }
 
-.x-accordion-trigger--expanded .x-accordion-trigger__icon {
+.z-accordion-trigger--expanded .z-accordion-trigger__icon {
   transform: rotate(180deg);
   color: var(--color-text);
 }
 
-.x-accordion-trigger__svg {
+.z-accordion-trigger__svg {
   display: block;
 }
 </style>

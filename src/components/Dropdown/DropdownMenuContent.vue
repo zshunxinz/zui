@@ -76,7 +76,7 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.x-dropdown-menu-content {
+.z-dropdown-menu-content {
   position: absolute;
   background-color: var(--color-background);
   border: 1px solid var(--border-color);
@@ -88,21 +88,21 @@ onUnmounted(() => {
   margin-top: 4px;
 }
 
-.x-dropdown-menu-content--top {
+.z-dropdown-menu-content--top {
   margin-top: 0;
   margin-bottom: 4px;
 }
 
-.x-dropdown-menu-content--start {
+.z-dropdown-menu-content--start {
   left: 0;
 }
 
-.x-dropdown-menu-content--center {
+.z-dropdown-menu-content--center {
   left: 50%;
   transform: translateX(-50%);
 }
 
-.x-dropdown-menu-content--end {
+.z-dropdown-menu-content--end {
   right: 0;
 }
 </style>

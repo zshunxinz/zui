@@ -1,5 +1,5 @@
 <template>
-  <ol class="x-breadcrumb-list">
+  <ol class="z-breadcrumb-list">
     <slot />
   </ol>
 </template>
@@ -9,7 +9,7 @@
 </script>
 
 <style scoped>
-.x-breadcrumb-list {
+.z-breadcrumb-list {
   display: flex;
   align-items: center;
   /* list-style: none; */

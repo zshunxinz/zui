@@ -37,7 +37,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed } from 'vue';
 
 interface Props {
   modelValue?: boolean | string | number;
@@ -45,18 +45,18 @@ interface Props {
   inactiveValue?: boolean | string | number;
   disabled?: boolean;
   loading?: boolean;
-  size?: "small" | "medium" | "large";
+  size?: 'small' | 'medium' | 'large';
   type?: string;
   activeText?: string;
   inactiveText?: string;
   activeColor?: string;
   inactiveColor?: string;
-  shape?: "round" | "square";
+  shape?: 'round' | 'square';
 }
 
 interface Emits {
-  (e: "update:modelValue", value: boolean | string | number): void;
-  (e: "change", value: boolean | string | number): void;
+  (e: 'update:modelValue', value: boolean | string | number): void;
+  (e: 'change', value: boolean | string | number): void;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -65,9 +65,9 @@ const props = withDefaults(defineProps<Props>(), {
   inactiveValue: false,
   disabled: false,
   loading: false,
-  size: "medium",
-  type: "default",
-  shape: "round",
+  size: 'medium',
+  type: 'default',
+  shape: 'round',
 });
 
 const emit = defineEmits<Emits>();
@@ -86,8 +86,8 @@ const colorClass = computed(() => {
 
 const switchStyle = computed(() => {
   const style: any = {};
-  style["--switch-active-color"] = props.activeColor;
-  style["--switch-inactive-color"] = props.inactiveColor;
+  style['--switch-active-color'] = props.activeColor;
+  style['--switch-inactive-color'] = props.inactiveColor;
   return style;
 });
 
@@ -95,13 +95,13 @@ const handleChange = (event: Event) => {
   const target = event.target as HTMLInputElement;
   const value = target.checked ? props.activeValue : props.inactiveValue;
 
-  emit("update:modelValue", value);
-  emit("change", value);
+  emit('update:modelValue', value);
+  emit('change', value);
 };
 </script>
 
 <style scoped>
-.x-switch {
+.z-switch {
   display: inline-flex;
   align-items: center;
   position: relative;
@@ -110,24 +110,24 @@ const handleChange = (event: Event) => {
   transition: all 0.3s ease;
 }
 
-.x-switch.is-disabled {
+.z-switch.is-disabled {
   cursor: not-allowed;
   opacity: 0.6;
 }
 
-.x-switch.is-loading {
+.z-switch.is-loading {
   cursor: not-allowed;
   opacity: 0.8;
 }
 
-.x-switch__input {
+.z-switch__input {
   position: absolute;
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-.x-switch__core {
+.z-switch__core {
   position: relative;
   display: inline-block;
   width: 30px;
@@ -138,46 +138,46 @@ const handleChange = (event: Event) => {
   box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.1);
 }
 
-.x-switch--square .x-switch__core {
+.z-switch--square .z-switch__core {
   border-radius: 0px;
 }
 
-.x-switch--small .x-switch__core {
+.z-switch--small .z-switch__core {
   width: 28px;
   height: 15px;
   border-radius: 9px;
 }
 
-.x-switch--small.x-switch--square .x-switch__core {
+.z-switch--small.z-switch--square .z-switch__core {
   border-radius: 0px;
 }
 
-.x-switch--medium .x-switch__core {
+.z-switch--medium .z-switch__core {
   width: 40px;
   height: 22px;
   border-radius: 15px;
 }
 
-.x-switch--medium.x-switch--square .x-switch__core {
+.z-switch--medium.z-switch--square .z-switch__core {
   border-radius: 0px;
 }
 
-.x-switch--large .x-switch__core {
+.z-switch--large .z-switch__core {
   width: 46px;
   height: 25px;
 
   border-radius: 13px;
 }
 
-.x-switch--large.x-switch--square .x-switch__core {
+.z-switch--large.z-switch--square .z-switch__core {
   border-radius: 0px;
 }
 
-.x-switch.is-checked .x-switch__core {
+.z-switch.is-checked .z-switch__core {
   background-color: var(--switch-active-color, var(--color-default));
 }
 
-.x-switch__button {
+.z-switch__button {
   /* position: absolute;
   top: 1px;
   left: 1px; */
@@ -194,94 +194,94 @@ const handleChange = (event: Event) => {
   transition: all 0.3s ease;
 }
 
-.x-switch--square .x-switch__button {
+.z-switch--square .z-switch__button {
   border-radius: 0px;
 }
 
-.x-switch--small .x-switch__button {
+.z-switch--small .z-switch__button {
   width: 13px;
   height: 13px;
 }
 
-.x-switch--small.x-switch--square .x-switch__button {
+.z-switch--small.z-switch--square .z-switch__button {
   border-radius: 0px;
 }
 
-.x-switch--medium .x-switch__button {
+.z-switch--medium .z-switch__button {
   width: 20px;
   height: 20px;
 }
 
-.x-switch--medium.x-switch--square .x-switch__button {
+.z-switch--medium.z-switch--square .z-switch__button {
   border-radius: 0px;
 }
 
-.x-switch--large .x-switch__button {
+.z-switch--large .z-switch__button {
   width: 23px;
   height: 23px;
 }
 
-.x-switch--large.x-switch--square .x-switch__button {
+.z-switch--large.z-switch--square .z-switch__button {
   border-radius: 0px;
 }
 
-.x-switch.is-checked .x-switch__button {
+.z-switch.is-checked .z-switch__button {
   transform: translateX(calc(100% - 2px));
 }
 
-.x-switch--small.is-checked .x-switch__button {
+.z-switch--small.is-checked .z-switch__button {
   transform: translateX(calc(100% - 0px));
 }
 
-.x-switch--large.is-checked .x-switch__button {
+.z-switch--large.is-checked .z-switch__button {
   transform: translateX(calc(100% - 2px));
 }
 
-.x-switch__label {
+.z-switch__label {
   margin-left: 8px;
   font-size: var(--font-size-1);
   color: var(--color-text-1);
 }
 
-.x-switch--small .x-switch__label {
+.z-switch--small .z-switch__label {
   font-size: var(--font-size-0);
 }
 
-.x-switch--large .x-switch__label {
+.z-switch--large .z-switch__label {
   font-size: var(--font-size-2);
 }
 
 /* 颜色主题 - 修复自定义颜色优先级 */
-.x-switch--default.is-checked .x-switch__core {
+.z-switch--default.is-checked .z-switch__core {
   background-color: var(--switch-active-color, var(--color-default-1));
 }
 
-.x-switch--primary.is-checked .x-switch__core {
+.z-switch--primary.is-checked .z-switch__core {
   background-color: var(--switch-active-color, var(--color-primary));
 }
 
-.x-switch--success.is-checked .x-switch__core {
+.z-switch--success.is-checked .z-switch__core {
   background-color: var(--switch-active-color, var(--color-success));
 }
 
-.x-switch--warning.is-checked .x-switch__core {
+.z-switch--warning.is-checked .z-switch__core {
   background-color: var(--switch-active-color, var(--color-warning));
 }
 
-.x-switch--danger.is-checked .x-switch__core {
+.z-switch--danger.is-checked .z-switch__core {
   background-color: var(--switch-active-color, var(--color-danger));
 }
 
-.x-switch--info.is-checked .x-switch__core {
+.z-switch--info.is-checked .z-switch__core {
   background-color: var(--switch-active-color, var(--color-info));
 }
 
-.x-switch--free.is-checked .x-switch__core {
+.z-switch--free.is-checked .z-switch__core {
   background-color: var(--switch-active-color);
 }
 
 /* 加载状态动画 */
-.x-switch__loading {
+.z-switch__loading {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -294,14 +294,14 @@ const handleChange = (event: Event) => {
   animation: x-switch-spin 1s linear infinite;
 }
 
-.x-switch--small .x-switch__loading {
+.z-switch--small .z-switch__loading {
   width: 10px;
   height: 10px;
   margin: -5px 0 0 -5px;
   border-width: 1.5px;
 }
 
-.x-switch--large .x-switch__loading {
+.z-switch--large .z-switch__loading {
   width: 14px;
   height: 14px;
   margin: -7px 0 0 -7px;
@@ -319,18 +319,18 @@ const handleChange = (event: Event) => {
 }
 
 /* 完全重写的加载状态样式 */
-.x-switch.is-loading {
+.z-switch.is-loading {
   position: relative;
 }
 
-.x-switch.is-loading .x-switch__core {
+.z-switch.is-loading .z-switch__core {
   position: relative;
   overflow: hidden;
   background-color: var(--switch-inactive-color, var(--color-disabled-text));
 }
 
-.x-switch.is-loading .x-switch__core::before {
-  content: "";
+.z-switch.is-loading .z-switch__core::before {
+  content: '';
   position: absolute;
   top: 0;
   left: -100%;
@@ -357,7 +357,7 @@ const handleChange = (event: Event) => {
 }
 
 /* 修复转圈位置的加载状态样式 */
-.x-switch.is-loading .x-switch__button {
+.z-switch.is-loading .z-switch__button {
   background-color: rgba(255, 255, 255, 0.8);
   position: relative;
   display: flex;
@@ -365,8 +365,8 @@ const handleChange = (event: Event) => {
   justify-content: center;
 }
 
-.x-switch.is-loading .x-switch__button::before {
-  content: "";
+.z-switch.is-loading .z-switch__button::before {
+  content: '';
   /* width: 12px;
   height: 12px;
   border: 2px solid transparent;
@@ -376,13 +376,13 @@ const handleChange = (event: Event) => {
   flex-shrink: 0; */
 }
 
-.x-switch--small.is-loading .x-switch__button::before {
+.z-switch--small.is-loading .z-switch__button::before {
   width: 8px;
   height: 8px;
   border-width: 1.5px;
 }
 
-.x-switch--large.is-loading .x-switch__button::before {
+.z-switch--large.is-loading .z-switch__button::before {
   width: 14px;
   height: 14px;
   border-width: 2px;
@@ -398,29 +398,29 @@ const handleChange = (event: Event) => {
   }
 }
 
-.x-switch.is-loading.is-checked .x-switch__core {
+.z-switch.is-loading.is-checked .z-switch__core {
   background-color: var(--switch-active-color, var(--color-default));
 }
 
-.x-switch.is-loading.is-checked .x-switch__button {
+.z-switch.is-loading.is-checked .z-switch__button {
   transform: translateX(22px);
 }
 
-.x-switch--small.is-loading.is-checked .x-switch__button {
+.z-switch--small.is-loading.is-checked .z-switch__button {
   transform: translateX(18px);
 }
 
-.x-switch--large.is-loading.is-checked .x-switch__button {
+.z-switch--large.is-loading.is-checked .z-switch__button {
   transform: translateX(26px);
 }
 
 /* 清理旧的loading样式 */
-.x-switch__loading {
+.z-switch__loading {
   display: none;
 }
 
-.x-switch--small .x-switch__loading,
-.x-switch--large .x-switch__loading {
+.z-switch--small .z-switch__loading,
+.z-switch--large .z-switch__loading {
   display: none;
 }
 </style>

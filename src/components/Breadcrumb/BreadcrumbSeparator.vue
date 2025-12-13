@@ -1,7 +1,7 @@
 <template>
-  <li class="x-breadcrumb-separator">
+  <li class="z-breadcrumb-separator">
     <slot>
-      <span class="x-breadcrumb-separator-icon">/</span>
+      <span class="z-breadcrumb-separator-icon">/</span>
     </slot>
   </li>
 </template>
@@ -11,7 +11,7 @@
 </script>
 
 <style scoped>
-.x-breadcrumb-separator {
+.z-breadcrumb-separator {
   display: flex;
   align-items: center;
   margin: 0 var(--space-1);
@@ -21,7 +21,7 @@
   height: 20px;
 }
 
-.x-breadcrumb-separator-icon {
+.z-breadcrumb-separator-icon {
   font-size: 12px;
   display: inline-flex;
   align-items: center;

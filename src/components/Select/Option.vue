@@ -158,7 +158,7 @@ const handleClick = () => {
 </script>
 
 <style scoped>
-.x-select-option {
+.z-select-option {
   padding: var(--padding-2);
   /* min-width: var(--width-0); */
   max-width: 100%;
@@ -172,30 +172,30 @@ const handleClick = () => {
   gap: 8px;
 }
 
-.x-select-option:hover {
+.z-select-option:hover {
   background-color: var(--color-bg-hover);
 }
 
-.x-select-option.is-hover {
+.z-select-option.is-hover {
   background-color: var(--color-bg-hover-1);
 }
 
-.x-select-option__icon {
+.z-select-option__icon {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
 
-.x-select-option__check-icon {
+.z-select-option__check-icon {
   color: currentColor;
 }
 
-.x-select-option--right {
+.z-select-option--right {
   justify-content: space-between;
 }
 
-.x-select-option--right .x-select-option__icon {
+.z-select-option--right .z-select-option__icon {
   margin-left: auto;
 }
 
@@ -229,13 +229,13 @@ const handleClick = () => {
   background-color: var(--color-bg-hover-1);
 }
 
-.x-select-option.is-disabled {
+.z-select-option.is-disabled {
   color: var(--color-disabled-text-1);
   cursor: not-allowed;
   background-color: transparent;
 }
 
-.x-select-option.is-disabled:hover {
+.z-select-option.is-disabled:hover {
   background-color: transparent;
 }
 </style>

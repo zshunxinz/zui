@@ -7,7 +7,7 @@
 </script>
 
 <style scoped>
-.x-dropdown-menu-separator {
+.z-dropdown-menu-separator {
   height: 1px;
   background-color: var(--color-border-1);
   margin: 4px 0;

@@ -147,17 +147,17 @@ Popover 组件支持多种位置设置，可以根据需要显示在触发元素
 | `content` | 弹出层的内容     |
 
 <style>
-.x-popover-demo {
+.z-popover-demo {
   padding: 16px;
 }
 
-.x-popover-demo h4 {
+.z-popover-demo h4 {
   margin: 0 0 8px 0;
   font-size: 16px;
   font-weight: 500;
 }
 
-.x-popover-demo p {
+.z-popover-demo p {
   margin: 0;
   color: var(--color-text-muted);
 }

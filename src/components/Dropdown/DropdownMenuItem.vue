@@ -37,7 +37,7 @@ const handleClick = e => {
 </script>
 
 <style scoped>
-.x-dropdown-menu-item {
+.z-dropdown-menu-item {
   display: block;
   width: 100%;
   padding: 8px 16px;
@@ -50,11 +50,11 @@ const handleClick = e => {
   transition: background-color 0.2s;
 }
 
-.x-dropdown-menu-item:hover:not(.x-dropdown-menu-item--disabled) {
+.z-dropdown-menu-item:hover:not(.z-dropdown-menu-item--disabled) {
   background-color: var(--color-bg-hover-1);
 }
 
-.x-dropdown-menu-item--disabled {
+.z-dropdown-menu-item--disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }

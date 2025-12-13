@@ -1,7 +1,7 @@
 <template>
-  <div class="x-popover" :class="popoverClass" ref="popoverRef">
+  <div class="z-popover" :class="popoverClass" ref="popoverRef">
     <div
-      class="x-popover__trigger"
+      class="z-popover__trigger"
       @click="togglePopover"
       @keydown.esc="closePopover"
       :aria-expanded="isOpen"
@@ -14,7 +14,7 @@
 
     <Teleport to="body" v-if="isOpen && teleport">
       <div
-        class="x-popover__overlay"
+        class="z-popover__overlay"
         v-if="overlay"
         :class="overlayClass"
         @click="closePopover"
@@ -22,7 +22,7 @@
       />
       <div
         v-show="isOpen"
-        class="x-popover__content"
+        class="z-popover__content"
         :class="contentClass"
         :style="contentStyle"
         @blur="handleBlur"
@@ -33,14 +33,14 @@
         role="tooltip"
         :aria-labelledby="`${id}-trigger`"
       >
-        <div v-if="arrow" class="x-popover__arrow" :class="arrowClass"></div>
+        <div v-if="arrow" class="z-popover__arrow" :class="arrowClass"></div>
         <slot name="content"></slot>
       </div>
     </Teleport>
 
     <div v-else-if="isOpen">
       <div
-        class="x-popover__overlay"
+        class="z-popover__overlay"
         v-if="overlay"
         :class="overlayClass"
         @click="closePopover"
@@ -48,7 +48,7 @@
       />
       <div
         v-show="isOpen"
-        class="x-popover__content"
+        class="z-popover__content"
         :class="contentClass"
         :style="contentStyle"
         ref="contentRef"
@@ -59,7 +59,7 @@
         role="tooltip"
         :aria-labelledby="`${id}-trigger`"
       >
-        <div v-if="arrow" class="x-popover__arrow" :class="arrowClass"></div>
+        <div v-if="arrow" class="z-popover__arrow" :class="arrowClass"></div>
         <slot name="content"></slot>
       </div>
     </div>
@@ -87,7 +87,7 @@ interface Props {
   height?: string | number;
   /**
    * 内容内边距
-   * @default var(--x-popover-padding)
+   * @default var(--z-popover-padding)
    */
   padding?: string;
 }
@@ -123,28 +123,28 @@ const isOpen = ref(props.open ?? props.defaultOpen);
 
 // 生成唯一ID
 const id = computed(
-  () => props.id || `x-popover-${Math.random().toString(36).slice(2, 9)}`
+  () => props.id || `z-popover-${Math.random().toString(36).slice(2, 9)}`
 );
 
 const popoverClass = computed(() => {
-  return [`x-popover--${props.placement}`];
+  return [`z-popover--${props.placement}`];
 });
 
 const contentClass = computed(() => {
   return [
-    `x-popover__content--${props.placement}`,
+    `z-popover__content--${props.placement}`,
     {
-      'x-popover__content--no-arrow': !props.arrow,
+      'z-popover__content--no-arrow': !props.arrow,
     },
   ];
 });
 
 const overlayClass = computed(() => {
-  return ['x-popover__overlay'];
+  return ['z-popover__overlay'];
 });
 
 const arrowClass = computed(() => {
-  return [`x-popover__arrow--${props.placement}`];
+  return [`z-popover__arrow--${props.placement}`];
 });
 
 const contentStyle = computed(() => {
@@ -171,7 +171,7 @@ const handlePosition = async () => {
   const triggerRect = popoverRef.value.getBoundingClientRect();
   const contentRect = contentRef.value.getBoundingClientRect();
   const arrowElement = contentRef.value.querySelector(
-    '.x-popover__arrow'
+    '.z-popover__arrow'
   ) as HTMLElement;
 
   let positionX = 0;
@@ -380,42 +380,41 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.x-popover {
+.z-popover {
   display: inline-block;
   position: relative;
 }
 
-.x-popover__trigger {
+.z-popover__trigger {
   /* display: inline-block; */
   cursor: pointer;
 }
 
-.x-popover__overlay {
+.z-popover__overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background-color: transparent;
-  z-index: var(--z-index-popover-overlay);
+  z-index: var(--z-indez-popover-overlay);
 }
 
-.x-popover__content {
+.z-popover__content {
   position: absolute;
   background-color: var(--color-background);
   border: 1px solid var(--color-border-1);
   border-radius: var(--border-radius-0);
   box-shadow: var(--box-shadow-1);
-  z-index: var(--z-index-popover);
-  transition:
-    opacity var(--transition-duration),
+  z-index: var(--z-indez-popover);
+  transition: opacity var(--transition-duration),
     transform var(--transition-duration);
   max-width: 360px;
   max-height: 60vh;
   padding: var(--padding-1);
 }
 
-.x-popover__arrow {
+.z-popover__arrow {
   position: absolute;
   width: 16px;
   height: 16px;
@@ -427,11 +426,11 @@ onUnmounted(() => {
 
 /* 位置变体样式 */
 /* 顶部位置 */
-.x-popover__content--top {
+.z-popover__content--top {
   transform-origin: bottom center;
 }
 
-.x-popover__arrow--top {
+.z-popover__arrow--top {
   bottom: -8px;
   left: 50%;
   margin-left: -8px;
@@ -440,11 +439,11 @@ onUnmounted(() => {
 }
 
 /* 顶部起始位置 */
-.x-popover__content--top-start {
+.z-popover__content--top-start {
   transform-origin: bottom left;
 }
 
-.x-popover__arrow--top-start {
+.z-popover__arrow--top-start {
   bottom: -8px;
   left: 24px;
   border-left: none;
@@ -452,11 +451,11 @@ onUnmounted(() => {
 }
 
 /* 顶部结束位置 */
-.x-popover__content--top-end {
+.z-popover__content--top-end {
   transform-origin: bottom right;
 }
 
-.x-popover__arrow--top-end {
+.z-popover__arrow--top-end {
   bottom: -8px;
   right: 24px;
   border-left: none;
@@ -464,11 +463,11 @@ onUnmounted(() => {
 }
 
 /* 底部位置 */
-.x-popover__content--bottom {
+.z-popover__content--bottom {
   transform-origin: top center;
 }
 
-.x-popover__arrow--bottom {
+.z-popover__arrow--bottom {
   top: -8px;
   left: 50%;
   margin-left: -8px;
@@ -477,11 +476,11 @@ onUnmounted(() => {
 }
 
 /* 底部起始位置 */
-.x-popover__content--bottom-start {
+.z-popover__content--bottom-start {
   transform-origin: top left;
 }
 
-.x-popover__arrow--bottom-start {
+.z-popover__arrow--bottom-start {
   top: -8px;
   left: 24px;
   border-bottom: none;
@@ -489,11 +488,11 @@ onUnmounted(() => {
 }
 
 /* 底部结束位置 */
-.x-popover__content--bottom-end {
+.z-popover__content--bottom-end {
   transform-origin: top right;
 }
 
-.x-popover__arrow--bottom-end {
+.z-popover__arrow--bottom-end {
   top: -8px;
   right: 24px;
   border-bottom: none;
@@ -501,11 +500,11 @@ onUnmounted(() => {
 }
 
 /* 左侧位置 */
-.x-popover__content--left {
+.z-popover__content--left {
   transform-origin: right center;
 }
 
-.x-popover__arrow--left {
+.z-popover__arrow--left {
   right: -8px;
   top: 50%;
   margin-top: -8px;
@@ -514,11 +513,11 @@ onUnmounted(() => {
 }
 
 /* 左侧起始位置 */
-.x-popover__content--left-start {
+.z-popover__content--left-start {
   transform-origin: right top;
 }
 
-.x-popover__arrow--left-start {
+.z-popover__arrow--left-start {
   right: -8px;
   top: 24px;
   border-left: none;
@@ -526,11 +525,11 @@ onUnmounted(() => {
 }
 
 /* 左侧结束位置 */
-.x-popover__content--left-end {
+.z-popover__content--left-end {
   transform-origin: right bottom;
 }
 
-.x-popover__arrow--left-end {
+.z-popover__arrow--left-end {
   right: -8px;
   bottom: 24px;
   border-left: none;
@@ -538,11 +537,11 @@ onUnmounted(() => {
 }
 
 /* 右侧位置 */
-.x-popover__content--right {
+.z-popover__content--right {
   transform-origin: left center;
 }
 
-.x-popover__arrow--right {
+.z-popover__arrow--right {
   left: -8px;
   top: 50%;
   margin-top: -8px;
@@ -551,11 +550,11 @@ onUnmounted(() => {
 }
 
 /* 右侧起始位置 */
-.x-popover__content--right-start {
+.z-popover__content--right-start {
   transform-origin: left top;
 }
 
-.x-popover__arrow--right-start {
+.z-popover__arrow--right-start {
   left: -8px;
   top: 24px;
   border-top: none;
@@ -563,11 +562,11 @@ onUnmounted(() => {
 }
 
 /* 右侧结束位置 */
-.x-popover__content--right-end {
+.z-popover__content--right-end {
   transform-origin: left bottom;
 }
 
-.x-popover__arrow--right-end {
+.z-popover__arrow--right-end {
   left: -8px;
   bottom: 24px;
   border-top: none;
@@ -575,26 +574,26 @@ onUnmounted(() => {
 }
 
 /* 无箭头样式 */
-.x-popover__content--no-arrow {
+.z-popover__content--no-arrow {
   margin: 0 !important;
 }
 
 /* 自定义样式变量 */
 :root {
-  --x-popover-padding: var(--padding-2);
-  --z-index-popover: 1000;
-  --z-index-popover-overlay: 999;
+  --z-popover-padding: var(--padding-2);
+  --z-indez-popover: 1000;
+  --z-indez-popover-overlay: 999;
   --transition-duration: 0.2s;
 }
 
 /* 暗色模式适配 */
-:root.dark .x-popover__content {
+:root.dark .z-popover__content {
   background-color: var(--color-background);
   border-color: var(--color-border-1);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
-:root.dark .x-popover__arrow {
+:root.dark .z-popover__arrow {
   background-color: var(--color-background);
   border-color: var(--color-border-1);
 }

@@ -18,6 +18,14 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/install.js", "src/components/index.ts"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "src/install.js",
+    "src/components/index.ts",
+    "examples/App.vue"
+  ],
   "exclude": ["node_modules"]
 }

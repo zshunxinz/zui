@@ -43,37 +43,37 @@
 </template>
 
 <script setup>
-import { ref, watch, computed, onMounted, onUnmounted, nextTick } from "vue";
+import { ref, watch, computed, onMounted, onUnmounted, nextTick } from 'vue';
 
 const props = defineProps({
   rows: { type: Number, default: 2 },
   autosize: { type: [Boolean, Object], default: false },
-  autocomplete: { type: String, default: "off" },
-  "auto-complete": { type: String, default: "off" },
+  autocomplete: { type: String, default: 'off' },
+  'auto-complete': { type: String, default: 'off' },
   name: String,
   readonly: { type: Boolean, default: false },
   resize: {
     type: String,
-    validator: (value) =>
-      ["none", "both", "horizontal", "vertical"].includes(value),
-    default: "vertical",
+    validator: value =>
+      ['none', 'both', 'horizontal', 'vertical'].includes(value),
+    default: 'vertical',
   },
   autofocus: { type: Boolean, default: false },
   form: String,
   tabindex: String,
-  "validate-event": { type: Boolean, default: true },
+  'validate-event': { type: Boolean, default: true },
   modelValue: {
     type: [String, Number],
-    default: "",
+    default: '',
   },
   label: {
     type: String,
-    default: "",
+    default: '',
   },
   labelPosition: {
     type: String,
-    default: "top",
-    validator: (value) => ["top", "left", "center", "right"].includes(value),
+    default: 'top',
+    validator: value => ['top', 'left', 'center', 'right'].includes(value),
   },
   maxlength: Number,
   minlength: Number,
@@ -88,12 +88,12 @@ const props = defineProps({
   },
   size: {
     type: String,
-    validator: (value) => ["small", "medium", "large"].includes(value),
-    default: "medium",
+    validator: value => ['small', 'medium', 'large'].includes(value),
+    default: 'medium',
   },
   width: {
     type: String,
-    default: "100%",
+    default: '100%',
   },
   debounce: {
     type: Number,
@@ -102,22 +102,22 @@ const props = defineProps({
 });
 
 const emit = defineEmits([
-  "update:modelValue",
-  "input",
-  "mouse-enter",
-  "mouse-leave",
-  "click",
-  "enter",
-  "debounce-input",
-  "focus",
-  "blur",
+  'update:modelValue',
+  'input',
+  'mouse-enter',
+  'mouse-leave',
+  'click',
+  'enter',
+  'debounce-input',
+  'focus',
+  'blur',
 ]);
 
 let debounceTimer = null;
-const debounceInput = (value) => {
+const debounceInput = value => {
   if (debounceTimer) clearTimeout(debounceTimer);
   debounceTimer = setTimeout(() => {
-    emit("debounce-input", value);
+    emit('debounce-input', value);
   }, props.debounce);
 };
 
@@ -126,14 +126,14 @@ const inputValue = ref(props.modelValue);
 const textareaRef = ref(null);
 
 const autosizeStyle = computed(() => {
-  if (typeof props.autosize === "object") {
+  if (typeof props.autosize === 'object') {
     return {
       minHeight:
-        typeof props.autosize.minRows === "number"
+        typeof props.autosize.minRows === 'number'
           ? `${props.autosize.minRows * 20}px`
           : undefined,
       maxHeight:
-        typeof props.autosize.maxRows === "number"
+        typeof props.autosize.maxRows === 'number'
           ? `${props.autosize.maxRows * 20}px`
           : undefined,
     };
@@ -143,7 +143,7 @@ const autosizeStyle = computed(() => {
 
 watch(
   () => props.modelValue,
-  (val) => {
+  val => {
     inputValue.value = val;
   },
   { immediate: true }
@@ -154,7 +154,7 @@ const adjustTextareaHeight = () => {
     const textarea = textareaRef.value;
 
     // 重置高度为auto以获取正确的scrollHeight
-    textarea.style.height = "auto";
+    textarea.style.height = 'auto';
 
     // 获取实际内容高度
     const scrollHeight = textarea.scrollHeight;
@@ -166,7 +166,7 @@ const adjustTextareaHeight = () => {
     let minHeight = 0;
     let maxHeight = Infinity;
 
-    if (typeof props.autosize === "object") {
+    if (typeof props.autosize === 'object') {
       // 对象形式的autosize
       minHeight = (props.autosize.minRows || props.rows || 2) * lineHeight;
       maxHeight = props.autosize.maxRows
@@ -180,7 +180,7 @@ const adjustTextareaHeight = () => {
     // 计算最终高度：以rows为基准，内容超过时自动拓展
     // 如果内容为空，使用minHeight（基于rows）
     let newHeight =
-      textarea.value.trim() === ""
+      textarea.value.trim() === ''
         ? minHeight
         : Math.max(scrollHeight, minHeight);
     if (maxHeight !== Infinity) {
@@ -192,12 +192,12 @@ const adjustTextareaHeight = () => {
   }
 };
 
-const handleInput = (e) => {
+const handleInput = e => {
   inputValue.value = e.target.value;
-  emit("update:modelValue", e.target.value);
-  emit("input", e.target.value);
-  if (props["validate-event"]) {
-    emit("validate-event", e.target.value);
+  emit('update:modelValue', e.target.value);
+  emit('input', e.target.value);
+  if (props['validate-event']) {
+    emit('validate-event', e.target.value);
   }
   if (props.debounce > 0) {
     debounceInput(e.target.value);
@@ -235,7 +235,7 @@ onMounted(() => {
         }, 0);
       } else {
         // 不启用autosize时，确保rows属性生效
-        textarea.setAttribute("rows", props.rows);
+        textarea.setAttribute('rows', props.rows);
       }
     }
   });
@@ -249,32 +249,32 @@ onUnmounted(() => {
 });
 
 const handleMouseEnter = () => {
-  emit("mouse-enter");
+  emit('mouse-enter');
 };
 
 const handleMouseLeave = () => {
-  emit("mouse-leave");
+  emit('mouse-leave');
 };
 
 const handleClick = () => {
-  emit("click");
+  emit('click');
 };
 
 const handleEnter = () => {
-  emit("enter", inputValue.value);
+  emit('enter', inputValue.value);
 };
 
-const handleFocus = (e) => {
-  emit("focus", e);
+const handleFocus = e => {
+  emit('focus', e);
 };
 
-const handleBlur = (e) => {
-  emit("blur", e);
+const handleBlur = e => {
+  emit('blur', e);
 };
 </script>
 
 <style scoped>
-.x-textarea {
+.z-textarea {
   all: unset;
   display: inline-flex;
   flex-direction: column;
@@ -283,27 +283,27 @@ const handleBlur = (e) => {
   font-family: var(--font-family);
 }
 
-.x-textarea--small {
+.z-textarea--small {
   font-size: var(--font-size-0);
   min-height: var(--height-0);
 }
 
-.x-textarea--medium {
+.z-textarea--medium {
   font-size: var(--font-size-1);
   min-height: var(--height-1);
 }
 
-.x-textarea--large {
+.z-textarea--large {
   font-size: var(--font-size-2);
   min-height: var(--height-2);
 }
 
-.x-textarea--label-left {
+.z-textarea--label-left {
   flex-direction: row;
   align-items: flex-start;
 }
 
-.x-textarea--label-left .x-textarea__label {
+.z-textarea--label-left .z-textarea__label {
   margin-bottom: 0;
   margin-right: 8px;
   line-height: 100%;
@@ -311,23 +311,23 @@ const handleBlur = (e) => {
   margin-top: 8px;
 }
 
-.x-textarea--label-center {
+.z-textarea--label-center {
   flex-direction: column;
   align-items: center;
 }
 
-.x-textarea--label-center .x-textarea__label {
+.z-textarea--label-center .z-textarea__label {
   text-align: center;
   margin-bottom: 4px;
 }
 
-.x-textarea--label-right {
+.z-textarea--label-right {
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-end;
 }
 
-.x-textarea--label-right .x-textarea__label {
+.z-textarea--label-right .z-textarea__label {
   order: 1;
   margin-bottom: 0;
   margin-left: 12px;
@@ -335,25 +335,25 @@ const handleBlur = (e) => {
   margin-top: 8px;
 }
 
-.x-textarea--label-right .x-textarea__wrapper {
+.z-textarea--label-right .z-textarea__wrapper {
   order: 0;
 }
 
-.x-textarea__label {
+.z-textarea__label {
   display: block;
   margin-bottom: 4px;
   font-size: var(--font-size-1);
   color: var(--color-text-primary);
 }
 
-.x-textarea__wrapper {
+.z-textarea__wrapper {
   /* position: relative; */
   display: flex;
   width: 100%;
   /* min-height: var(--height-3); */
 }
 
-.x-textarea__inner {
+.z-textarea__inner {
   flex: 1;
   min-width: 0;
   /* padding: var(--padding-1); */
@@ -370,35 +370,35 @@ const handleBlur = (e) => {
   min-height: auto; /* 移除最小高度限制，让rows属性生效 */
 }
 
-.x-textarea__inner:focus {
+.z-textarea__inner:focus {
   outline: none;
   outline: 1px solid var(--color-default);
 }
 
-.x-textarea__inner:disabled {
+.z-textarea__inner:disabled {
   background-color: var(--color-disabled-text);
   cursor: not-allowed;
 }
 
-.x-textarea--small .x-textarea__inner {
+.z-textarea--small .z-textarea__inner {
   padding: var(--padding-1);
   font-size: var(--font-size-0);
   min-height: var(--height-1);
 }
 
-.x-textarea--medium .x-textarea__inner {
+.z-textarea--medium .z-textarea__inner {
   padding: var(--padding-2);
   font-size: var(--font-size-1);
   min-height: var(--height-2);
 }
 
-.x-textarea--large .x-textarea__inner {
+.z-textarea--large .z-textarea__inner {
   padding: var(--padding-3);
   font-size: var(--font-size-2);
   min-height: var(--height-3);
 }
 
-.x-textarea__word-limit {
+.z-textarea__word-limit {
   margin-top: 4px;
   font-size: 12px;
   color: var(--color-text-1);

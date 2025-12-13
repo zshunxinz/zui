@@ -1,0 +1,22 @@
+/*! zui-01 v0.0.0 */
+const r = `<svg\r
+  xmlns="http://www.w3.org/2000/svg"\r
+  width="24"\r
+  height="24"\r
+  viewBox="0 0 24 24"\r
+  fill="none"\r
+  stroke="currentColor"\r
+  stroke-width="2"\r
+  stroke-linecap="round"\r
+  stroke-linejoin="round"\r
+>\r
+  <path d="M12 10.189V14" />\r
+  <path d="M12 2v3" />\r
+  <path d="M19 13V7a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v6" />\r
+  <path d="M19.38 20A11.6 11.6 0 0 0 21 14l-8.188-3.639a2 2 0 0 0-1.624 0L3 14a11.6 11.6 0 0 0 2.81 7.76" />\r
+  <path d="M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1s1.2 1 2.5 1c2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" />\r
+</svg>\r
+`;
+export {
+  r as default
+};

@@ -9,7 +9,7 @@
 </script>
 
 <style scoped>
-.x-dropdown-menu {
+.z-dropdown-menu {
   position: relative;
   display: inline-block;
 }

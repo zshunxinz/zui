@@ -1,0 +1,21 @@
+/*! zui-01 v0.0.0 */
+const r = `<svg\r
+  xmlns="http://www.w3.org/2000/svg"\r
+  width="24"\r
+  height="24"\r
+  viewBox="0 0 24 24"\r
+  fill="none"\r
+  stroke="currentColor"\r
+  stroke-width="2"\r
+  stroke-linecap="round"\r
+  stroke-linejoin="round"\r
+>\r
+  <path d="M20 10a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-2.5a1 1 0 0 1-.8-.4l-.9-1.2A1 1 0 0 0 15 3h-2a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1Z" />\r
+  <path d="M20 21a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-2.9a1 1 0 0 1-.88-.55l-.42-.85a1 1 0 0 0-.92-.6H13a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1Z" />\r
+  <path d="M3 5a2 2 0 0 0 2 2h3" />\r
+  <path d="M3 3v13a2 2 0 0 0 2 2h3" />\r
+</svg>\r
+`;
+export {
+  r as default
+};

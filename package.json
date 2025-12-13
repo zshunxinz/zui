@@ -1,12 +1,16 @@
 {
-  "name": "xui",
+  "name": "zui-01",
   "private": true,
   "version": "0.0.0",
+  "description": "zui是一个基于 Vue 3 的组件库, 包含了一些常用的组件, 提供尽可能简单好用的组件。",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "build:types": "vue-tsc --declaration --emitDeclarationOnly -p tsconfig.build.json",
+    "build:lib": "npm run build && npm run build:types",
+    "prepublishOnly": "npm run build:lib",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"

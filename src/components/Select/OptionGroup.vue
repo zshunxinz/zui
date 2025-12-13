@@ -220,11 +220,11 @@ if (process.env.NODE_ENV === 'development') {
 </script>
 
 <style>
-.x-option-group {
+.z-option-group {
   margin: 4px 0;
 }
 
-.x-option-group__label {
+.z-option-group__label {
   /* padding: 8px 12px; -- 由 JavaScript 动态计算 */
   /* font-size: 12px; -- 由 JavaScript 动态计算 */
   color: var(--color-text-secondary);
@@ -238,31 +238,31 @@ if (process.env.NODE_ENV === 'development') {
   transition: background-color 0.2s;
 }
 
-.x-option-group__label.is-collapsible {
+.z-option-group__label.is-collapsible {
   cursor: pointer;
   user-select: none;
 }
 
-.x-option-group__label.is-collapsible:hover {
+.z-option-group__label.is-collapsible:hover {
   background-color: var(--color-bg-hover-1);
 }
 
 /* 图标位置布局 */
-.x-option-group__label.icon-position--left {
+.z-option-group__label.icon-position--left {
   flex-direction: row;
 }
 
-.x-option-group__label.icon-position--after-text {
+.z-option-group__label.icon-position--after-text {
   flex-direction: row;
   gap: 4px; /* 减小间距，让图标紧贴文字 */
 }
 
-.x-option-group__label.icon-position--right {
+.z-option-group__label.icon-position--right {
   flex-direction: row;
   justify-content: space-between;
 }
 
-.x-option-group__icon {
+.z-option-group__icon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -273,39 +273,39 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 /* 展开状态的图标旋转 */
-.x-option-group__icon.is-expanded {
+.z-option-group__icon.is-expanded {
   transform: rotate(90deg);
 }
 
-.x-option-group__text {
+.z-option-group__text {
   flex: 1;
   min-width: 0;
 }
 
 /* after-text 位置时，文字不占满整个空间 */
-.x-option-group__label.icon-position--after-text .x-option-group__text {
+.z-option-group__label.icon-position--after-text .z-option-group__text {
   flex: 0 1 auto;
 }
 
 /* 右侧图标时文字不需要 flex: 1 */
-.x-option-group__label.icon-position--right .x-option-group__text {
+.z-option-group__label.icon-position--right .z-option-group__text {
   flex: 0 1 auto;
 }
 
-.x-option-group__options {
+.z-option-group__options {
   padding: 0;
   transition: all 0.2s ease;
   overflow: hidden;
 }
 
-.x-option-group__options.is-collapsible {
+.z-option-group__options.is-collapsible {
   /* 可折叠的选项区域 */
   overflow: hidden;
 }
 
 /* 使用 :deep() 选择器来影响子组件 */
 /* 注释掉此样式，改由 Select 组件的 getOptionStyle 统一处理缩进 */
-/* .x-option-group__options :deep(.x-select-option) {
+/* .z-option-group__options :deep(.z-select-option) {
   margin-left: 12px;
 } */
 </style>

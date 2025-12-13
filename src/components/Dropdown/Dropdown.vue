@@ -78,7 +78,7 @@ provide('closeDropdown', closeDropdown);
 </script>
 
 <style scoped>
-.x-dropdown {
+.z-dropdown {
   position: relative;
   display: inline-block;
 }

@@ -49,21 +49,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onBeforeUnmount } from "vue";
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 
 interface Props {
   content?: string;
-  theme?: "default" | "primary" | "success" | "warning" | "danger" | "info";
-  placement?: "top" | "right" | "bottom" | "left";
+  theme?: 'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info';
+  placement?: 'top' | 'right' | 'bottom' | 'left';
   disabled?: boolean;
   delay?: number;
   arrow?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  content: "",
-  theme: "default",
-  placement: "top",
+  content: '',
+  theme: 'default',
+  placement: 'top',
   disabled: false,
   delay: 0,
   arrow: true,
@@ -80,14 +80,14 @@ const hideTimer = ref<number | null>(null);
 const debug = false;
 const log = (...args: any[]) => {
   if (debug) {
-    console.log("[Tooltip]", ...args);
+    console.log('[Tooltip]', ...args);
   }
 };
 
 const popperStyle = computed(() => {
   const style: Record<string, string> = {};
   if (!props.arrow) {
-    style["--arrow-display"] = "none";
+    style['--arrow-display'] = 'none';
   }
   return style;
 });
@@ -99,7 +99,7 @@ const handleMouseEnter = () => {
     hideTimer.value = null;
   }
   showTimer.value = window.setTimeout(() => {
-    log("Showing tooltip");
+    log('Showing tooltip');
     // 在显示前预计算位置
     if (popperRef.value) {
       updatePosition(popperRef.value);
@@ -115,7 +115,7 @@ const handleMouseLeave = () => {
     showTimer.value = null;
   }
   hideTimer.value = window.setTimeout(() => {
-    log("Hiding tooltip");
+    log('Hiding tooltip');
     isVisible.value = false;
   }, 150);
 };
@@ -136,13 +136,13 @@ const handleBeforeEnter = (el: HTMLElement): void => {
 const handleEnter = (el: HTMLElement, done: () => void): void => {
   // 等待一帧以确保样式应用
   requestAnimationFrame(() => {
-    el.classList.add("is-visible");
+    el.classList.add('is-visible');
     done();
   });
 };
 
 const handleAfterEnter = (): void => {
-  log("Tooltip entered completely");
+  log('Tooltip entered completely');
   // 确保tooltip保持在正确位置
   if (popperRef.value) {
     updatePosition(popperRef.value);
@@ -150,12 +150,12 @@ const handleAfterEnter = (): void => {
 };
 
 const handleBeforeLeave = (el: HTMLElement): void => {
-  log("Before leaving tooltip");
+  log('Before leaving tooltip');
 };
 
 const handleLeave = (el: HTMLElement, done: () => void): void => {
-  log("Leaving tooltip");
-  el.classList.remove("is-visible");
+  log('Leaving tooltip');
+  el.classList.remove('is-visible');
   // 等待动画完成
   setTimeout(() => {
     done();
@@ -163,46 +163,46 @@ const handleLeave = (el: HTMLElement, done: () => void): void => {
 };
 
 const handleAfterLeave = (): void => {
-  log("Tooltip left completely");
+  log('Tooltip left completely');
 };
 
 const updatePosition = (el: HTMLElement) => {
   if (!tooltipRef.value || !popperRef.value) {
-    log("Reference elements not available");
+    log('Reference elements not available');
     return;
   }
 
   const triggerRect = tooltipRef.value.getBoundingClientRect();
   // 强制计算popper的尺寸
-  el.style.visibility = "hidden";
-  el.style.display = "block";
+  el.style.visibility = 'hidden';
+  el.style.display = 'block';
   const popperRect = popperRef.value.getBoundingClientRect();
 
-  let top = "auto";
-  let left = "auto";
-  let right = "auto";
-  let bottom = "auto";
+  let top = 'auto';
+  let left = 'auto';
+  let right = 'auto';
+  let bottom = 'auto';
 
   switch (props.placement) {
-    case "top":
+    case 'top':
       top = `${triggerRect.top - popperRect.height - 8}px`;
       left = `${
         triggerRect.left + triggerRect.width / 2 - popperRect.width / 2
       }px`;
       break;
-    case "right":
+    case 'right':
       top = `${
         triggerRect.top + triggerRect.height / 2 - popperRect.height / 2
       }px`;
       left = `${triggerRect.right + 8}px`;
       break;
-    case "bottom":
+    case 'bottom':
       top = `${triggerRect.bottom + 8}px`;
       left = `${
         triggerRect.left + triggerRect.width / 2 - popperRect.width / 2
       }px`;
       break;
-    case "left":
+    case 'left':
       top = `${
         triggerRect.top + triggerRect.height / 2 - popperRect.height / 2
       }px`;
@@ -216,9 +216,9 @@ const updatePosition = (el: HTMLElement) => {
   el.style.left = left;
   el.style.right = right;
   el.style.bottom = bottom;
-  el.style.visibility = "";
+  el.style.visibility = '';
 
-  log("Position updated:", { top, left, right, bottom });
+  log('Position updated:', { top, left, right, bottom });
 };
 
 const handleResize = () => {
@@ -228,28 +228,28 @@ const handleResize = () => {
 };
 
 onMounted(() => {
-  window.addEventListener("resize", handleResize);
+  window.addEventListener('resize', handleResize);
 });
 
 onBeforeUnmount(() => {
   if (showTimer.value) clearTimeout(showTimer.value);
   if (hideTimer.value) clearTimeout(hideTimer.value);
-  window.removeEventListener("resize", handleResize);
+  window.removeEventListener('resize', handleResize);
 });
 </script>
 
 <style scoped>
-.x-tooltip {
+.z-tooltip {
   position: relative;
   display: inline-block;
 }
 
-.x-tooltip__trigger {
+.z-tooltip__trigger {
   cursor: pointer;
   display: inline-block;
 }
 
-.x-tooltip__popper {
+.z-tooltip__popper {
   position: fixed;
   z-index: 9999; /* 提高z-index确保显示在最上层 */
   display: inline-block;
@@ -269,11 +269,11 @@ onBeforeUnmount(() => {
 }
 
 /* 显示时的透明度 */
-.x-tooltip__popper.is-visible {
+.z-tooltip__popper.is-visible {
   opacity: 1;
 }
 
-.x-tooltip__arrow {
+.z-tooltip__arrow {
   display: var(--arrow-display);
   position: absolute;
   width: 0;
@@ -283,7 +283,7 @@ onBeforeUnmount(() => {
 }
 
 /* 箭头样式 */
-.x-tooltip--top .x-tooltip__arrow {
+.z-tooltip--top .z-tooltip__arrow {
   bottom: -5px;
   left: 50%;
   margin-left: -5px;
@@ -291,7 +291,7 @@ onBeforeUnmount(() => {
   border-top-color: var(--color-text);
 }
 
-.x-tooltip--right .x-tooltip__arrow {
+.z-tooltip--right .z-tooltip__arrow {
   top: 50%;
   left: -5px;
   margin-top: -5px;
@@ -299,7 +299,7 @@ onBeforeUnmount(() => {
   border-right-color: var(--color-text);
 }
 
-.x-tooltip--bottom .x-tooltip__arrow {
+.z-tooltip--bottom .z-tooltip__arrow {
   top: -5px;
   left: 50%;
   margin-left: -5px;
@@ -307,7 +307,7 @@ onBeforeUnmount(() => {
   border-bottom-color: var(--color-text);
 }
 
-.x-tooltip--left .x-tooltip__arrow {
+.z-tooltip--left .z-tooltip__arrow {
   top: 50%;
   right: -5px;
   margin-top: -5px;
@@ -316,129 +316,129 @@ onBeforeUnmount(() => {
 }
 
 /* 主题颜色 */
-.x-tooltip--default .x-tooltip__popper {
+.z-tooltip--default .z-tooltip__popper {
   background-color: var(--color-text);
   color: var(--color-background);
 }
 
-.x-tooltip--default.x-tooltip--top .x-tooltip__arrow {
+.z-tooltip--default.z-tooltip--top .z-tooltip__arrow {
   border-top-color: var(--color-text);
 }
 
-.x-tooltip--default.x-tooltip--right .x-tooltip__arrow {
+.z-tooltip--default.z-tooltip--right .z-tooltip__arrow {
   border-right-color: var(--color-text);
 }
 
-.x-tooltip--default.x-tooltip--bottom .x-tooltip__arrow {
+.z-tooltip--default.z-tooltip--bottom .z-tooltip__arrow {
   border-bottom-color: var(--color-text);
 }
 
-.x-tooltip--default.x-tooltip--left .x-tooltip__arrow {
+.z-tooltip--default.z-tooltip--left .z-tooltip__arrow {
   border-left-color: var(--color-text);
 }
 
-.x-tooltip--primary .x-tooltip__popper {
+.z-tooltip--primary .z-tooltip__popper {
   background-color: var(--color-primary);
   color: var(--color-primary-text-1);
 }
 
-.x-tooltip--primary.x-tooltip--top .x-tooltip__arrow {
+.z-tooltip--primary.z-tooltip--top .z-tooltip__arrow {
   border-top-color: var(--color-primary);
 }
 
-.x-tooltip--primary.x-tooltip--right .x-tooltip__arrow {
+.z-tooltip--primary.z-tooltip--right .z-tooltip__arrow {
   border-right-color: var(--color-primary);
 }
 
-.x-tooltip--primary.x-tooltip--bottom .x-tooltip__arrow {
+.z-tooltip--primary.z-tooltip--bottom .z-tooltip__arrow {
   border-bottom-color: var(--color-primary);
 }
 
-.x-tooltip--primary.x-tooltip--left .x-tooltip__arrow {
+.z-tooltip--primary.z-tooltip--left .z-tooltip__arrow {
   border-left-color: var(--color-primary);
 }
 
-.x-tooltip--success .x-tooltip__popper {
+.z-tooltip--success .z-tooltip__popper {
   background-color: var(--color-success);
   color: var(--color-success-text-1);
 }
 
-.x-tooltip--success.x-tooltip--top .x-tooltip__arrow {
+.z-tooltip--success.z-tooltip--top .z-tooltip__arrow {
   border-top-color: var(--color-success);
 }
 
-.x-tooltip--success.x-tooltip--right .x-tooltip__arrow {
+.z-tooltip--success.z-tooltip--right .z-tooltip__arrow {
   border-right-color: var(--color-success);
 }
 
-.x-tooltip--success.x-tooltip--bottom .x-tooltip__arrow {
+.z-tooltip--success.z-tooltip--bottom .z-tooltip__arrow {
   border-bottom-color: var(--color-success);
 }
 
-.x-tooltip--success.x-tooltip--left .x-tooltip__arrow {
+.z-tooltip--success.z-tooltip--left .z-tooltip__arrow {
   border-left-color: var(--color-success);
 }
 
-.x-tooltip--warning .x-tooltip__popper {
+.z-tooltip--warning .z-tooltip__popper {
   background-color: var(--color-warning);
   color: var(--color-warning-text-1);
 }
 
-.x-tooltip--warning.x-tooltip--top .x-tooltip__arrow {
+.z-tooltip--warning.z-tooltip--top .z-tooltip__arrow {
   border-top-color: var(--color-warning);
 }
 
-.x-tooltip--warning.x-tooltip--right .x-tooltip__arrow {
+.z-tooltip--warning.z-tooltip--right .z-tooltip__arrow {
   border-right-color: var(--color-warning);
 }
 
-.x-tooltip--warning.x-tooltip--bottom .x-tooltip__arrow {
+.z-tooltip--warning.z-tooltip--bottom .z-tooltip__arrow {
   border-bottom-color: var(--color-warning);
 }
 
-.x-tooltip--warning.x-tooltip--left .x-tooltip__arrow {
+.z-tooltip--warning.z-tooltip--left .z-tooltip__arrow {
   border-left-color: var(--color-warning);
 }
 
-.x-tooltip--danger .x-tooltip__popper {
+.z-tooltip--danger .z-tooltip__popper {
   background-color: var(--color-danger);
   color: var(--color-danger-text-1);
 }
 
-.x-tooltip--danger.x-tooltip--top .x-tooltip__arrow {
+.z-tooltip--danger.z-tooltip--top .z-tooltip__arrow {
   border-top-color: var(--color-danger);
 }
 
-.x-tooltip--danger.x-tooltip--right .x-tooltip__arrow {
+.z-tooltip--danger.z-tooltip--right .z-tooltip__arrow {
   border-right-color: var(--color-danger);
 }
 
-.x-tooltip--danger.x-tooltip--bottom .x-tooltip__arrow {
+.z-tooltip--danger.z-tooltip--bottom .z-tooltip__arrow {
   border-bottom-color: var(--color-danger);
 }
 
-.x-tooltip--danger.x-tooltip--left .x-tooltip__arrow {
+.z-tooltip--danger.z-tooltip--left .z-tooltip__arrow {
   border-left-color: var(--color-danger);
 }
 
-.x-tooltip--info .x-tooltip__popper {
+.z-tooltip--info .z-tooltip__popper {
   background-color: var(--color-info);
   color: var(--color-info-text-1);
 }
 
-.x-tooltip--info.x-tooltip--top .x-tooltip__arrow {
+.z-tooltip--info.z-tooltip--top .z-tooltip__arrow {
   border-top-color: var(--color-info);
 }
 
-.x-tooltip--info.x-tooltip--right .x-tooltip__arrow {
+.z-tooltip--info.z-tooltip--right .z-tooltip__arrow {
   border-right-color: var(--color-info);
 }
 
-.x-tooltip--info.x-tooltip--bottom .x-tooltip__arrow {
+.z-tooltip--info.z-tooltip--bottom .z-tooltip__arrow {
   border-bottom-color: var(--color-info);
 }
 
-.x-tooltip--info.x-tooltip--left .x-tooltip__arrow {
+.z-tooltip--info.z-tooltip--left .z-tooltip__arrow {
   border-left-color: var(--color-info);
 }
 
@@ -454,37 +454,37 @@ onBeforeUnmount(() => {
 }
 
 /* 禁用状态 */
-.x-tooltip--disabled .x-tooltip__trigger {
+.z-tooltip--disabled .z-tooltip__trigger {
   cursor: not-allowed;
 }
 
 /* 暗色模式适配 */
-:root.dark .x-tooltip__popper {
+:root.dark .z-tooltip__popper {
   background-color: var(--color-text);
   color: var(--color-background);
 }
 
-:root.dark .x-tooltip--primary .x-tooltip__popper {
+:root.dark .z-tooltip--primary .z-tooltip__popper {
   background-color: var(--color-primary);
   color: var(--color-primary-text-1);
 }
 
-:root.dark .x-tooltip--success .x-tooltip__popper {
+:root.dark .z-tooltip--success .z-tooltip__popper {
   background-color: var(--color-success);
   color: var(--color-success-text-1);
 }
 
-:root.dark .x-tooltip--warning .x-tooltip__popper {
+:root.dark .z-tooltip--warning .z-tooltip__popper {
   background-color: var(--color-warning);
   color: var(--color-warning-text-1);
 }
 
-:root.dark .x-tooltip--danger .x-tooltip__popper {
+:root.dark .z-tooltip--danger .z-tooltip__popper {
   background-color: var(--color-danger);
   color: var(--color-danger-text-1);
 }
 
-:root.dark .x-tooltip--info .x-tooltip__popper {
+:root.dark .z-tooltip--info .z-tooltip__popper {
   background-color: var(--color-info);
   color: var(--color-info-text-1);
 }

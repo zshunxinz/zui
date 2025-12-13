@@ -52,7 +52,7 @@ const handleClick = () => {
 </script>
 
 <style scoped>
-.x-menubar-trigger {
+.z-menubar-trigger {
   padding: var(--padding-1);
   background: none;
   border: none;
@@ -64,15 +64,15 @@ const handleClick = () => {
   outline: none;
 }
 
-.x-menubar-trigger:hover:not(:disabled) {
+.z-menubar-trigger:hover:not(:disabled) {
   background-color: var(--color-background-hover);
 }
 
-.x-menubar-trigger:active:not(:disabled) {
+.z-menubar-trigger:active:not(:disabled) {
   background-color: var(--color-background-active);
 }
 
-.x-menubar-trigger--disabled {
+.z-menubar-trigger--disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }

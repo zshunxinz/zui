@@ -14,7 +14,7 @@ if (!menubarMenu) {
 </script>
 
 <style scoped>
-.x-menubar-separator {
+.z-menubar-separator {
   height: 1px;
   background-color: var(--color-border-1);
   margin: var(--margin-1) var(--margin-2);

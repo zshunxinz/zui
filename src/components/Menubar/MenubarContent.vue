@@ -29,7 +29,7 @@ const handleClickOutside = (event: MouseEvent) => {
     const menuContent = document.querySelector(
       `#x-menubar-content-${menubarMenu.menuId}`
     );
-    const trigger = target.closest('.x-menubar-trigger');
+    const trigger = target.closest('.z-menubar-trigger');
 
     if (menuContent && !menuContent.contains(target) && !trigger) {
       menubarMenu.menubar.close();
@@ -47,7 +47,7 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.x-menubar-content {
+.z-menubar-content {
   position: absolute;
   top: 100%;
   left: 0;
@@ -60,7 +60,7 @@ onUnmounted(() => {
   min-width: 160px;
 }
 
-.x-menubar-content__inner {
+.z-menubar-content__inner {
   padding: var(--padding-1);
 }
 </style>

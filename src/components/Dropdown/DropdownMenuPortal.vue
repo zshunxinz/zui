@@ -11,7 +11,7 @@
 </script>
 
 <style scoped>
-.x-dropdown-menu-portal {
+.z-dropdown-menu-portal {
   position: relative;
   z-index: 1000;
 }

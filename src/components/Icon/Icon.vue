@@ -1,5 +1,5 @@
 <template>
-  <i class="x-icon" :class="iconClass" :style="iconStyle">
+  <i class="z-icon" :class="iconClass" :style="iconStyle">
     <!-- 渲染SVG图标 -->
     <svg
       v-if="svgContent"
@@ -71,7 +71,7 @@ const isCustomSvg = computed(() => {
 
 // 图标类名
 const iconClass = computed(() => {
-  return ['x-icon'];
+  return ['z-icon'];
 });
 
 // 图标样式

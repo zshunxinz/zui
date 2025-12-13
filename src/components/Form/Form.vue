@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, provide, computed, nextTick } from "vue";
+import { ref, watch, provide, computed, nextTick } from 'vue';
 
 const props = defineProps({
   modelValue: {
@@ -26,27 +26,27 @@ const props = defineProps({
   },
   labelWidth: {
     type: String,
-    default: "100px",
+    default: '100px',
   },
   labelPosition: {
     type: String,
-    default: "left",
+    default: 'left',
   },
   labelTextAlign: {
     type: String,
-    default: "left",
+    default: 'left',
   },
   labelAlignItems: {
     type: String,
-    default: "center",
+    default: 'center',
   },
   labelJustifyContent: {
     type: String,
-    default: "start",
+    default: 'start',
   },
 });
 
-const emit = defineEmits(["update:modelValue", "submit", "validate"]);
+const emit = defineEmits(['update:modelValue', 'submit', 'validate']);
 
 // 表单数据响应式对象
 const formData = ref({ ...props.modelValue });
@@ -54,7 +54,7 @@ const formData = ref({ ...props.modelValue });
 const errors = ref<Record<string, string>>({});
 
 // 提供表单上下文
-provide("formContext", {
+provide('formContext', {
   formData,
   errors,
   disabled: computed(() => props.disabled),
@@ -70,9 +70,9 @@ provide("formContext", {
 let isInternalUpdate = false;
 watch(
   formData,
-  (newVal) => {
+  newVal => {
     if (!isInternalUpdate) {
-      emit("update:modelValue", newVal);
+      emit('update:modelValue', newVal);
     }
   },
   { deep: true }
@@ -81,7 +81,7 @@ watch(
 // 监听外部modelValue变化，同步到内部formData
 watch(
   () => props.modelValue,
-  (newVal) => {
+  newVal => {
     if (JSON.stringify(newVal) !== JSON.stringify(formData.value)) {
       isInternalUpdate = true;
       formData.value = { ...newVal };
@@ -99,14 +99,14 @@ const validateField = (field: string) => {
   if (!rule) return true;
 
   const value = formData.value[field];
-  let errorMessage = "";
+  let errorMessage = '';
 
   if (
     rule.required &&
-    (value === undefined || value === null || value === "")
+    (value === undefined || value === null || value === '')
   ) {
     errorMessage = rule.message || `${field} is required`;
-  } else if (rule.validator && typeof rule.validator === "function") {
+  } else if (rule.validator && typeof rule.validator === 'function') {
     const result = rule.validator(value);
     if (result !== true) {
       errorMessage = result || `${field} validation failed`;
@@ -122,19 +122,19 @@ const validate = () => {
   let valid = true;
   errors.value = {};
 
-  Object.keys(props.rules).forEach((field) => {
+  Object.keys(props.rules).forEach(field => {
     const fieldValid = validateField(field);
     if (!fieldValid) valid = false;
   });
 
-  emit("validate", valid);
+  emit('validate', valid);
   return valid;
 };
 
 // 处理表单提交
 const handleSubmit = () => {
   if (validate()) {
-    emit("submit", formData.value);
+    emit('submit', formData.value);
   }
 };
 
@@ -150,12 +150,12 @@ defineExpose({
 </script>
 
 <style scoped>
-.x-form {
+.z-form {
   width: 100%;
   font-family: var(--font-family);
 }
 
-.x-form--disabled {
+.z-form--disabled {
   opacity: 0.7;
   pointer-events: none;
 }
