@@ -1,6 +1,6 @@
 <template>
   <div
-    class="x-select-option"
+    class="z-select-option"
     :class="[
       selectContext.type && isSelected
         ? `is-selected--${selectContext.type.value}`
@@ -8,7 +8,7 @@
       {
         'is-disabled': effectiveDisabled,
         'is-hover': isHover,
-        [`x-select-option--${effectiveIconPosition}`]: effectiveIconPosition,
+        [`z-select-option--${effectiveIconPosition}`]: effectiveIconPosition,
       },
     ]"
     :style="optionStyle"
@@ -19,11 +19,11 @@
     <!-- 左侧图标 -->
     <div
       v-if="effectiveIconPosition === 'left' && isSelected"
-      class="x-select-option__icon"
+      class="z-select-option__icon"
     >
       <slot name="icon" v-bind="{ isSelected, disabled: effectiveDisabled }">
         <svg
-          class="x-select-option__check-icon"
+          class="z-select-option__check-icon"
           viewBox="0 0 16 16"
           width="14"
           height="14"
@@ -41,11 +41,11 @@
     <!-- 右侧图标 -->
     <div
       v-if="effectiveIconPosition === 'right' && isSelected"
-      class="x-select-option__icon"
+      class="z-select-option__icon"
     >
       <slot name="icon" v-bind="{ isSelected, disabled: effectiveDisabled }">
         <svg
-          class="x-select-option__check-icon"
+          class="z-select-option__check-icon"
           viewBox="0 0 16 16"
           width="14"
           height="14"

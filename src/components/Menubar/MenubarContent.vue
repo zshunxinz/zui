@@ -1,6 +1,6 @@
 <template>
-  <div v-show="isOpen" class="x-menubar-content" role="menu" @click.stop>
-    <div class="x-menubar-content__inner">
+  <div v-show="isOpen" class="z-menubar-content" role="menu" @click.stop>
+    <div class="z-menubar-content__inner">
       <slot></slot>
     </div>
   </div>
@@ -27,7 +27,7 @@ const handleClickOutside = (event: MouseEvent) => {
   if (isOpen.value) {
     const target = event.target as HTMLElement;
     const menuContent = document.querySelector(
-      `#x-menubar-content-${menubarMenu.menuId}`
+      `#z-menubar-content-${menubarMenu.menuId}`
     );
     const trigger = target.closest('.z-menubar-trigger');
 

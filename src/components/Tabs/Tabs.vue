@@ -1,6 +1,6 @@
 <template>
   <div
-    class="x-tabs"
+    class="z-tabs"
     :class="[
       tabPositionClass,
       tabTypeClass,
@@ -10,10 +10,10 @@
     ]"
   >
     <div
-      class="x-tabs__nav"
+      class="z-tabs__nav"
       :class="[
         borderLine ? 'boderLine' : 'boderLineNull',
-        tabsBg ? 'x-tabs_nav_bg-0' : '',
+        tabsBg ? 'z-tabs_nav_bg-0' : '',
         tabsBgClass ? tabsBgClass : '',
       ]"
       :style="tabsBgStyle"
@@ -21,7 +21,7 @@
       <div
         v-for="(tab, index) in tabs"
         :key="index"
-        class="x-tabs__item"
+        class="z-tabs__item"
         :class="[
           {
             'is-active': activeTabIndex === index,
@@ -35,18 +35,18 @@
         {{ tab.label }}
         <span
           v-if="(props.closable || tab.close) && !tab.disabled"
-          class="x-tabs__close-btn"
+          class="z-tabs__close-btn"
           @click.stop="handleTabClose(index)"
         >
           ×
         </span>
       </div>
     </div>
-    <div class="x-tabs__content">
+    <div class="z-tabs__content">
       <div
         v-for="(tab, index) in tabs"
         :key="index"
-        class="x-tabs__panel"
+        class="z-tabs__panel"
         :class="{ 'is-active': activeTabIndex === index }"
       >
         <slot :name="tab.name"></slot>
@@ -118,14 +118,14 @@ watch(
   }
 );
 
-const tabPositionClass = computed(() => `x-tabs--${props.position}`);
-const tabTypeClass = computed(() => `x-tabs--${props.type}`);
-const tabSizeClass = computed(() => `x-tabs--${props.size}`);
+const tabPositionClass = computed(() => `z-tabs--${props.position}`);
+const tabTypeClass = computed(() => `z-tabs--${props.type}`);
+const tabSizeClass = computed(() => `z-tabs--${props.size}`);
 const tabButtonStyleClass = computed(() =>
-  props.buttonStyle ? 'x-tabs--button' : ''
+  props.buttonStyle ? 'z-tabs--button' : ''
 );
 const tabButtonStyleTextClass = computed(() =>
-  props.buttonStyleText ? 'x-tabs--button-text' : ''
+  props.buttonStyleText ? 'z-tabs--button-text' : ''
 );
 
 const tabStyle = computed(() => {

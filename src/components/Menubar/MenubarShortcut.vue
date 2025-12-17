@@ -1,5 +1,5 @@
 <template>
-  <span class="x-menubar-shortcut">
+  <span class="z-menubar-shortcut">
     <slot></slot>
   </span>
 </template>

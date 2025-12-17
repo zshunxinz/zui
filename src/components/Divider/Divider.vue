@@ -1,13 +1,13 @@
 <template>
   <div
-    class="x-divider"
+    class="z-divider"
     :class="[
-      `x-divider--${direction}`,
-      hasText && !isCustomPosition ? `x-divider--${orientation}` : '',
-      `x-divider--${ctype}`,
+      `z-divider--${direction}`,
+      hasText && !isCustomPosition ? `z-divider--${orientation}` : '',
+      `z-divider--${ctype}`,
       {
-        'x-divider--with-text': hasText,
-        'x-divider--custom-position': hasText && isCustomPosition,
+        'z-divider--with-text': hasText,
+        'z-divider--custom-position': hasText && isCustomPosition,
       },
     ]"
     :style="dividerStyle"
@@ -15,31 +15,31 @@
     <template v-if="hasText && isCustomPosition">
       <!-- 自定义位置时使用单一线条，文字绝对定位 -->
       <div
-        class="x-divider__line"
+        class="z-divider__line"
         :style="{ borderTopWidth: size + 'px', borderColor: color }"
       ></div>
-      <div class="x-divider__text" :style="{ color: textColor }">
+      <div class="z-divider__text" :style="{ color: textColor }">
         {{ text }}
       </div>
     </template>
     <template v-else-if="hasText">
       <!-- 标准位置时使用左右两条线 -->
       <div
-        class="x-divider__line x-divider__line--left"
+        class="z-divider__line z-divider__line--left"
         :style="{ borderTopWidth: size + 'px', borderColor: color }"
       ></div>
-      <div class="x-divider__text" :style="{ color: textColor }">
+      <div class="z-divider__text" :style="{ color: textColor }">
         {{ text }}
       </div>
       <div
-        class="x-divider__line x-divider__line--right"
+        class="z-divider__line z-divider__line--right"
         :style="{ borderTopWidth: size + 'px', borderColor: color }"
       ></div>
     </template>
     <template v-else>
       <!-- 无边框时 -->
       <div
-        class="x-divider__line"
+        class="z-divider__line"
         :style="{ borderTopWidth: size + 'px', borderColor: color }"
       ></div>
     </template>

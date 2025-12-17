@@ -1,5 +1,5 @@
 <template>
-  <div class="x-menubar-menu">
+  <div class="z-menubar-menu">
     <slot></slot>
   </div>
 </template>

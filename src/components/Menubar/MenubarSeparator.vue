@@ -1,5 +1,5 @@
 <template>
-  <div class="x-menubar-separator" role="separator"></div>
+  <div class="z-menubar-separator" role="separator"></div>
 </template>
 
 <script setup lang="ts">

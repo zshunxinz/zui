@@ -1,7 +1,7 @@
 <template>
   <form
-    class="x-form"
-    :class="{ 'x-form--disabled': disabled }"
+    class="z-form"
+    :class="{ 'z-form--disabled': disabled }"
     @submit.prevent="handleSubmit"
   >
     <slot></slot>

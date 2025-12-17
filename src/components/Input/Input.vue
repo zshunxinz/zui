@@ -1,29 +1,29 @@
 <template>
   <div
     :class="[
-      'x-input',
-      size ? `x-input--${size}` : '',
-      labelPosition ? `x-input--label-${labelPosition}` : '',
+      'z-input',
+      size ? `z-input--${size}` : '',
+      labelPosition ? `z-input--label-${labelPosition}` : '',
       $attrs.class,
     ]"
     :style="[{ width }, { height }, $attrs.style, { 'min-width': width }]"
   >
     <label
       v-if="label"
-      class="x-input__label"
+      class="z-input__label"
       :style="$attrs.style"
       :for="id"
       >{{ label }}</label
     >
     <div
-      class="x-input__wrapper"
+      class="z-input__wrapper"
       :class="[
         { 'is-disabled': disabled, 'is-clearable': clearable },
         $attrs.class,
       ]"
       :style="[{ width }, { height }, $attrs.style]"
     >
-      <span v-if="prefixIcon" class="x-input__prefix x-input__icon">{{
+      <span v-if="prefixIcon" class="z-input__prefix z-input__icon">{{
         prefixIcon
       }}</span>
 
@@ -44,7 +44,7 @@
         :autofocus="autofocus"
         :form="form"
         :tabindex="tabindex"
-        class="x-input__inner"
+        class="z-input__inner"
         :style="$attrs.style"
         @input="handleInput"
         @mouseenter="handleMouseEnter"
@@ -54,25 +54,25 @@
         @focus="handleFocus"
         @blur="handleBlur"
       />
-      <span v-if="suffixIcon" class="x-input__suffix x-input__icon">{{
+      <span v-if="suffixIcon" class="z-input__suffix z-input__icon">{{
         suffixIcon
       }}</span>
       <button
         v-if="showPassword && type === 'password'"
-        class="x-input__suffix x-input__password"
+        class="z-input__suffix z-input__password"
         @click="showPassword = !showPassword"
       >
         {{ showPassword ? 'Hide' : 'Show' }}
       </button>
       <button
         v-if="clearable && modelValue && !disabled"
-        class="x-input__suffix x-input__clear"
+        class="z-input__suffix z-input__clear"
         @click="clear"
       >
         ×
       </button>
     </div>
-    <div v-if="showWordLimit && type === 'text'" class="x-input__word-limit">
+    <div v-if="showWordLimit && type === 'text'" class="z-input__word-limit">
       {{ modelValue.length }}/{{ maxlength }}
     </div>
   </div>
@@ -173,7 +173,7 @@ const debounceInput = value => {
   }, props.debounce);
 };
 const showPassword = ref(props.showPassword);
-const id = `x-input-${Math.random().toString(36).slice(-8)}`;
+const id = `z-input-${Math.random().toString(36).slice(-8)}`;
 const inputValue = ref(props.modelValue);
 
 watch(

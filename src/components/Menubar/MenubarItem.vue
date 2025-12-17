@@ -1,13 +1,13 @@
 <template>
   <button
-    class="x-menubar-item"
-    :class="{ 'x-menubar-item--disabled': disabled }"
+    class="z-menubar-item"
+    :class="{ 'z-menubar-item--disabled': disabled }"
     type="button"
     @click="handleClick"
     role="menuitem"
     :aria-disabled="disabled"
   >
-    <span class="x-menubar-item__content">
+    <span class="z-menubar-item__content">
       <slot></slot>
     </span>
     <slot name="shortcut"></slot>

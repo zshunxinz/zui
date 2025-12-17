@@ -341,8 +341,8 @@ const value = ref('')
 ```vue
 <template>
   <Input
-    prefix-icon="🔍"
-    suffix-icon="📌"
+    prefiz-icon="🔍"
+    suffiz-icon="📌"
     v-model="value"
     placeholder="带图标输入框"
   />
@@ -412,8 +412,8 @@ const value2 = ref('');
 | show-password   | boolean          | false  | 是否显示密码切换按钮                                                             |
 | disabled        | boolean          | false  | 是否禁用输入框                                                                   |
 | size            | string           | -      | 尺寸，可选值：medium, small, mini                                                |
-| prefix-icon     | string           | -      | 输入框头部图标                                                                   |
-| suffix-icon     | string           | -      | 输入框尾部图标                                                                   |
+| prefiz-icon     | string           | -      | 输入框头部图标                                                                   |
+| suffiz-icon     | string           | -      | 输入框尾部图标                                                                   |
 | rows            | number           | 2      | 输入框行数，只对 type="textarea" 有效                                            |
 | autosize        | boolean / object | false  | 自适应内容高度，只对 type="textarea" 有效，可传入对象 { minRows: 2, maxRows: 6 } |
 | autocomplete    | string           | off    | 原生自动补全属性                                                                 |

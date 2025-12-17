@@ -132,7 +132,7 @@ const showMultipleModal = () => {
       // 创建打开内层弹窗按钮
       const openInnerBtn = document.createElement('button');
       openInnerBtn.textContent = '打开内层弹窗';
-      openInnerBtn.className = 'x-button x-button--primary';
+      openInnerBtn.className = 'z-button z-button--primary';
       openInnerBtn.onclick = () => {
         console.log('点击了打开内层弹窗按钮');
         // 打开内层弹窗
@@ -153,7 +153,7 @@ const showMultipleModal = () => {
       // 创建关闭按钮
       const closeBtn = document.createElement('button');
       closeBtn.textContent = '关闭';
-      closeBtn.className = 'x-button x-button--default';
+      closeBtn.className = 'z-button z-button--default';
       closeBtn.onclick = () => {
         outerModal.close();
       };

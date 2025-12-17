@@ -1,21 +1,21 @@
 <template>
   <div
-    class="x-form-item"
+    class="z-form-item"
     :class="[
       {
-        'x-form-item--error': hasError,
-        'x-form-item--required': required,
-        'x-form-item--disabled': disabled,
-        'x-form-item--label-left': labelPosition.value === 'left',
-        'x-form-item--label-right': labelPosition.value === 'right',
-        'x-form-item--label-top-left': labelPosition.value === 'top-left',
-        'x-form-item--label-top-right': labelPosition.value === 'top-right',
+        'z-form-item--error': hasError,
+        'z-form-item--required': required,
+        'z-form-item--disabled': disabled,
+        'z-form-item--label-left': labelPosition.value === 'left',
+        'z-form-item--label-right': labelPosition.value === 'right',
+        'z-form-item--label-top-left': labelPosition.value === 'top-left',
+        'z-form-item--label-top-right': labelPosition.value === 'top-right',
       },
     ]"
   >
     <div
       v-if="label"
-      class="x-form-item__label"
+      class="z-form-item__label"
       :style="{
         width: labelWidthD.value,
         textAlign: labelTextAlign.value,
@@ -26,13 +26,13 @@
       {{ label }}
     </div>
     <div
-      class="x-form-item__content"
+      class="z-form-item__content"
       :class="{
-        'x-form-item__content--label-right': labelPosition === 'right',
+        'z-form-item__content--label-right': labelPosition === 'right',
       }"
     >
       <slot></slot>
-      <div v-if="hasError" class="x-form-item__error">{{ errorMessage }}</div>
+      <div v-if="hasError" class="z-form-item__error">{{ errorMessage }}</div>
     </div>
   </div>
 </template>

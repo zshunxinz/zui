@@ -1,18 +1,18 @@
 <template>
   <label
-    class="x-checkbox"
+    class="z-checkbox"
     :class="[checkboxSize, borderStyle, disabledClass, colorClass]"
   >
     <input
       type="checkbox"
-      class="x-checkbox__input"
+      class="z-checkbox__input"
       :name="name"
       :checked="modelValue"
       :disabled="disabled"
       :indeterminate="indeterminate"
       @change="handleChange"
     />
-    <span class="x-checkbox__inner">
+    <span class="z-checkbox__inner">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -21,20 +21,20 @@
         stroke-width="3"
         stroke-linecap="round"
         stroke-linejoin="round"
-        class="x-checkbox__icon"
+        class="z-checkbox__icon"
         :class="{
-          'x-checkbox__icon--checked': modelValue,
-          'x-checkbox__icon--indeterminate': indeterminate,
+          'z-checkbox__icon--checked': modelValue,
+          'z-checkbox__icon--indeterminate': indeterminate,
         }"
       >
         <path d="M20 6 9 17l-5-5" v-if="!indeterminate" />
         <path d="M6 12 L18 12" v-if="indeterminate" />
       </svg>
     </span>
-    <span class="x-checkbox__label" v-if="$slots.default">
+    <span class="z-checkbox__label" v-if="$slots.default">
       <slot></slot>
     </span>
-    <span class="x-checkbox__label" v-else>{{ label }}</span>
+    <span class="z-checkbox__label" v-else>{{ label }}</span>
   </label>
 </template>
 
@@ -127,10 +127,10 @@ const { modelValue, handleChange: emitChange } = useModelWrapper(
 
 const effectiveSize = computed(() => checkboxGroup?.props.size ?? props.size);
 const checkboxSize = computed(() =>
-  effectiveSize.value ? `x-checkbox--${effectiveSize.value}` : ''
+  effectiveSize.value ? `z-checkbox--${effectiveSize.value}` : ''
 );
-const borderStyle = computed(() => (props.border ? 'x-checkbox--border' : ''));
-const colorClass = computed(() => `x-checkbox--${props.color || 'default'}`);
+const borderStyle = computed(() => (props.border ? 'z-checkbox--border' : ''));
+const colorClass = computed(() => `z-checkbox--${props.color || 'default'}`);
 const isDisabled = computed(
   () => checkboxGroup?.props.disabled ?? props.disabled
 );

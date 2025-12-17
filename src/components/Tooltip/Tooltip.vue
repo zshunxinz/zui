@@ -1,17 +1,17 @@
 <template>
   <div
-    class="x-tooltip"
+    class="z-tooltip"
     :class="[
-      `x-tooltip--${placement}`,
-      `x-tooltip--${theme}`,
+      `z-tooltip--${placement}`,
+      `z-tooltip--${theme}`,
       {
-        'x-tooltip--disabled': disabled,
+        'z-tooltip--disabled': disabled,
       },
     ]"
   >
     <div
       ref="tooltipRef"
-      class="x-tooltip__trigger"
+      class="z-tooltip__trigger"
       :tabindex="disabled ? -1 : 0"
       @mouseenter="handleMouseEnter"
       @mouseleave="handleMouseLeave"
@@ -32,17 +32,17 @@
       <div
         v-show="isVisible"
         ref="popperRef"
-        class="x-tooltip__popper"
+        class="z-tooltip__popper"
         :class="{ 'is-visible': isVisible }"
         :style="popperStyle"
         role="tooltip"
         :id="popperId"
       >
-        <div class="x-tooltip__content">
+        <div class="z-tooltip__content">
           <slot name="content" v-if="$slots.content"> </slot>
-          <span v-else-if="content" class="x-tooltip__text">{{ content }}</span>
+          <span v-else-if="content" class="z-tooltip__text">{{ content }}</span>
         </div>
-        <div class="x-tooltip__arrow"></div>
+        <div class="z-tooltip__arrow"></div>
       </div>
     </transition>
   </div>
@@ -129,11 +129,11 @@ const handleBlur = () => {
 };
 
 // 定义正确的事件处理器类型
-const handleBeforeEnter = (el: HTMLElement): void => {
+const handleBeforeEnter: any = (el: HTMLElement): void => {
   updatePosition(el);
 };
 
-const handleEnter = (el: HTMLElement, done: () => void): void => {
+const handleEnter: any = (el: HTMLElement, done: () => void): void => {
   // 等待一帧以确保样式应用
   requestAnimationFrame(() => {
     el.classList.add('is-visible');
@@ -141,7 +141,7 @@ const handleEnter = (el: HTMLElement, done: () => void): void => {
   });
 };
 
-const handleAfterEnter = (): void => {
+const handleAfterEnter: any = (): void => {
   log('Tooltip entered completely');
   // 确保tooltip保持在正确位置
   if (popperRef.value) {
@@ -149,11 +149,11 @@ const handleAfterEnter = (): void => {
   }
 };
 
-const handleBeforeLeave = (el: HTMLElement): void => {
+const handleBeforeLeave: any = (el: HTMLElement): void => {
   log('Before leaving tooltip');
 };
 
-const handleLeave = (el: HTMLElement, done: () => void): void => {
+const handleLeave: any = (el: HTMLElement, done: () => void): void => {
   log('Leaving tooltip');
   el.classList.remove('is-visible');
   // 等待动画完成

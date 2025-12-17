@@ -3,7 +3,7 @@
     <!-- 渲染SVG图标 -->
     <svg
       v-if="svgContent"
-      class="x-icon__svg"
+      class="z-icon__svg"
       v-bind="svgProps"
       v-html="svgContent"
     ></svg>
@@ -11,13 +11,13 @@
     <!-- 渲染自定义SVG内容 -->
     <svg
       v-else-if="isCustomSvg"
-      class="x-icon__svg"
+      class="z-icon__svg"
       v-bind="customSvgProps"
       v-html="name"
     ></svg>
 
     <!-- 渲染预定义图标 -->
-    <svg v-else class="x-icon__svg" v-bind="svgProps">
+    <svg v-else class="z-icon__svg" v-bind="svgProps">
       <use :xlink:href="`#icon-${name}`" />
     </svg>
   </i>

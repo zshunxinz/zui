@@ -1,6 +1,6 @@
 <template>
   <Teleport to="body">
-    <div class="x-dropdown-menu-portal">
+    <div class="z-dropdown-menu-portal">
       <slot />
     </div>
   </Teleport>

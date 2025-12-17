@@ -1,10 +1,10 @@
 <template>
   <label
-    class="x-switch"
+    class="z-switch"
     :class="[
       sizeClass,
       colorClass,
-      `x-switch--${props.shape}`,
+      `z-switch--${props.shape}`,
       {
         'is-checked': isChecked,
         'is-disabled': disabled,
@@ -15,19 +15,19 @@
   >
     <input
       type="checkbox"
-      class="x-switch__input"
+      class="z-switch__input"
       :checked="isChecked"
       :disabled="disabled || loading"
       @change="handleChange"
     />
-    <span class="x-switch__core">
-      <span class="x-switch__button">
+    <span class="z-switch__core">
+      <span class="z-switch__button">
         <slot name="icon"> </slot>
       </span>
     </span>
     <span
       v-if="$slots.default || inactiveText || activeText"
-      class="x-switch__label"
+      class="z-switch__label"
     >
       <slot>
         <span>{{ isChecked ? activeText : inactiveText }}</span>
@@ -74,13 +74,13 @@ const emit = defineEmits<Emits>();
 
 const isChecked = computed(() => props.modelValue === props.activeValue);
 
-const sizeClass = computed(() => `x-switch--${props.size}`);
+const sizeClass = computed(() => `z-switch--${props.size}`);
 
 const colorClass = computed(() => {
   if (props.activeColor && props.inactiveColor) {
-    return `x-switch--free`;
+    return `z-switch--free`;
   } else {
-    return `x-switch--${props.type}`;
+    return `z-switch--${props.type}`;
   }
 });
 
@@ -291,7 +291,7 @@ const handleChange = (event: Event) => {
   border: 2px solid rgba(255, 255, 255, 0.3);
   border-top: 3px solid #ffffff;
   border-radius: 50%;
-  animation: x-switch-spin 1s linear infinite;
+  animation: z-switch-spin 1s linear infinite;
 }
 
 .z-switch--small .z-switch__loading {
@@ -308,7 +308,7 @@ const handleChange = (event: Event) => {
   border-width: 2.5px;
 }
 
-@keyframes x-switch-spin {
+@keyframes z-switch-spin {
   0% {
     transform: rotate(0deg);
   }
@@ -343,10 +343,10 @@ const handleChange = (event: Event) => {
     rgba(255, 255, 255, 0.6) 60%,
     transparent
   );
-  animation: x-switch-shimmer 1s infinite;
+  animation: z-switch-shimmer 1s infinite;
 }
 
-@keyframes x-switch-shimmer {
+@keyframes z-switch-shimmer {
   0% {
     left: -100%;
   }
@@ -372,7 +372,7 @@ const handleChange = (event: Event) => {
   border: 2px solid transparent;
   border-top: 3px solid currentColor;
   border-radius: 50%;
-  animation: x-switch-spin 1s linear infinite;
+  animation: z-switch-spin 1s linear infinite;
   flex-shrink: 0; */
 }
 
@@ -388,7 +388,7 @@ const handleChange = (event: Event) => {
   border-width: 2px;
 }
 
-@keyframes x-switch-spin {
+@keyframes z-switch-spin {
   0% {
     transform: rotate(0deg);
   }

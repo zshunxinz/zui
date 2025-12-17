@@ -3,12 +3,12 @@
     <!-- 遮罩层 -->
     <div
       v-if="props.mask"
-      class="x-modal__overlay"
+      class="z-modal__overlay"
       :class="[
         overlayClass,
         {
-          'x-modal__overlay--entering': isOpen && !isClosing,
-          'x-modal__overlay--leaving': !isOpen && isClosing,
+          'z-modal__overlay--entering': isOpen && !isClosing,
+          'z-modal__overlay--leaving': !isOpen && isClosing,
         },
       ]"
       @click="handleOverlayClick"
@@ -17,12 +17,12 @@
 
     <!-- 弹窗容器 -->
     <div
-      class="x-modal"
+      class="z-modal"
       :class="[
         modalClass,
         {
-          'x-modal--entering': isOpen && !isClosing,
-          'x-modal--leaving': !isOpen && isClosing,
+          'z-modal--entering': isOpen && !isClosing,
+          'z-modal--leaving': !isOpen && isClosing,
         },
       ]"
       :style="modalStyle"
@@ -32,23 +32,23 @@
       :aria-labelledby="titleId"
     >
       <!-- 弹窗头部 -->
-      <div class="x-modal__header" v-if="showHeader">
+      <div class="z-modal__header" v-if="showHeader">
         <slot name="header">
-          <h3 class="x-modal__title" v-if="title" :id="titleId">{{ title }}</h3>
+          <h3 class="z-modal__title" v-if="title" :id="titleId">{{ title }}</h3>
         </slot>
         <Button
           v-if="closable"
-          class="x-modal__close-btn"
+          class="z-modal__close-btn"
           @click="handleClose"
           aria-label="关闭"
           type="text"
         >
-          <span class="x-modal__close-icon">×</span>
+          <span class="z-modal__close-icon">×</span>
         </Button>
       </div>
 
       <!-- 弹窗内容 -->
-      <div class="x-modal__body" v-if="hasDefaultSlot || content">
+      <div class="z-modal__body" v-if="hasDefaultSlot || content">
         <slot v-if="hasDefaultSlot"></slot>
         <template v-else-if="content">
           <div v-if="typeof content === 'string'">{{ content }}</div>
@@ -77,9 +77,9 @@
       </div>
 
       <!-- 弹窗底部 -->
-      <div class="x-modal__footer" v-if="showFooter">
+      <div class="z-modal__footer" v-if="showFooter">
         <slot name="footer">
-          <div class="x-modal__footer-buttons" v-if="!customFooter">
+          <div class="z-modal__footer-buttons" v-if="!customFooter">
             <Button
               class="btn btn--default"
               @click="handleCancel"
@@ -222,7 +222,7 @@ const emit = defineEmits<Emits>();
 const isOpen = ref(props.open ?? props.defaultOpen);
 const isClosing = ref(false);
 const titleId = computed(
-  () => props.id || `x-modal-${Math.random().toString(36).slice(2, 9)}-title`
+  () => props.id || `z-modal-${Math.random().toString(36).slice(2, 9)}-title`
 );
 const slots = useSlots();
 
@@ -250,19 +250,19 @@ const customFooter = computed(
 // 计算弹窗类名
 const modalClass = computed(() => {
   return [
-    `x-modal--${props.size}`,
-    `x-modal--${props.position}`,
+    `z-modal--${props.size}`,
+    `z-modal--${props.position}`,
     `animation--${props.animation}`,
     {
-      'x-modal--no-header': !showHeader.value,
-      'x-modal--no-footer': !showFooter.value,
+      'z-modal--no-header': !showHeader.value,
+      'z-modal--no-footer': !showFooter.value,
     },
   ];
 });
 
 // 计算遮罩类名
 const overlayClass = computed(() => {
-  return ['x-modal__overlay'];
+  return ['z-modal__overlay'];
 });
 
 // 计算弹窗样式

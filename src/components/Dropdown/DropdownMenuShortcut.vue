@@ -1,5 +1,5 @@
 <template>
-  <span class="x-dropdown-menu-shortcut">
+  <span class="z-dropdown-menu-shortcut">
     <slot />
   </span>
 </template>

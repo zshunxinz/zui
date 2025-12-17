@@ -1,13 +1,13 @@
 <template>
   <button
-    class="x-dropdown-menu-sub-trigger"
+    class="z-dropdown-menu-sub-trigger"
     @click="handleClick"
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseLeave"
     v-bind="$attrs"
   >
     <slot />
-    <span class="x-dropdown-menu-sub-trigger-arrow">
+    <span class="z-dropdown-menu-sub-trigger-arrow">
       <!-- 使用Unicode右箭头，或者可以替换为图标组件 -->
       ▶
     </span>

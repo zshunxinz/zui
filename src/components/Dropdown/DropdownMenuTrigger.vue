@@ -1,6 +1,6 @@
 <template>
   <button
-    class="x-dropdown-menu-trigger"
+    class="z-dropdown-menu-trigger"
     :class="triggerClass"
     @click="handleClick"
     @mouseenter="handleMouseEnter"

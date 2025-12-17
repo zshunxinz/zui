@@ -64,7 +64,7 @@
               <Button
                 style="width: 100%"
                 type="default"
-                class="x-button x-button--primary"
+                class="z-button z-button--primary"
                 >Submit</Button
               >
             </Col>
@@ -74,7 +74,7 @@
                 html-type="reset"
                 text
                 border
-                class="x-button x-button--primary"
+                class="z-button z-button--primary"
                 >Reset</Button
               >
             </Col>
@@ -139,7 +139,7 @@
               <Button
                 style="width: 100%"
                 type="default"
-                class="x-button x-button--primary"
+                class="z-button z-button--primary"
                 >Submit</Button
               >
             </Col>
@@ -149,7 +149,7 @@
                 html-type="reset"
                 text
                 border
-                class="x-button x-button--primary"
+                class="z-button z-button--primary"
                 >Reset</Button
               >
             </Col>
@@ -161,64 +161,64 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref } from 'vue';
 
 const formData = ref({
-  name: "",
-  email: "",
+  name: '',
+  email: '',
   age: null,
-  gender: "",
+  gender: '',
   hobbies: [],
-  country: "",
-  bio: "",
+  country: '',
+  bio: '',
 });
 
 // 表单验证规则
 const rules = {
   name: {
     required: true,
-    message: "Name is required",
+    message: 'Name is required',
   },
   email: {
     required: true,
-    message: "Email is required",
+    message: 'Email is required',
     validator: (value: any) => {
-      if (!value) return "Email is required";
+      if (!value) return 'Email is required';
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-        return "Please enter a valid email";
+        return 'Please enter a valid email';
       }
       return true;
     },
   },
   gender: {
     required: true,
-    message: "Please select gender",
+    message: 'Please select gender',
   },
   country: {
     required: true,
-    message: "Please select country",
+    message: 'Please select country',
   },
 };
 
 // 选项数据
 const genderOptions = [
-  { label: "Male", value: "male" },
-  { label: "Female", value: "female" },
-  { label: "Other", value: "other" },
+  { label: 'Male', value: 'male' },
+  { label: 'Female', value: 'female' },
+  { label: 'Other', value: 'other' },
 ];
 
 const countryOptions = [
-  { label: "China", value: "cn" },
-  { label: "United States", value: "us" },
-  { label: "United Kingdom", value: "uk" },
-  { label: "Japan", value: "jp" },
-  { label: "Canada", value: "ca" },
+  { label: 'China', value: 'cn' },
+  { label: 'United States', value: 'us' },
+  { label: 'United Kingdom', value: 'uk' },
+  { label: 'Japan', value: 'jp' },
+  { label: 'Canada', value: 'ca' },
 ];
 
 // 提交处理
 const handleSubmit = (data: any) => {
-  console.log("Form submitted successfully:", data);
-  alert("Form submitted successfully!");
+  console.log('Form submitted successfully:', data);
+  alert('Form submitted successfully!');
 };
 </script>
 <style>

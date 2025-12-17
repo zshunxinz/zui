@@ -1,5 +1,5 @@
 <template>
-  <div class="x-checkbox-group" :class="[sizeClass, disabledClass]">
+  <div class="z-checkbox-group" :class="[sizeClass, disabledClass]">
     <slot></slot>
   </div>
 </template>
@@ -31,7 +31,7 @@ const { modelValue, handleChange: emitChange } = useModelWrapper(
 );
 
 const sizeClass = computed(() =>
-  props.size ? `x-checkbox-group--${props.size}` : ''
+  props.size ? `z-checkbox-group--${props.size}` : ''
 );
 const disabledClass = computed(() => (props.disabled ? 'is-disabled' : ''));
 const checkboxes = ref<

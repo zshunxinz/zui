@@ -35,25 +35,25 @@
     }"
   >
     <!-- 右上角插槽 -->
-    <div v-if="$slots.topRight" class="x-card__top-right">
+    <div v-if="$slots.topRight" class="z-card__top-right">
       <slot name="topRight"></slot>
     </div>
 
     <!-- 卡片头部 -->
     <div
       v-if="showHeader"
-      class="x-card__header"
+      class="z-card__header"
       :class="{
-        'x-card__header--with-border': headerBorder,
+        'z-card__header--with-border': headerBorder,
       }"
     >
-      <div class="x-card__header-content">
-        <h3 v-if="title" class="x-card__title">{{ title }}</h3>
+      <div class="z-card__header-content">
+        <h3 v-if="title" class="z-card__title">{{ title }}</h3>
         <slot name="header"></slot>
       </div>
-      <div v-if="collapsible" class="x-card__header-extra">
+      <div v-if="collapsible" class="z-card__header-extra">
         <button
-          class="x-card__collapse-btn"
+          class="z-card__collapse-btn"
           @click="toggleCollapse"
           type="button"
           aria-label="Toggle collapse"
@@ -69,7 +69,7 @@
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
-            class="x-card__collapse-icon"
+            class="z-card__collapse-icon"
           >
             <path d="M6 9l6 6 6-6" />
           </svg>
@@ -84,7 +84,7 @@
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
-            class="x-card__collapse-icon"
+            class="z-card__collapse-icon"
           >
             <path d="M18 15l-6-6-6 6" />
           </svg>
@@ -95,15 +95,15 @@
     <!-- 卡片内容 -->
     <div v-if="!collapsible || isExpanded">
       <template v-if="skeleton">
-        <div class="x-card__skeleton x-card__body">
-          <div class="x-card__skeleton-image"></div>
-          <div class="x-card__skeleton-title"></div>
-          <div class="x-card__skeleton-content"></div>
-          <div class="x-card__skeleton-actions"></div>
+        <div class="z-card__skeleton z-card__body">
+          <div class="z-card__skeleton-image"></div>
+          <div class="z-card__skeleton-title"></div>
+          <div class="z-card__skeleton-content"></div>
+          <div class="z-card__skeleton-actions"></div>
         </div>
       </template>
       <template v-else>
-        <div v-if="$slots.default" class="x-card__body">
+        <div v-if="$slots.default" class="z-card__body">
           <slot></slot>
         </div>
       </template>
@@ -112,18 +112,18 @@
     <!-- 卡片底部 -->
     <div
       v-if="showFooter"
-      class="x-card__footer"
+      class="z-card__footer"
       :class="{
-        'x-card__footer--with-border': footerBorder,
+        'z-card__footer--with-border': footerBorder,
       }"
     >
-      <div v-if="$slots.bottomLeft" class="x-card__footer-left">
+      <div v-if="$slots.bottomLeft" class="z-card__footer-left">
         <slot name="bottomLeft"></slot>
       </div>
-      <div class="x-card__footer-center">
+      <div class="z-card__footer-center">
         <slot name="footer"></slot>
       </div>
-      <div v-if="$slots.bottomRight" class="x-card__footer-right">
+      <div v-if="$slots.bottomRight" class="z-card__footer-right">
         <slot name="bottomRight"></slot>
       </div>
     </div>

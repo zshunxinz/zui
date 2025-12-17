@@ -1,25 +1,25 @@
 <template>
   <label
-    class="x-checkbox"
+    class="z-checkbox"
     :class="[
       checkboxSize,
       borderStyle,
       disabledClass,
-      modelValue ? 'x-checkbox--checked' : '',
+      modelValue ? 'z-checkbox--checked' : '',
     ]"
   >
     <input
       type="checkbox"
-      class="x-checkbox__input"
+      class="z-checkbox__input"
       :name="name"
       :checked="modelValue"
       :disabled="disabled"
       :indeterminate="indeterminate"
       @change="handleChange"
     />
-    <span class="x-checkbox__inner"></span>
-    <span class="x-checkbox__label" v-if="$slots.default"><slot></slot></span>
-    <span class="x-checkbox__label" v-else>{{ label }}</span>
+    <span class="z-checkbox__inner"></span>
+    <span class="z-checkbox__label" v-if="$slots.default"><slot></slot></span>
+    <span class="z-checkbox__label" v-else>{{ label }}</span>
   </label>
 </template>
 
@@ -53,10 +53,10 @@ const { modelValue, handleChange: emitChange } = useModelWrapper(
 );
 
 const checkboxSize = computed(() =>
-  props.size ? `x-checkbox--${props.size}` : ''
+  props.size ? `z-checkbox--${props.size}` : ''
 );
 const borderStyle = computed(() =>
-  props.border || modelValue.value ? 'x-checkbox--border' : ''
+  props.border || modelValue.value ? 'z-checkbox--border' : ''
 );
 const disabledClass = computed(() => (props.disabled ? 'is-disabled' : ''));
 

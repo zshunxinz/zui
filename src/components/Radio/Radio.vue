@@ -1,63 +1,63 @@
 <template>
   <div
-    class="x-radio-group"
+    class="z-radio-group"
     :class="{
-      'x-radio-group--disabled': disabled,
-      'x-radio-group--tab-button': shape === 'tab-button',
+      'z-radio-group--disabled': disabled,
+      'z-radio-group--tab-button': shape === 'tab-button',
     }"
   >
     <label
       v-for="(option, index) in typedOptions"
       :key="option.value"
-      class="x-radio"
+      class="z-radio"
       :class="{
-        'x-radio--checked':
+        'z-radio--checked':
           modelValue === option.value && (shape !== 'card' || !checkedClass),
         [checkedClass]:
           modelValue === option.value && shape === 'card' && checkedClass,
-        'x-radio--disabled': disabled || option.disabled,
-        'x-radio--square': shape === 'square',
-        'x-radio--button': shape === 'button',
-        'x-radio--tab-line': shape === 'tab-line',
-        'x-radio--tab-button': shape === 'tab-button',
-        'x-radio--small--circle': size === 'small' && shape === 'circle',
-        'x-radio--medium--circle': size === 'medium' && shape === 'circle',
-        'x-radio--large--circle': size === 'large' && shape === 'circle',
-        'x-radio--small--square': size === 'small' && shape === 'square',
-        'x-radio--medium--square': size === 'medium' && shape === 'square',
-        'x-radio--large--square': size === 'large' && shape === 'square',
-        'x-radio--small--button': size === 'small' && shape === 'button',
-        'x-radio--medium--button': size === 'medium' && shape === 'button',
-        'x-radio--large--button': size === 'large' && shape === 'button',
-        'x-radio--small--tab-line': size === 'small' && shape === 'tab-line',
-        'x-radio--medium--tab-line': size === 'medium' && shape === 'tab-line',
-        'x-radio--large--tab-line': size === 'large' && shape === 'tab-line',
-        'x-radio--small--tab-button':
+        'z-radio--disabled': disabled || option.disabled,
+        'z-radio--square': shape === 'square',
+        'z-radio--button': shape === 'button',
+        'z-radio--tab-line': shape === 'tab-line',
+        'z-radio--tab-button': shape === 'tab-button',
+        'z-radio--small--circle': size === 'small' && shape === 'circle',
+        'z-radio--medium--circle': size === 'medium' && shape === 'circle',
+        'z-radio--large--circle': size === 'large' && shape === 'circle',
+        'z-radio--small--square': size === 'small' && shape === 'square',
+        'z-radio--medium--square': size === 'medium' && shape === 'square',
+        'z-radio--large--square': size === 'large' && shape === 'square',
+        'z-radio--small--button': size === 'small' && shape === 'button',
+        'z-radio--medium--button': size === 'medium' && shape === 'button',
+        'z-radio--large--button': size === 'large' && shape === 'button',
+        'z-radio--small--tab-line': size === 'small' && shape === 'tab-line',
+        'z-radio--medium--tab-line': size === 'medium' && shape === 'tab-line',
+        'z-radio--large--tab-line': size === 'large' && shape === 'tab-line',
+        'z-radio--small--tab-button':
           size === 'small' && shape === 'tab-button',
-        'x-radio--medium--tab-button':
+        'z-radio--medium--tab-button':
           size === 'medium' && shape === 'tab-button',
-        'x-radio--large--tab-button':
+        'z-radio--large--tab-button':
           size === 'large' && shape === 'tab-button',
-        'x-radio--card': shape === 'card',
-        'x-radio--tab': shape === 'tab',
-        'x-radio--default': type === 'default',
-        'x-radio--primary': type === 'primary',
-        'x-radio--success': type === 'success',
-        'x-radio--warning': type === 'warning',
-        'x-radio--danger': type === 'danger',
-        'x-radio--info': type === 'info',
+        'z-radio--card': shape === 'card',
+        'z-radio--tab': shape === 'tab',
+        'z-radio--default': type === 'default',
+        'z-radio--primary': type === 'primary',
+        'z-radio--success': type === 'success',
+        'z-radio--warning': type === 'warning',
+        'z-radio--danger': type === 'danger',
+        'z-radio--info': type === 'info',
       }"
     >
       <input
         type="radio"
-        class="x-radio__input"
+        class="z-radio__input"
         :class="{
-          'x-radio--default': type === 'default',
-          'x-radio--primary': type === 'primary',
-          'x-radio--success': type === 'success',
-          'x-radio--warning': type === 'warning',
-          'x-radio--danger': type === 'danger',
-          'x-radio--info': type === 'info',
+          'z-radio--default': type === 'default',
+          'z-radio--primary': type === 'primary',
+          'z-radio--success': type === 'success',
+          'z-radio--warning': type === 'warning',
+          'z-radio--danger': type === 'danger',
+          'z-radio--info': type === 'info',
         }"
         :name="name"
         :value="option.value"
@@ -67,11 +67,11 @@
       />
       <template v-if="shape === 'card'">
         <slot :name="`card-${option.value}`" :option="option">
-          <span class="x-radio__label">{{ option.label }}</span>
+          <span class="z-radio__label">{{ option.label }}</span>
         </slot>
       </template>
       <template v-else>
-        <span class="x-radio__label">{{ option.label }}</span>
+        <span class="z-radio__label">{{ option.label }}</span>
       </template>
     </label>
   </div>

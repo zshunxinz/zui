@@ -1,8 +1,8 @@
 <template>
   <button
-    class="x-menubar-trigger"
+    class="z-menubar-trigger"
     :class="{
-      'x-menubar-trigger--disabled': disabled || menubarMenu.menubar.disabled,
+      'z-menubar-trigger--disabled': disabled || menubarMenu.menubar.disabled,
     }"
     type="button"
     @click="handleClick"

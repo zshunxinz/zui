@@ -16,13 +16,10 @@
     "dashed",
     "box"
   ],
-  "categories": [
-    "text",
-    "design"
-  ],
+  "categories": ["text", "design"],
   "aliases": [
     {
-      "name": "box-select",
+      "name": "boz-select",
       "deprecationReason": "alias.name",
       "deprecated": true,
       "toBeRemovedInVersion": "v1.0"

@@ -1,10 +1,10 @@
 <template>
   <div
     v-if="dropdownState?.isOpen"
-    class="x-dropdown-menu-content"
+    class="z-dropdown-menu-content"
     :class="[
-      `x-dropdown-menu-content--${align}`,
-      `x-dropdown-menu-content--${side}`,
+      `z-dropdown-menu-content--${align}`,
+      `z-dropdown-menu-content--${side}`,
     ]"
     @click.stop
     @mouseenter="handleMouseEnter"

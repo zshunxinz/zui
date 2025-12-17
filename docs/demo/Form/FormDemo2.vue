@@ -1,12 +1,12 @@
 <template>
   <Card title="表单布局切换" :border="false">
-    <div style="margin-bottom: 20px;">
-      <span style="margin-right: 10px;">Layout:</span>
+    <div style="margin-bottom: 20px">
+      <span style="margin-right: 10px">Layout:</span>
       <Radio v-model="layout" :options="layoutOptions" />
     </div>
 
-    <div style="margin-bottom: 20px;">
-      <span style="margin-right: 10px;">Size:</span>
+    <div style="margin-bottom: 20px">
+      <span style="margin-right: 10px">Size:</span>
       <Radio v-model="size" :options="sizeOptions" />
     </div>
 
@@ -18,17 +18,28 @@
       :size="size"
       :labelWidth="layout === 'left' ? '100px' : ''"
     >
-      <div v-if="layout === 'left' || layout === 'right'" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+      <div
+        v-if="layout === 'left' || layout === 'right'"
+        style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px"
+      >
         <FormItem label="Username" prop="username" required>
           <Input v-model="formData.username" placeholder="Enter username" />
         </FormItem>
 
         <FormItem label="Password" prop="password" required>
-          <Input v-model="formData.password" type="password" placeholder="Enter password" />
+          <Input
+            v-model="formData.password"
+            type="password"
+            placeholder="Enter password"
+          />
         </FormItem>
 
         <FormItem label="Email" prop="email" required>
-          <Input v-model="formData.email" type="email" placeholder="Enter email" />
+          <Input
+            v-model="formData.email"
+            type="email"
+            placeholder="Enter email"
+          />
         </FormItem>
 
         <FormItem label="Phone" prop="phone">
@@ -36,25 +47,41 @@
         </FormItem>
 
         <FormItem label="Country" prop="country">
-          <Select v-model="formData.country" :options="countryOptions" placeholder="Select country" />
+          <Select
+            v-model="formData.country"
+            :options="countryOptions"
+            placeholder="Select country"
+          />
         </FormItem>
 
         <FormItem label="Language" prop="language">
-          <Select v-model="formData.language" :options="languageOptions" placeholder="Select language" />
+          <Select
+            v-model="formData.language"
+            :options="languageOptions"
+            placeholder="Select language"
+          />
         </FormItem>
       </div>
 
-      <div v-else style="max-width: 500px;">
+      <div v-else style="max-width: 500px">
         <FormItem label="Username" prop="username" required>
           <Input v-model="formData.username" placeholder="Enter username" />
         </FormItem>
 
         <FormItem label="Password" prop="password" required>
-          <Input v-model="formData.password" type="password" placeholder="Enter password" />
+          <Input
+            v-model="formData.password"
+            type="password"
+            placeholder="Enter password"
+          />
         </FormItem>
 
         <FormItem label="Email" prop="email" required>
-          <Input v-model="formData.email" type="email" placeholder="Enter email" />
+          <Input
+            v-model="formData.email"
+            type="email"
+            placeholder="Enter email"
+          />
         </FormItem>
 
         <FormItem label="Phone" prop="phone">
@@ -62,30 +89,40 @@
         </FormItem>
 
         <FormItem label="Country" prop="country">
-          <Select v-model="formData.country" :options="countryOptions" placeholder="Select country" />
+          <Select
+            v-model="formData.country"
+            :options="countryOptions"
+            placeholder="Select country"
+          />
         </FormItem>
 
         <FormItem label="Language" prop="language">
-          <Select v-model="formData.language" :options="languageOptions" placeholder="Select language" />
+          <Select
+            v-model="formData.language"
+            :options="languageOptions"
+            placeholder="Select language"
+          />
         </FormItem>
       </div>
 
       <FormItem>
-        <Button type="default" class="x-button x-button--primary">Submit</Button>
+        <Button type="default" class="z-button z-button--primary"
+          >Submit</Button
+        >
       </FormItem>
     </Form>
   </Card>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref } from 'vue';
 
 // 布局类型
 const layout = ref<'left' | 'right' | 'top'>('left');
 const layoutOptions = [
   { label: 'Left', value: 'left' },
   { label: 'Right', value: 'right' },
-  { label: 'Top', value: 'top' }
+  { label: 'Top', value: 'top' },
 ];
 
 // 尺寸类型
@@ -93,7 +130,7 @@ const size = ref<'small' | 'default' | 'large'>('default');
 const sizeOptions = [
   { label: 'Small', value: 'small' },
   { label: 'Default', value: 'default' },
-  { label: 'Large', value: 'large' }
+  { label: 'Large', value: 'large' },
 ];
 
 // 国家选项
@@ -102,7 +139,7 @@ const countryOptions = [
   { label: 'United States', value: 'usa' },
   { label: 'United Kingdom', value: 'uk' },
   { label: 'Japan', value: 'japan' },
-  { label: 'Germany', value: 'germany' }
+  { label: 'Germany', value: 'germany' },
 ];
 
 // 语言选项
@@ -111,7 +148,7 @@ const languageOptions = [
   { label: 'English', value: 'english' },
   { label: 'Japanese', value: 'japanese' },
   { label: 'German', value: 'german' },
-  { label: 'French', value: 'french' }
+  { label: 'French', value: 'french' },
 ];
 
 // 表单数据
@@ -121,7 +158,7 @@ const formData = ref({
   email: '',
   phone: '',
   country: '',
-  language: ''
+  language: '',
 });
 
 // 验证规则
@@ -135,7 +172,7 @@ const rules = {
         return 'Username must be at least 3 characters long';
       }
       return true;
-    }
+    },
   },
   password: {
     required: true,
@@ -146,7 +183,7 @@ const rules = {
         return 'Password must be at least 6 characters long';
       }
       return true;
-    }
+    },
   },
   email: {
     required: true,
@@ -157,8 +194,8 @@ const rules = {
         return 'Please enter a valid email address';
       }
       return true;
-    }
-  }
+    },
+  },
 };
 
 // 提交处理

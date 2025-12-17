@@ -2,7 +2,7 @@
   <Tabs
     v-model="activeTab"
     :tabs="tabs"
-    :tabsBgClass="'x-tabs_nav_bg'"
+    :tabsBgClass="'z-tabs_nav_bg'"
     :borderLine="false"
   >
     <template #tab1>

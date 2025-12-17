@@ -1,21 +1,21 @@
 <template>
   <nav
-    class="x-menubar"
+    class="z-menubar"
     :class="[
-      { 'x-menubar--disabled': disabled },
+      { 'z-menubar--disabled': disabled },
       {
-        'x-menubar--primary': theme === 'primary',
-        'x-menubar--success': theme === 'success',
-        'x-menubar--warning': theme === 'warning',
-        'x-menubar--danger': theme === 'danger',
-        'x-menubar--info': theme === 'info',
-        'x-menubar--small': size === 'small',
-        'x-menubar--large': size === 'large',
-        'x-menubar--rounded': rounded,
-        'x-menubar--shadow': shadow,
-        'x-menubar--shadow-lg': shadow === 'lg',
-        'x-menubar--transparent': transparent,
-        'x-menubar--dense': dense,
+        'z-menubar--primary': theme === 'primary',
+        'z-menubar--success': theme === 'success',
+        'z-menubar--warning': theme === 'warning',
+        'z-menubar--danger': theme === 'danger',
+        'z-menubar--info': theme === 'info',
+        'z-menubar--small': size === 'small',
+        'z-menubar--large': size === 'large',
+        'z-menubar--rounded': rounded,
+        'z-menubar--shadow': shadow,
+        'z-menubar--shadow-lg': shadow === 'lg',
+        'z-menubar--transparent': transparent,
+        'z-menubar--dense': dense,
       },
     ]"
   >

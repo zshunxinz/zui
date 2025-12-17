@@ -1,8 +1,8 @@
 <template>
   <button
-    class="x-dropdown-menu-item"
+    class="z-dropdown-menu-item"
     :class="{
-      'x-dropdown-menu-item--disabled': disabled,
+      'z-dropdown-menu-item--disabled': disabled,
     }"
     :disabled="disabled"
     @click="handleClick"

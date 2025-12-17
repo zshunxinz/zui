@@ -1,11 +1,11 @@
-@import "../../styles/variables.css";
+@import '../../styles/variables.css';
 
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: var(--padding-2);
   height: var(--height-2);
+  line-height: var(--height-2);
   font-size: var(--font-size);
   cursor: pointer;
   border: 1px solid transparent;

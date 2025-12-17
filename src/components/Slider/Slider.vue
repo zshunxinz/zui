@@ -1,8 +1,8 @@
 <template>
   <div
     :class="[
-      'x-slider',
-      size ? `x-slider--${size}` : '',
+      'z-slider',
+      size ? `z-slider--${size}` : '',
       disabled ? 'is-disabled' : '',
       ...(Array.isArray($attrs.class)
         ? $attrs.class
@@ -12,10 +12,10 @@
     ]"
     :style="{ ...($attrs.style as object), width, height }"
   >
-    <div v-if="label" class="x-slider__label">{{ label }}</div>
-    <div class="x-slider__wrapper">
+    <div v-if="label" class="z-slider__label">{{ label }}</div>
+    <div class="z-slider__wrapper">
       <div
-        class="x-slider__track"
+        class="z-slider__track"
         :style="{
           backgroundColor: disabled
             ? 'var(--color-disabled)'
@@ -24,7 +24,7 @@
         }"
       ></div>
       <div
-        class="x-slider__progress"
+        class="z-slider__progress"
         :style="{
           backgroundColor: disabled
             ? 'var(--color-disabled)'
@@ -37,13 +37,13 @@
         :style="{
           left: `${percentage}%`,
         }"
-        class="x-slider__handle"
+        class="z-slider__handle"
         :class="{ 'is-active': isActive }"
         @mousedown="startDrag"
         @touchstart="startDrag"
         :disabled="disabled"
       ></button>
-      <div v-if="showValue" class="x-slider__value">{{ value }}</div>
+      <div v-if="showValue" class="z-slider__value">{{ value }}</div>
     </div>
   </div>
 </template>

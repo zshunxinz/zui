@@ -38,6 +38,8 @@ export default defineConfig({
         },
         // 替换版本号
         banner: `/*! ${packageJson.name} v${packageJson.version} */`,
+        // 设置导出方式为 named，禁用命名导出和默认导出同时使用的警告
+        exports: 'named',
       },
     },
     // 输出目录

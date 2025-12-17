@@ -1,5 +1,5 @@
 <template>
-  <div class="x-dropdown-menu-separator"></div>
+  <div class="z-dropdown-menu-separator"></div>
 </template>
 
 <script setup>

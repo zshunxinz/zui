@@ -1,7 +1,7 @@
 <template>
-  <div class="x-option-group" :class="`x-option-group--level-${currentLevel}`">
+  <div class="z-option-group" :class="`z-option-group--level-${currentLevel}`">
     <div
-      class="x-option-group__label"
+      class="z-option-group__label"
       v-if="label"
       :class="{
         'is-collapsible': collapsible,
@@ -13,7 +13,7 @@
     >
       <!-- 左侧图标 -->
       <span
-        class="x-option-group__icon"
+        class="z-option-group__icon"
         v-if="collapsible && iconPosition === 'left'"
         :class="{ 'is-expanded': !isCollapsed }"
       >
@@ -31,11 +31,11 @@
         </svg>
       </span>
 
-      <span class="x-option-group__text">{{ label }}</span>
+      <span class="z-option-group__text">{{ label }}</span>
 
       <!-- 文字后图标 -->
       <span
-        class="x-option-group__icon"
+        class="z-option-group__icon"
         v-if="collapsible && iconPosition === 'after-text'"
         :class="{ 'is-expanded': !isCollapsed }"
       >
@@ -55,7 +55,7 @@
 
       <!-- 右侧图标 -->
       <span
-        class="x-option-group__icon"
+        class="z-option-group__icon"
         v-if="collapsible && iconPosition === 'right'"
         :class="{ 'is-expanded': !isCollapsed }"
       >
@@ -74,7 +74,7 @@
       </span>
     </div>
     <div
-      class="x-option-group__options"
+      class="z-option-group__options"
       v-show="!isCollapsed"
       :class="{
         'is-collapsible': collapsible,

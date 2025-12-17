@@ -33,16 +33,19 @@ import { Icon } from './components/Icon';
 import { Modal, showModal } from './components/Modal';
 import { Drawer, showDrawer } from './components/Drawer';
 
-export default {
+// 导出一个命名的Zui01对象，用于命名导出
+const Zui01 = {
   install(app: App) {
     // 使用components/index.ts中导出的install方法，确保ToastPlugin被正确安装
     ComponentsInstall.install(app);
     // 将showModal和showDrawer函数挂载到Vue全局属性上
     app.config.globalProperties.$showModal = showModal;
     app.config.globalProperties.$showDrawer = showDrawer;
-
   },
 };
+
+// 同时导出命名导出和默认导出，保持兼容性
+export default Zui01;
 
 export {
   Button,

@@ -1,15 +1,15 @@
 <template>
   <div
     :class="[
-      'x-textarea',
-      size ? `x-textarea--${size}` : '',
-      labelPosition ? `x-textarea--label-${labelPosition}` : '',
+      'z-textarea',
+      size ? `z-textarea--${size}` : '',
+      labelPosition ? `z-textarea--label-${labelPosition}` : '',
       $attrs.class,
     ]"
   >
-    <label v-if="label" class="x-textarea__label" :for="id">{{ label }}</label>
+    <label v-if="label" class="z-textarea__label" :for="id">{{ label }}</label>
     <div
-      class="x-textarea__wrapper"
+      class="z-textarea__wrapper"
       :class="[{ 'is-disabled': disabled }, $attrs.class]"
       :style="[{ width }, $attrs.style]"
     >
@@ -26,7 +26,7 @@
         :readonly="readonly"
         :rows="rows"
         :style="[autosizeStyle, { resize: resize }]"
-        class="x-textarea__inner"
+        class="z-textarea__inner"
         @input="handleInput"
         @mouseenter="handleMouseEnter"
         @mouseleave="handleMouseLeave"
@@ -36,7 +36,7 @@
         @blur="handleBlur"
       />
     </div>
-    <div v-if="showWordLimit" class="x-textarea__word-limit">
+    <div v-if="showWordLimit" class="z-textarea__word-limit">
       {{ modelValue.length }}/{{ maxlength }}
     </div>
   </div>
@@ -121,7 +121,7 @@ const debounceInput = value => {
   }, props.debounce);
 };
 
-const id = `x-textarea-${Math.random().toString(36).slice(-8)}`;
+const id = `z-textarea-${Math.random().toString(36).slice(-8)}`;
 const inputValue = ref(props.modelValue);
 const textareaRef = ref(null);
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="x-dropdown-menu-group">
+  <div class="z-dropdown-menu-group">
     <slot />
   </div>
 </template>

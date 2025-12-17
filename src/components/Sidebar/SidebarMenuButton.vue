@@ -86,10 +86,10 @@ const buttonProps = props.asChild
 :slotted(.menu-text),
 :slotted(.text),
 :slotted(
-  span:not([class*='icon']):not([class*='Icon']):not([class*='svg']):not(
-      [data-icon]
-    )
-) {
+    span:not([class*='icon']):not([class*='Icon']):not([class*='svg']):not(
+        [data-icon]
+      )
+  ) {
   opacity: 1;
   transform: translateX(0);
 }

@@ -1,10 +1,10 @@
 <template>
   <div>
     <div
-      class="x-select"
+      class="z-select"
       :class="[
-        `x-select--${type}`,
-        size ? `x-select--${size}` : '',
+        `z-select--${type}`,
+        size ? `z-select--${size}` : '',
         {
           'is-disabled': disabled,
           'is-multiple': multiple,
@@ -17,28 +17,28 @@
       :style="$attrs.style"
     >
       <div
-        class="x-select__wrapper"
+        class="z-select__wrapper"
         @click="toggleDropdown"
         ref="selectWrapper"
         :style="[{ width }, { height }, $attrs.style]"
       >
         <div
           v-if="multiple && displayTags.length == 0"
-          class="x-select__selected"
+          class="z-select__selected"
           :class="{ 'is-placeholder': !selectedLabel }"
         >
           {{ selectedLabel || placeholder }}
         </div>
-        <div class="x-select__tags" v-if="multiple && displayTags.length > 0">
+        <div class="z-select__tags" v-if="multiple && displayTags.length > 0">
           <div
             v-for="(tag, index) in displayTags"
             :key="index"
-            :class="['x-select__tag', 'x-tag--info']"
+            :class="['z-select__tag', 'z-tag--info']"
           >
-            <div class="x-select__tag-text">
+            <div class="z-select__tag-text">
               {{ getLabel(tag) }}
             </div>
-            <span class="x-select__tag-close" @click.stop="removeTag(tag)">
+            <span class="z-select__tag-close" @click.stop="removeTag(tag)">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="12"
@@ -59,16 +59,16 @@
 
           <span
             v-if="collapseTags && selectedOptions.length > maxCollapseTags"
-            class="x-select__tag x-tag--info"
+            class="z-select__tag z-tag--info"
           >
-            <span class="x-select__tag-text"
+            <span class="z-select__tag-text"
               >+{{ selectedOptions.length - maxCollapseTags }}</span
             >
           </span>
         </div>
         <div
           v-if="!multiple && !filterable"
-          class="x-select__selected"
+          class="z-select__selected"
           :class="{ 'is-placeholder': !selectedLabel }"
         >
           {{ selectedLabel || placeholder }}
@@ -76,7 +76,7 @@
         <input
           v-if="filterable"
           type="text"
-          class="x-select__input"
+          class="z-select__input"
           :placeholder="inputPlaceholder"
           v-model="inputValue"
           @input="handleFilter"
@@ -89,7 +89,7 @@
 
         <span
           v-if="clearable && selectedOptions.length > 0"
-          class="x-select__clear"
+          class="z-select__clear"
           @click.stop="clear"
         >
           <svg
@@ -127,27 +127,27 @@
       </div>
 
       <!-- <teleport to="body" v-if="teleported"> -->
-      <transition name="x-select-dropdown">
+      <transition name="z-select-dropdown">
         <div
           v-show="visible"
-          class="x-select-dropdown"
-          :class="[popperClass, `x-select-dropdown--${effect}`]"
+          class="z-select-dropdown"
+          :class="[popperClass, `z-select-dropdown--${effect}`]"
           :style="{
             ...dropdownStyle,
             width: $attrs.style && $attrs.style.width,
           }"
           ref="dropdownRef"
         >
-          <div class="x-select-dropdown__content">
+          <div class="z-select-dropdown__content">
             <slot name="header" />
 
-            <div v-if="loading" class="x-select-dropdown__loading">
+            <div v-if="loading" class="z-select-dropdown__loading">
               <slot name="loading">{{ loadingText }}</slot>
             </div>
 
             <div
               v-else-if="filteredOptions.length > 0"
-              class="x-select-dropdown__list"
+              class="z-select-dropdown__list"
             >
               <template v-if="$slots.default">
                 <!-- 当有搜索查询时，使用过滤后的选项渲染 -->
@@ -174,7 +174,7 @@
                               filteredOptions
                             )
                           "
-                          class="x-option-group__label"
+                          class="z-option-group__label"
                           :class="[
                             {
                               'is-collapsible': groupInfo.collapsible,
@@ -192,7 +192,7 @@
                         >
                           <!-- 左侧图标 -->
                           <span
-                            class="x-option-group__icon"
+                            class="z-option-group__icon"
                             v-if="
                               groupInfo.collapsible &&
                               (groupInfo.iconPosition || 'left') === 'left'
@@ -213,13 +213,13 @@
                             </svg>
                           </span>
 
-                          <span class="x-option-group__text">{{
+                          <span class="z-option-group__text">{{
                             groupInfo.label
                           }}</span>
 
                           <!-- 文字后图标 -->
                           <span
-                            class="x-option-group__icon"
+                            class="z-option-group__icon"
                             v-if="
                               groupInfo.collapsible &&
                               (groupInfo.iconPosition || 'left') ===
@@ -243,7 +243,7 @@
 
                           <!-- 右侧图标 -->
                           <span
-                            class="x-option-group__icon"
+                            class="z-option-group__icon"
                             v-if="
                               groupInfo.collapsible &&
                               (groupInfo.iconPosition || 'left') === 'right'
@@ -293,7 +293,7 @@
             </div>
             <div
               v-else-if="filteredOptions.length === 0"
-              class="x-select-dropdown__empty"
+              class="z-select-dropdown__empty"
             >
               <slot name="empty">
                 <!-- 远程搜索模式下显示无匹配结果 -->
