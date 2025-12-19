@@ -5,69 +5,69 @@
 </template>
 
 <script setup>
-import { computed, provide } from 'vue'
+import { computed, provide } from 'vue';
 
 const props = defineProps({
   gutter: {
     type: [Number, Array, Object],
-    default: 0
+    default: 0,
   },
   align: {
     type: String,
     default: 'top',
-    validator: (value) => ['top', 'middle', 'bottom'].includes(value)
+    validator: value => ['top', 'middle', 'bottom'].includes(value),
   },
   justify: {
     type: String,
     default: 'start',
-    validator: (value) => ['start', 'end', 'center', 'space-around', 'space-between', 'space-evenly'].includes(value)
+    validator: value =>
+      ['start', 'end', 'center', 'space-around', 'space-between'].includes(
+        value
+      ),
   },
   wrap: {
     type: Boolean,
-    default: true
-  }
-})
+    default: false,
+  },
+});
 
 // 计算行的CSS类
 const rowClasses = computed(() => ({
   [`grid-row-${props.align}`]: props.align !== 'top',
   [`grid-row-${props.justify}`]: props.justify !== 'start',
-  'grid-row-nowrap': !props.wrap
-}))
+  'grid-row-nowrap': !props.wrap,
+}));
 
 // 计算行的样式
 const rowStyles = computed(() => {
-  const styles = {}
+  const styles = {};
 
   if (props.gutter) {
     if (typeof props.gutter === 'number') {
-      const gutterValue = props.gutter / 2
-      styles.marginLeft = `-${gutterValue}px`
-      styles.marginRight = `-${gutterValue}px`
+      styles.gap = `${props.gutter}px`;
     } else if (Array.isArray(props.gutter)) {
-      const [horizontal, vertical = 0] = props.gutter
-      styles.marginLeft = `-${horizontal / 2}px`
-      styles.marginRight = `-${horizontal / 2}px`
-      styles.rowGap = `${vertical}px`
+      const [horizontal, vertical = horizontal] = props.gutter;
+      styles.gap = `${vertical}px ${horizontal}px`;
     }
   }
 
-  return styles
-})
+  return styles;
+});
 
 // 提供gutter给子组件
-provide('gutter', props.gutter)
+provide('gutter', props.gutter);
 </script>
 
 <style scoped>
 .grid-row {
-  display: flex;
-  flex-flow: row wrap;
+  display: grid;
+  grid-template-columns: repeat(24, 1fr);
+  grid-auto-flow: row;
   min-width: 0;
 }
 
 .grid-row-top {
-  align-items: flex-start;
+  align-items: start;
 }
 
 .grid-row-middle {
@@ -75,19 +75,19 @@ provide('gutter', props.gutter)
 }
 
 .grid-row-bottom {
-  align-items: flex-end;
+  align-items: end;
 }
 
 .grid-row-start {
-  justify-content: flex-start;
+  justify-items: start;
 }
 
 .grid-row-end {
-  justify-content: flex-end;
+  justify-items: end;
 }
 
 .grid-row-center {
-  justify-content: center;
+  justify-items: center;
 }
 
 .grid-row-space-around {
@@ -103,6 +103,6 @@ provide('gutter', props.gutter)
 }
 
 .grid-row-nowrap {
-  flex-wrap: nowrap;
+  grid-auto-flow: column;
 }
 </style>

@@ -22,8 +22,32 @@ import {
   AccordionContent,
 } from './components/Accordion';
 import { Tooltip } from './components/Tooltip';
+import {
+  SidebarProvider,
+  Sidebar,
+  SidebarTrigger,
+  SidebarHeader,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarGroupContent,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarLayout,
+} from './components/Sidebar';
+import {
+  Menubar,
+  MenubarMenu,
+  MenubarTrigger,
+  MenubarContent,
+  MenubarItem,
+  MenubarSeparator,
+  MenubarShortcut,
+} from './components/Menubar';
 
-import type { App } from 'vue';
+import type { App, Plugin } from 'vue';
 
 // 导入组件库的默认install方法（包含ToastPlugin的安装）
 import ComponentsInstall from './components';
@@ -44,8 +68,11 @@ const Zui01 = {
   },
 };
 
+// 定义插件，使用类型断言确保符合Vue 3的Plugin类型要求
+const plugin = Zui01 as unknown as Plugin;
+
 // 同时导出命名导出和默认导出，保持兼容性
-export default Zui01;
+export default plugin;
 
 export {
   Button,
@@ -78,4 +105,24 @@ export {
   showModal,
   Drawer,
   showDrawer,
+  SidebarProvider,
+  Sidebar,
+  SidebarTrigger,
+  SidebarHeader,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarGroupContent,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarLayout,
+  Menubar,
+  MenubarMenu,
+  MenubarTrigger,
+  MenubarContent,
+  MenubarItem,
+  MenubarSeparator,
+  MenubarShortcut,
 };

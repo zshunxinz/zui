@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { log } from 'console';
-import { inject, computed, watch,onMounted,ref } from 'vue';
+import { inject, computed, watch, onMounted, ref } from 'vue';
 
 interface SidebarTriggerProps {
   asChild?: boolean;
@@ -14,7 +14,7 @@ const props = withDefaults(defineProps<SidebarTriggerProps>(), {
   defaultOpen: false, // 默认展开侧边栏
 });
 
-const sidebar:any =  inject('sidebar');
+const sidebar: any = inject('sidebar');
 const toggle = sidebar?.toggle || (() => {});
 const isMobile = computed(() => sidebar?.isMobile?.value || false);
 
@@ -33,13 +33,12 @@ const buttonText = computed(() => {
   if (isMobile.value) {
     return sidebar?.open?.value ? '关闭菜单' : '打开菜单';
   }
-  return sidebar?.open?.value ? '收起侧边栏' : '展开侧边栏';
+  return sidebar?.open?.value ? '' : '';
 });
 
 onMounted(() => {
   console.log(sidebar);
 });
-
 </script>
 
 <template>
@@ -59,7 +58,7 @@ onMounted(() => {
         stroke="currentColor"
         stroke-width="2"
       >
-        <path d="M3 12h18M3 6h18M3 18h18"/>
+        <path d="M3 12h18M3 6h18M3 18h18" />
       </svg>
       {{ buttonText }}
     </span>
@@ -99,5 +98,4 @@ onMounted(() => {
 .SidebarTriggerIcon--rotated {
   transform: rotate(90deg);
 }
-
 </style>
