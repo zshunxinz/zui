@@ -27,7 +27,7 @@ const props = defineProps({
   },
   wrap: {
     type: Boolean,
-    default: false,
+    default: true,
   },
 });
 
